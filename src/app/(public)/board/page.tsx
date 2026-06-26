@@ -14,11 +14,11 @@ export default function BoardPage() {
         <div className="text-center space-y-12">
           <div className="text-4xl">📢</div>
           <div className="space-y-4">
-             <h2 className="text-3xl font-bold text-slate-900 tracking-tight">커뮤니티 기능 준비 중</h2>
-             <p className="text-slate-500 font-medium">실시간 후기 및 게시판 기능은 현재 고도화 작업 중에 있습니다. <br />조만간 더 편리한 기능으로 찾아뵙겠습니다.</p>
+             <h2 className="text-3xl font-bold text-ink tracking-tight">커뮤니티 기능 준비 중</h2>
+             <p className="text-ink-muted font-medium">실시간 후기 및 게시판 기능은 현재 고도화 작업 중에 있습니다. <br />조만간 더 편리한 기능으로 찾아뵙겠습니다.</p>
           </div>
           <div className="pt-10">
-             <button className="px-10 py-5 bg-slate-100 text-slate-400 font-bold rounded-2xl cursor-not-allowed">준비 중</button>
+             <button className="px-10 py-5 bg-slate-100 text-ink-muted font-bold rounded-2xl cursor-not-allowed">준비 중</button>
           </div>
         </div>
       </section>

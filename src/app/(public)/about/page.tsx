@@ -1,126 +1,159 @@
+import Image from 'next/image';
+import { Handshake, Route, ScanSearch, Syringe } from 'lucide-react';
+import ScrollReveal from '@/components/ScrollReveal';
 import SubHero from '@/components/SubHero';
-import Link from 'next/link';
 
-const competencies = [
+const INTRO_SECTIONS = [
   {
-    id: 1,
-    title: '세브란스 외래 교수 출신 3인 협진',
-    desc: '연세대 세브란스병원 출신의 숙련된 신경외과 및 정형외과 전문의 3인이 직접 진료하고 수술합니다.',
-    icon: '👤👤👤'
+    title: '병원장 인사말',
+    image: '/generated/hero-university-doctors.png',
+    imageAlt: '척추 진료 상담을 진행하는 의료진과 환자',
+    paragraphs: [
+      '안녕하십니까. 연세척병원을 찾아주신 여러분을 진심으로 환영합니다.',
+      '척추와 관절의 통증은 일상의 작은 움직임까지 무겁게 만듭니다. 오랜 진료를 통해 저는, 같은 진단명이라도 환자마다 통증의 원인과 생활 환경이 다르다는 것을 늘 마주합니다. 그래서 연세척병원은 치료에 앞서 \'정확한 진단\'을 가장 중요하게 생각합니다.',
+      '저희는 무리한 치료보다 환자에게 꼭 필요한 치료를 우선합니다. 비수술적 방법으로 호전될 수 있다면 그 방법을 먼저 권해 드리고, 수술이 필요한 경우에도 몸의 부담을 줄이기 위해 절개를 최소화하는 양방향척추내시경(UBE) 등 최소침습 치료를 지향합니다.',
+      '무엇보다 환자와의 소통을 소중히 여깁니다. 진단 결과와 치료 과정을 알기 쉽게 설명해 드리고, 치료의 방향을 함께 정해 나가겠습니다. 부산 시민 여러분이 통증에서 벗어나 건강한 일상으로 돌아가실 수 있도록, 정직하고 신중한 진료로 함께하겠습니다.',
+      '감사합니다.',
+    ],
+    signature: '연세척병원 병원장 드림',
   },
   {
-    id: 2,
-    title: '대학병원급 첨단 정밀 장비',
-    desc: '정확한 진단이 올바른 치료의 시작입니다. 대학병원급 MRI, CT, DITI 등을 보유하여 오차 없는 진단을 시행합니다.',
-    icon: '🔬'
+    title: '병원 소개',
+    image: '/generated/specialty-spine-endoscopy.png',
+    imageAlt: '양방향척추내시경 장비와 척추 영상',
+    paragraphs: [
+      '연세척병원은 부산 부산진구 당감동에 자리한 척추·관절 중점 병원입니다. 신경외과와 정형외과 전문의가 함께 진료하며, 허리디스크·목디스크·척추관협착증 등 척추 질환부터 무릎·어깨 등 관절 질환까지 폭넓게 살핍니다.',
+      '저희는 통증의 원인을 정확히 찾는 진단을 가장 먼저 생각합니다. 도수치료·주사 치료 같은 비수술적 방법을 우선 검토하고, 수술이 필요한 경우에는 절개를 최소화하는 양방향척추내시경(UBE)을 비롯한 최소침습 치료를 지향합니다. 양방향척추내시경은 두 개의 작은 통로로 내시경과 수술기구를 각각 넣어, 정상 조직과 근육의 손상을 줄이면서 병변에 정밀하게 접근하는 방식입니다.',
+      '연세척병원은 진단 결과와 치료 방법을 환자가 충분히 이해하도록 설명하고, 치료 방향을 함께 결정합니다. 부산 시민의 건강한 일상을 위해, 꼭 필요한 치료를 정직하게 제안하는 병원이 되겠습니다.',
+    ],
+  },
+];
+
+const VALUE_ITEMS = [
+  {
+    title: '정확한 진단을 먼저 생각합니다.',
+    desc: '통증은 같아 보여도 원인은 저마다 다릅니다. 연세척병원은 무리한 치료보다 통증의 근본 원인을 정확히 찾는 진단을 우선합니다.',
+    icon: <ScanSearch size={25} />,
   },
   {
-    id: 3,
-    title: '과잉 진료 없는 정직한 원칙',
-    desc: '불필요한 수술이나 시술은 절대 권하지 않습니다. 환자의 상태를 최우선으로 고려한 1:1 맞춤형 치료법을 제시합니다.',
-    icon: '⚖️'
-  }
+    title: '비수술적 치료를 먼저 검토합니다.',
+    desc: '도수치료·주사 등 보존적 치료로 호전될 수 있다면 그 방법을 먼저 권해 드립니다. 수술이 필요한 경우에도 절개를 최소화하는 양방향척추내시경(UBE) 등 최소침습 치료를 지향합니다.',
+    icon: <Syringe size={25} />,
+  },
+  {
+    title: '신경외과·정형외과가 함께 봅니다.',
+    desc: '척추와 관절은 두 진료과의 시각이 함께 필요한 경우가 많습니다. 신경외과와 정형외과 전문의가 협진하여 환자에게 맞는 치료 방향을 찾습니다.',
+    icon: <Route size={25} />,
+  },
+  {
+    title: '충분히 설명하고 함께 결정합니다.',
+    desc: '진단 결과와 치료 과정을 알기 쉽게 설명해 드리고, 치료의 방향을 환자와 함께 정해 나갑니다.',
+    icon: <Handshake size={25} />,
+  },
 ];
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col">
-      <SubHero 
-        title="병원소개" 
-        subtitle="실력을 세우고 원칙을 지키는 연세척병원을 소개합니다."
-        path={[{ name: '병원소개' }, { name: '연세척병원 소개' }]}
-        bgImage="/hero-bg.png"
+    <div className="flex flex-col bg-white">
+      <SubHero
+        title="병원소개"
+        subtitle="절개를 최소화한 양방향척추내시경(UBE)을 중심으로, 부산에서 척추와 관절을 함께 살피는 중점 병원입니다."
+        path={[{ name: '병원소개', href: '/about' }, { name: '연세척병원 소개' }]}
+        bgImage="/generated/hero-hospital-exterior.png"
       />
 
-      {/* Mission Section */}
-      <section className="max-w-7xl mx-auto px-6 py-24 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <div className="space-y-10">
-            <div className="space-y-6">
-              <span className="text-primary font-black tracking-widest uppercase text-xs">Our Mission</span>
-              <h2 className="text-5xl font-black text-slate-900 leading-tight tracking-tight">
-                환자가 척! <br />
-                낫는 그날까지.
-              </h2>
-              <div className="w-20 h-1.5 bg-primary rounded-full" />
-            </div>
-            
-            <p className="text-xl text-slate-600 leading-relaxed font-medium">
-              연세척병원은 단순히 질환을 치료하는 곳을 넘어, <br />
-              환자의 평생 척추·관절 건강을 책임지는 든든한 동반자가 되고자 합니다.
-            </p>
-            
-            <div className="space-y-4 pt-4">
-              <div className="flex gap-4">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5" />
-                <p className="text-slate-500"><strong>정직한 진료</strong> - 환자에게 꼭 필요한 치료만을 권합니다.</p>
-              </div>
-              <div className="flex gap-4">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5" />
-                <p className="text-slate-500"><strong>검증된 실력</strong> - 대학병원급 임상 경험을 갖춘 의료진이 집도합니다.</p>
-              </div>
-              <div className="flex gap-4">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5" />
-                <p className="text-slate-500"><strong>환자 중심</strong> - 환자의 통증과 마음까지 케어하는 따뜻한 병원입니다.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="relative aspect-square rounded-[3rem] overflow-hidden shadow-premium">
-             <div className="absolute inset-0 bg-primary/10 flex items-center justify-center text-primary font-black text-4xl">
-               Hospital Interior Image
-             </div>
-          </div>
-        </div>
-      </section>
+      <main className="w-full">
+        <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
+          <div className="space-y-20 md:space-y-28">
+            {INTRO_SECTIONS.map((section) => (
+              <section
+                key={section.title}
+                className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1fr)] lg:items-center lg:gap-16"
+              >
+                <ScrollReveal variant="image" className={`relative overflow-hidden rounded-lg bg-slate-100 shadow-[0_28px_70px_-44px_rgba(15,29,54,0.45)] ${
+                  section.title === '병원 소개' ? 'lg:order-2' : ''
+                }`}>
+                  <div className="relative aspect-[4/3]">
+                    <Image
+                      src={section.image}
+                      alt={section.imageAlt}
+                      fill
+                      sizes="(min-width: 1024px) 48vw, 100vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-tr from-navy-950/55 via-navy-950/12 to-transparent" />
+                  </div>
+                </ScrollReveal>
 
-      {/* Competencies Section */}
-      <section className="bg-slate-50 py-32 px-6">
-        <div className="max-w-7xl mx-auto space-y-20">
-          <div className="text-center space-y-4">
-            <span className="text-primary font-black tracking-widest uppercase text-xs">Why Yonsei Cheok</span>
-            <h2 className="text-4xl font-bold text-slate-900 tracking-tight">연세척병원만의 핵심 경쟁력</h2>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {competencies.map((item) => (
-              <div key={item.id} className="p-12 bg-white rounded-[2.5rem] border border-slate-100/50 hover:border-primary/20 transition-all hover:shadow-premium group">
-                <div className="text-4xl mb-8 group-hover:scale-125 transition-transform">{item.icon}</div>
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-bold text-slate-900 leading-tight">{item.title}</h3>
-                  <p className="text-slate-500 leading-relaxed text-[15px]">{item.desc}</p>
+                <div className={`space-y-7 ${
+                  section.title === '병원 소개' ? 'lg:order-1' : ''
+                }`}>
+                  <ScrollReveal className="space-y-4" delay={0.08}>
+                    <h3 className="text-3xl font-black leading-tight tracking-tight text-ink md:text-4xl">
+                      {section.title}
+                    </h3>
+                    <div className="h-1 w-14 rounded-full bg-primary" />
+                  </ScrollReveal>
+
+                  <ScrollReveal className="space-y-5 text-[17px] font-medium leading-[1.9] text-ink-sub md:text-lg" delay={0.16}>
+                    {section.paragraphs.map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </ScrollReveal>
+
+                  {section.signature ? (
+                    <ScrollReveal className="border-t border-slate-100 pt-6 text-right text-lg font-black tracking-tight text-ink" delay={0.24}>
+                      {section.signature}
+                    </ScrollReveal>
+                  ) : null}
                 </div>
-              </div>
+              </section>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* Philosophy Section */}
-      <section className="py-32 px-6 overflow-hidden relative">
-         <div className="max-w-7xl mx-auto shadow- premium rounded-[4rem] p-24 bg-primary text-white flex flex-col md:flex-row items-center gap-20">
-            <div className="space-y-8 flex-grow">
-               <h2 className="text-5xl font-black leading-tight tracking-tight">
-                 "실력을 세우고, <br />
-                 원칙을 지킵니다."
-               </h2>
-               <p className="text-xl text-primary-light/80 leading-relaxed max-w-xl">
-                 우리는 의료의 본질인 '치료'에 집중합니다. 
-                 대학병원 수준의 의학적 근거를 바탕으로 가장 안전하고 확실한 결과를 만들어냅니다.
-               </p>
-               <div className="pt-10">
-                  <Link href="/doctors" className="px-10 py-5 bg-white text-primary font-bold rounded-2xl hover:bg-slate-50 transition-all shadow-xl active:scale-95">의료진 프로필 보러가기</Link>
-               </div>
+        <section className="border-y border-slate-100 bg-slate-50/70 px-6 py-20 md:py-28">
+          <div className="mx-auto max-w-7xl">
+            <ScrollReveal className="mb-14 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:items-end">
+              <div className="space-y-5">
+                <h2 className="text-4xl font-black leading-tight tracking-tight text-ink md:text-5xl">
+                  병원이 지키는 가치
+                </h2>
+              </div>
+              <p className="max-w-2xl text-lg font-medium leading-relaxed text-ink-sub lg:justify-self-end">
+                연세척병원은 진료의 속도보다 정확함을, 치료의 크기보다 꼭 필요한 방향을 먼저 생각합니다.
+              </p>
+            </ScrollReveal>
+
+            <div className="overflow-hidden rounded-lg border border-slate-100 bg-white shadow-[0_30px_80px_-58px_rgba(15,29,54,0.45)]">
+              {VALUE_ITEMS.map((item, index) => (
+                <ScrollReveal
+                  key={item.title}
+                  className="border-b border-slate-100 last:border-b-0"
+                  delay={index * 0.08}
+                  amount={0.16}
+                >
+                  <article className="group grid grid-cols-1 gap-5 px-6 py-7 md:grid-cols-[76px_minmax(0,0.72fr)_minmax(0,1fr)] md:items-center md:gap-7 md:px-8 md:py-8">
+                    <div className="flex h-[52px] w-[52px] items-center justify-center rounded-lg bg-primary-light text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
+                      {item.icon}
+                    </div>
+
+                    <div>
+                      <h3 className="text-2xl font-black leading-snug tracking-tight text-ink">
+                        {item.title}
+                      </h3>
+                    </div>
+
+                    <p className="text-[17px] font-medium leading-relaxed text-ink-sub">
+                      {item.desc}
+                    </p>
+                  </article>
+                </ScrollReveal>
+              ))}
             </div>
-            
-            <div className="w-80 h-80 rounded-full border border-white/10 flex items-center justify-center p-10 bg-white/5 backdrop-blur-md">
-               <div className="text-center space-y-2">
-                  <p className="text-6xl font-black">Y</p>
-                  <p className="text-xs font-bold tracking-widest uppercase opacity-40">Yonsei Cheok</p>
-               </div>
-            </div>
-         </div>
-      </section>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }

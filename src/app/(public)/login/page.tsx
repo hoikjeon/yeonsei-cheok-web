@@ -134,7 +134,7 @@ export default function LoginPage() {
         className={`w-full z-10 transition-all duration-500 ${mode === 'signup' ? 'max-w-[720px]' : 'max-w-[480px]'}`}
       >
         <div className="mb-8 flex justify-center">
-          <Link href="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-navy-950 font-bold transition-all hover:-translate-x-1">
+          <Link href="/" className="inline-flex items-center gap-2 text-ink-muted hover:text-ink font-bold transition-all hover:-translate-x-1">
             <ChevronLeft size={18} /> 홈페이지로 돌아가기
           </Link>
         </div>
@@ -145,12 +145,12 @@ export default function LoginPage() {
             <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl text-primary mb-6">
               <ShieldCheck size={28} strokeWidth={2.5} />
             </div>
-            <h1 className="text-[28px] md:text-[32px] font-black text-navy-950 tracking-tighter leading-tight mb-2">
+            <h1 className="text-[28px] md:text-[32px] font-black text-ink tracking-tighter leading-tight mb-2">
               {mode === 'signin' && '반갑습니다!'}
               {mode === 'signup' && '환영합니다!'}
               {mode === 'reset' && '비밀번호 재설정'}
             </h1>
-            <p className="text-slate-400 font-medium text-[15px]">
+            <p className="text-ink-muted font-medium text-[15px]">
               {mode === 'signin' && '건강한 척추 관절의 시작, 연세척병원입니다.'}
               {mode === 'signup' && '간편한 가입으로 프리미엄 진료 서비스를 경험하세요.'}
               {mode === 'reset' && '가입하신 이메일로 재설정 링크를 보내드립니다.'}
@@ -172,13 +172,13 @@ export default function LoginPage() {
                 />
                 <button 
                   onClick={() => setMode('signin')}
-                  className={`flex-1 py-3 text-[14px] font-bold z-10 transition-colors ${mode === 'signin' ? 'text-navy-950' : 'text-slate-400'}`}
+                  className={`flex-1 py-3 text-[14px] font-bold z-10 transition-colors ${mode === 'signin' ? 'text-ink' : 'text-ink-muted'}`}
                 >
                   로그인
                 </button>
                 <button 
                   onClick={() => setMode('signup')}
-                  className={`flex-1 py-3 text-[14px] font-bold z-10 transition-colors ${mode === 'signup' ? 'text-navy-950' : 'text-slate-400'}`}
+                  className={`flex-1 py-3 text-[14px] font-bold z-10 transition-colors ${mode === 'signup' ? 'text-ink' : 'text-ink-muted'}`}
                 >
                   회원가입
                 </button>
@@ -202,13 +202,13 @@ export default function LoginPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {/* ... existing signup fields ... */}
                       <div className="space-y-4 md:col-span-2">
-                        <h3 className="text-[17px] font-bold text-navy-950 flex items-center gap-2">
+                        <h3 className="text-[17px] font-bold text-ink flex items-center gap-2">
                           <span className="w-1.5 h-1.5 bg-primary rounded-full" /> 기본 정보 입력
                         </h3>
                       </div>
 
                       <div className="relative group">
-                        <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="text" 
                           name="fullName"
@@ -221,16 +221,16 @@ export default function LoginPage() {
                       <div className="flex gap-4 items-center">
                         <label className="flex-1 cursor-pointer group">
                           <input type="radio" name="gender" value="남" className="peer hidden" required />
-                          <div className="py-4 text-center border-2 border-transparent bg-slate-50 peer-checked:bg-primary/5 peer-checked:border-primary/20 peer-checked:text-primary text-slate-400 font-bold rounded-2xl transition-all">남성</div>
+                          <div className="py-4 text-center border-2 border-transparent bg-slate-50 peer-checked:bg-primary/5 peer-checked:border-primary/20 peer-checked:text-primary text-ink-muted font-bold rounded-2xl transition-all">남성</div>
                         </label>
                         <label className="flex-1 cursor-pointer group">
                           <input type="radio" name="gender" value="여" className="peer hidden" required />
-                          <div className="py-4 text-center border-2 border-transparent bg-slate-50 peer-checked:bg-pink-50 peer-checked:border-pink-200 peer-checked:text-pink-500 text-slate-400 font-bold rounded-2xl transition-all">여성</div>
+                          <div className="py-4 text-center border-2 border-transparent bg-slate-50 peer-checked:bg-pink-50 peer-checked:border-pink-200 peer-checked:text-pink-500 text-ink-muted font-bold rounded-2xl transition-all">여성</div>
                         </label>
                       </div>
 
                       <div className="relative group">
-                        <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
+                        <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="text" 
                           name="birthDate"
@@ -242,7 +242,7 @@ export default function LoginPage() {
                       </div>
 
                       <div className="relative group">
-                        <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
+                        <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="tel" 
                           name="phone"
@@ -255,7 +255,7 @@ export default function LoginPage() {
                       <div className="md:col-span-2 space-y-4">
                         <div className="flex gap-2">
                           <div className="relative flex-1 group">
-                            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
+                            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                             <input 
                               type="text" 
                               value={postcode}
@@ -289,13 +289,13 @@ export default function LoginPage() {
                       </div>
 
                       <div className="md:col-span-2 space-y-4">
-                        <h3 className="text-[17px] font-bold text-navy-950 flex items-center gap-2 border-t pt-8 mt-2">
+                        <h3 className="text-[17px] font-bold text-ink flex items-center gap-2 border-t pt-8 mt-2">
                           <span className="w-1.5 h-1.5 bg-primary rounded-full" /> 계정 정보 설정
                         </h3>
                       </div>
 
                       <div className="relative group md:col-span-2">
-                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="email" 
                           name="email"
@@ -306,7 +306,7 @@ export default function LoginPage() {
                       </div>
 
                       <div className="relative group">
-                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
+                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="password" 
                           name="password"
@@ -317,7 +317,7 @@ export default function LoginPage() {
                       </div>
 
                       <div className="relative group">
-                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
+                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="password" 
                           placeholder="비밀번호 확인"
@@ -328,14 +328,14 @@ export default function LoginPage() {
 
                       {/* TERMS SECTION */}
                       <div className="md:col-span-2 space-y-4 pt-10 border-t mt-4 text-left">
-                         <h3 className="text-[17px] font-bold text-navy-950 flex items-center gap-2">
+                         <h3 className="text-[17px] font-bold text-ink flex items-center gap-2">
                            <span className="w-1.5 h-1.5 bg-primary rounded-full" /> 약관 동의
                          </h3>
                          
                          {/* Terms Scroll Box 1 */}
                          <div className="space-y-3">
                            <div className="flex items-center justify-between">
-                             <span className="text-[14px] font-bold text-slate-700">회원약관 동의 (필수)</span>
+                             <span className="text-[14px] font-bold text-ink-sub">회원약관 동의 (필수)</span>
                              <label className="flex items-center gap-2 cursor-pointer group">
                                <input 
                                  type="checkbox" 
@@ -343,10 +343,10 @@ export default function LoginPage() {
                                  onChange={(e) => setAgreedTerms(e.target.checked)}
                                  className="w-5 h-5 accent-primary cursor-pointer"
                                />
-                               <span className="text-[14px] font-medium text-slate-400 group-hover:text-primary transition-colors">동의함</span>
+                               <span className="text-[14px] font-medium text-ink-muted group-hover:text-primary transition-colors">동의함</span>
                              </label>
                            </div>
-                           <div className="h-32 overflow-y-auto p-4 bg-slate-50 rounded-2xl text-[12px] text-slate-400 leading-relaxed border border-slate-100 whitespace-pre-wrap">
+                           <div className="h-32 overflow-y-auto p-4 bg-slate-50 rounded-2xl text-[12px] text-ink-muted leading-relaxed border border-slate-100 whitespace-pre-wrap">
                              {TERMS_AND_CONDITIONS}
                            </div>
                          </div>
@@ -354,7 +354,7 @@ export default function LoginPage() {
                          {/* Terms Scroll Box 2 */}
                          <div className="space-y-3 pt-2">
                            <div className="flex items-center justify-between">
-                             <span className="text-[14px] font-bold text-slate-700">개인정보 수집 동의 (필수)</span>
+                             <span className="text-[14px] font-bold text-ink-sub">개인정보 수집 동의 (필수)</span>
                              <label className="flex items-center gap-2 cursor-pointer group">
                                <input 
                                  type="checkbox" 
@@ -362,17 +362,17 @@ export default function LoginPage() {
                                  onChange={(e) => setAgreedPrivacy(e.target.checked)}
                                  className="w-5 h-5 accent-primary cursor-pointer"
                                />
-                               <span className="text-[14px] font-medium text-slate-400 group-hover:text-primary transition-colors">동의함</span>
+                               <span className="text-[14px] font-medium text-ink-muted group-hover:text-primary transition-colors">동의함</span>
                              </label>
                            </div>
-                           <div className="h-32 overflow-y-auto p-4 bg-slate-50 rounded-2xl text-[12px] text-slate-400 leading-relaxed border border-slate-100 whitespace-pre-wrap">
+                           <div className="h-32 overflow-y-auto p-4 bg-slate-50 rounded-2xl text-[12px] text-ink-muted leading-relaxed border border-slate-100 whitespace-pre-wrap">
                              {PRIVACY_POLICY}
                            </div>
                          </div>
 
                          <div className="flex items-center gap-3 py-4 bg-slate-100 rounded-2xl px-5 mt-4">
                            <input type="checkbox" name="smsConsent" id="smsConsent" className="w-5 h-5 accent-primary" />
-                           <label htmlFor="smsConsent" className="text-[14px] font-bold text-navy-950 cursor-pointer">
+                           <label htmlFor="smsConsent" className="text-[14px] font-bold text-ink cursor-pointer">
                              SMS/문자 서비스 수신에 동의합니다. (선택)
                            </label>
                          </div>
@@ -382,7 +382,7 @@ export default function LoginPage() {
                     /* RESET FORM */
                     <div className="space-y-4">
                       <div className="relative group">
-                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="email" 
                           name="email"
@@ -391,7 +391,7 @@ export default function LoginPage() {
                           className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
                         />
                       </div>
-                      <p className="text-[13px] text-slate-400 font-medium px-2">
+                      <p className="text-[13px] text-ink-muted font-medium px-2">
                         비밀번호 찾기 메일이 발송되지 않는다면 스팸 메일함을 확인해 주세요.
                       </p>
                     </div>
@@ -399,7 +399,7 @@ export default function LoginPage() {
                     /* SIGNIN FORM */
                     <div className="space-y-4">
                       <div className="relative group">
-                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="email" 
                           name="email"
@@ -410,7 +410,7 @@ export default function LoginPage() {
                       </div>
 
                       <div className="relative group">
-                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
+                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="password" 
                           name="password"
@@ -461,7 +461,7 @@ export default function LoginPage() {
                     <div className="w-full border-t border-slate-100"></div>
                   </div>
                   <div className="relative flex justify-center text-[13px] font-bold">
-                    <span className="bg-white px-4 text-slate-300 uppercase tracking-widest">또는 소셜 계정으로 로그인</span>
+                    <span className="bg-white px-4 text-slate-300 font-montserrat uppercase tracking-widest">또는 소셜 계정으로 로그인</span>
                   </div>
                 </div>
 
@@ -488,7 +488,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <p className="text-center mt-8 text-[13px] text-slate-400 font-medium pb-10">
+        <p className="text-center mt-8 text-[13px] text-ink-muted font-medium pb-10">
           {mode === 'reset' ? (
              <button onClick={() => setMode('signin')} className="text-primary hover:underline font-bold transition-all flex items-center gap-1 mx-auto">
                <ChevronLeft size={16} /> 로그인 화면으로 돌아가기

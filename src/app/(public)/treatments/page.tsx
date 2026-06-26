@@ -56,11 +56,11 @@ export default function TreatmentsPage() {
             <div key={category.id} className={`flex flex-col lg:flex-row gap-16 items-start ${idx % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
               <div className="lg:w-1/3 space-y-6 sticky top-28">
                 <div className="space-y-4">
-                  <span className="text-primary font-black tracking-widest text-xs uppercase">{category.subtitle}</span>
-                  <h2 className="text-4xl font-extrabold text-slate-900 tracking-tight">{category.title}</h2>
+                  <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">{category.subtitle}</span>
+                  <h2 className="text-4xl font-extrabold text-ink tracking-tight">{category.title}</h2>
                   <div className="w-16 h-1.5 bg-primary rounded-full" />
                 </div>
-                <p className="text-slate-500 leading-relaxed font-medium">
+                <p className="text-ink-muted leading-relaxed font-medium">
                   {category.description}
                 </p>
                 <div className="pt-4">
@@ -77,8 +77,8 @@ export default function TreatmentsPage() {
                       <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-300 font-black text-xs group-hover:bg-primary group-hover:text-white transition-colors">
                         {i + 1}
                       </div>
-                      <h3 className="text-xl font-bold text-slate-900">{t.name}</h3>
-                      <p className="text-sm text-slate-500 leading-relaxed">{t.desc}</p>
+                      <h3 className="text-xl font-bold text-ink">{t.name}</h3>
+                      <p className="text-sm text-ink-muted leading-relaxed">{t.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -91,15 +91,15 @@ export default function TreatmentsPage() {
       {/* Philosophy Banner */}
       <section className="bg-slate-50 py-24 px-6 border-y border-slate-100">
         <div className="max-w-4xl mx-auto text-center space-y-8">
-           <h2 className="text-3xl font-bold text-slate-900">“연세척병원은 비수술 우선 치료를 원칙으로 합니다”</h2>
-           <p className="text-slate-500 text-lg leading-relaxed">
+           <h2 className="text-3xl font-bold text-ink">“연세척병원은 비수술 우선 치료를 원칙으로 합니다”</h2>
+           <p className="text-ink-muted text-lg leading-relaxed">
              무조건적인 수술보다는 정밀한 진단을 통해 환자에게 가장 안전하고 효과적인 <br className="hidden md:block" />
              비수술적 치료법을 먼저 고민하며, 꼭 필요한 경우에만 최소침습 수술을 시행합니다.
            </p>
            <div className="flex justify-center gap-4">
-             <div className="px-6 py-3 bg-white border border-slate-200 rounded-full text-sm font-bold text-slate-600">통증 완화</div>
-             <div className="px-6 py-3 bg-white border border-slate-200 rounded-full text-sm font-bold text-slate-600">기능 회복</div>
-             <div className="px-6 py-3 bg-white border border-slate-200 rounded-full text-sm font-bold text-slate-600">재발 방지</div>
+             <div className="px-6 py-3 bg-white border border-slate-200 rounded-full text-sm font-bold text-ink-sub">통증 완화</div>
+             <div className="px-6 py-3 bg-white border border-slate-200 rounded-full text-sm font-bold text-ink-sub">기능 회복</div>
+             <div className="px-6 py-3 bg-white border border-slate-200 rounded-full text-sm font-bold text-ink-sub">재발 방지</div>
            </div>
         </div>
       </section>

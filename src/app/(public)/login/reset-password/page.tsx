@@ -71,10 +71,10 @@ export default function ResetPasswordPage() {
             <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl text-primary mb-6">
               <ShieldCheck size={28} strokeWidth={2.5} />
             </div>
-            <h1 className="text-[28px] md:text-[32px] font-black text-navy-950 tracking-tighter leading-tight mb-2">
+            <h1 className="text-[28px] md:text-[32px] font-black text-ink tracking-tighter leading-tight mb-2">
               새 비밀번호 설정
             </h1>
-            <p className="text-slate-400 font-medium text-[15px]">
+            <p className="text-ink-muted font-medium text-[15px]">
               안전하게 계정을 복구하기 위해 <br /> 새로운 비밀번호를 입력해 주세요.
             </p>
           </div>
@@ -83,7 +83,7 @@ export default function ResetPasswordPage() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-4">
                 <div className="relative group">
-                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                   <input 
                     type="password" 
                     name="password"
@@ -94,7 +94,7 @@ export default function ResetPasswordPage() {
                 </div>
 
                 <div className="relative group">
-                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors" size={18} />
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                   <input 
                     type="password" 
                     name="confirmPassword"
@@ -134,7 +134,7 @@ export default function ResetPasswordPage() {
           </div>
         </div>
 
-        <p className="text-center mt-8 text-[13px] text-slate-400 font-medium pb-10">
+        <p className="text-center mt-8 text-[13px] text-ink-muted font-medium pb-10">
           문제가 지속되시나요? <Link href="/" className="text-primary hover:underline font-bold">고객센터 문의하기</Link> <br />
           <span className="opacity-50 mt-4 block leading-relaxed">
              &copy; {new Date().getFullYear()} Yonsei Cheok Hospital. All rights reserved.

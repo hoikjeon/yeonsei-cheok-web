@@ -38,9 +38,9 @@ export default async function AdminDashboardPage() {
   return (
     <>
       <header className="bg-white border-b border-slate-200 px-10 py-6 flex justify-between items-center sticky top-0 z-[50] shadow-sm">
-        <h1 className="text-2xl font-black text-navy-950 tracking-tight">통합 대시보드</h1>
+        <h1 className="text-2xl font-black text-ink tracking-tight">통합 대시보드</h1>
         <div className="flex items-center gap-4">
-          <Link href="/" target="_blank" className="text-sm font-bold text-slate-500 hover:text-primary transition-colors">
+          <Link href="/" target="_blank" className="text-sm font-bold text-ink-muted hover:text-primary transition-colors">
             내 병원 사이트 보기 &rarr;
           </Link>
         </div>
@@ -57,13 +57,13 @@ export default async function AdminDashboardPage() {
             <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-blue-100 text-blue-600 rounded-lg animate-pulse shadow-sm shadow-blue-500/20"><Calendar size={20} /></div>
-                <h3 className="text-[17px] font-black text-navy-950">미확인 온라인 예약</h3>
+                <h3 className="text-[17px] font-black text-ink">미확인 온라인 예약</h3>
               </div>
               <Link href="/admin/reservations" className="text-xs font-bold text-primary bg-primary/5 px-3 py-1.5 rounded-lg hover:bg-primary/10 transition-all flex items-center gap-1">전체보기 <ArrowRight size={12} /></Link>
             </div>
             <div className="overflow-auto flex-1 p-2">
               <table className="w-full text-left text-sm">
-                <thead className="text-slate-400 font-bold sticky top-0 bg-white shadow-sm z-10">
+                <thead className="text-ink-muted font-bold sticky top-0 bg-white shadow-sm z-10">
                   <tr>
                     <th className="py-4 px-6 border-b border-slate-100">신청일</th>
                     <th className="py-4 px-6 border-b border-slate-100">이름</th>
@@ -74,23 +74,23 @@ export default async function AdminDashboardPage() {
                 </thead>
                 <tbody>
                   {reservations.length === 0 ? (
-                    <tr><td colSpan={5} className="py-12 text-center text-slate-400 font-medium">새로운 예약 신청이 없습니다.</td></tr>
+                    <tr><td colSpan={5} className="py-12 text-center text-ink-muted font-medium">새로운 예약 신청이 없습니다.</td></tr>
                   ) : (
                     reservations.map((res: any) => (
                       <tr key={res.id} className="hover:bg-slate-50 border-b border-slate-50 transition-colors group">
-                        <td className="py-4 px-6 font-bold text-navy-950">
+                        <td className="py-4 px-6 font-bold text-ink">
                           <span className="text-[11px] bg-blue-100 text-blue-600 px-2.5 py-1.5 rounded-lg animate-pulse font-black shadow-sm shadow-blue-200">
                             {new Date(res.created_at).toLocaleDateString('ko-KR', { month: 'numeric', day: 'numeric' })}
                           </span>
                         </td>
-                        <td className="py-4 px-6 font-bold text-slate-700">
+                        <td className="py-4 px-6 font-bold text-ink-sub">
                            <Link href="/admin/reservations" className="hover:text-primary transition-colors underline underline-offset-4 decoration-slate-200">
                              {res.name}
                            </Link>
                         </td>
-                        <td className="py-4 px-6 text-slate-500 font-medium text-xs">{res.phone}</td>
-                        <td className="py-4 px-6 font-bold text-slate-700">{res.specialty} <span className="text-xs text-slate-400">({res.doctor})</span></td>
-                        <td className="py-4 px-6 text-slate-500 font-medium">{res.reservation_date} <br/><span className="text-xs">{res.reservation_time}</span></td>
+                        <td className="py-4 px-6 text-ink-muted font-medium text-xs">{res.phone}</td>
+                        <td className="py-4 px-6 font-bold text-ink-sub">{res.specialty} <span className="text-xs text-ink-muted">({res.doctor})</span></td>
+                        <td className="py-4 px-6 text-ink-muted font-medium">{res.reservation_date} <br/><span className="text-xs">{res.reservation_time}</span></td>
                       </tr>
                     ))
                   )}
@@ -104,13 +104,13 @@ export default async function AdminDashboardPage() {
             <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-emerald-100 text-emerald-600 rounded-lg animate-pulse shadow-sm shadow-emerald-500/20"><MessageSquare size={20} /></div>
-                <h3 className="text-[17px] font-black text-navy-950">미확인 온라인 상담</h3>
+                <h3 className="text-[17px] font-black text-ink">미확인 온라인 상담</h3>
               </div>
               <Link href="/admin/consultations" className="text-xs font-bold text-primary bg-primary/5 px-3 py-1.5 rounded-lg hover:bg-primary/10 transition-all flex items-center gap-1">전체보기 <ArrowRight size={12} /></Link>
             </div>
             <div className="overflow-auto flex-1 p-2">
               <table className="w-full text-left text-sm">
-                <thead className="text-slate-400 font-bold sticky top-0 bg-white shadow-sm z-10">
+                <thead className="text-ink-muted font-bold sticky top-0 bg-white shadow-sm z-10">
                   <tr>
                     <th className="py-4 px-6 border-b border-slate-100 w-24">신청일</th>
                     <th className="py-4 px-6 border-b border-slate-100 w-24">이름</th>
@@ -120,7 +120,7 @@ export default async function AdminDashboardPage() {
                 </thead>
                 <tbody>
                   {consultations.length === 0 ? (
-                    <tr><td colSpan={4} className="py-12 text-center text-slate-400 font-medium">새로운 상담 신청이 없습니다.</td></tr>
+                    <tr><td colSpan={4} className="py-12 text-center text-ink-muted font-medium">새로운 상담 신청이 없습니다.</td></tr>
                   ) : (
                     consultations.map((cons: any) => (
                       <tr key={cons.id} className="hover:bg-slate-50 border-b border-slate-50 transition-colors group">
@@ -129,14 +129,14 @@ export default async function AdminDashboardPage() {
                             {new Date(cons.created_at).toLocaleDateString('ko-KR', { month: 'numeric', day: 'numeric' })}
                           </span>
                         </td>
-                        <td className="py-4 px-6 font-bold text-slate-700">
+                        <td className="py-4 px-6 font-bold text-ink-sub">
                           <Link href="/admin/consultations" className="hover:text-emerald-600 transition-colors underline underline-offset-4 decoration-slate-200">
                             {cons.name}
                           </Link>
                         </td>
-                        <td className="py-4 px-6 text-slate-500 font-medium text-xs">{cons.phone}</td>
+                        <td className="py-4 px-6 text-ink-muted font-medium text-xs">{cons.phone}</td>
                         <td className="py-4 px-6">
-                          <p className="line-clamp-2 text-slate-600 font-medium leading-relaxed">{cons.message}</p>
+                          <p className="line-clamp-2 text-ink-sub font-medium leading-relaxed">{cons.message}</p>
                         </td>
                       </tr>
                     ))
@@ -155,16 +155,16 @@ export default async function AdminDashboardPage() {
           <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-purple-100 text-purple-600 rounded-lg"><Settings size={20} /></div>
-              <h3 className="text-[17px] font-black text-navy-950">공지 팝업창 현황</h3>
+              <h3 className="text-[17px] font-black text-ink">공지 팝업창 현황</h3>
             </div>
-            <Link href="/admin/popups" className="text-sm font-bold text-primary hover:text-navy-950 transition-colors">
+            <Link href="/admin/popups" className="text-sm font-bold text-primary hover:text-ink transition-colors">
                전체 관리 바로가기 &rarr;
             </Link>
           </div>
           
           <div className="p-8">
               {popups.length === 0 ? (
-                <div className="p-20 text-center text-slate-400 font-medium bg-slate-50/50 rounded-2xl border border-dashed border-slate-200">
+                <div className="p-20 text-center text-ink-muted font-medium bg-slate-50/50 rounded-2xl border border-dashed border-slate-200">
                    등록된 팝업이 없습니다.
                 </div>
               ) : (
@@ -176,12 +176,12 @@ export default async function AdminDashboardPage() {
                             <img src={p.image_url || '/ube_training.jpg'} className="w-full h-full object-cover" alt="" />
                          </div>
                          <div>
-                            <p className="font-bold text-navy-950 text-sm whitespace-pre-line leading-tight">
+                            <p className="font-bold text-ink text-sm whitespace-pre-line leading-tight">
                               {p.title.replace(/\\n/g, '\n')}
                             </p>
                             <div className="flex items-center gap-2 mt-1.5">
                               <span className={`w-2 h-2 rounded-full ${p.is_active ? 'bg-primary animate-pulse' : 'bg-slate-300'}`}></span>
-                              <p className="text-[11px] text-slate-400 font-bold">{p.is_active ? '사이트 노출 중' : '비활성 상태'}</p>
+                              <p className="text-[11px] text-ink-muted font-bold">{p.is_active ? '사이트 노출 중' : '비활성 상태'}</p>
                             </div>
                          </div>
                       </div>

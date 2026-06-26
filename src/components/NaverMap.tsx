@@ -14,7 +14,7 @@ export default function NaverMapComponent({ lat, lng, placeName }: { lat: number
         <div className="absolute inset-0 bg-slate-50 flex items-center justify-center z-10">
           <div className="flex flex-col items-center gap-3">
             <div className="w-8 h-8 border-3 border-primary border-t-transparent rounded-full animate-spin" />
-            <p className="text-slate-400 font-bold text-sm tracking-widest uppercase">지도 로딩 중...</p>
+            <p className="text-ink-muted font-bold text-sm tracking-widest font-montserrat uppercase">지도 로딩 중...</p>
           </div>
         </div>
       )}

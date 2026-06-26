@@ -18,8 +18,8 @@ export default function NoticePage() {
             </div>
             
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-3xl font-black text-navy-950 tracking-tight">공지사항 리뉴얼 준비 중</h2>
-              <p className="text-slate-500 font-medium text-[17px] leading-relaxed">
+              <h2 className="text-2xl md:text-3xl font-black text-ink tracking-tight">공지사항 리뉴얼 준비 중</h2>
+              <p className="text-ink-muted font-medium text-[17px] leading-relaxed">
                 보다 편리하게 병원 소식을 확인하실 수 있도록 <br className="hidden md:block" />
                 새로운 공지사항 게시판을 준비하고 있습니다.
               </p>

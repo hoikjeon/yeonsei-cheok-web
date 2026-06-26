@@ -37,17 +37,17 @@ export default async function MediaPage() {
       {/* 🔹 Top Hero Section */}
       <section className="bg-slate-50 border-b border-slate-200">
         <div className="max-w-[1440px] mx-auto px-10 py-16">
-          <div className="flex items-center gap-2 text-[14px] text-slate-500 font-bold tracking-tight mb-10">
+          <div className="flex items-center gap-2 text-[14px] text-ink-muted font-bold tracking-tight mb-10">
             <Link href="/" className="hover:text-primary transition-colors">
               <Home size={16} strokeWidth={2.5} />
             </Link>
             <ChevronRight size={14} strokeWidth={2.5} />
-            <span className="text-slate-400">병원소식</span>
+            <span className="text-ink-muted">병원소식</span>
             <ChevronRight size={14} strokeWidth={2.5} />
-            <span className="text-navy-950">방송보도 및 언론기사</span>
+            <span className="text-ink">방송보도 및 언론기사</span>
           </div>
 
-          <h1 className="text-[48px] md:text-[56px] font-black text-navy-950 tracking-tighter">
+          <h1 className="text-[48px] md:text-[56px] font-black text-ink tracking-tighter">
             방송보도 및 언론기사
           </h1>
         </div>
@@ -57,10 +57,10 @@ export default async function MediaPage() {
       <section className="bg-white">
         <div className="max-w-[1440px] mx-auto px-10 py-24 border-x border-slate-50 min-h-[800px] shadow-sm">
           <div className="mb-20">
-            <h2 className="text-[36px] font-black leading-[1.3] text-navy-950 tracking-tighter mb-4">
+            <h2 className="text-[36px] font-black leading-[1.3] text-ink tracking-tighter mb-4">
               언론이 주목하는 연세척병원
             </h2>
-            <p className="text-slate-500 text-[18px] font-bold tracking-tight">
+            <p className="text-ink-muted text-[18px] font-bold tracking-tight">
               연세척병원의 전문성과 진심 어린 진료 소식을 전합니다.
             </p>
           </div>
@@ -68,16 +68,16 @@ export default async function MediaPage() {
           <div className="space-y-8">
             {/* Search & Tool Bar */}
             <div className="flex justify-between items-end border-b-2 border-slate-200 pb-5">
-              <div className="text-[16px] font-bold text-slate-500 tracking-tight">
-                총 <strong className="text-navy-950 font-black text-[18px]">{newsCount}</strong>건
+              <div className="text-[16px] font-bold text-ink-muted tracking-tight">
+                총 <strong className="text-ink font-black text-[18px]">{newsCount}</strong>건
               </div>
               <div className="relative group w-full max-w-[340px]">
                 <input
                   type="text"
                   placeholder="검색어를 입력해주세요."
-                  className="w-full pl-4 pr-12 py-3 border-b-2 border-slate-200 bg-transparent text-[15px] outline-none focus:border-primary transition-colors placeholder:text-slate-400 font-medium"
+                  className="w-full pl-4 pr-12 py-3 border-b-2 border-slate-200 bg-transparent text-[15px] outline-none focus:border-primary transition-colors placeholder:text-ink-muted font-medium"
                 />
-                <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-slate-400 group-focus-within:text-primary transition-colors">
+                <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-ink-muted group-focus-within:text-primary transition-colors">
                   <Search size={22} strokeWidth={2.5} />
                 </button>
               </div>
@@ -106,7 +106,7 @@ export default async function MediaPage() {
                         </div>
                       )}
                       {/* Category Badge Over Thumbnail */}
-                      <div className="absolute top-6 left-6 px-4 py-1.5 bg-navy-950/80 backdrop-blur-md rounded-full text-white text-[11px] font-black uppercase tracking-widest flex items-center gap-1.5">
+                      <div className="absolute top-6 left-6 px-4 py-1.5 bg-navy-950/80 backdrop-blur-md rounded-full text-white text-[11px] font-black font-montserrat uppercase tracking-widest flex items-center gap-1.5">
                         <Newspaper size={12} />
                         Media News
                       </div>
@@ -116,11 +116,11 @@ export default async function MediaPage() {
                     <div className="p-8 flex flex-col flex-1">
                       <div className="flex-1 space-y-4 mb-8">
                         <div className="text-primary font-black text-[13px] tracking-tight">{item.source_name || '언론보도'}</div>
-                        <h3 className="text-[22px] font-black text-navy-950 leading-[1.4] tracking-tighter group-hover:text-primary transition-colors line-clamp-2">
+                        <h3 className="text-[22px] font-black text-ink leading-[1.4] tracking-tighter group-hover:text-primary transition-colors line-clamp-2">
                           {item.title}
                         </h3>
                       </div>
-                      <div className="flex items-center justify-between text-[14px] font-bold text-slate-400">
+                      <div className="flex items-center justify-between text-[14px] font-bold text-ink-muted">
                         <span>{new Date(item.created_at).toLocaleDateString('ko-KR')}</span>
                         <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform text-primary/50" />
                       </div>

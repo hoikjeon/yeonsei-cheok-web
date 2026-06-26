@@ -1,57 +1,61 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  SquarePen, 
-  MapPin, 
-  ClipboardPlus, 
-  CheckCircle2, 
-  Zap, 
-  ArrowUp 
-} from 'lucide-react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
+import {
+  ArrowUp,
+  ClipboardPlus,
+  MapPin,
+  MonitorPlay,
+  PhoneCall,
+  SquarePen,
+} from 'lucide-react';
 
 const QUICK_ITEMS = [
-  { name: '예약/상담', icon: <SquarePen size={26} />, href: '/reservation' },
-  { name: '오시는 길', icon: <MapPin size={26} />, href: '/about/location' }, 
-  { name: '진료안내', icon: <ClipboardPlus size={26} />, href: '/#expertise' },
-  { name: '자가테스트', icon: <CheckCircle2 size={26} />, href: '/board/self-diagnosis' },
+  {
+    name: '예약상담',
+    icon: <SquarePen size={22} />,
+    href: '/reservation',
+    primary: true,
+  },
+  {
+    name: '전화문의',
+    icon: <PhoneCall size={22} />,
+    href: 'tel:0519351004',
+  },
+  {
+    name: '오시는 길',
+    icon: <MapPin size={22} />,
+    href: '/about/location',
+  },
+  {
+    name: '진료안내',
+    icon: <ClipboardPlus size={22} />,
+    href: '/#expertise',
+  },
+  {
+    name: '연세척TV',
+    icon: <MonitorPlay size={22} />,
+    href: 'https://www.youtube.com/@BusanYS-tv/videos',
+    external: true,
+  },
 ];
 
 const QuickMenu = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [isTopVisible, setIsTopVisible] = useState(false);
   const pathname = usePathname();
 
-  const handleMouseEnter = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setIsExpanded(true);
-  };
-
-  const handleMouseLeave = () => {
-    // 0.5초(500ms) 지연 후 메뉴 닫기
-    timeoutRef.current = setTimeout(() => {
-      setIsExpanded(false);
-    }, 500);
-  };
-
-  // Scroll visibility for Top button
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.scrollY > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsTopVisible(window.scrollY > 300);
     };
+
+    toggleVisibility();
     window.addEventListener('scroll', toggleVisibility);
-    return () => {
-      window.removeEventListener('scroll', toggleVisibility);
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
+
+    return () => window.removeEventListener('scroll', toggleVisibility);
   }, []);
 
   if (pathname.startsWith('/admin')) return null;
@@ -64,63 +68,56 @@ const QuickMenu = () => {
   };
 
   return (
-    <div className="fixed right-8 bottom-8 z-[200] flex flex-col items-center gap-4">
-      {/* 🚀 Expandable Menu List */}
-      <div 
-        className="flex flex-col items-center"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+    <aside className="fixed bottom-20 right-3 z-[200] md:bottom-8 md:right-7">
+      <nav
+        aria-label="빠른 메뉴"
+        className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white/[0.92] shadow-[0_20px_60px_-38px_rgba(15,29,54,0.52)] backdrop-blur-xl"
       >
-        <AnimatePresence>
-          {isExpanded && (
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-navy-950 rounded-t-[40px] px-4 pt-10 pb-6 flex flex-col items-center gap-8 shadow-2xl mb-[-40px]"
+        <div className="flex w-[74px] flex-col md:w-[92px]">
+          {QUICK_ITEMS.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              target={item.external ? '_blank' : undefined}
+              rel={item.external ? 'noopener noreferrer' : undefined}
+              className={`group flex min-h-[74px] flex-col items-center justify-center gap-2 border-b border-slate-100 px-2 text-center transition-all last:border-b-0 md:min-h-[84px] ${
+                item.primary
+                  ? 'bg-primary text-white hover:bg-primary-dark'
+                  : 'bg-white/90 text-ink hover:bg-primary-light hover:text-primary'
+              }`}
             >
-              {QUICK_ITEMS.map((item) => (
-                <Link 
-                  key={item.name} 
-                  href={item.href}
-                  className="flex flex-col items-center gap-2 group"
-                >
-                  <div className="w-14 h-14 rounded-full flex items-center justify-center text-white/70 group-hover:text-white group-hover:bg-white/10 transition-all">
-                    {item.icon}
-                  </div>
-                  <span className="text-[13px] font-bold text-white/80 group-hover:text-primary-light whitespace-nowrap px-4 tracking-tighter text-center">
-                    {item.name}
-                  </span>
-                </Link>
-              ))}
-              {/* Extra spacing for the overlap with lightning button */}
-              <div className="h-10" />
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <span
+                className={`flex h-9 w-9 items-center justify-center rounded-xl transition-all md:h-10 md:w-10 ${
+                  item.primary
+                    ? 'bg-white/[0.16] text-white group-hover:bg-white/[0.22]'
+                    : 'bg-slate-50 text-primary ring-1 ring-slate-100 group-hover:bg-white group-hover:ring-primary/[0.18]'
+                }`}
+              >
+                {item.icon}
+              </span>
+              <span className="text-[12px] font-black leading-none tracking-tight md:text-[13px]">
+                {item.name}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </nav>
 
-        {/* ⚡ Lightning Quick Menu Button (Trigger) */}
-        <button 
-          className={`w-20 h-20 rounded-full flex flex-col items-center justify-center gap-1 transition-all duration-300 z-10 shadow-premium ${
-            isExpanded ? 'bg-primary scale-110 shadow-blue-glow' : 'bg-navy-950 hover:bg-primary'
-          }`}
-        >
-          <Zap size={32} className="text-white fill-white" />
-          <span className="text-[11px] font-black text-white">퀵메뉴</span>
-        </button>
-      </div>
-
-      {/* 🔝 Scroll To Top Button Refined */}
-      {isVisible && (
-        <button
+      {isTopVisible && (
+        <motion.button
+          type="button"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 8 }}
+          transition={{ duration: 0.18 }}
           onClick={scrollToTop}
-          className="w-20 h-20 bg-white/80 backdrop-blur-md border border-slate-300 rounded-full flex items-center justify-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.2)] hover:bg-white transition-all active:scale-90 group"
+          className="mx-auto mt-3 flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white/[0.92] text-ink shadow-[0_16px_34px_-26px_rgba(15,29,54,0.55)] backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:bg-white active:scale-95"
+          aria-label="맨 위로 이동"
         >
-          <ArrowUp size={28} className="text-navy-950 group-hover:-translate-y-1 transition-transform stroke-[2]" />
-        </button>
+          <ArrowUp size={20} />
+        </motion.button>
       )}
-    </div>
+    </aside>
   );
 };
 

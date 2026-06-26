@@ -160,13 +160,13 @@ const MainPopup = () => {
             <div className="flex border-t border-slate-100">
                <button 
                  onClick={closeForDay}
-                 className="flex-1 py-5 bg-slate-50 hover:bg-slate-100 text-slate-400 font-bold transition-colors text-[14px] border-r border-slate-100"
+                 className="flex-1 py-5 bg-slate-50 hover:bg-slate-100 text-ink-muted font-bold transition-colors text-[14px] border-r border-slate-100"
                >
                  오늘 하루 보지 않기
                </button>
                <button 
                  onClick={closePopup}
-                 className="flex-1 py-5 bg-white hover:bg-slate-50 text-navy-950 font-black transition-colors text-[15px] tracking-tight"
+                 className="flex-1 py-5 bg-white hover:bg-slate-50 text-ink font-black transition-colors text-[15px] tracking-tight"
                >
                  닫기
                </button>

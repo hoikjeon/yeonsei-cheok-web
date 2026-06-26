@@ -68,17 +68,17 @@ export default function MediaWritePage() {
     <main className="min-h-screen bg-slate-50 pt-[96px]">
       <div className="max-w-[1000px] mx-auto px-6 py-16">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-[14px] text-slate-500 font-bold mb-10 tracking-tight">
+        <div className="flex items-center gap-2 text-[14px] text-ink-muted font-bold mb-10 tracking-tight">
           <Link href="/" className="hover:text-primary transition-colors">
             <Home size={16} strokeWidth={2.5} />
           </Link>
           <ChevronRight size={14} strokeWidth={2.5} />
-          <Link href="/news/media" className="text-slate-400">병원소식 / 방송보도</Link>
+          <Link href="/news/media" className="text-ink-muted">병원소식 / 방송보도</Link>
           <ChevronRight size={14} strokeWidth={2.5} />
-          <span className="text-navy-950">보도자료 등록</span>
+          <span className="text-ink">보도자료 등록</span>
         </div>
 
-        <Link href="/news/media" className="inline-flex items-center gap-2 text-navy-950 font-black text-[24px] tracking-tight hover:text-primary transition-colors mb-12">
+        <Link href="/news/media" className="inline-flex items-center gap-2 text-ink font-black text-[24px] tracking-tight hover:text-primary transition-colors mb-12">
           <ArrowLeft size={28} strokeWidth={2.5} />
           새 보도자료 작성
         </Link>
@@ -89,10 +89,10 @@ export default function MediaWritePage() {
           className="bg-white rounded-[2rem] p-10 md:p-14 shadow-sm border border-slate-100"
         >
           <div className="mb-12">
-            <h2 className="text-[32px] md:text-[40px] font-black text-navy-950 tracking-tighter mb-4">
+            <h2 className="text-[32px] md:text-[40px] font-black text-ink tracking-tighter mb-4">
               언론 보도 소식을 기록합니다
             </h2>
-            <p className="text-slate-500 text-[16px] md:text-[18px] font-bold tracking-tight">
+            <p className="text-ink-muted text-[16px] md:text-[18px] font-bold tracking-tight">
               연세척병원의 대외적인 활동과 언론 보도를 체계적으로 관리하세요.
             </p>
           </div>
@@ -107,7 +107,7 @@ export default function MediaWritePage() {
             {/* Media Info Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
-                <label className="block text-[16px] font-black text-navy-950 tracking-tight flex items-center gap-2">
+                <label className="block text-[16px] font-black text-ink tracking-tight flex items-center gap-2">
                   <Newspaper size={18} className="text-primary" /> 언론사명
                 </label>
                 <input 
@@ -115,11 +115,11 @@ export default function MediaWritePage() {
                   value={sourceName}
                   onChange={(e) => setSourceName(e.target.value)}
                   placeholder="예: KBS 뉴스, 동아일보 등"
-                  className="w-full px-6 py-5 rounded-[1.25rem] border-2 border-slate-100 bg-white font-bold text-navy-950 outline-none focus:border-primary transition-all"
+                  className="w-full px-6 py-5 rounded-[1.25rem] border-2 border-slate-100 bg-white font-bold text-ink outline-none focus:border-primary transition-all"
                 />
               </div>
               <div className="space-y-4">
-                <label className="block text-[16px] font-black text-navy-950 tracking-tight flex items-center gap-2">
+                <label className="block text-[16px] font-black text-ink tracking-tight flex items-center gap-2">
                   <LinkIcon size={18} className="text-primary" /> 기사 원문 URL
                 </label>
                 <input 
@@ -127,56 +127,56 @@ export default function MediaWritePage() {
                   value={sourceUrl}
                   onChange={(e) => setSourceUrl(e.target.value)}
                   placeholder="https://..."
-                  className="w-full px-6 py-5 rounded-[1.25rem] border-2 border-slate-100 bg-white font-bold text-navy-950 outline-none focus:border-primary transition-all"
+                  className="w-full px-6 py-5 rounded-[1.25rem] border-2 border-slate-100 bg-white font-bold text-ink outline-none focus:border-primary transition-all"
                 />
               </div>
             </div>
 
             {/* Title */}
             <div className="space-y-4">
-              <label className="block text-[16px] font-black text-navy-950 tracking-tight">보도 제목 <span className="text-red-500">*</span></label>
+              <label className="block text-[16px] font-black text-ink tracking-tight">보도 제목 <span className="text-red-500">*</span></label>
               <input 
                 type="text" 
                 required
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-6 py-5 rounded-[1.25rem] border-2 border-slate-100 bg-white font-bold text-navy-950 text-[18px] outline-none focus:border-primary transition-all"
+                className="w-full px-6 py-5 rounded-[1.25rem] border-2 border-slate-100 bg-white font-bold text-ink text-[18px] outline-none focus:border-primary transition-all"
               />
             </div>
 
             {/* Content Container */}
             <div className="space-y-4">
-              <label className="block text-[16px] font-black text-navy-950 tracking-tight">보도 내용 / 요약 <span className="text-red-500">*</span></label>
+              <label className="block text-[16px] font-black text-ink tracking-tight">보도 내용 / 요약 <span className="text-red-500">*</span></label>
               <textarea 
                 rows={10}
                 required
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="w-full px-8 py-7 rounded-[1.5rem] border-2 border-slate-100 bg-white font-bold text-navy-950 text-[17px] leading-[1.8] outline-none focus:border-primary transition-all resize-none"
+                className="w-full px-8 py-7 rounded-[1.5rem] border-2 border-slate-100 bg-white font-bold text-ink text-[17px] leading-[1.8] outline-none focus:border-primary transition-all resize-none"
               />
             </div>
 
             {/* Photos */}
             <div className="space-y-4">
-              <label className="block text-[16px] font-black text-navy-950 tracking-tight">이미지 첨부 (보도 스크린샷 등)</label>
+              <label className="block text-[16px] font-black text-ink tracking-tight">이미지 첨부 (보도 스크린샷 등)</label>
               <div 
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
                 className="border-2 border-dashed rounded-[2rem] p-12 flex flex-col items-center justify-center bg-slate-50 hover:bg-primary/5 transition-all group relative"
               >
                 <input type="file" multiple onChange={handleFileSelect} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*" />
-                <div className="w-16 h-16 bg-white shadow-sm rounded-full flex items-center justify-center text-slate-400 group-hover:text-primary mb-4 transition-all">
+                <div className="w-16 h-16 bg-white shadow-sm rounded-full flex items-center justify-center text-ink-muted group-hover:text-primary mb-4 transition-all">
                   <UploadCloud size={30} />
                 </div>
-                <p className="font-bold text-navy-950 text-[18px] mb-1">드래그하거나 클릭하여 업로드</p>
-                <p className="text-slate-400 text-[14px]">JPG, PNG, WEBP 지원</p>
+                <p className="font-bold text-ink text-[18px] mb-1">드래그하거나 클릭하여 업로드</p>
+                <p className="text-ink-muted text-[14px]">JPG, PNG, WEBP 지원</p>
               </div>
 
               {files.length > 0 && (
                 <div className="flex flex-wrap gap-4 mt-6">
                   {files.map((file, idx) => (
                     <div key={idx} className="relative group rounded-[1rem] overflow-hidden border border-slate-200 bg-white flex items-center p-3 pr-5 min-w-[200px]">
-                      <div className="flex-1 truncate text-[14px] font-bold text-navy-950">{file.name}</div>
+                      <div className="flex-1 truncate text-[14px] font-bold text-ink">{file.name}</div>
                       <button onClick={() => removeFile(idx)} className="ml-3 p-1 text-slate-300 hover:text-red-500"><X size={16} /></button>
                     </div>
                   ))}
@@ -186,7 +186,7 @@ export default function MediaWritePage() {
 
             {/* Submit */}
             <div className="pt-8 border-t border-slate-100 flex flex-col md:flex-row gap-4">
-              <Link href="/news/media" className="flex-[1] flex justify-center items-center py-5 rounded-[1.25rem] bg-slate-100 font-black text-slate-500">취소</Link>
+              <Link href="/news/media" className="flex-[1] flex justify-center items-center py-5 rounded-[1.25rem] bg-slate-100 font-black text-ink-muted">취소</Link>
               <button 
                 type="submit" 
                 disabled={isSubmitting}

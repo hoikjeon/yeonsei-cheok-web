@@ -30,24 +30,24 @@ export default async function YoutubeDetailPage({ params }: { params: { id: stri
   return (
     <main className="min-h-screen bg-white pt-[96px]">
       <section className="bg-slate-50 border-b border-slate-100">
-        <div className="max-w-[1200px] mx-auto px-6 py-6 flex items-center gap-2 text-[13px] text-slate-400 font-bold tracking-tight">
+        <div className="max-w-[1200px] mx-auto px-6 py-6 flex items-center gap-2 text-[13px] text-ink-muted font-bold tracking-tight">
           <Link href="/" className="hover:text-primary transition-colors"><Home size={14} /></Link>
           <ChevronRight size={12} strokeWidth={3} />
           <Link href="/news/youtube" className="hover:text-primary transition-colors">병원소식</Link>
           <ChevronRight size={12} strokeWidth={3} />
           <Link href="/news/youtube" className="hover:text-primary transition-colors">유튜브 의학소식</Link>
           <ChevronRight size={12} strokeWidth={3} />
-          <span className="text-navy-950 truncate max-w-[200px]">{item.title}</span>
+          <span className="text-ink truncate max-w-[200px]">{item.title}</span>
         </div>
       </section>
 
       <div className="max-w-[1000px] mx-auto px-6 py-16 md:py-24">
         <div className="mb-12 border-b border-slate-100 pb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-50 border border-red-100 rounded-full text-red-600 text-[13px] font-black tracking-tight mb-6 uppercase">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-50 border border-red-100 rounded-full text-red-600 text-[13px] font-black tracking-tight mb-6 font-montserrat uppercase">
             <Play size={12} fill="currentColor" /> YouTube Channel
           </div>
-          <h1 className="text-[32px] md:text-[44px] font-black text-navy-950 tracking-tighter leading-[1.2] mb-8">{item.title}</h1>
-          <div className="flex flex-wrap items-center gap-6 text-[15px] font-bold text-slate-400 tracking-tight">
+          <h1 className="text-[32px] md:text-[44px] font-black text-ink tracking-tighter leading-[1.2] mb-8">{item.title}</h1>
+          <div className="flex flex-wrap items-center gap-6 text-[15px] font-bold text-ink-muted tracking-tight">
             <div className="flex items-center gap-2"><Calendar size={18} className="text-slate-300" />{new Date(item.created_at).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
             <div className="flex items-center gap-2"><Video size={18} className="text-slate-300" />영상 지식 나눔</div>
           </div>
@@ -73,11 +73,11 @@ export default async function YoutubeDetailPage({ params }: { params: { id: stri
         )}
 
         <div className="prose prose-slate max-w-none mb-24">
-          <p className="text-[18px] md:text-[20px] font-medium text-slate-700 leading-[1.9] tracking-tight whitespace-pre-wrap">{item.content}</p>
+          <p className="text-[18px] md:text-[20px] font-medium text-ink-sub leading-[1.9] tracking-tight whitespace-pre-wrap">{item.content}</p>
         </div>
 
         <div className="flex justify-center items-center gap-4">
-          <Link href="/news/youtube" className="flex items-center gap-2 px-10 py-5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-black rounded-[1.25rem] transition-all active:scale-95 text-[17px]">
+          <Link href="/news/youtube" className="flex items-center gap-2 px-10 py-5 bg-slate-100 hover:bg-slate-200 text-ink-sub font-black rounded-[1.25rem] transition-all active:scale-95 text-[17px]">
             <ArrowLeft size={20} strokeWidth={2.5} /> 목록으로 돌아가기
           </Link>
           {item.video_url && (

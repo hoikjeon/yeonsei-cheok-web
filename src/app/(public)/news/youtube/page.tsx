@@ -28,30 +28,30 @@ export default async function YoutubePage() {
     <main className="min-h-screen bg-slate-50 pt-[96px]">
       <section className="bg-slate-50 border-b border-slate-200">
         <div className="max-w-[1440px] mx-auto px-10 py-16">
-          <div className="flex items-center gap-2 text-[14px] text-slate-500 font-bold tracking-tight mb-10">
+          <div className="flex items-center gap-2 text-[14px] text-ink-muted font-bold tracking-tight mb-10">
             <Link href="/" className="hover:text-primary transition-colors"><Home size={16} strokeWidth={2.5} /></Link>
             <ChevronRight size={14} strokeWidth={2.5} />
-            <span className="text-slate-400">병원소식</span>
+            <span className="text-ink-muted">병원소식</span>
             <ChevronRight size={14} strokeWidth={2.5} />
-            <span className="text-navy-950">유튜브 의학소식</span>
+            <span className="text-ink">유튜브 의학소식</span>
           </div>
-          <h1 className="text-[48px] md:text-[56px] font-black text-navy-950 tracking-tighter">유튜브 의학소식</h1>
+          <h1 className="text-[48px] md:text-[56px] font-black text-ink tracking-tighter">유튜브 의학소식</h1>
         </div>
       </section>
 
       <section className="bg-white">
         <div className="max-w-[1440px] mx-auto px-10 py-24 border-x border-slate-50 min-h-[800px]">
           <div className="mb-20">
-            <h2 className="text-[36px] font-black leading-[1.3] text-navy-950 tracking-tighter mb-4">영상으로 만나는 건강 정보</h2>
-            <p className="text-slate-500 text-[18px] font-bold tracking-tight">연세척병원이 전하는 유익하고 정확한 의학 지식입니다.</p>
+            <h2 className="text-[36px] font-black leading-[1.3] text-ink tracking-tighter mb-4">영상으로 만나는 건강 정보</h2>
+            <p className="text-ink-muted text-[18px] font-bold tracking-tight">연세척병원이 전하는 유익하고 정확한 의학 지식입니다.</p>
           </div>
 
           <div className="space-y-8">
             <div className="flex justify-between items-end border-b-2 border-slate-200 pb-5">
-              <div className="text-[16px] font-bold text-slate-500">총 <strong className="text-navy-950 font-black text-[18px]">{newsCount}</strong>건</div>
+              <div className="text-[16px] font-bold text-ink-muted">총 <strong className="text-ink font-black text-[18px]">{newsCount}</strong>건</div>
               <div className="relative group w-full max-w-[340px]">
                 <input type="text" placeholder="영상을 검색하세요." className="w-full pl-4 pr-12 py-3 border-b-2 border-slate-200 bg-transparent text-[15px] outline-none focus:border-primary transition-colors font-medium" />
-                <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-slate-400"><Search size={22} strokeWidth={2.5} /></button>
+                <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-ink-muted"><Search size={22} strokeWidth={2.5} /></button>
               </div>
             </div>
 
@@ -74,11 +74,11 @@ export default async function YoutubePage() {
                             <Play size={28} fill="currentColor" />
                           </div>
                         </div>
-                        <div className="absolute top-6 left-6 px-4 py-1.5 bg-red-600/90 backdrop-blur-md rounded-full text-white text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5"><Play size={10} fill="white" />YouTube</div>
+                        <div className="absolute top-6 left-6 px-4 py-1.5 bg-red-600/90 backdrop-blur-md rounded-full text-white text-[10px] font-black font-montserrat uppercase tracking-widest flex items-center gap-1.5"><Play size={10} fill="white" />YouTube</div>
                       </div>
                       <div className="p-8 flex flex-col flex-1">
-                        <h3 className="text-[20px] font-black text-navy-950 leading-[1.4] tracking-tighter group-hover:text-primary transition-colors line-clamp-2 mb-6">{item.title}</h3>
-                        <div className="mt-auto flex items-center justify-between text-[14px] font-bold text-slate-400">
+                        <h3 className="text-[20px] font-black text-ink leading-[1.4] tracking-tighter group-hover:text-primary transition-colors line-clamp-2 mb-6">{item.title}</h3>
+                        <div className="mt-auto flex items-center justify-between text-[14px] font-bold text-ink-muted">
                           <span>{new Date(item.created_at).toLocaleDateString('ko-KR')}</span>
                         </div>
                       </div>

@@ -39,10 +39,10 @@ export function AnalyticsSummary({ visits }: AnalyticsProps) {
          <Activity className="absolute -right-6 -bottom-6 text-white/10 w-32 h-32" />
       </div>
       <div className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm flex flex-col justify-center">
-         <p className="text-slate-500 font-bold mb-1 text-sm flex items-center gap-2">
+         <p className="text-ink-muted font-bold mb-1 text-sm flex items-center gap-2">
            <TrendingUp size={16} className={diff >= 0 ? "text-emerald-500" : "text-rose-500"}/> 어제 대비 증감
          </p>
-         <h3 className="text-2xl font-black text-navy-950">
+         <h3 className="text-2xl font-black text-ink">
            {yesterdayTotal > 0 ? diffText : '첫 데이터'}
          </h3>
       </div>
@@ -85,7 +85,7 @@ export function AnalyticsGraphs({ visits }: AnalyticsProps) {
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 mt-10">
       <section className="bg-white rounded-[1.5rem] p-8 shadow-sm border border-slate-200">
-         <h3 className="text-[17px] font-black text-navy-950 mb-6 flex items-center gap-3">
+         <h3 className="text-[17px] font-black text-ink mb-6 flex items-center gap-3">
            <span className="w-2 h-6 bg-blue-500 rounded-full block"></span> 오늘 시간대별 접속량 추이
          </h3>
          <div className="h-[300px] w-full">
@@ -110,7 +110,7 @@ export function AnalyticsGraphs({ visits }: AnalyticsProps) {
       </section>
 
       <section className="bg-white rounded-[1.5rem] p-8 shadow-sm border border-slate-200">
-         <h3 className="text-[17px] font-black text-navy-950 mb-6 flex items-center gap-3">
+         <h3 className="text-[17px] font-black text-ink mb-6 flex items-center gap-3">
             <span className="w-2 h-6 bg-purple-500 rounded-full block"></span> 최근 7일 방문 트렌드
          </h3>
          <div className="h-[300px] w-full">

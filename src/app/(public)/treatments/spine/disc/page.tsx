@@ -36,10 +36,10 @@ export default function DiscPage() {
       {/* 질환 소개 */}
       <section className="max-w-7xl mx-auto px-6 py-24 w-full">
         <div className="space-y-6 mb-20">
-          <span className="text-primary font-black tracking-widest text-xs uppercase">Disc Herniation</span>
-          <h2 className="text-4xl font-extrabold text-slate-900 tracking-tight">디스크란 무엇인가요?</h2>
+          <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">Disc Herniation</span>
+          <h2 className="text-4xl font-extrabold text-ink tracking-tight">디스크란 무엇인가요?</h2>
           <div className="w-16 h-1.5 bg-primary rounded-full" />
-          <p className="text-slate-500 leading-relaxed font-medium max-w-3xl text-lg">
+          <p className="text-ink-muted leading-relaxed font-medium max-w-3xl text-lg">
             디스크(추간판 탈출증)는 척추뼈 사이의 쿠션 역할을 하는 추간판이 돌출되어 
             주변 신경을 압박하는 질환입니다. 잘못된 자세, 무리한 운동, 노화 등 
             다양한 원인으로 발생하며, 적절한 치료 없이 방치하면 만성 통증으로 이어질 수 있습니다.
@@ -54,14 +54,14 @@ export default function DiscPage() {
                 <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary font-black text-sm">
                   {idx + 1}
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900">{disc.title}</h3>
-                <p className="text-slate-500 leading-relaxed font-medium">{disc.description}</p>
+                <h3 className="text-2xl font-bold text-ink">{disc.title}</h3>
+                <p className="text-ink-muted leading-relaxed font-medium">{disc.description}</p>
               </div>
               <div className="space-y-3">
-                <h4 className="text-sm font-black text-slate-700 tracking-wide uppercase">주요 증상</h4>
+                <h4 className="text-sm font-black text-ink-sub tracking-wide font-montserrat uppercase">주요 증상</h4>
                 <ul className="space-y-2">
                   {disc.symptoms.map((symptom, i) => (
-                    <li key={i} className="flex items-center gap-3 text-slate-500 text-[15px]">
+                    <li key={i} className="flex items-center gap-3 text-ink-muted text-[15px]">
                       <span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" />
                       {symptom}
                     </li>
@@ -75,9 +75,9 @@ export default function DiscPage() {
         {/* 치료 방법 */}
         <div className="space-y-8">
           <div className="space-y-4">
-            <span className="text-primary font-black tracking-widest text-xs uppercase">Treatment Options</span>
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">단계별 맞춤 치료</h2>
-            <p className="text-slate-500 font-medium max-w-2xl">
+            <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">Treatment Options</span>
+            <h2 className="text-3xl font-extrabold text-ink tracking-tight">단계별 맞춤 치료</h2>
+            <p className="text-ink-muted font-medium max-w-2xl">
               연세척병원은 환자의 증상과 디스크 상태에 따라 비수술 치료부터 최소침습 수술까지 
               가장 효과적인 치료법을 제안합니다.
             </p>
@@ -90,8 +90,8 @@ export default function DiscPage() {
                   <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-slate-300 font-black text-xs group-hover:bg-primary group-hover:text-white transition-colors">
                     {String(i + 1).padStart(2, '0')}
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900">{t.name}</h3>
-                  <p className="text-sm text-slate-500 leading-relaxed">{t.desc}</p>
+                  <h3 className="text-lg font-bold text-ink">{t.name}</h3>
+                  <p className="text-sm text-ink-muted leading-relaxed">{t.desc}</p>
                 </div>
               </div>
             ))}
@@ -102,8 +102,8 @@ export default function DiscPage() {
       {/* CTA */}
       <section className="bg-slate-50 py-24 px-6 border-y border-slate-100">
         <div className="max-w-4xl mx-auto text-center space-y-8">
-          <h2 className="text-3xl font-bold text-slate-900">디스크 통증, 참지 마세요</h2>
-          <p className="text-slate-500 text-lg leading-relaxed">
+          <h2 className="text-3xl font-bold text-ink">디스크 통증, 참지 마세요</h2>
+          <p className="text-ink-muted text-lg leading-relaxed">
             초기에 정확한 진단과 적절한 치료를 받으면 대부분 비수술적 치료만으로도<br className="hidden md:block" />
             충분히 회복할 수 있습니다. 지금 바로 전문의와 상담하세요.
           </p>
@@ -111,7 +111,7 @@ export default function DiscPage() {
             <Link href="/reservation" className="px-8 py-4 bg-primary text-white font-bold rounded-full hover:bg-primary-dark transition-all shadow-blue-glow">
               진료 예약하기 →
             </Link>
-            <Link href="/consultation" className="px-8 py-4 bg-white text-slate-700 font-bold rounded-full border border-slate-200 hover:border-primary/30 transition-all">
+            <Link href="/consultation" className="px-8 py-4 bg-white text-ink-sub font-bold rounded-full border border-slate-200 hover:border-primary/30 transition-all">
               온라인 상담
             </Link>
           </div>

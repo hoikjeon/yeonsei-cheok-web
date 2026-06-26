@@ -66,12 +66,12 @@ export default function NonSurgicalPage() {
       <section className="max-w-7xl mx-auto px-6 py-24 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-24">
           <div className="lg:col-span-5 space-y-6">
-            <span className="text-primary font-black tracking-widest text-xs uppercase">Non-Surgical Treatment</span>
-            <h2 className="text-4xl font-extrabold text-slate-900 tracking-tight">
+            <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">Non-Surgical Treatment</span>
+            <h2 className="text-4xl font-extrabold text-ink tracking-tight">
               수술 없이도<br />충분히 나을 수 있습니다
             </h2>
             <div className="w-16 h-1.5 bg-primary rounded-full" />
-            <p className="text-slate-500 leading-relaxed font-medium">
+            <p className="text-ink-muted leading-relaxed font-medium">
               연세척병원은 &ldquo;비수술 우선 원칙&rdquo;을 철저히 지킵니다. 
               척추·관절 질환의 80% 이상은 수술 없이 치료할 수 있으며, 
               최신 비수술 시술과 재활 치료를 통해 안전하고 효과적인 
@@ -86,7 +86,7 @@ export default function NonSurgicalPage() {
             ].map((stat, i) => (
               <div key={i} className="p-8 bg-slate-50 rounded-3xl text-center space-y-2">
                 <p className="text-3xl font-black text-primary tracking-tighter">{stat.value}</p>
-                <p className="text-slate-500 text-sm font-medium">{stat.label}</p>
+                <p className="text-ink-muted text-sm font-medium">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -95,8 +95,8 @@ export default function NonSurgicalPage() {
         {/* 비수술 치료 목록 */}
         <div className="space-y-8">
           <div className="space-y-4">
-            <span className="text-primary font-black tracking-widest text-xs uppercase">Treatment Methods</span>
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">비수술 치료 프로그램</h2>
+            <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">Treatment Methods</span>
+            <h2 className="text-3xl font-extrabold text-ink tracking-tight">비수술 치료 프로그램</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -106,21 +106,21 @@ export default function NonSurgicalPage() {
                   <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary font-black text-sm group-hover:bg-primary group-hover:text-white transition-colors">
                     {String(idx + 1).padStart(2, '0')}
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-primary transition-colors">{treatment.title}</h3>
-                  <p className="text-[11px] text-slate-400 font-bold tracking-widest uppercase">{treatment.subtitle}</p>
+                  <h3 className="text-xl font-bold text-ink group-hover:text-primary transition-colors">{treatment.title}</h3>
+                  <p className="text-[11px] text-ink-muted font-bold tracking-widest font-montserrat uppercase">{treatment.subtitle}</p>
                 </div>
-                <p className="text-slate-500 leading-relaxed font-medium text-[15px]">{treatment.description}</p>
+                <p className="text-ink-muted leading-relaxed font-medium text-[15px]">{treatment.description}</p>
                 <div className="grid grid-cols-3 gap-4 pt-2">
                   <div className="space-y-1">
-                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">소요시간</p>
-                    <p className="text-sm text-slate-700 font-bold">{treatment.duration}</p>
+                    <p className="text-[10px] text-ink-muted font-bold font-montserrat uppercase tracking-wider">소요시간</p>
+                    <p className="text-sm text-ink-sub font-bold">{treatment.duration}</p>
                   </div>
                   <div className="space-y-1">
-                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">회복기간</p>
-                    <p className="text-sm text-slate-700 font-bold">{treatment.recovery}</p>
+                    <p className="text-[10px] text-ink-muted font-bold font-montserrat uppercase tracking-wider">회복기간</p>
+                    <p className="text-sm text-ink-sub font-bold">{treatment.recovery}</p>
                   </div>
                   <div className="space-y-1">
-                    <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">장점</p>
+                    <p className="text-[10px] text-ink-muted font-bold font-montserrat uppercase tracking-wider">장점</p>
                     <p className="text-sm text-primary font-bold">{treatment.advantage}</p>
                   </div>
                 </div>
@@ -133,9 +133,9 @@ export default function NonSurgicalPage() {
       {/* CTA */}
       <section className="bg-navy-950 py-24 px-6">
         <div className="max-w-4xl mx-auto text-center space-y-8">
-          <span className="text-primary text-[10px] font-black tracking-[0.3em] uppercase">Non-Surgical First</span>
+          <span className="text-primary text-[10px] font-black tracking-[0.3em] font-montserrat uppercase">Non-Surgical First</span>
           <h2 className="text-3xl font-bold text-white">수술 전, 먼저 상담하세요</h2>
-          <p className="text-slate-400 text-lg leading-relaxed">
+          <p className="text-ink-muted text-lg leading-relaxed">
             다른 병원에서 수술을 권유받으셨나요?<br className="hidden md:block" />
             연세척병원에서 비수술 치료 가능 여부를 먼저 확인해 보세요.
           </p>

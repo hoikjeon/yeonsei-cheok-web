@@ -25,7 +25,7 @@ const SubHero = ({ title, subtitle, path, bgImage }: SubHeroProps) => {
       
       <div className="relative z-20 max-w-7xl mx-auto px-6 w-full pt-10">
         <div className="space-y-6 fade-in-up">
-          <nav className="flex items-center gap-3 text-[11px] font-bold tracking-widest uppercase text-primary-light/60">
+          <nav className="flex items-center gap-3 text-[11px] font-bold tracking-widest font-montserrat uppercase text-primary-light/60">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             {path.map((p, i) => (
               <div key={i} className="flex items-center gap-3">

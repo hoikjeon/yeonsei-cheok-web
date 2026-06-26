@@ -21,30 +21,30 @@ export default async function AcademicPage() {
     <main className="min-h-screen bg-slate-50 pt-[96px]">
       <section className="bg-slate-50 border-b border-slate-200">
         <div className="max-w-[1440px] mx-auto px-10 py-16">
-          <div className="flex items-center gap-2 text-[14px] text-slate-500 font-bold tracking-tight mb-10">
+          <div className="flex items-center gap-2 text-[14px] text-ink-muted font-bold tracking-tight mb-10">
             <Link href="/" className="hover:text-primary transition-colors"><Home size={16} strokeWidth={2.5} /></Link>
             <ChevronRight size={14} strokeWidth={2.5} />
-            <span className="text-slate-400">병원소식</span>
+            <span className="text-ink-muted">병원소식</span>
             <ChevronRight size={14} strokeWidth={2.5} />
-            <span className="text-navy-950">연세척 학술소식</span>
+            <span className="text-ink">연세척 학술소식</span>
           </div>
-          <h1 className="text-[48px] md:text-[56px] font-black text-navy-950 tracking-tighter">연세척 학술소식</h1>
+          <h1 className="text-[48px] md:text-[56px] font-black text-ink tracking-tighter">연세척 학술소식</h1>
         </div>
       </section>
 
       <section className="bg-white">
         <div className="max-w-[1440px] mx-auto px-10 py-24 border-x border-slate-50 min-h-[800px]">
           <div className="mb-20">
-            <h2 className="text-[36px] font-black leading-[1.3] text-navy-950 tracking-tighter mb-4">끊임없이 연구하는 의료진</h2>
-            <p className="text-slate-500 text-[18px] font-bold tracking-tight">최신 의료 기술을 선도하며 환자분들께 최선의 치료를 드립니다.</p>
+            <h2 className="text-[36px] font-black leading-[1.3] text-ink tracking-tighter mb-4">끊임없이 연구하는 의료진</h2>
+            <p className="text-ink-muted text-[18px] font-bold tracking-tight">최신 의료 기술을 선도하며 환자분들께 최선의 치료를 드립니다.</p>
           </div>
 
           <div className="space-y-8">
             <div className="flex justify-between items-end border-b-2 border-slate-200 pb-5">
-              <div className="text-[16px] font-bold text-slate-500">총 <strong className="text-navy-950 font-black text-[18px]">{newsCount}</strong>건</div>
+              <div className="text-[16px] font-bold text-ink-muted">총 <strong className="text-ink font-black text-[18px]">{newsCount}</strong>건</div>
               <div className="relative group w-full max-w-[340px]">
                 <input type="text" placeholder="소식을 검색하세요." className="w-full pl-4 pr-12 py-3 border-b-2 border-slate-200 bg-transparent text-[15px] outline-none focus:border-primary transition-colors font-medium" />
-                <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-slate-400"><Search size={22} strokeWidth={2.5} /></button>
+                <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-ink-muted"><Search size={22} strokeWidth={2.5} /></button>
               </div>
             </div>
 
@@ -54,11 +54,11 @@ export default async function AcademicPage() {
                   <Link href={`/news/academic/${item.id}`} key={item.id} className="group flex flex-col bg-white rounded-[2rem] overflow-hidden border border-slate-100 hover:border-primary/20 hover:shadow-2xl transition-all duration-500">
                     <div className="aspect-square bg-slate-100 relative overflow-hidden">
                       {item.image_urls?.[0] ? <img src={item.image_urls[0]} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" /> : <div className="w-full h-full flex items-center justify-center text-slate-300"><Microscope size={60} strokeWidth={1} /></div>}
-                      <div className="absolute top-6 left-6 px-4 py-1.5 bg-navy-950/80 backdrop-blur-md rounded-full text-white text-[11px] font-black uppercase tracking-widest flex items-center gap-1.5"><GraduationCap size={12} />Academic</div>
+                      <div className="absolute top-6 left-6 px-4 py-1.5 bg-navy-950/80 backdrop-blur-md rounded-full text-white text-[11px] font-black font-montserrat uppercase tracking-widest flex items-center gap-1.5"><GraduationCap size={12} />Academic</div>
                     </div>
                     <div className="p-8 flex flex-col flex-1">
-                      <h3 className="text-[22px] font-black text-navy-950 leading-[1.4] tracking-tighter group-hover:text-primary transition-colors line-clamp-2 mb-6">{item.title}</h3>
-                      <div className="mt-auto flex items-center justify-between text-[14px] font-bold text-slate-400">
+                      <h3 className="text-[22px] font-black text-ink leading-[1.4] tracking-tighter group-hover:text-primary transition-colors line-clamp-2 mb-6">{item.title}</h3>
+                      <div className="mt-auto flex items-center justify-between text-[14px] font-bold text-ink-muted">
                         <span>{new Date(item.created_at).toLocaleDateString('ko-KR')}</span>
                         <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
                       </div>

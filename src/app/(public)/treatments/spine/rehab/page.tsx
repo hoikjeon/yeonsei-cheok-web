@@ -49,12 +49,12 @@ export default function RehabPage() {
       <section className="max-w-7xl mx-auto px-6 py-24 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-24">
           <div className="lg:col-span-5 space-y-6">
-            <span className="text-primary font-black tracking-widest text-xs uppercase">Rehabilitation Clinic</span>
-            <h2 className="text-4xl font-extrabold text-slate-900 tracking-tight">
+            <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">Rehabilitation Clinic</span>
+            <h2 className="text-4xl font-extrabold text-ink tracking-tight">
               손끝의 정밀함으로<br />통증의 원인을 해결합니다
             </h2>
             <div className="w-16 h-1.5 bg-primary rounded-full" />
-            <p className="text-slate-500 leading-relaxed font-medium">
+            <p className="text-ink-muted leading-relaxed font-medium">
               연세척병원 도수·재활 클리닉은 전문 물리치료사가 1:1로 환자를 전담하여 
               치료합니다. 단순한 통증 완화를 넘어, 근골격계의 구조적 문제를 교정하고 
               약화된 근육을 강화하여 재발 없는 건강한 일상을 되찾을 수 있도록 돕습니다.
@@ -69,7 +69,7 @@ export default function RehabPage() {
             ].map((stat, i) => (
               <div key={i} className="p-8 bg-slate-50 rounded-3xl text-center space-y-2">
                 <p className="text-3xl font-black text-primary tracking-tighter">{stat.value}</p>
-                <p className="text-slate-500 text-sm font-medium">{stat.label}</p>
+                <p className="text-ink-muted text-sm font-medium">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -78,8 +78,8 @@ export default function RehabPage() {
         {/* 재활 프로그램 */}
         <div className="space-y-8 mb-24">
           <div className="space-y-4">
-            <span className="text-primary font-black tracking-widest text-xs uppercase">Programs</span>
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">전문 재활 프로그램</h2>
+            <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">Programs</span>
+            <h2 className="text-3xl font-extrabold text-ink tracking-tight">전문 재활 프로그램</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -89,13 +89,13 @@ export default function RehabPage() {
                   <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary font-black text-sm group-hover:bg-primary group-hover:text-white transition-colors">
                     {String(idx + 1).padStart(2, '0')}
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 group-hover:text-primary transition-colors">{program.title}</h3>
-                  <p className="text-[11px] text-slate-400 font-bold tracking-widest uppercase">{program.subtitle}</p>
+                  <h3 className="text-xl font-bold text-ink group-hover:text-primary transition-colors">{program.title}</h3>
+                  <p className="text-[11px] text-ink-muted font-bold tracking-widest font-montserrat uppercase">{program.subtitle}</p>
                 </div>
-                <p className="text-slate-500 leading-relaxed font-medium text-[15px]">{program.description}</p>
+                <p className="text-ink-muted leading-relaxed font-medium text-[15px]">{program.description}</p>
                 <ul className="grid grid-cols-2 gap-3">
                   {program.features.map((feature, j) => (
-                    <li key={j} className="flex items-center gap-2 text-slate-600 text-[13px] font-medium">
+                    <li key={j} className="flex items-center gap-2 text-ink-sub text-[13px] font-medium">
                       <span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" />
                       {feature}
                     </li>
@@ -109,16 +109,16 @@ export default function RehabPage() {
         {/* 치료 프로세스 */}
         <div className="space-y-8">
           <div className="space-y-4">
-            <span className="text-primary font-black tracking-widest text-xs uppercase">Treatment Process</span>
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">치료 프로세스</h2>
+            <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">Treatment Process</span>
+            <h2 className="text-3xl font-extrabold text-ink tracking-tight">치료 프로세스</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {processSteps.map((step, i) => (
               <div key={i} className="p-8 bg-slate-50 rounded-3xl space-y-4 hover:bg-white hover:shadow-premium border border-transparent hover:border-primary/10 transition-all relative">
                 <span className="text-5xl font-black text-slate-100">{step.step}</span>
-                <h3 className="text-lg font-bold text-slate-900">{step.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{step.desc}</p>
+                <h3 className="text-lg font-bold text-ink">{step.title}</h3>
+                <p className="text-sm text-ink-muted leading-relaxed">{step.desc}</p>
                 {i < processSteps.length - 1 && (
                   <div className="hidden lg:block absolute right-[-20px] top-1/2 -translate-y-1/2 text-slate-200 text-2xl z-10">→</div>
                 )}
@@ -131,8 +131,8 @@ export default function RehabPage() {
       {/* CTA */}
       <section className="bg-slate-50 py-24 px-6 border-y border-slate-100">
         <div className="max-w-4xl mx-auto text-center space-y-8">
-          <h2 className="text-3xl font-bold text-slate-900">도수치료, 제대로 받아보세요</h2>
-          <p className="text-slate-500 text-lg leading-relaxed">
+          <h2 className="text-3xl font-bold text-ink">도수치료, 제대로 받아보세요</h2>
+          <p className="text-ink-muted text-lg leading-relaxed">
             1:1 전문 도수치료사의 체계적인 맞춤 치료로<br className="hidden md:block" />
             통증의 근본 원인을 해결하고 건강한 일상을 되찾으세요.
           </p>
@@ -140,7 +140,7 @@ export default function RehabPage() {
             <Link href="/reservation" className="px-8 py-4 bg-primary text-white font-bold rounded-full hover:bg-primary-dark transition-all shadow-blue-glow">
               도수치료 예약하기 →
             </Link>
-            <Link href="/consultation" className="px-8 py-4 bg-white text-slate-700 font-bold rounded-full border border-slate-200 hover:border-primary/30 transition-all">
+            <Link href="/consultation" className="px-8 py-4 bg-white text-ink-sub font-bold rounded-full border border-slate-200 hover:border-primary/30 transition-all">
               온라인 상담
             </Link>
           </div>

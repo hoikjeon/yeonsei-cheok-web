@@ -14,7 +14,7 @@ export default function PublicLayout({
       <VisitTracker />
       <Header />
       <MainPopup />
-      <main className="flex-grow pt-20">
+      <main className="flex-grow pt-[72px]">
         {children}
       </main>
       <QuickMenu />

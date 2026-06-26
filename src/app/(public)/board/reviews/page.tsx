@@ -37,17 +37,17 @@ export default async function ReviewsPage() {
       <section className="bg-slate-50 border-b border-slate-200">
         <div className="max-w-[1440px] mx-auto px-10 py-16">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-[14px] text-slate-500 font-bold tracking-tight mb-10">
+          <div className="flex items-center gap-2 text-[14px] text-ink-muted font-bold tracking-tight mb-10">
             <Link href="/" className="hover:text-primary transition-colors">
               <Home size={16} strokeWidth={2.5} />
             </Link>
             <ChevronRight size={14} strokeWidth={2.5} />
             <span className="hover:text-primary transition-colors cursor-pointer">커뮤니티</span>
             <ChevronRight size={14} strokeWidth={2.5} />
-            <span className="text-navy-950">치료체험후기</span>
+            <span className="text-ink">치료체험후기</span>
           </div>
 
-          <h1 className="text-[48px] md:text-[56px] font-black text-navy-950 tracking-tighter">
+          <h1 className="text-[48px] md:text-[56px] font-black text-ink tracking-tighter">
             치료체험후기
           </h1>
         </div>
@@ -58,16 +58,16 @@ export default async function ReviewsPage() {
         <div className="max-w-[1440px] mx-auto px-10 py-24 border-x border-slate-50 min-h-[800px] shadow-sm">
           {/* Main Title & Login Notice */}
           <div className="mb-24">
-            <h2 className="text-[40px] font-black leading-[1.3] text-navy-950 tracking-tighter whitespace-pre-line mb-6">
+            <h2 className="text-[40px] font-black leading-[1.3] text-ink tracking-tighter whitespace-pre-line mb-6">
               {'환자분들이 써주신\n회복의 기록'}
             </h2>
-            <p className="text-slate-600 text-[18px] font-bold tracking-tight">
+            <p className="text-ink-sub text-[18px] font-bold tracking-tight">
               고객님이 직접 참여하시고 작성하신 100% 리얼 후기입니다.
             </p>
             
             <div className="mt-12 flex items-center gap-5">
-              <span className="text-[15px] font-bold text-slate-500 flex items-center gap-1.5 tracking-tight">
-                <strong className="text-navy-950 text-[16px]">※</strong> 의료법 규정에 따라 자세한 내용은 로그인 후 확인할 수 있습니다.
+              <span className="text-[15px] font-bold text-ink-muted flex items-center gap-1.5 tracking-tight">
+                <strong className="text-ink text-[16px]">※</strong> 의료법 규정에 따라 자세한 내용은 로그인 후 확인할 수 있습니다.
               </span>
               <Link 
                 href="/login"
@@ -81,16 +81,16 @@ export default async function ReviewsPage() {
           {/* List Area */}
           <div className="space-y-6">
             <div className="flex justify-between items-end border-b-2 border-slate-200 pb-4">
-              <div className="text-[16px] font-bold text-slate-500 tracking-tight">
-                총 <strong className="text-navy-950 font-black text-[18px]">{reviewsCount}</strong>건
+              <div className="text-[16px] font-bold text-ink-muted tracking-tight">
+                총 <strong className="text-ink font-black text-[18px]">{reviewsCount}</strong>건
               </div>
               <div className="relative group w-full max-w-[340px]">
                 <input
                   type="text"
                   placeholder="검색어를 입력해주세요."
-                  className="w-full pl-4 pr-12 py-3 border-b-2 border-slate-200 bg-transparent text-[15px] outline-none focus:border-primary transition-colors placeholder:text-slate-400 font-medium"
+                  className="w-full pl-4 pr-12 py-3 border-b-2 border-slate-200 bg-transparent text-[15px] outline-none focus:border-primary transition-colors placeholder:text-ink-muted font-medium"
                 />
-                <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-slate-400 group-focus-within:text-primary transition-colors hover:text-primary">
+                <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-ink-muted group-focus-within:text-primary transition-colors hover:text-primary">
                   <Search size={22} strokeWidth={2.5} />
                 </button>
               </div>
@@ -125,23 +125,23 @@ export default async function ReviewsPage() {
                         <span className="text-[13px] font-black text-primary tracking-tight px-3 py-1 bg-primary/5 rounded-full inline-block border border-primary/10">
                           {review.category}
                         </span>
-                        <span className="text-[14px] font-bold text-slate-400">#{review.id.slice(0, 8)}</span>
+                        <span className="text-[14px] font-bold text-ink-muted">#{review.id.slice(0, 8)}</span>
                       </div>
-                      <h3 className="text-[22px] font-bold text-navy-950 group-hover:text-primary transition-colors tracking-tight line-clamp-2 block">
+                      <h3 className="text-[22px] font-bold text-ink group-hover:text-primary transition-colors tracking-tight line-clamp-2 block">
                         {review.title}
                       </h3>
-                      <p className="text-slate-400 text-[15px] font-medium tracking-tight">
+                      <p className="text-ink-muted text-[15px] font-medium tracking-tight">
                         의료법 규정에 따라 상세 내용은 로그인 후 보실 수 있습니다.
                       </p>
                     </div>
-                    <div className="text-[15px] font-bold text-slate-400 shrink-0 md:w-32 md:text-right tracking-tight">
+                    <div className="text-[15px] font-bold text-ink-muted shrink-0 md:w-32 md:text-right tracking-tight">
                       {new Date(review.created_at).toLocaleDateString('ko-KR')}
                     </div>
                   </Link>
                 ))
               ) : (
                 <div className="py-20 text-center space-y-2 flex flex-col justify-center items-center h-full">
-                  <p className="text-[18px] font-bold text-slate-400 tracking-tight">등록된 치료체험후기가 없습니다.</p>
+                  <p className="text-[18px] font-bold text-ink-muted tracking-tight">등록된 치료체험후기가 없습니다.</p>
                   <p className="text-[15px] font-medium text-slate-300">직접 첫 번째 후기를 작성해 보세요.</p>
                 </div>
               )}

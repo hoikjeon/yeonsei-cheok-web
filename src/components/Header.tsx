@@ -1,21 +1,22 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, type FocusEvent, type KeyboardEvent } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
+import type { User as SupabaseUser } from '@supabase/supabase-js';
 import { 
   User, 
   Stethoscope, 
   Activity, 
   MapPin, 
-  Clock, 
-  MessageSquare, 
+  Phone,
   ShieldCheck, 
   Microscope,
   UserCheck,
   CalendarDays,
-  FileText,
+  CalendarCheck,
   ChevronRight,
   MonitorPlay,
   Star,
@@ -39,10 +40,22 @@ const MENU_DATA = [
     href: '/about',
     subTitle: '연세척병원의 진심을 전합니다',
     items: [
-      { name: '연세척 철학', desc: '환자 중심의 정직한 진료 원칙', icon: <ShieldCheck size={26} />, href: '/about/philosophy' },
+      { name: '연세척병원 소개', desc: '환자 중심의 정직한 진료 원칙', icon: <ShieldCheck size={26} />, href: '/about' },
       { name: '의료진 소개', desc: '세브란스 교수 출신의 전문의', icon: <UserCheck size={26} />, href: '/doctors' },
       { name: '첨단 의료 장비', desc: '대학병원급 MRI, CT 시스템', icon: <Microscope size={26} />, href: '/about/equipment' },
       { name: '오시는 길', desc: '더 가까운 연세척의 위치 안내', icon: <MapPin size={26} />, href: '/about/location' },
+    ]
+  },
+  {
+    id: 'ube',
+    name: '양방향 척추내시경',
+    href: '/treatments/spine/ube',
+    subTitle: '절개를 최소화한 정밀 척추 치료',
+    items: [
+      { name: 'UBE 소개', desc: '두 개의 작은 통로로 접근하는 척추내시경 치료', icon: <Microscope size={26} />, href: '/treatments/spine/ube' },
+      { name: '치료 장점', desc: '정상 조직 손상을 줄이는 최소침습 접근', icon: <ShieldCheck size={26} />, href: '/treatments/spine/ube#benefits' },
+      { name: '적용 질환', desc: '디스크, 협착증 등 환자별 적응증 안내', icon: <Activity size={26} />, href: '/treatments/spine/ube#indications' },
+      { name: '치료 과정', desc: '진단부터 회복까지 단계별 치료 흐름', icon: <Stethoscope size={26} />, href: '/treatments/spine/ube#process' },
     ]
   },
   {
@@ -96,12 +109,25 @@ const MENU_DATA = [
   },
 ];
 
+const REPRESENTATIVE_PHONE = '051-935-1004';
+const NAVER_RESERVATION_URL = 'https://m.booking.naver.com/booking/13/search?query=%EC%97%B0%EC%84%B8%EC%B2%99%EB%B3%91%EC%9B%90';
+
+const CLINIC_HOURS = [
+  { label: '평일', time: '09:00 - 17:30', tone: 'text-primary' },
+  { label: '점심시간', time: '12:30 - 13:00', tone: 'text-ink-muted' },
+  { label: '토요일', time: '09:00 - 13:00', tone: 'text-ink-sub' },
+];
+
 const Header = () => {
   const pathname = usePathname();
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<SupabaseUser | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isHeaderHovered, setIsHeaderHovered] = useState(false);
   const isMenuOpen = activeMenu !== null;
+  const activeMenuData = MENU_DATA.find((menu) => menu.id === activeMenu);
+  const isHomePage = pathname === '/';
+  const isLightHeader = !isHomePage || isHeaderHovered || isMenuOpen || isMobileMenuOpen;
   
 
   const headerRef = useRef<HTMLDivElement>(null);
@@ -109,6 +135,74 @@ const Header = () => {
   
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const userMenuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const menuOpenTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const menuCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const clearMenuTimers = () => {
+    if (menuOpenTimeoutRef.current) {
+      clearTimeout(menuOpenTimeoutRef.current);
+      menuOpenTimeoutRef.current = null;
+    }
+    if (menuCloseTimeoutRef.current) {
+      clearTimeout(menuCloseTimeoutRef.current);
+      menuCloseTimeoutRef.current = null;
+    }
+  };
+
+  const openMegaMenu = (menuId: string) => {
+    if (menuCloseTimeoutRef.current) {
+      clearTimeout(menuCloseTimeoutRef.current);
+      menuCloseTimeoutRef.current = null;
+    }
+    if (menuOpenTimeoutRef.current) clearTimeout(menuOpenTimeoutRef.current);
+
+    menuOpenTimeoutRef.current = setTimeout(() => {
+      setActiveMenu(menuId);
+      menuOpenTimeoutRef.current = null;
+    }, activeMenu ? 80 : 180);
+  };
+
+  const openMegaMenuImmediately = (menuId: string) => {
+    clearMenuTimers();
+    setActiveMenu(menuId);
+  };
+
+  const closeMegaMenu = () => {
+    if (menuOpenTimeoutRef.current) {
+      clearTimeout(menuOpenTimeoutRef.current);
+      menuOpenTimeoutRef.current = null;
+    }
+    if (menuCloseTimeoutRef.current) clearTimeout(menuCloseTimeoutRef.current);
+
+    menuCloseTimeoutRef.current = setTimeout(() => {
+      setActiveMenu(null);
+      menuCloseTimeoutRef.current = null;
+    }, 240);
+  };
+
+  const closeMegaMenuImmediately = () => {
+    clearMenuTimers();
+    setActiveMenu(null);
+  };
+
+  const keepMegaMenuOpen = () => {
+    if (menuCloseTimeoutRef.current) {
+      clearTimeout(menuCloseTimeoutRef.current);
+      menuCloseTimeoutRef.current = null;
+    }
+  };
+
+  const handleHeaderBlur = (event: FocusEvent<HTMLElement>) => {
+    const nextTarget = event.relatedTarget as Node | null;
+    if (nextTarget && event.currentTarget.contains(nextTarget)) return;
+    closeMegaMenuImmediately();
+  };
+
+  const handleHeaderKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.key === 'Escape') {
+      closeMegaMenuImmediately();
+    }
+  };
 
   const handleUserMenuEnter = () => {
     if (userMenuTimeoutRef.current) clearTimeout(userMenuTimeoutRef.current);
@@ -135,6 +229,8 @@ const Header = () => {
     return () => {
       subscription.unsubscribe();
       if (userMenuTimeoutRef.current) clearTimeout(userMenuTimeoutRef.current);
+      if (menuOpenTimeoutRef.current) clearTimeout(menuOpenTimeoutRef.current);
+      if (menuCloseTimeoutRef.current) clearTimeout(menuCloseTimeoutRef.current);
     };
   }, [supabase]);
 
@@ -144,45 +240,73 @@ const Header = () => {
     <>
     <header 
       ref={headerRef} 
-      onMouseLeave={() => setActiveMenu(null)}
-      className={`fixed top-0 w-full z-[100] !bg-white transition-all duration-500 ${
-        isMenuOpen ? 'shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)]' : 'border-b border-slate-100 shadow-sm'
+      onMouseEnter={() => {
+        setIsHeaderHovered(true);
+        keepMegaMenuOpen();
+      }}
+      onMouseLeave={() => {
+        setIsHeaderHovered(false);
+        closeMegaMenu();
+      }}
+      onBlur={handleHeaderBlur}
+      onKeyDown={handleHeaderKeyDown}
+      className={`fixed top-0 w-full z-[100] backdrop-blur-xl transition-all duration-300 ${
+        isLightHeader
+          ? 'border-b border-slate-100 bg-white/95 shadow-sm'
+          : 'border-b border-white/10 bg-navy-950/75 shadow-none'
+      } ${
+        isMenuOpen ? 'shadow-[0_32px_70px_-32px_rgba(15,29,54,0.32)]' : ''
       }`}
     >
       {/* 🔝 Top GNB Bar */}
-      <div className="max-w-[1440px] mx-auto px-10 h-24 flex items-center justify-between !bg-white relative z-10">
+      <div className="max-w-[1540px] mx-auto px-7 xl:px-10 h-[72px] flex items-center justify-between relative z-10">
         {/* Logo Section */}
-        <Link href="/" className="flex items-center gap-3 lg:gap-4 shrink-0" onClick={() => setActiveMenu(null)}>
-          <div className="w-10 h-10 lg:w-12 lg:h-12 bg-primary rounded-xl lg:rounded-2xl flex items-center justify-center font-black text-white text-xl lg:text-2xl shadow-blue-glow transition-transform hover:scale-105 active:scale-95">Y</div>
-          <div className="flex flex-col -space-y-1">
-            <span className="text-xl lg:text-2xl font-black tracking-tighter text-navy-950">연세척병원</span>
-            <span className="text-[8px] lg:text-[10px] font-bold text-slate-400 tracking-[0.2em] uppercase">Severance Expertise Center</span>
-          </div>
+        <Link href="/" className="flex items-center shrink-0 transition-transform hover:scale-[1.03] active:scale-95" onClick={() => setActiveMenu(null)}>
+          <Image
+            src={isLightHeader ? '/ch-logo-color.png' : '/ch-logo-white.png'}
+            alt="연세척병원"
+            width={517}
+            height={144}
+            priority
+            className="h-9 lg:h-11 w-auto"
+          />
         </Link>
         
         {/* Main Navigation - Visible from 1100px */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-16">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-7 2xl:gap-10">
           {MENU_DATA.map((menu) => (
             <Link
               key={menu.id}
               href={menu.href}
-              onMouseEnter={() => setActiveMenu(menu.id)}
-              className="relative py-2 group"
+              onMouseEnter={() => openMegaMenu(menu.id)}
+              onFocus={() => openMegaMenuImmediately(menu.id)}
+              onClick={closeMegaMenuImmediately}
+              aria-haspopup="true"
+              aria-expanded={activeMenu === menu.id}
+              aria-controls={activeMenu === menu.id ? 'site-mega-menu' : undefined}
+              className="relative px-1 py-2 group"
             >
-              <motion.span
-                animate={{ 
-                  letterSpacing: isMenuOpen ? "0.05em" : "0em",
-                  color: activeMenu === menu.id ? "#0066FF" : (isMenuOpen ? "#0F1D36" : "#475569") 
-                }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[17px] xl:text-[20px] font-bold tracking-tight transition-colors group-hover:text-primary block whitespace-nowrap"
+              {activeMenu === menu.id && (
+                <motion.span
+                  layoutId="nav-active-pill"
+                  transition={{ type: 'spring', stiffness: 420, damping: 36 }}
+                  className="absolute inset-x-[-14px] inset-y-[-9px] rounded-full bg-primary/8"
+                />
+              )}
+              <span
+                  className={`relative z-10 text-[14px] xl:text-[15px] 2xl:text-[16px] font-bold tracking-tight transition-colors duration-200 block whitespace-nowrap ${
+                  activeMenu === menu.id ? 'text-primary' : isLightHeader ? 'text-ink' : 'text-white/92'
+                }`}
               >
                 {menu.name}
-              </motion.span>
-              <motion.span 
-                animate={{ width: activeMenu === menu.id ? "100%" : "0%" }}
-                className="absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 pointer-events-none" 
-              />
+              </span>
+              {activeMenu === menu.id && (
+                <motion.span
+                  layoutId="nav-active-line"
+                  transition={{ type: 'spring', stiffness: 420, damping: 36 }}
+                  className="absolute -bottom-5 left-0 right-0 h-0.5 rounded-full bg-primary"
+                />
+              )}
             </Link>
           ))}
         </nav>
@@ -192,8 +316,10 @@ const Header = () => {
           {user ? (
             <div className="flex items-center gap-4">
               <div className="hidden md:flex flex-col items-end -space-y-1">
-                <span className="text-[13px] font-black text-navy-950">{user.user_metadata?.full_name || '사용자'}님</span>
-                <span className="text-[10px] font-bold text-primary tracking-widest uppercase">Verified</span>
+                <span className={`text-[13px] font-black transition-colors ${
+                  isLightHeader ? 'text-ink' : 'text-white'
+                }`}>{user.user_metadata?.full_name || '사용자'}님</span>
+                <span className="text-[10px] font-bold text-primary tracking-widest font-montserrat uppercase">Verified</span>
               </div>
               <div 
                 className="relative"
@@ -204,7 +330,9 @@ const Header = () => {
                   {user.user_metadata?.avatar_url ? (
                     <img src={user.user_metadata.avatar_url} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400">
+                    <div className={`w-full h-full flex items-center justify-center transition-colors ${
+                      isLightHeader ? 'bg-slate-100 text-ink-muted' : 'bg-white/12 text-white'
+                    }`}>
                       <User size={20} />
                     </div>
                   )}
@@ -227,7 +355,7 @@ const Header = () => {
                             setUser(null); // 즉각적인 UI 반영
                             await signOut();
                           }}
-                          className="w-full flex items-center gap-3 px-4 py-3.5 text-slate-500 hover:text-red-500 hover:bg-red-50/80 rounded-[14px] transition-all font-bold text-sm text-left group/btn"
+                          className="w-full flex items-center gap-3 px-4 py-3.5 text-ink-muted hover:text-red-500 hover:bg-red-50/80 rounded-[14px] transition-all font-bold text-sm text-left group/btn"
                         >
                           <div className="w-8 h-8 rounded-lg bg-slate-50 group-hover/btn:bg-red-100/50 flex items-center justify-center transition-colors">
                             <LogOut size={16} className="group-hover/btn:scale-110 transition-transform" />
@@ -243,18 +371,24 @@ const Header = () => {
           ) : (
             <Link 
               href="/login" 
-              className="group flex items-center gap-2 lg:gap-3 px-4 lg:px-6 py-2.5 lg:py-3 bg-navy-950 text-white rounded-xl hover:bg-primary transition-all shadow-sm hover:shadow-blue-glow active:scale-95"
-              onClick={() => setActiveMenu(null)}
+              aria-label="로그인"
+              className={`flex h-11 w-11 items-center justify-center rounded-full transition-all active:scale-95 ${
+                isLightHeader
+                  ? 'text-ink hover:bg-primary-light hover:text-primary'
+                  : 'text-white/92 hover:bg-white/12 hover:text-white'
+              }`}
+              onClick={closeMegaMenuImmediately}
             >
-              <User size={18} strokeWidth={2.5} />
-              <span className="text-sm font-black tracking-tight whitespace-nowrap">로그인</span>
+              <User size={22} strokeWidth={2.4} />
             </Link>
           )}
 
           {/* Mobile Menu Toggle */}
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden w-11 h-11 flex items-center justify-center bg-slate-50 text-navy-950 rounded-xl hover:bg-slate-100 transition-colors"
+            className={`lg:hidden w-11 h-11 flex items-center justify-center rounded-xl transition-colors ${
+              isLightHeader ? 'bg-slate-50 text-ink hover:bg-slate-100' : 'bg-white/10 text-white hover:bg-white/18'
+            }`}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -263,67 +397,121 @@ const Header = () => {
 
       {/* 🚀 First Premium Mega Menu Restoration */}
       <AnimatePresence>
-        {isMenuOpen && (
+        {isMenuOpen && activeMenuData && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute top-24 left-0 w-full bg-white border-t border-slate-50 overflow-hidden shadow-2xl"
+            id="site-mega-menu"
+            initial={{ opacity: 0, y: -8, clipPath: 'inset(0 0 100% 0)' }}
+            animate={{ opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)' }}
+            exit={{ opacity: 0, y: -6, clipPath: 'inset(0 0 100% 0)' }}
+            transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute top-[72px] left-0 w-full overflow-hidden border-t border-slate-100 bg-white/95 shadow-[0_32px_80px_-34px_rgba(15,29,54,0.35)] backdrop-blur-xl"
           >
-            <div className="max-w-[1440px] mx-auto px-12 py-10">
-              {MENU_DATA.filter(m => m.id === activeMenu).map(active => (
-                <div key={active.id} className="grid grid-cols-12 gap-20">
-                  {/* Left Info Panel (Editorial Feel) */}
-                  <div className="col-span-4 space-y-6 animate-fade-in">
-                    <div className="space-y-4">
-                      <p className="text-primary font-bold text-[15px] tracking-[0.2em] uppercase border-l-4 border-primary pl-4">{active.name}</p>
-                      <motion.h3 
-                        initial={{ opacity: 0.2 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 2, ease: "easeInOut" }}
-                        className="text-5xl font-extrabold text-[#222222] tracking-tight leading-[1.3] whitespace-pre-line"
-                      >
-                        {active.subTitle}
-                      </motion.h3>
+            <div className="max-w-[1440px] mx-auto px-10 xl:px-12 py-5">
+              <motion.div
+                key={activeMenuData.id}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.18, ease: 'easeOut' }}
+                className="grid grid-cols-12 gap-8 xl:gap-12"
+              >
+                {/* Left Info Panel */}
+                <aside className="col-span-5 xl:col-span-4 pr-8 border-r border-slate-100">
+                  <div className="grid grid-cols-1 gap-2.5">
+                    <div className="rounded-lg border border-slate-100 bg-slate-50/80 p-4">
+                      <div className="text-[19px] font-black tracking-tight text-ink-muted">
+                        진료시간
+                      </div>
+                      <div className="mt-3 space-y-2.5">
+                        {CLINIC_HOURS.map((hour) => (
+                          <div key={hour.label} className="grid grid-cols-[108px_1fr] items-center gap-4">
+                            <span className={`text-[16px] font-black tracking-tight ${hour.tone}`}>
+                              {hour.label}
+                            </span>
+                            <span className="justify-self-end whitespace-nowrap text-[17px] font-black text-ink-sub tracking-tight tabular-nums">
+                              {hour.time}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
+
+                    <a
+                      href={`tel:${REPRESENTATIVE_PHONE.replace(/-/g, '')}`}
+                      className="group rounded-lg border border-slate-100 bg-white px-4 py-3.5 shadow-[0_18px_40px_-32px_rgba(15,29,54,0.35)] transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/20 hover:bg-primary/[0.03]"
+                    >
+                      <div className="flex items-center gap-2 text-[14px] font-black text-ink-muted">
+                        <Phone size={15} className="text-primary" />
+                        전화 문의
+                      </div>
+                      <p className="mt-2 whitespace-nowrap text-[25px] font-black leading-tight tracking-tight text-ink group-hover:text-primary">
+                        {REPRESENTATIVE_PHONE}
+                      </p>
+                    </a>
+
+                    <a
+                      href={NAVER_RESERVATION_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group rounded-lg border border-[#03C75A]/15 bg-[#03C75A] px-4 py-3.5 text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#02b451] hover:shadow-[0_18px_38px_-22px_rgba(3,199,90,0.9)]"
+                    >
+                      <div className="flex items-center gap-2 text-[15px] font-black text-white/85">
+                        <CalendarCheck size={18} />
+                        네이버 예약
+                      </div>
+                      <p className="mt-2 flex items-center gap-1 whitespace-nowrap text-[23px] font-black tracking-tight">
+                        바로가기
+                        <ChevronRight size={21} className="transition-transform duration-200 group-hover:translate-x-1" />
+                      </p>
+                    </a>
+                  </div>
+                </aside>
+
+                {/* Right Menu Icons Grid */}
+                <div className="col-span-7 xl:col-span-8 flex flex-col py-1">
+                  <div className="mb-4 flex items-end justify-between">
+                    <h3 className="text-[30px] font-black leading-none tracking-tight text-ink">
+                      {activeMenuData.name}
+                    </h3>
+                    <span className="hidden h-px flex-1 bg-slate-100 sm:ml-6 sm:block" />
                   </div>
 
-                  {/* Right Menu Icons Grid (The Core Content) */}
-                  <div className="col-span-8 grid grid-cols-2 gap-x-16 gap-y-12">
-                    {active.items.map((item, idx) => (
+                  <div className="grid grid-cols-2 gap-3 xl:gap-4">
+                    {activeMenuData.items.map((item, idx) => (
                       <motion.div
                         key={item.name}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: idx * 0.05 }}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: idx * 0.03, duration: 0.18, ease: 'easeOut' }}
                       >
                         <Link 
                           href={item.href}
-                          onClick={() => setActiveMenu(null)}
-                          className="group flex gap-8 p-8 -m-8 rounded-[2rem] hover:bg-slate-50/80 transition-all border border-transparent hover:border-slate-100/50"
+                          onClick={closeMegaMenuImmediately}
+                          className="group relative flex min-h-[104px] items-center gap-4 overflow-hidden rounded-lg border border-slate-100 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:bg-primary/[0.025] hover:shadow-[0_22px_48px_-34px_rgba(40,74,165,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                         >
-                          <div className="w-18 h-18 bg-white border border-slate-100 rounded-[1.5rem] flex items-center justify-center text-slate-400 group-hover:bg-primary group-hover:text-white group-hover:border-primary group-hover:shadow-blue-glow transition-all duration-500 shrink-0">
-                            {item.icon}
+                          <span className="absolute inset-y-4 left-0 w-1 rounded-r-full bg-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-slate-100 bg-slate-50 text-ink-muted transition-all duration-300 group-hover:scale-105 group-hover:border-primary group-hover:bg-primary group-hover:text-white group-hover:shadow-blue-glow">
+                            <span className="h-6 w-6 [&>svg]:h-full [&>svg]:w-full [&>svg]:stroke-[2.2]">
+                              {item.icon}
+                            </span>
                           </div>
-                          <div className="space-y-2 flex flex-col justify-center">
-                            <h4 className="text-[20px] font-bold text-[#222222] group-hover:text-primary transition-colors tracking-tight">
+                          <div className="min-w-0 flex-1">
+                            <h4 className="text-[18px] font-black text-ink tracking-tight transition-colors duration-200 group-hover:text-primary">
                               {item.name}
                             </h4>
-                            <p className="text-[15px] text-slate-400 font-medium leading-tight">
+                            <p className="mt-1 text-[14px] font-semibold leading-snug text-ink-muted">
                               {item.desc}
                             </p>
                           </div>
+                          <ChevronRight size={18} className="shrink-0 -translate-x-1 text-slate-300 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-primary group-hover:opacity-100" />
                         </Link>
                       </motion.div>
                     ))}
                   </div>
                 </div>
-              ))}
+              </motion.div>
             </div>
             
-            {/* Bottom Decorative Element */}
-            <div className="h-1.5 bg-gradient-to-r from-primary/5 via-primary to-primary/5 opacity-20" />
+            <div className="h-px bg-gradient-to-r from-transparent via-primary/35 to-transparent" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -338,10 +526,10 @@ const Header = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={() => {
-            setActiveMenu(null);
+            closeMegaMenuImmediately();
             setIsMobileMenuOpen(false);
           }}
-          className="fixed inset-0 bg-navy-950/20 backdrop-blur-[2px] z-[40]"
+          className="fixed inset-0 bg-navy-950/[0.16] backdrop-blur-[2px] z-[40]"
         />
       )}
     </AnimatePresence>
@@ -357,10 +545,10 @@ const Header = () => {
           className="fixed inset-y-0 right-0 w-[85%] max-w-sm bg-white z-[150] shadow-2xl flex flex-col"
         >
           <div className="p-8 flex items-center justify-between border-b border-slate-50">
-            <span className="text-xl font-black text-navy-950">전체메뉴</span>
+            <span className="text-xl font-black text-ink">전체메뉴</span>
             <button 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="w-10 h-10 flex items-center justify-center bg-slate-50 rounded-full text-slate-400"
+              className="w-10 h-10 flex items-center justify-center bg-slate-50 rounded-full text-ink-muted"
             >
               <X size={20} />
             </button>
@@ -375,7 +563,7 @@ const Header = () => {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50 transition-colors group"
                   >
-                    <span className="text-lg font-bold text-navy-950 group-hover:text-primary">{menu.name}</span>
+                    <span className="text-lg font-bold text-ink group-hover:text-primary">{menu.name}</span>
                     <ChevronRight size={18} className="text-slate-300 group-hover:text-primary transition-colors" />
                   </Link>
                   <div className="grid grid-cols-1 gap-1 pl-4">
@@ -384,7 +572,7 @@ const Header = () => {
                         key={item.name}
                         href={item.href}
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="p-3 text-[15px] font-medium text-slate-500 hover:text-primary transition-colors flex items-center gap-3"
+                        className="p-3 text-[15px] font-medium text-ink-muted hover:text-primary transition-colors flex items-center gap-3"
                       >
                         <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />
                         {item.name}
