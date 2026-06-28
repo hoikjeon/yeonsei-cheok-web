@@ -236,7 +236,7 @@ export default function Home() {
             </div>
             <div className="lg:col-span-7 pt-4">
               <p className="text-xl text-ink-muted leading-relaxed font-medium">
-                불필요한 과잉 진료는 지양하며, 첨단 MRI와 CT 등 대학병원급 장비를 통해 
+                불필요한 과잉 진료는 지양하며, 대학병원급 첨단 MRI 등 정밀 영상 장비를 통해
                 가장 정직하고 효과적인 치료 솔루션을 제시합니다.
               </p>
             </div>
@@ -320,7 +320,7 @@ export default function Home() {
               { 
                 label: 'Advanced Technology', 
                 title: '대학병원급 첨단 장비', 
-                desc: '최고 사양의 MRI 및 CT 장비를 도입하여 보이지 않는 통증의 원인까지 찾아냅니다.' 
+                desc: '최고 사양의 대학병원급 MRI와 디지털 영상 장비로 보이지 않는 통증의 원인까지 찾아냅니다.'
               },
               { 
                 label: 'Safety First', 

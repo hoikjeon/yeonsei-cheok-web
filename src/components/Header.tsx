@@ -41,8 +41,8 @@ const MENU_DATA = [
     subTitle: '연세척병원의 진심을 전합니다',
     items: [
       { name: '연세척병원 소개', desc: '환자 중심의 정직한 진료 원칙', icon: <ShieldCheck size={26} />, href: '/about' },
-      { name: '의료진 소개', desc: '세브란스 교수 출신의 전문의', icon: <UserCheck size={26} />, href: '/doctors' },
-      { name: '첨단 의료 장비', desc: '대학병원급 MRI, CT 시스템', icon: <Microscope size={26} />, href: '/about/equipment' },
+      { name: '의료진 소개', desc: '대학병원 교수 출신의 전문의', icon: <UserCheck size={26} />, href: '/doctors' },
+      { name: '첨단 의료 장비', desc: '대학병원급 MRI·디지털 X-ray 시스템', icon: <Microscope size={26} />, href: '/about/equipment' },
       { name: '오시는 길', desc: '더 가까운 연세척의 위치 안내', icon: <MapPin size={26} />, href: '/about/location' },
     ]
   },
@@ -91,7 +91,7 @@ const MENU_DATA = [
       { name: '공지사항', desc: '병원 운영 및 진료에 관한 주요 안내', icon: <Bell size={26} />, href: '/news/notice' },
       { name: '언론/방송 보도', desc: '다양한 매체에서 주목하는 의료 기술', icon: <MonitorPlay size={26} />, href: '/news/media' },
       { name: '연세척 학술의학', desc: '지속적인 연구와 논문 발표 실적', icon: <GraduationCap size={26} />, href: '/news/academic' },
-      { name: '척척 유튜브', desc: '전문의가 직접 알려주는 알기 쉬운 의학 정보', icon: <Video size={26} />, href: '/news/youtube' },
+      { name: '연세척tv', desc: '전문의가 직접 알려주는 알기 쉬운 의학 정보', icon: <Video size={26} />, href: '/news/youtube' },
       { name: '국제 트레이닝 센터', desc: '해외 의료진에게 전수하는 척추내시경 노하우', icon: <Globe2 size={26} />, href: '/news/training' },
     ]
   },

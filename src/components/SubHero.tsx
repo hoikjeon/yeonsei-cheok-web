@@ -43,7 +43,7 @@ const SubHero = ({ title, subtitle, path, bgImage }: SubHeroProps) => {
             <h1 className="text-5xl font-black text-white tracking-tight leading-tight">
               {title}
             </h1>
-            <p className="text-xl text-slate-300 font-medium max-w-2xl">
+            <p className="text-xl text-slate-300 font-medium max-w-2xl whitespace-pre-line">
               {subtitle}
             </p>
           </div>

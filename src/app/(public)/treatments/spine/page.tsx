@@ -54,7 +54,7 @@ export default function SpineCenterPage() {
             <div className="w-16 h-1.5 bg-primary rounded-full" />
             <p className="text-ink-muted leading-relaxed font-medium">
               연세척병원 척추센터는 연세대 세브란스 교수 출신의 전문 의료진이 
-              대학병원급 첨단 MRI, CT 장비를 활용하여 통증의 정확한 원인을 진단합니다. 
+              대학병원급 첨단 MRI 등 정밀 영상 장비를 활용하여 통증의 정확한 원인을 진단합니다.
               불필요한 수술은 하지 않으며, 환자에게 가장 안전하고 효과적인 
               치료법을 우선적으로 제안합니다.
             </p>

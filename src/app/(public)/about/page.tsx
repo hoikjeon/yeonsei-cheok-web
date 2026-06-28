@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { Handshake, Route, ScanSearch, Syringe } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
 import SubHero from '@/components/SubHero';
+import TreatmentStepGraph from '@/components/TreatmentStepGraph';
 
 const INTRO_SECTIONS = [
   {
@@ -9,11 +10,9 @@ const INTRO_SECTIONS = [
     image: '/generated/hero-university-doctors.png',
     imageAlt: '척추 진료 상담을 진행하는 의료진과 환자',
     paragraphs: [
-      '안녕하십니까. 연세척병원을 찾아주신 여러분을 진심으로 환영합니다.',
-      '척추와 관절의 통증은 일상의 작은 움직임까지 무겁게 만듭니다. 오랜 진료를 통해 저는, 같은 진단명이라도 환자마다 통증의 원인과 생활 환경이 다르다는 것을 늘 마주합니다. 그래서 연세척병원은 치료에 앞서 \'정확한 진단\'을 가장 중요하게 생각합니다.',
-      '저희는 무리한 치료보다 환자에게 꼭 필요한 치료를 우선합니다. 비수술적 방법으로 호전될 수 있다면 그 방법을 먼저 권해 드리고, 수술이 필요한 경우에도 몸의 부담을 줄이기 위해 절개를 최소화하는 양방향척추내시경(UBE) 등 최소침습 치료를 지향합니다.',
-      '무엇보다 환자와의 소통을 소중히 여깁니다. 진단 결과와 치료 과정을 알기 쉽게 설명해 드리고, 치료의 방향을 함께 정해 나가겠습니다. 부산 시민 여러분이 통증에서 벗어나 건강한 일상으로 돌아가실 수 있도록, 정직하고 신중한 진료로 함께하겠습니다.',
-      '감사합니다.',
+      '연세척병원은 환자마다 각기 다른 통증의 원인과 생활 환경을 세심하게 고려하여 **정확한 진단**을 내리는 것을 최우선으로 삼고 있습니다.',
+      '무리한 접근보다는 환자에게 꼭 필요한 **비수술적 치료를 먼저** 권해 드리며, 수술이 불가피한 경우에도 **양방향척추내시경(UBE)**과 같은 **최소침습 방식**으로 신체적 부담을 최소화하고자 합니다.',
+      '아울러 진단 결과와 치료 과정을 알기 쉽게 설명하고 환자와 함께 치료 방향을 결정하는 **열린 소통**을 바탕으로, 부산 시민 여러분이 통증에서 벗어나 **건강한 일상**을 되찾으실 수 있도록 정직하고 신중하게 진료하겠습니다.',
     ],
     signature: '연세척병원 병원장 드림',
   },
@@ -22,12 +21,24 @@ const INTRO_SECTIONS = [
     image: '/generated/specialty-spine-endoscopy.png',
     imageAlt: '양방향척추내시경 장비와 척추 영상',
     paragraphs: [
-      '연세척병원은 부산 부산진구 당감동에 자리한 척추·관절 중점 병원입니다. 신경외과와 정형외과 전문의가 함께 진료하며, 허리디스크·목디스크·척추관협착증 등 척추 질환부터 무릎·어깨 등 관절 질환까지 폭넓게 살핍니다.',
-      '저희는 통증의 원인을 정확히 찾는 진단을 가장 먼저 생각합니다. 도수치료·주사 치료 같은 비수술적 방법을 우선 검토하고, 수술이 필요한 경우에는 절개를 최소화하는 양방향척추내시경(UBE)을 비롯한 최소침습 치료를 지향합니다. 양방향척추내시경은 두 개의 작은 통로로 내시경과 수술기구를 각각 넣어, 정상 조직과 근육의 손상을 줄이면서 병변에 정밀하게 접근하는 방식입니다.',
-      '연세척병원은 진단 결과와 치료 방법을 환자가 충분히 이해하도록 설명하고, 치료 방향을 함께 결정합니다. 부산 시민의 건강한 일상을 위해, 꼭 필요한 치료를 정직하게 제안하는 병원이 되겠습니다.',
+      '연세척병원은 부산 부산진구 당감동에 자리한 **척추·관절 중점 병원**입니다. **신경외과와 정형외과 전문의**가 함께 진료하며, 허리디스크·목디스크·척추관협착증 등 척추 질환부터 무릎·어깨 등 관절 질환까지 폭넓게 살핍니다.',
+      '저희는 통증의 원인을 정확히 찾는 **진단을 가장 먼저** 생각합니다. 도수치료·주사 치료 같은 **비수술적 방법을 우선** 검토하고, 수술이 필요한 경우에는 절개를 최소화하는 **양방향척추내시경(UBE)**을 비롯한 최소침습 치료를 지향합니다.',
+      '연세척병원은 진단 결과와 치료 방법을 환자가 충분히 이해하도록 설명하고, **치료 방향을 함께 결정**합니다. 부산 시민의 건강한 일상을 위해, **꼭 필요한 치료를 정직하게** 제안하는 병원이 되겠습니다.',
     ],
   },
 ];
+
+function renderRichText(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, index) =>
+    part.startsWith('**') && part.endsWith('**') ? (
+      <strong key={index} className="font-bold text-ink">
+        {part.slice(2, -2)}
+      </strong>
+    ) : (
+      part
+    ),
+  );
+}
 
 const VALUE_ITEMS = [
   {
@@ -57,7 +68,7 @@ export default function AboutPage() {
     <div className="flex flex-col bg-white">
       <SubHero
         title="병원소개"
-        subtitle="절개를 최소화한 양방향척추내시경(UBE)을 중심으로, 부산에서 척추와 관절을 함께 살피는 중점 병원입니다."
+        subtitle={'절개를 최소화한 양방향척추내시경(UBE)을 중심으로,\n부산에서 척추와 관절을 함께 살피는 중점 병원입니다.'}
         path={[{ name: '병원소개', href: '/about' }, { name: '연세척병원 소개' }]}
         bgImage="/generated/hero-hospital-exterior.png"
       />
@@ -95,9 +106,9 @@ export default function AboutPage() {
                     <div className="h-1 w-14 rounded-full bg-primary" />
                   </ScrollReveal>
 
-                  <ScrollReveal className="space-y-5 text-[17px] font-medium leading-[1.9] text-ink-sub md:text-lg" delay={0.16}>
+                  <ScrollReveal className="space-y-6 text-[17px] font-medium leading-[2] text-ink-sub md:text-lg" delay={0.16}>
                     {section.paragraphs.map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
+                      <p key={paragraph}>{renderRichText(paragraph)}</p>
                     ))}
                   </ScrollReveal>
 
@@ -112,15 +123,34 @@ export default function AboutPage() {
           </div>
         </div>
 
+        <section className="border-t border-slate-100 bg-white px-6 py-20 md:py-28">
+          <div className="mx-auto max-w-7xl">
+            <ScrollReveal className="mx-auto mb-12 max-w-3xl text-center md:mb-14">
+              <p className="font-montserrat text-sm font-extrabold uppercase tracking-[0.34em] text-primary/75">
+                Mission &amp; Vision
+              </p>
+              <h2 className="mt-5 text-4xl font-black leading-tight tracking-tight text-ink md:text-5xl">
+                연세척의 단계적 치료 원칙
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-lg font-medium leading-relaxed text-ink-sub">
+                척추·관절 치료는 처음부터 끝까지 환자 상태에 맞춰 필요한 방향을 차근히 확인합니다.
+              </p>
+            </ScrollReveal>
+
+            <TreatmentStepGraph />
+          </div>
+        </section>
+
         <section className="border-y border-slate-100 bg-slate-50/70 px-6 py-20 md:py-28">
           <div className="mx-auto max-w-7xl">
-            <ScrollReveal className="mb-14 grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:items-end">
-              <div className="space-y-5">
-                <h2 className="text-4xl font-black leading-tight tracking-tight text-ink md:text-5xl">
-                  병원이 지키는 가치
-                </h2>
-              </div>
-              <p className="max-w-2xl text-lg font-medium leading-relaxed text-ink-sub lg:justify-self-end">
+            <ScrollReveal className="mx-auto mb-12 max-w-3xl text-center md:mb-14">
+              <p className="font-montserrat text-sm font-extrabold uppercase tracking-[0.34em] text-primary/75">
+                Core Values
+              </p>
+              <h2 className="mt-5 text-4xl font-black leading-tight tracking-tight text-ink md:text-5xl">
+                연세척병원이 지키는 가치
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-lg font-medium leading-relaxed text-ink-sub">
                 연세척병원은 진료의 속도보다 정확함을, 치료의 크기보다 꼭 필요한 방향을 먼저 생각합니다.
               </p>
             </ScrollReveal>
