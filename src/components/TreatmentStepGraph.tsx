@@ -44,7 +44,7 @@ const TREATMENT_STEPS = [
 
 const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const ARROW_REVEAL_DELAY = 1.72;
-const ARROW_DRAW_DURATION = 1.05;
+const ARROW_DRAW_DURATION = 0.98;
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -87,13 +87,14 @@ const arrowLineVariants: Variants = {
 };
 
 const arrowHeadVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.72 },
+  hidden: { opacity: 0, x: -8, y: 2 },
   visible: {
     opacity: 1,
-    scale: 1,
+    x: 0,
+    y: 0,
     transition: {
-      duration: 0.34,
-      delay: ARROW_REVEAL_DELAY + ARROW_DRAW_DURATION - 0.04,
+      duration: 0.24,
+      delay: ARROW_REVEAL_DELAY + ARROW_DRAW_DURATION - 0.18,
       ease: EASE_OUT,
     },
   },
@@ -161,7 +162,7 @@ const TreatmentStepGraph = () => {
             aria-hidden="true"
           >
             <motion.path
-              d="M 230 320 L 940 105"
+              d="M 230 320 L 918 112"
               fill="none"
               stroke="#FFFFFF"
               strokeWidth="3"
@@ -169,18 +170,12 @@ const TreatmentStepGraph = () => {
               style={{ filter: 'drop-shadow(0 1px 2px rgba(15, 23, 42, 0.18))' }}
               variants={arrowLineVariants}
             />
-            <g transform="translate(940 105) rotate(-16.85)">
-              <motion.path
-                d="M 0 0 L -30 -12 L -24 0 L -30 12 Z"
-                fill="#FFFFFF"
-                style={{
-                  filter: 'drop-shadow(0 1px 2px rgba(15, 23, 42, 0.18))',
-                  transformBox: 'fill-box',
-                  transformOrigin: '100% 50%',
-                }}
-                variants={arrowHeadVariants}
-              />
-            </g>
+            <motion.path
+              d="M 940 105 L 903 100 L 918 112 L 914 130 Z"
+              fill="#FFFFFF"
+              style={{ filter: 'drop-shadow(0 1px 2px rgba(15, 23, 42, 0.18))' }}
+              variants={arrowHeadVariants}
+            />
           </motion.svg>
 
           <motion.p
