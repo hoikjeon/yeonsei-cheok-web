@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   ChevronRight,
@@ -77,6 +78,41 @@ const specializedPrograms = [
   },
 ];
 
+const dailyCareSlides = [
+  {
+    point: 'POINT 1',
+    title: '세분화된 전문 클리닉',
+    desc: '통증의 원인부터 기능 회복까지, 분야별 정밀 클리닉을 운영하고 있습니다. 질환별로 특화된 진료 시스템을 통해 근본적인 문제를 정확히 진단하고 효과적인 회복을 이끕니다.',
+    tags: ['척추통증', '관절통증', '도수재활'],
+    image: '/generated/ys-daily-care-consultation.png',
+    imageAlt: '연세척병원 전문의가 환자와 상담하는 장면',
+  },
+  {
+    point: 'POINT 2',
+    title: '검사부터 진단까지 정확하게',
+    desc: '대학병원급 영상 장비와 숙련된 의료진의 판독을 바탕으로 통증의 원인을 세밀하게 확인합니다. 필요한 치료만 제안하는 정직한 진료를 지향합니다.',
+    tags: ['정밀검사', 'MRI 판독', '맞춤진단'],
+    image: '/generated/ys-daily-care-diagnosis.png',
+    imageAlt: '의료진이 척추 MRI 영상을 확인하는 장면',
+  },
+  {
+    point: 'POINT 3',
+    title: '비수술 치료와 재활의 연결',
+    desc: '주사치료, 도수치료, 재활운동을 환자 상태에 맞게 연결해 일상 복귀의 부담을 낮춥니다. 치료 후 회복 과정까지 꼼꼼하게 살핍니다.',
+    tags: ['비수술치료', '재활운동', '통증관리'],
+    image: '/generated/ys-daily-care-rehab.png',
+    imageAlt: '재활 치료사가 환자의 어깨 운동을 돕는 장면',
+  },
+  {
+    point: 'POINT 4',
+    title: '일상으로 돌아가는 따뜻한 동행',
+    desc: '진료실을 나선 뒤에도 환자분의 내일이 흔들리지 않도록 회복 여정을 함께합니다. 작은 변화까지 살피는 마음으로 건강한 일상을 응원합니다.',
+    tags: ['회복관리', '생활복귀', '안심동행'],
+    image: '/generated/ys-daily-care-recovery.png',
+    imageAlt: '의료진이 환자와 함께 병원 복도를 걷는 장면',
+  },
+];
+
 const quickAccessItems = [
   {
     title: '진료일정',
@@ -112,7 +148,10 @@ const quickAccessItems = [
 
 export default function Home() {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [activeCareIndex, setActiveCareIndex] = useState(1);
   const activeSlide = heroSlides[activeSlideIndex];
+  const activeCareSlide = dailyCareSlides[activeCareIndex];
+  const previewCareSlide = dailyCareSlides[(activeCareIndex + 1) % dailyCareSlides.length];
 
   const showPreviousSlide = () => {
     setActiveSlideIndex((current) => (current === 0 ? heroSlides.length - 1 : current - 1));
@@ -120,6 +159,14 @@ export default function Home() {
 
   const showNextSlide = () => {
     setActiveSlideIndex((current) => (current + 1) % heroSlides.length);
+  };
+
+  const showPreviousCareSlide = () => {
+    setActiveCareIndex((current) => (current === 0 ? dailyCareSlides.length - 1 : current - 1));
+  };
+
+  const showNextCareSlide = () => {
+    setActiveCareIndex((current) => (current + 1) % dailyCareSlides.length);
   };
 
   useEffect(() => {
@@ -238,6 +285,108 @@ export default function Home() {
                 </Link>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Daily Care Promise Section */}
+      <section className="relative overflow-hidden bg-white px-6 py-24 md:py-32">
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <div className="max-w-4xl">
+            <h2 className="text-[34px] font-black leading-[1.26] tracking-tight text-[#123f86] md:text-[54px]">
+              모두의 일상이 흔들림 없이 바로 설 수 있도록
+              <br />
+              깊이 있는 진료로 함께합니다.
+            </h2>
+            <p className="mt-10 max-w-3xl text-[16px] font-bold leading-[1.85] text-[#1f2937] md:text-[18px]">
+              환자 한 분 한 분의 건강한 내일을 위해 세심하고 정확한 진료를 약속합니다.
+              <br className="hidden md:block" />
+              연세척병원만의 차별화된 전문성과 따뜻한 마음을 만나보세요.
+            </p>
+          </div>
+        </div>
+
+        <div className="relative z-10 mx-auto mt-24 max-w-7xl md:mt-28">
+          <div className="relative min-h-[500px] overflow-visible lg:min-h-[500px]">
+            <div
+              className="pointer-events-none absolute right-[-250px] top-1/2 hidden h-[420px] w-[420px] -translate-y-1/2 overflow-hidden rounded-full bg-slate-100 opacity-25 xl:block 2xl:right-[-320px] 2xl:h-[520px] 2xl:w-[520px]"
+              aria-hidden="true"
+            >
+              <Image
+                src={previewCareSlide.image}
+                alt=""
+                fill
+                sizes="620px"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-white/35" />
+            </div>
+
+            <div className="relative z-10 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,600px)_minmax(0,430px)] lg:items-center lg:gap-[72px] xl:grid-cols-[minmax(0,620px)_minmax(0,450px)] xl:gap-[88px]">
+              <div className="relative aspect-[1.34/1] min-h-[320px] overflow-hidden rounded-[36px] bg-slate-100 shadow-[0_44px_120px_-86px_rgba(15,29,54,0.65)] md:min-h-[420px] lg:h-[462px]">
+                <Image
+                  src={activeCareSlide.image}
+                  alt={activeCareSlide.imageAlt}
+                  fill
+                  sizes="(min-width: 1280px) 620px, (min-width: 1024px) 48vw, 92vw"
+                  className="object-cover"
+                  priority={activeCareIndex === 0}
+                />
+                <div className="absolute inset-0 bg-white/20" />
+              </div>
+
+              <article className="space-y-12 lg:-translate-y-4">
+                <div className="flex items-center gap-4">
+                  <button
+                    type="button"
+                    onClick={showPreviousCareSlide}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/0 text-ink"
+                    aria-label="이전 진료 약속 보기"
+                  >
+                    <ChevronRight size={20} className="rotate-180" />
+                  </button>
+                  <div className="flex items-center gap-4 font-montserrat text-[16px] font-black tracking-widest">
+                    <span className="text-ink">{String(activeCareIndex + 1).padStart(2, '0')}</span>
+                    <span className="h-1 w-1 rounded-full bg-slate-400/50" />
+                    <span className="text-slate-400">{String(dailyCareSlides.length).padStart(2, '0')}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={showNextCareSlide}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/0 text-ink"
+                    aria-label="다음 진료 약속 보기"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
+
+                <div className="space-y-7">
+                  <div className="flex flex-wrap items-center gap-5">
+                    <span className="rounded-full bg-[#102f66] px-5 py-2 text-[14px] font-black tracking-tight text-white">
+                      {activeCareSlide.point}
+                    </span>
+                    <h3 className="text-[25px] font-black leading-tight tracking-tight text-ink md:text-[32px]">
+                      {activeCareSlide.title}
+                    </h3>
+                  </div>
+
+                  <p className="max-w-md text-[15px] font-semibold leading-[1.85] text-ink-sub md:text-[16px]">
+                    {activeCareSlide.desc}
+                  </p>
+
+                  <div className="flex flex-wrap gap-3">
+                    {activeCareSlide.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-slate-200 bg-white px-4 py-2 text-[13px] font-bold text-ink-sub shadow-[0_10px_28px_-24px_rgba(15,29,54,0.35)]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
       </section>
