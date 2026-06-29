@@ -1,8 +1,7 @@
-import React from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Home, ChevronRight, Search, PenSquare } from 'lucide-react';
+import { Search, PenSquare } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
+import SubHero from '@/components/SubHero';
 
 // 서버 사이드에서 데이터 페칭을 위해 클라이언트 생성
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -32,40 +31,19 @@ export default async function ReviewsPage() {
   const reviewsCount = reviews?.length || 0;
 
   return (
-    <main className="min-h-screen bg-slate-50 pt-[96px]">
-      {/* 🔹 Top Hero / Breadcrumb Section */}
-      <section className="bg-slate-50 border-b border-slate-200">
-        <div className="max-w-[1440px] mx-auto px-10 py-16">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-[14px] text-ink-muted font-bold tracking-tight mb-10">
-            <Link href="/" className="hover:text-primary transition-colors">
-              <Home size={16} strokeWidth={2.5} />
-            </Link>
-            <ChevronRight size={14} strokeWidth={2.5} />
-            <span className="hover:text-primary transition-colors cursor-pointer">커뮤니티</span>
-            <ChevronRight size={14} strokeWidth={2.5} />
-            <span className="text-ink">치료체험후기</span>
-          </div>
-
-          <h1 className="text-[48px] md:text-[56px] font-black text-ink tracking-tighter">
-            치료체험후기
-          </h1>
-        </div>
-      </section>
+    <main className="min-h-screen bg-slate-50">
+      <SubHero
+        title="치료체험후기"
+        subtitle={'환자분들이 써주신 회복의 기록\n고객님이 직접 참여하시고 작성하신 100% 리얼 후기입니다.'}
+        path={[{ name: '커뮤니티' }, { name: '치료체험후기' }]}
+        bgImage="/hero-bg.png"
+      />
 
       {/* 🔹 Main Content Area */}
       <section className="bg-white">
         <div className="max-w-[1440px] mx-auto px-10 py-24 border-x border-slate-50 min-h-[800px] shadow-sm">
-          {/* Main Title & Login Notice */}
-          <div className="mb-24">
-            <h2 className="text-[40px] font-black leading-[1.3] text-ink tracking-tighter whitespace-pre-line mb-6">
-              {'환자분들이 써주신\n회복의 기록'}
-            </h2>
-            <p className="text-ink-sub text-[18px] font-bold tracking-tight">
-              고객님이 직접 참여하시고 작성하신 100% 리얼 후기입니다.
-            </p>
-            
-            <div className="mt-12 flex items-center gap-5">
+          <div className="mb-16">
+            <div className="flex items-center gap-5">
               <span className="text-[15px] font-bold text-ink-muted flex items-center gap-1.5 tracking-tight">
                 <strong className="text-ink text-[16px]">※</strong> 의료법 규정에 따라 자세한 내용은 로그인 후 확인할 수 있습니다.
               </span>

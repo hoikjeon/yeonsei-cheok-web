@@ -1,7 +1,7 @@
-import React from 'react';
 import Link from 'next/link';
-import { Home, ChevronRight, Search, PenSquare, PlayCircle, Newspaper } from 'lucide-react';
+import { ChevronRight, Search, PenSquare, PlayCircle, Newspaper } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
+import SubHero from '@/components/SubHero';
 
 // 서버 사이드 Supabase 클라이언트
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -33,38 +33,17 @@ export default async function MediaPage() {
   const newsCount = news?.length || 0;
 
   return (
-    <main className="min-h-screen bg-slate-50 pt-[96px]">
-      {/* 🔹 Top Hero Section */}
-      <section className="bg-slate-50 border-b border-slate-200">
-        <div className="max-w-[1440px] mx-auto px-10 py-16">
-          <div className="flex items-center gap-2 text-[14px] text-ink-muted font-bold tracking-tight mb-10">
-            <Link href="/" className="hover:text-primary transition-colors">
-              <Home size={16} strokeWidth={2.5} />
-            </Link>
-            <ChevronRight size={14} strokeWidth={2.5} />
-            <span className="text-ink-muted">병원소식</span>
-            <ChevronRight size={14} strokeWidth={2.5} />
-            <span className="text-ink">방송보도 및 언론기사</span>
-          </div>
-
-          <h1 className="text-[48px] md:text-[56px] font-black text-ink tracking-tighter">
-            방송보도 및 언론기사
-          </h1>
-        </div>
-      </section>
+    <main className="min-h-screen bg-slate-50">
+      <SubHero
+        title="방송보도 및 언론기사"
+        subtitle={'언론이 주목하는 연세척병원\n연세척병원의 전문성과 진심 어린 진료 소식을 전합니다.'}
+        path={[{ name: '병원소식' }, { name: '방송보도 및 언론기사' }]}
+        bgImage="/hero-bg.png"
+      />
 
       {/* 🔹 List Area */}
       <section className="bg-white">
         <div className="max-w-[1440px] mx-auto px-10 py-24 border-x border-slate-50 min-h-[800px] shadow-sm">
-          <div className="mb-20">
-            <h2 className="text-[36px] font-black leading-[1.3] text-ink tracking-tighter mb-4">
-              언론이 주목하는 연세척병원
-            </h2>
-            <p className="text-ink-muted text-[18px] font-bold tracking-tight">
-              연세척병원의 전문성과 진심 어린 진료 소식을 전합니다.
-            </p>
-          </div>
-
           <div className="space-y-8">
             {/* Search & Tool Bar */}
             <div className="flex justify-between items-end border-b-2 border-slate-200 pb-5">

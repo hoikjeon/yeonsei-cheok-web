@@ -1,11 +1,18 @@
-import React from 'react';
 import Link from 'next/link';
-import { Home, ChevronRight, Search, PenSquare, Globe2, GraduationCap } from 'lucide-react';
+import { ChevronRight, Search, PenSquare, Globe2, GraduationCap } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
+import SubHero from '@/components/SubHero';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+interface HospitalNews {
+  id: string;
+  title: string;
+  image_urls?: string[];
+  created_at: string;
+}
 
 export default async function TrainingPage() {
   const { data: news, error } = await supabase
@@ -18,27 +25,16 @@ export default async function TrainingPage() {
   const newsCount = news?.length || 0;
 
   return (
-    <main className="min-h-screen bg-slate-50 pt-[96px]">
-      <section className="bg-slate-50 border-b border-slate-200">
-        <div className="max-w-[1440px] mx-auto px-10 py-16">
-          <div className="flex items-center gap-2 text-[14px] text-ink-muted font-bold tracking-tight mb-10">
-            <Link href="/" className="hover:text-primary transition-colors"><Home size={16} strokeWidth={2.5} /></Link>
-            <ChevronRight size={14} strokeWidth={2.5} />
-            <span className="text-ink-muted">병원소식</span>
-            <ChevronRight size={14} strokeWidth={2.5} />
-            <span className="text-ink">국제 척추내시경 트레이닝 센터</span>
-          </div>
-          <h1 className="text-[48px] md:text-[56px] font-black text-ink tracking-tighter leading-tight">국제 척추내시경<br />트레이닝 센터</h1>
-        </div>
-      </section>
+    <main className="min-h-screen bg-slate-50">
+      <SubHero
+        title="국제 척추내시경 트레이닝 센터"
+        subtitle={'세계로 뻗어나가는 연세척의 의료 기술\n국내외 의료진을 대상으로 한 척추 내시경 교육 및 교류 소식입니다.'}
+        path={[{ name: '병원소식' }, { name: '국제 척추내시경 트레이닝 센터' }]}
+        bgImage="/hero-bg.png"
+      />
 
       <section className="bg-white">
         <div className="max-w-[1440px] mx-auto px-10 py-24 border-x border-slate-50 min-h-[800px]">
-          <div className="mb-20">
-            <h2 className="text-[36px] font-black leading-[1.3] text-ink tracking-tighter mb-4">세계로 뻗어나가는 연세척의 의료 기술</h2>
-            <p className="text-ink-muted text-[18px] font-bold tracking-tight">국내외 의료진을 대상으로 한 척추 내시경 교육 및 교류 소식입니다.</p>
-          </div>
-
           <div className="space-y-8">
             <div className="flex justify-between items-end border-b-2 border-slate-200 pb-5">
               <div className="text-[16px] font-bold text-ink-muted">총 <strong className="text-ink font-black text-[18px]">{newsCount}</strong>건</div>
@@ -50,7 +46,7 @@ export default async function TrainingPage() {
 
             {newsCount > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 py-10">
-                {news?.map((item: any) => (
+                {news?.map((item: HospitalNews) => (
                   <Link href={`/news/training/${item.id}`} key={item.id} className="group flex flex-col bg-white rounded-[2rem] overflow-hidden border border-slate-100 hover:border-primary/20 hover:shadow-2xl transition-all duration-500">
                     <div className="aspect-[4/3] bg-slate-100 relative overflow-hidden">
                       {item.image_urls?.[0] ? <img src={item.image_urls[0]} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" /> : <div className="w-full h-full flex items-center justify-center text-slate-300"><Globe2 size={60} strokeWidth={1} /></div>}

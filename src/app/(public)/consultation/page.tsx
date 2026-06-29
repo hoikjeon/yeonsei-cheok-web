@@ -1,30 +1,34 @@
 'use client';
 
 import SubHero from '@/components/SubHero';
-import { useState, useEffect } from 'react';
+import ConsultationDatePicker from '@/components/ConsultationDatePicker';
+import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
-
-const DOCTORS_BY_SPECIALTY = {
-  '척추외과(신경외과)': ['이남', '김동한'],
-  '정형외과': ['최호']
-};
+import {
+  CONSULTATION_TOPICS,
+  MARKETING_CONSENT_TEXT,
+  PRIVACY_CONSENT_TEXT,
+} from '@/lib/consultationForm';
+import { submitConsultation } from '@/lib/submitConsultation';
 
 export default function ConsultationPage() {
   const [formData, setFormData] = useState({
+    consultationType: '',
+    preferredDate: '',
     name: '',
     phone: '',
     message: ''
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [isAgreed, setIsAgreed] = useState(false);
+  const [isMarketingAgreed, setIsMarketingAgreed] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.phone || !formData.message) {
-      alert('필수 정보(이름, 연락처, 상담내용)를 모두 입력해 주세요.');
+    if (!formData.consultationType || !formData.preferredDate || !formData.name || !formData.phone || !formData.message) {
+      alert('필수 정보(상담내용, 희망 날짜, 이름, 연락처, 상담 내용)를 모두 입력해 주세요.');
       return;
     }
 
@@ -36,31 +40,32 @@ export default function ConsultationPage() {
     setIsSubmitting(true);
     
     try {
-      const { error } = await supabase
-        .from('consultations')
-        .insert([
-          {
-            name: formData.name,
-            phone: formData.phone,
-            message: formData.message,
-            created_at: new Date().toISOString()
-          }
-        ]);
+      const { error } = await submitConsultation(supabase, {
+        name: formData.name,
+        phone: formData.phone,
+        message: formData.message,
+        consultationType: formData.consultationType,
+        preferredDate: formData.preferredDate,
+        marketingAgreed: isMarketingAgreed,
+      });
 
       if (error) {
-        throw error;
+        throw new Error(error);
       }
 
-      setIsSuccess(true);
       setFormData({ 
+        consultationType: '',
+        preferredDate: '',
         name: '', 
         phone: '', 
         message: ''
       });
       setIsAgreed(false);
+      setIsMarketingAgreed(false);
       alert('상담 신청이 완료되었습니다. 담당 전문의 확인 후 성심성의껏 답변드리겠습니다.');
-    } catch (error: any) {
-      console.error('Error submitting consultation:', error.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : '알 수 없는 오류';
+      console.error('Error submitting consultation:', message);
       alert('상담 등록 중 오류가 발생했습니다. 다시 시도해 주시기 바랍니다.');
     } finally {
       setIsSubmitting(false);
@@ -93,6 +98,37 @@ export default function ConsultationPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-10">
+              <div className="space-y-8 p-8 bg-slate-50 rounded-2xl border border-slate-100">
+                <h3 className="text-lg font-bold text-ink border-b border-slate-200 pb-3">상담 정보</h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <label className="text-sm font-bold text-ink-sub">상담내용 <span className="text-red-500">*</span></label>
+                    <select
+                      name="consultationType"
+                      value={formData.consultationType}
+                      onChange={handleInputChange}
+                      className="w-full px-5 py-4 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-primary transition-all text-ink font-medium"
+                      required
+                    >
+                      <option value="">상담내용을 선택해 주세요</option>
+                      {CONSULTATION_TOPICS.map((topic) => (
+                        <option key={topic} value={topic}>{topic}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-3">
+                    <label className="text-sm font-bold text-ink-sub">희망 날짜 <span className="text-red-500">*</span></label>
+                    <ConsultationDatePicker
+                      value={formData.preferredDate}
+                      onChange={(value) => setFormData((prev) => ({ ...prev, preferredDate: value }))}
+                      variant="light"
+                      placeholder="희망 날짜를 선택해 주세요"
+                    />
+                  </div>
+                </div>
+              </div>
               
               {/* === 기본 정보 입력 === */}
               <div className="space-y-8 p-8 bg-slate-50 rounded-2xl border border-slate-100">
@@ -145,38 +181,8 @@ export default function ConsultationPage() {
               {/* === 개인정보 처리방침 === */}
               <div className="space-y-4 pt-4 border-t border-slate-100">
                 <label className="text-sm font-bold text-ink-sub">개인정보 수집 및 이용 동의 <span className="text-red-500">*</span></label>
-                <div className="h-48 overflow-y-auto p-5 bg-slate-50 border border-slate-200 rounded-xl text-[13px] text-ink-sub leading-relaxed font-medium">
-                  <h4 className="font-bold text-ink mb-2">개인정보의 수집 및 이용목적</h4>
-                  <p className="mb-4">
-                    연세척병원은 수집한 개인정보를 다음의 목적을 위해 활용합니다. 이용자가 제공한 모든 정보는 하기 목적에 필요한 용도 이외로는 사용되지 않으며 이용 목적이 변경될 시에는 사전 동의를 구할 것입니다.
-                  </p>
-                  
-                  <h5 className="font-bold text-ink mb-1">[ 홈페이지 회원정보 ]</h5>
-                  <ul className="list-disc pl-4 mb-4 space-y-1">
-                    <li>필수정보: 홈페이지를 통한 진료 예약, 회원제 서비스 제공</li>
-                    <li>선택정보: 이메일을 통한 병원소식, 질병정보 등의 안내, 설문조사</li>
-                  </ul>
-
-                  <h4 className="font-bold text-ink mb-2">수집하는 개인정보 항목</h4>
-                  <ul className="list-disc pl-4 mb-2 space-y-1">
-                    <li>온라인상담 : 고객명, 전화번호, 이메일</li>
-                    <li>온라인예약 : 이름, 연락처</li>
-                    <li>게시판 : 작성자, 이메일, 전화번호(필요시)</li>
-                  </ul>
-                  <p className="mb-4">개인정보 수집방법 : 홈페이지, 서면양식, 팩스, 전화, 이메일</p>
-
-                  <h4 className="font-bold text-ink mb-2">개인정보의 보유 및 이용기간</h4>
-                  <p className="mb-4">
-                    연세척병원은 개인정보의 수집목적 또는 제공받은 목적이 달성된 때에는 귀하의 개인정보를 지체 없이 파기합니다. 다만, 수집목적 또는 제공받은 목적이 달성된 경우에도 상법 등 법령의 규정에 의하여 보존할 필요성이 있는 경우에는 귀하의 개인정보를 보유할 수 있습니다.
-                  </p>
-                  
-                  <h5 className="font-bold text-ink mb-1">[ 법령에 따른 보존기간 ]</h5>
-                  <ul className="list-disc pl-4 space-y-1">
-                    <li>소비자의 불만 또는 분쟁처리에 관한 기록 : 3년 (전자상거래 등에서의 소비자보호에 관한 법률)</li>
-                    <li>신용정보의 수집/처리 및 이용 등에 관한 기록 : 3년 (신용정보의 이용 및 보호에 관한 법률)</li>
-                    <li>본인 확인에 관한 기록 : 6개월 (정보통신망 이용촉진 및 정보보호 등에 관한 법률)</li>
-                    <li>방문에 관한 기록 : 3개월 (통신비밀보호법)</li>
-                  </ul>
+                <div className="h-48 overflow-y-auto whitespace-pre-line p-5 bg-slate-50 border border-slate-200 rounded-xl text-[13px] text-ink-sub leading-relaxed font-medium">
+                  {PRIVACY_CONSENT_TEXT}
                 </div>
                 
                 <div className="flex items-center gap-3 pt-2">
@@ -190,6 +196,24 @@ export default function ConsultationPage() {
                   />
                   <label htmlFor="privacy-agree" className="text-[15px] font-bold text-ink cursor-pointer select-none">
                     개인정보 수집 및 이용 목적에 동의합니다.
+                  </label>
+                </div>
+
+                <label className="text-sm font-bold text-ink-sub block pt-5">마케팅 정보 수신 및 활용 동의 <span className="text-ink-muted">(선택)</span></label>
+                <div className="h-40 overflow-y-auto whitespace-pre-line p-5 bg-slate-50 border border-slate-200 rounded-xl text-[13px] text-ink-sub leading-relaxed font-medium">
+                  {MARKETING_CONSENT_TEXT}
+                </div>
+
+                <div className="flex items-center gap-3 pt-2">
+                  <input
+                    type="checkbox"
+                    id="marketing-agree"
+                    checked={isMarketingAgreed}
+                    onChange={(e) => setIsMarketingAgreed(e.target.checked)}
+                    className="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary cursor-pointer"
+                  />
+                  <label htmlFor="marketing-agree" className="text-[15px] font-bold text-ink cursor-pointer select-none">
+                    마케팅 정보 수신 및 활용에 동의합니다.
                   </label>
                 </div>
               </div>

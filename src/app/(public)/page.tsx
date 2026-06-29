@@ -3,7 +3,20 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronRight, Activity, Award, CheckCircle, Shield, ArrowUpRight } from 'lucide-react';
+import {
+  ChevronRight,
+  Activity,
+  Award,
+  CheckCircle,
+  Shield,
+  ArrowUpRight,
+  CalendarDays,
+  FileText,
+  HeartHandshake,
+  MapPin,
+  MessageCircle,
+  UserCheck,
+} from 'lucide-react';
 import HomeNoticeBar from '@/components/HomeNoticeBar';
 
 const heroSlides = [
@@ -61,6 +74,39 @@ const specializedPrograms = [
     title: '무릎관절 내시경',
     desc: '관절 내부를 직접 확인하며 손상 부위를 섬세하게 치료해 회복 부담을 낮추는 관절 특화 치료입니다.',
     image: '/generated/specialty-knee-arthroscopy.png',
+  },
+];
+
+const quickAccessItems = [
+  {
+    title: '진료일정',
+    href: '/doctors#doctor-schedule',
+    icon: <CalendarDays size={58} strokeWidth={1.65} />,
+  },
+  {
+    title: '의료진 소개',
+    href: '/doctors',
+    icon: <UserCheck size={58} strokeWidth={1.65} />,
+  },
+  {
+    title: '치료체험후기',
+    href: '/board/reviews',
+    icon: <HeartHandshake size={58} strokeWidth={1.65} />,
+  },
+  {
+    title: '증명서 발급',
+    href: '/consultation',
+    icon: <FileText size={58} strokeWidth={1.65} />,
+  },
+  {
+    title: '온라인 상담',
+    href: '/consultation',
+    icon: <MessageCircle size={58} strokeWidth={1.65} />,
+  },
+  {
+    title: '오시는길',
+    href: '/about/location',
+    icon: <MapPin size={58} strokeWidth={1.65} />,
   },
 ];
 
@@ -151,6 +197,50 @@ export default function Home() {
       </section>
 
       <HomeNoticeBar />
+
+      {/* Quick Access Section */}
+      <section className="relative overflow-hidden bg-white px-6 py-16 md:py-20">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#f4f9ff] to-transparent" />
+
+        <div className="relative z-10 mx-auto max-w-6xl">
+          <h2 className="sr-only">연세척병원 빠른 메뉴</h2>
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
+            {quickAccessItems.map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.22 }}
+                transition={{ delay: index * 0.045, duration: 0.62, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Link
+                  href={item.href}
+                  prefetch
+                  className="group relative flex min-h-[142px] flex-col items-center justify-center gap-4 overflow-hidden rounded-lg border border-slate-100 bg-slate-50/80 px-4 py-7 text-center shadow-[0_20px_58px_-48px_rgba(15,29,54,0.55)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:bg-primary hover:shadow-blue-glow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary md:min-h-[172px] md:gap-5"
+                  aria-label={`${item.title} 바로가기`}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-70"
+                  />
+                  <span className="flex h-[68px] w-[68px] items-center justify-center text-primary transition-all duration-300 group-hover:scale-105 group-hover:text-white md:h-20 md:w-20">
+                    {item.icon}
+                  </span>
+                  <span className="text-[19px] font-black tracking-tight text-ink transition-colors duration-300 group-hover:text-white md:text-[24px]">
+                    {item.title}
+                  </span>
+                  <ArrowUpRight
+                    size={18}
+                    className="absolute right-5 top-5 text-primary/0 transition-all duration-300 group-hover:text-white/70"
+                    aria-hidden="true"
+                  />
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* 🧬 Specialty System Section */}
       <section className="relative overflow-hidden bg-[#f4f9ff] py-28 text-ink">

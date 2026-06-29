@@ -402,7 +402,7 @@ const DoctorsDirectory = ({ doctors }: DoctorsDirectoryProps) => {
   ));
 
   return (
-    <section className="bg-white px-6 py-12 md:py-20">
+    <section id="doctor-schedule" className="scroll-mt-28 bg-white px-6 py-12 md:py-20">
       <div className="mx-auto max-w-7xl">
         {orderedDoctors.map((doctor, index) => (
           <DoctorProfileBlock key={doctor.id} doctor={doctor} index={index} />

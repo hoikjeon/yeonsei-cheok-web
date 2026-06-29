@@ -8,25 +8,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import type { User as SupabaseUser } from '@supabase/supabase-js';
 import { 
   User, 
-  Stethoscope, 
-  Activity, 
-  MapPin, 
   Phone,
-  ShieldCheck, 
-  Microscope,
-  UserCheck,
-  CalendarDays,
   CalendarCheck,
   ChevronRight,
-  MonitorPlay,
-  Star,
-  GraduationCap,
-  Video,
-  Globe2,
   LogOut,
-  Bell,
-  HelpCircle,
-  MessageCircle,
   Menu,
   X
 } from 'lucide-react';
@@ -40,10 +25,10 @@ const MENU_DATA = [
     href: '/about',
     subTitle: '연세척병원의 진심을 전합니다',
     items: [
-      { name: '연세척병원 소개', desc: '환자 중심의 정직한 진료 원칙', icon: <ShieldCheck size={26} />, href: '/about' },
-      { name: '의료진 소개', desc: '대학병원 교수 출신의 전문의', icon: <UserCheck size={26} />, href: '/doctors' },
-      { name: '첨단 의료 장비', desc: '대학병원급 MRI·디지털 X-ray 시스템', icon: <Microscope size={26} />, href: '/about/equipment' },
-      { name: '오시는 길', desc: '더 가까운 연세척의 위치 안내', icon: <MapPin size={26} />, href: '/about/location' },
+      { name: '연세척병원 소개', desc: '환자 중심의 정직한 진료 원칙', href: '/about' },
+      { name: '의료진 소개', desc: '대학병원 교수 출신의 전문의', href: '/doctors' },
+      { name: '첨단 의료 장비', desc: '대학병원급 MRI·디지털 X-ray 시스템', href: '/about/equipment' },
+      { name: '오시는 길', desc: '더 가까운 연세척의 위치 안내', href: '/about/location' },
     ]
   },
   {
@@ -52,10 +37,10 @@ const MENU_DATA = [
     href: '/treatments/spine/ube',
     subTitle: '절개를 최소화한 정밀 척추 치료',
     items: [
-      { name: 'UBE 소개', desc: '두 개의 작은 통로로 접근하는 척추내시경 치료', icon: <Microscope size={26} />, href: '/treatments/spine/ube' },
-      { name: '치료 장점', desc: '정상 조직 손상을 줄이는 최소침습 접근', icon: <ShieldCheck size={26} />, href: '/treatments/spine/ube#benefits' },
-      { name: '적용 질환', desc: '디스크, 협착증 등 환자별 적응증 안내', icon: <Activity size={26} />, href: '/treatments/spine/ube#indications' },
-      { name: '치료 과정', desc: '진단부터 회복까지 단계별 치료 흐름', icon: <Stethoscope size={26} />, href: '/treatments/spine/ube#process' },
+      { name: 'UBE 소개', desc: '두 개의 작은 통로로 접근하는 척추내시경 치료', href: '/treatments/spine/ube' },
+      { name: '치료 장점', desc: '정상 조직 손상을 줄이는 최소침습 접근', href: '/treatments/spine/ube#benefits' },
+      { name: '적용 질환', desc: '디스크, 협착증 등 환자별 적응증 안내', href: '/treatments/spine/ube#indications' },
+      { name: '치료 과정', desc: '진단부터 회복까지 단계별 치료 흐름', href: '/treatments/spine/ube#process' },
     ]
   },
   {
@@ -64,10 +49,10 @@ const MENU_DATA = [
     href: '/treatments/spine',
     subTitle: '통증의 근본을 찾는 정교한 치료',
     items: [
-      { name: '허리/목 디스크', desc: '정확한 진단과 맞춤형 비수술 치료', icon: <Activity size={26} />, href: '/treatments/spine/disc' },
-      { name: '척추관 협착증', desc: '신경 압박 해소를 위한 전문 솔루션', icon: <Activity size={26} />, href: '/treatments/spine/stenosis' },
-      { name: '비수술 치료', desc: '수술 없이 일상을 회복하는 방법', icon: <Activity size={26} />, href: '/treatments/spine/non-surgical' },
-      { name: '도수·재활 클리닉', desc: '체계적인 맞춤형 재활 시스템', icon: <Activity size={26} />, href: '/treatments/spine/rehab' },
+      { name: '허리/목 디스크', desc: '정확한 진단과 맞춤형 비수술 치료', href: '/treatments/spine/disc' },
+      { name: '척추관 협착증', desc: '신경 압박 해소를 위한 전문 솔루션', href: '/treatments/spine/stenosis' },
+      { name: '비수술 치료', desc: '수술 없이 일상을 회복하는 방법', href: '/treatments/spine/non-surgical' },
+      { name: '도수·재활 클리닉', desc: '체계적인 맞춤형 재활 시스템', href: '/treatments/spine/rehab' },
     ]
   },
   {
@@ -76,10 +61,10 @@ const MENU_DATA = [
     href: '/treatments/joint',
     subTitle: '자유로운 움직임을 위한 정교한 치료',
     items: [
-      { name: '무릎/어깨 관절', desc: '내시경을 활용한 정밀 관절 치료', icon: <Stethoscope size={26} />, href: '/treatments/joint/knee-shoulder' },
-      { name: '고관절/족부', desc: '균형 잡힌 보행을 위한 전문 센터', icon: <Stethoscope size={26} />, href: '/treatments/joint/hip-foot' },
-      { name: '스포츠 재활', desc: '빠른 복귀를 돕는 선수 맞춤 재활', icon: <Stethoscope size={26} />, href: '/treatments/joint/sports' },
-      { name: '줄기세포 치료', desc: '자기 관절을 살리는 재생 의료', icon: <Stethoscope size={26} />, href: '/treatments/joint/stem-cell' },
+      { name: '무릎/어깨 관절', desc: '내시경을 활용한 정밀 관절 치료', href: '/treatments/joint/knee-shoulder' },
+      { name: '고관절/족부', desc: '균형 잡힌 보행을 위한 전문 센터', href: '/treatments/joint/hip-foot' },
+      { name: '스포츠 재활', desc: '빠른 복귀를 돕는 선수 맞춤 재활', href: '/treatments/joint/sports' },
+      { name: '줄기세포 치료', desc: '자기 관절을 살리는 재생 의료', href: '/treatments/joint/stem-cell' },
     ]
   },
   {
@@ -88,11 +73,11 @@ const MENU_DATA = [
     href: '/news/notice',
     subTitle: '연세척병원의 쉼 없는 발자취',
     items: [
-      { name: '공지사항', desc: '병원 운영 및 진료에 관한 주요 안내', icon: <Bell size={26} />, href: '/news/notice' },
-      { name: '언론/방송 보도', desc: '다양한 매체에서 주목하는 의료 기술', icon: <MonitorPlay size={26} />, href: '/news/media' },
-      { name: '연세척 학술의학', desc: '지속적인 연구와 논문 발표 실적', icon: <GraduationCap size={26} />, href: '/news/academic' },
-      { name: '연세척tv', desc: '전문의가 직접 알려주는 알기 쉬운 의학 정보', icon: <Video size={26} />, href: '/news/youtube' },
-      { name: '국제 트레이닝 센터', desc: '해외 의료진에게 전수하는 척추내시경 노하우', icon: <Globe2 size={26} />, href: '/news/training' },
+      { name: '공지사항', desc: '병원 운영 및 진료에 관한 주요 안내', href: '/news/notice' },
+      { name: '언론/방송 보도', desc: '다양한 매체에서 주목하는 의료 기술', href: '/news/media' },
+      { name: '연세척 학술의학', desc: '지속적인 연구와 논문 발표 실적', href: '/news/academic' },
+      { name: '연세척tv', desc: '전문의가 직접 알려주는 알기 쉬운 의학 정보', href: '/news/youtube' },
+      { name: '국제 트레이닝 센터', desc: '해외 의료진에게 전수하는 척추내시경 노하우', href: '/news/training' },
     ]
   },
   {
@@ -101,10 +86,10 @@ const MENU_DATA = [
     href: '/board/reviews',
     subTitle: '소통과 공감으로 완성되는 치유',
     items: [
-      { name: '치료체험후기', desc: '완치의 기쁨을 누리는 환자분들의 생생한 수기', icon: <Star size={26} />, href: '/board/reviews' },
-      { name: '온라인 상담', desc: '증상에 대한 궁금증을 전문의가 직접 상담해 드립니다', icon: <MessageCircle size={26} />, href: '/consultation' },
-      { name: '온라인 예약', desc: '원하시는 스케줄에 맞춰 신속하고 간편한 진료 예약', icon: <CalendarDays size={26} />, href: '/reservation' },
-      { name: '자주하는 질문', desc: '진료, 입원, 서류 발급 등 잦은 문의 안내', icon: <HelpCircle size={26} />, href: '/board/faq' },
+      { name: '치료체험후기', desc: '완치의 기쁨을 누리는 환자분들의 생생한 수기', href: '/board/reviews' },
+      { name: '온라인 상담', desc: '증상에 대한 궁금증을 전문의가 직접 상담해 드립니다', href: '/consultation' },
+      { name: '온라인 예약', desc: '원하시는 스케줄에 맞춰 신속하고 간편한 진료 예약', href: '/reservation' },
+      { name: '자주하는 질문', desc: '진료, 입원, 서류 발급 등 잦은 문의 안내', href: '/board/faq' },
     ]
   },
 ];
@@ -466,7 +451,7 @@ const Header = () => {
                   </div>
                 </aside>
 
-                {/* Right Menu Icons Grid */}
+                {/* Right Menu Grid */}
                 <div className="col-span-7 xl:col-span-8 flex flex-col py-1">
                   <div className="mb-4 flex items-end justify-between">
                     <h3 className="text-[30px] font-black leading-none tracking-tight text-ink">
@@ -486,14 +471,9 @@ const Header = () => {
                         <Link 
                           href={item.href}
                           onClick={closeMegaMenuImmediately}
-                          className="group relative flex min-h-[104px] items-center gap-4 overflow-hidden rounded-lg border border-slate-100 bg-white p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:bg-primary/[0.025] hover:shadow-[0_22px_48px_-34px_rgba(40,74,165,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                          className="group relative flex min-h-[96px] items-center justify-between gap-5 overflow-hidden rounded-lg border border-slate-100 bg-white px-7 py-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:bg-primary/[0.025] hover:shadow-[0_22px_48px_-34px_rgba(40,74,165,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
                         >
                           <span className="absolute inset-y-4 left-0 w-1 rounded-r-full bg-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-slate-100 bg-slate-50 text-ink-muted transition-all duration-300 group-hover:scale-105 group-hover:border-primary group-hover:bg-primary group-hover:text-white group-hover:shadow-blue-glow">
-                            <span className="h-6 w-6 [&>svg]:h-full [&>svg]:w-full [&>svg]:stroke-[2.2]">
-                              {item.icon}
-                            </span>
-                          </div>
                           <div className="min-w-0 flex-1">
                             <h4 className="text-[18px] font-black text-ink tracking-tight transition-colors duration-200 group-hover:text-primary">
                               {item.name}

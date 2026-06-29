@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import FooterConsultationSection from "@/components/FooterConsultationSection";
 import QuickMenu from "@/components/QuickMenu";
 import MainPopup from "@/components/MainPopup";
 import VisitTracker from "@/components/VisitTracker";
@@ -18,6 +19,7 @@ export default function PublicLayout({
         {children}
       </main>
       <QuickMenu />
+      <FooterConsultationSection />
       <Footer />
     </>
   );

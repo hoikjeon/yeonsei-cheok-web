@@ -35,10 +35,18 @@ CREATE TABLE IF NOT EXISTS public.consultations (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
   name text NOT NULL,
   phone text NOT NULL,
+  consultation_type text, -- 상담내용/통증 부위
+  preferred_date date,    -- 상담 희망 날짜
   message text,
+  marketing_agreed boolean DEFAULT false, -- 마케팅 수신 동의 여부
   is_checked boolean DEFAULT false, -- 확인 여부 추가
   created_at timestamp with time zone DEFAULT now()
 );
+
+ALTER TABLE public.consultations
+  ADD COLUMN IF NOT EXISTS consultation_type text,
+  ADD COLUMN IF NOT EXISTS preferred_date date,
+  ADD COLUMN IF NOT EXISTS marketing_agreed boolean DEFAULT false;
 
 CREATE TABLE IF NOT EXISTS public.reservations (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,

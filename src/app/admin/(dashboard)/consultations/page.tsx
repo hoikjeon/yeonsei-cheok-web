@@ -1,32 +1,52 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { createClient } from '@/utils/supabase/client';
-import AdminSidebar from '@/components/admin/AdminSidebar';
-import { MessageSquare, CheckCircle2, User, Phone, Search, Filter, Mail, ChevronDown, ChevronUp, Calendar } from 'lucide-react';
+import { MessageSquare, CheckCircle2, Phone, Search, ChevronDown, ChevronUp, Calendar, ClipboardList, Megaphone } from 'lucide-react';
 import { toggleConsultationChecked } from '@/app/admin/actions';
 
+interface ConsultationRecord {
+  id: string;
+  name: string;
+  phone: string;
+  message: string | null;
+  consultation_type?: string | null;
+  preferred_date?: string | null;
+  marketing_agreed?: boolean | null;
+  is_checked: boolean;
+  created_at: string;
+}
+
 export default function AdminConsultationsPage() {
-  const [consultations, setConsultations] = useState<any[]>([]);
+  const [consultations, setConsultations] = useState<ConsultationRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | 'pending' | 'checked'>('all');
   const [expandedId, setExpandedId] = useState<string | null>(null);
   
-  const supabase = createClient();
-
-  const fetchConsultations = async () => {
-    setIsLoading(true);
-    let query = supabase.from('consultations').select('*').order('created_at', { ascending: false });
-    
-    const { data } = await query;
-    setConsultations(data || []);
-    setIsLoading(false);
-  };
+  const supabase = useMemo(() => createClient(), []);
 
   useEffect(() => {
+    let isMounted = true;
+
+    const fetchConsultations = async () => {
+      const { data } = await supabase
+        .from('consultations')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!isMounted) return;
+
+      setConsultations((data || []) as ConsultationRecord[]);
+      setIsLoading(false);
+    };
+
     fetchConsultations();
-  }, []);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [supabase]);
 
   const handleToggleCheck = async (id: string, currentStatus: boolean) => {
     const actionText = currentStatus ? '미확인 상태로 변경' : '확인 완료 처리';
@@ -41,11 +61,23 @@ export default function AdminConsultationsPage() {
   };
 
   const filteredConsultations = consultations.filter(c => {
-    const matchesSearch = c.name.includes(searchTerm) || c.phone.includes(searchTerm) || (c.message && c.message.includes(searchTerm));
+    const searchableText = [
+      c.name,
+      c.phone,
+      c.message,
+      c.consultation_type,
+      c.preferred_date,
+    ].filter(Boolean).join(' ');
+    const matchesSearch = searchableText.includes(searchTerm);
     if (filterStatus === 'pending') return matchesSearch && !c.is_checked;
     if (filterStatus === 'checked') return matchesSearch && c.is_checked;
     return matchesSearch;
   });
+
+  const formatPreferredDate = (date?: string | null) => {
+    if (!date) return '미입력';
+    return new Date(`${date}T00:00:00`).toLocaleDateString('ko-KR', { dateStyle: 'medium' });
+  };
 
   return (
     <>
@@ -119,10 +151,24 @@ export default function AdminConsultationsPage() {
                        </div>
                      </div>
                      <div className="flex items-center gap-3">
+                       <div className="w-9 h-9 rounded-xl bg-slate-50 flex items-center justify-center text-ink-muted border border-slate-200 shadow-sm"><ClipboardList size={16} /></div>
+                       <div>
+                          <p className="text-[10px] text-ink-muted font-black font-montserrat uppercase tracking-widest">Type</p>
+                          <p className="text-[15px] font-bold text-ink-sub">{cons.consultation_type || '미입력'}</p>
+                       </div>
+                     </div>
+                     <div className="flex items-center gap-3">
                        <div className="w-9 h-9 rounded-xl bg-slate-50 flex items-center justify-center text-ink-muted border border-slate-200 shadow-sm"><Calendar size={16} /></div>
                        <div>
-                          <p className="text-[10px] text-ink-muted font-black font-montserrat uppercase tracking-widest">Submitted At</p>
-                          <p className="text-[15px] font-bold text-ink-sub">{new Date(cons.created_at).toLocaleString('ko-KR', { dateStyle: 'medium', timeStyle: 'short' })}</p>
+                          <p className="text-[10px] text-ink-muted font-black font-montserrat uppercase tracking-widest">Preferred Date</p>
+                          <p className="text-[15px] font-bold text-ink-sub">{formatPreferredDate(cons.preferred_date)}</p>
+                       </div>
+                     </div>
+                     <div className="flex items-center gap-3">
+                       <div className="w-9 h-9 rounded-xl bg-slate-50 flex items-center justify-center text-ink-muted border border-slate-200 shadow-sm"><Megaphone size={16} /></div>
+                       <div>
+                          <p className="text-[10px] text-ink-muted font-black font-montserrat uppercase tracking-widest">Marketing</p>
+                          <p className="text-[15px] font-bold text-ink-sub">{cons.marketing_agreed ? '동의' : '미동의'}</p>
                        </div>
                      </div>
                   </div>
@@ -153,8 +199,13 @@ export default function AdminConsultationsPage() {
                   <div className="bg-slate-50/50 p-8 pt-0 border-t border-slate-100 mt--1">
                      <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-inner">
                         <p className="text-xs font-black text-emerald-600 font-montserrat uppercase tracking-widest mb-3">Consultation Details</p>
+                        <div className="mb-4 grid grid-cols-1 gap-3 text-[14px] font-bold text-ink-sub md:grid-cols-3">
+                          <span className="rounded-xl bg-slate-50 px-4 py-3">상담내용: {cons.consultation_type || '미입력'}</span>
+                          <span className="rounded-xl bg-slate-50 px-4 py-3">희망 날짜: {formatPreferredDate(cons.preferred_date)}</span>
+                          <span className="rounded-xl bg-slate-50 px-4 py-3">접수일: {new Date(cons.created_at).toLocaleString('ko-KR', { dateStyle: 'medium', timeStyle: 'short' })}</span>
+                        </div>
                         <div className="text-[16px] text-ink leading-[1.8] font-medium whitespace-pre-line bg-slate-50 p-6 rounded-xl">
-                          {cons.message}
+                          {cons.message || '상담 내용이 입력되지 않았습니다.'}
                         </div>
                      </div>
                   </div>

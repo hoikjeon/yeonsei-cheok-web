@@ -3,12 +3,39 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import Link from 'next/link';
 import { Calendar, MessageSquare, Settings, ArrowRight } from 'lucide-react';
-import AdminSidebar from '@/components/admin/AdminSidebar';
 import { AnalyticsSummary, AnalyticsGraphs } from '@/components/admin/AnalyticsCharts';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+interface ReservationRecord {
+  id: string;
+  name: string;
+  phone: string;
+  specialty: string | null;
+  doctor: string | null;
+  reservation_date: string | null;
+  reservation_time: string | null;
+  created_at: string;
+}
+
+interface ConsultationRecord {
+  id: string;
+  name: string;
+  phone: string;
+  message: string | null;
+  consultation_type?: string | null;
+  preferred_date?: string | null;
+  created_at: string;
+}
+
+interface PopupRecord {
+  id: string;
+  title: string;
+  image_url: string | null;
+  is_active: boolean | null;
+}
 
 export default async function AdminDashboardPage() {
   const cookieStore = await cookies();
@@ -30,9 +57,9 @@ export default async function AdminDashboardPage() {
     supabase.from('site_visits').select('*').gte('visited_at', sevenDaysAgo.toISOString()).order('visited_at', { ascending: true })
   ]);
 
-  const reservations = reservationsRes.data || [];
-  const consultations = consultationsRes.data || [];
-  const popups = popupsRes.data || [];
+  const reservations = (reservationsRes.data || []) as ReservationRecord[];
+  const consultations = (consultationsRes.data || []) as ConsultationRecord[];
+  const popups = (popupsRes.data || []) as PopupRecord[];
   const visits = visitsRes.data || [];
 
   return (
@@ -76,7 +103,7 @@ export default async function AdminDashboardPage() {
                   {reservations.length === 0 ? (
                     <tr><td colSpan={5} className="py-12 text-center text-ink-muted font-medium">새로운 예약 신청이 없습니다.</td></tr>
                   ) : (
-                    reservations.map((res: any) => (
+                    reservations.map((res) => (
                       <tr key={res.id} className="hover:bg-slate-50 border-b border-slate-50 transition-colors group">
                         <td className="py-4 px-6 font-bold text-ink">
                           <span className="text-[11px] bg-blue-100 text-blue-600 px-2.5 py-1.5 rounded-lg animate-pulse font-black shadow-sm shadow-blue-200">
@@ -115,14 +142,15 @@ export default async function AdminDashboardPage() {
                     <th className="py-4 px-6 border-b border-slate-100 w-24">신청일</th>
                     <th className="py-4 px-6 border-b border-slate-100 w-24">이름</th>
                     <th className="py-4 px-6 border-b border-slate-100 w-32">연락처</th>
+                    <th className="py-4 px-6 border-b border-slate-100 w-28">희망일</th>
                     <th className="py-4 px-6 border-b border-slate-100">상담내용</th>
                   </tr>
                 </thead>
                 <tbody>
                   {consultations.length === 0 ? (
-                    <tr><td colSpan={4} className="py-12 text-center text-ink-muted font-medium">새로운 상담 신청이 없습니다.</td></tr>
+                    <tr><td colSpan={5} className="py-12 text-center text-ink-muted font-medium">새로운 상담 신청이 없습니다.</td></tr>
                   ) : (
-                    consultations.map((cons: any) => (
+                    consultations.map((cons) => (
                       <tr key={cons.id} className="hover:bg-slate-50 border-b border-slate-50 transition-colors group">
                         <td className="py-4 px-6">
                           <span className="text-[11px] bg-emerald-100 text-emerald-600 px-2.5 py-1.5 rounded-lg animate-pulse font-black shadow-sm shadow-emerald-200">
@@ -135,8 +163,10 @@ export default async function AdminDashboardPage() {
                           </Link>
                         </td>
                         <td className="py-4 px-6 text-ink-muted font-medium text-xs">{cons.phone}</td>
+                        <td className="py-4 px-6 text-ink-muted font-medium text-xs">{cons.preferred_date || '-'}</td>
                         <td className="py-4 px-6">
-                          <p className="line-clamp-2 text-ink-sub font-medium leading-relaxed">{cons.message}</p>
+                          <p className="font-black text-ink-sub">{cons.consultation_type || '미입력'}</p>
+                          <p className="line-clamp-1 text-ink-muted font-medium leading-relaxed">{cons.message}</p>
                         </td>
                       </tr>
                     ))
@@ -169,7 +199,7 @@ export default async function AdminDashboardPage() {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {popups.map((p: any) => (
+                  {popups.map((p) => (
                     <div key={p.id} className="p-5 border border-slate-200 rounded-2xl flex justify-between items-center hover:bg-slate-50 transition-all hover:shadow-md bg-white group">
                       <div className="flex items-center gap-4">
                          <div className="w-14 h-14 rounded-xl bg-slate-100 overflow-hidden shrink-0 border border-slate-100 shadow-sm transition-transform group-hover:scale-105">

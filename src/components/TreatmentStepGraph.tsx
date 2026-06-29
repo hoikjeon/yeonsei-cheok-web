@@ -43,8 +43,12 @@ const TREATMENT_STEPS = [
 ];
 
 const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
-const ARROW_REVEAL_DELAY = 1.72;
-const ARROW_DRAW_DURATION = 0.98;
+const BAR_REVEAL_DELAY = 0.14;
+const BAR_STAGGER = 0.13;
+const BAR_DRAW_DURATION = 0.86;
+const ARROW_REVEAL_DELAY = BAR_REVEAL_DELAY + 0.04;
+const ARROW_DRAW_DURATION = BAR_DRAW_DURATION + BAR_STAGGER * (TREATMENT_STEPS.length - 1);
+const ARROW_HEAD_START_OFFSET = { x: -688, y: 208 };
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -54,26 +58,46 @@ const cardVariants: Variants = {
     transition: {
       duration: 0.76,
       ease: EASE_OUT,
-      staggerChildren: 0.1,
     },
   },
 };
 
 const barVariants: Variants = {
   hidden: { opacity: 0.72, scaleY: 0 },
-  visible: {
+  visible: (index = 0) => ({
     opacity: 1,
     scaleY: 1,
-    transition: { duration: 0.86, ease: EASE_OUT },
-  },
+    transition: {
+      duration: BAR_DRAW_DURATION,
+      delay: BAR_REVEAL_DELAY + index * BAR_STAGGER,
+      ease: EASE_OUT,
+    },
+  }),
 };
 
 const labelVariants: Variants = {
   hidden: { opacity: 0, y: 12 },
+  visible: (index = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.62,
+      delay: BAR_REVEAL_DELAY + index * BAR_STAGGER + 0.16,
+      ease: EASE_OUT,
+    },
+  }),
+};
+
+const captionVariants: Variants = {
+  hidden: { opacity: 0, y: 12 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.62, ease: EASE_OUT },
+    transition: {
+      duration: 0.62,
+      delay: ARROW_REVEAL_DELAY + ARROW_DRAW_DURATION - 0.22,
+      ease: EASE_OUT,
+    },
   },
 };
 
@@ -87,15 +111,15 @@ const arrowLineVariants: Variants = {
 };
 
 const arrowHeadVariants: Variants = {
-  hidden: { opacity: 0, x: -8, y: 2 },
+  hidden: { opacity: 0, x: ARROW_HEAD_START_OFFSET.x, y: ARROW_HEAD_START_OFFSET.y },
   visible: {
     opacity: 1,
     x: 0,
     y: 0,
     transition: {
-      duration: 0.24,
-      delay: ARROW_REVEAL_DELAY + ARROW_DRAW_DURATION - 0.18,
-      ease: EASE_OUT,
+      x: { duration: ARROW_DRAW_DURATION, delay: ARROW_REVEAL_DELAY, ease: EASE_OUT },
+      y: { duration: ARROW_DRAW_DURATION, delay: ARROW_REVEAL_DELAY, ease: EASE_OUT },
+      opacity: { duration: 0.18, delay: ARROW_REVEAL_DELAY, ease: EASE_OUT },
     },
   },
 };
@@ -115,7 +139,7 @@ const TreatmentStepGraph = () => {
       <div className="mt-12 md:mt-14">
         <div className="relative hidden h-[640px] overflow-hidden bg-[#F4F7FA] md:block">
           <div className="absolute inset-x-[8%] bottom-[124px] top-[176px] z-10 grid grid-cols-5 items-end">
-            {TREATMENT_STEPS.map((step) => (
+            {TREATMENT_STEPS.map((step, index) => (
               <div
                 key={step.title}
                 className="relative flex h-full items-end border-r border-slate-300/70 first:border-l"
@@ -123,6 +147,7 @@ const TreatmentStepGraph = () => {
                 <motion.div
                   className="absolute left-0 right-0 z-20 px-3 text-center"
                   style={{ bottom: `calc(${step.height}% + ${step.labelGap ?? 16}px)` }}
+                  custom={index}
                   variants={labelVariants}
                 >
                   <p className="font-montserrat text-[10px] font-extrabold tracking-[0.22em] text-primary/70">
@@ -143,6 +168,7 @@ const TreatmentStepGraph = () => {
                 <motion.div
                   className="relative w-full origin-bottom"
                   style={{ height: `${step.height}%`, backgroundColor: step.color }}
+                  custom={index}
                   variants={barVariants}
                 >
                   <div className="absolute inset-x-0 top-0 h-px bg-white/45" />
@@ -180,7 +206,7 @@ const TreatmentStepGraph = () => {
 
           <motion.p
             className="absolute inset-x-[8%] bottom-[42px] z-40 text-center text-[18px] font-bold tracking-tight text-primary lg:text-[22px]"
-            variants={labelVariants}
+            variants={captionVariants}
           >
             단계적 척추치료, 처음부터 끝까지 함께합니다.
           </motion.p>
@@ -191,6 +217,7 @@ const TreatmentStepGraph = () => {
             <motion.li
               key={step.title}
               className="grid grid-cols-[44px_minmax(0,1fr)] gap-4 rounded-lg border border-slate-100 bg-slate-50/70 p-5"
+              custom={index}
               variants={labelVariants}
             >
               <div className="relative flex justify-center">
