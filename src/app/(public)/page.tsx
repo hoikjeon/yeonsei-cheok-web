@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, type Variants } from 'framer-motion';
 import {
   ChevronRight,
   Activity,
@@ -113,6 +113,32 @@ const dailyCareSlides = [
   },
 ];
 
+const careTextContainer: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: 0.08 },
+  },
+  exit: {
+    opacity: 0,
+    transition: { staggerChildren: 0.04, staggerDirection: -1 },
+  },
+};
+
+const careTextItem: Variants = {
+  hidden: { opacity: 0, x: 64 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+  },
+  exit: {
+    opacity: 0,
+    x: -48,
+    transition: { duration: 0.4, ease: [0.4, 0, 1, 1] },
+  },
+};
+
 const quickAccessItems = [
   {
     title: '진료일정',
@@ -151,7 +177,6 @@ export default function Home() {
   const [activeCareIndex, setActiveCareIndex] = useState(1);
   const activeSlide = heroSlides[activeSlideIndex];
   const activeCareSlide = dailyCareSlides[activeCareIndex];
-  const previewCareSlide = dailyCareSlides[(activeCareIndex + 1) % dailyCareSlides.length];
 
   const showPreviousSlide = () => {
     setActiveSlideIndex((current) => (current === 0 ? heroSlides.length - 1 : current - 1));
@@ -176,6 +201,15 @@ export default function Home() {
 
     return () => window.clearInterval(timer);
   }, []);
+
+  // Daily Care 자동 넘김 — activeCareIndex가 바뀔 때마다(자동/클릭) 타이머 리셋
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setActiveCareIndex((current) => (current + 1) % dailyCareSlides.length);
+    }, 5000);
+
+    return () => window.clearTimeout(timer);
+  }, [activeCareIndex]);
 
   return (
     <div className="flex flex-col space-y-0">
@@ -290,10 +324,10 @@ export default function Home() {
       </section>
 
       {/* Daily Care Promise Section */}
-      <section className="relative overflow-hidden bg-white px-6 py-24 md:py-32">
-        <div className="relative z-10 mx-auto max-w-7xl">
+      <section className="relative overflow-hidden bg-white py-24 md:py-32">
+        <div className="relative z-10 mx-auto max-w-7xl px-6">
           <div className="max-w-4xl">
-            <h2 className="text-[34px] font-black leading-[1.26] tracking-tight text-[#123f86] md:text-[54px]">
+            <h2 className="text-4xl font-extrabold leading-[1.14] tracking-tight text-[#123f86] md:text-5xl">
               모두의 일상이 흔들림 없이 바로 설 수 있도록
               <br />
               깊이 있는 진료로 함께합니다.
@@ -306,33 +340,30 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative z-10 mx-auto mt-24 max-w-7xl md:mt-28">
-          <div className="relative min-h-[500px] overflow-visible lg:min-h-[500px]">
-            <div
-              className="pointer-events-none absolute right-[-250px] top-1/2 hidden h-[420px] w-[420px] -translate-y-1/2 overflow-hidden rounded-full bg-slate-100 opacity-25 xl:block 2xl:right-[-320px] 2xl:h-[520px] 2xl:w-[520px]"
-              aria-hidden="true"
-            >
-              <Image
-                src={previewCareSlide.image}
-                alt=""
-                fill
-                sizes="620px"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-white/35" />
-            </div>
-
+        <div className="relative z-10 mx-auto mt-24 max-w-7xl px-6 md:mt-28">
+          <div className="relative min-h-[500px] lg:min-h-[500px]">
             <div className="relative z-10 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,600px)_minmax(0,430px)] lg:items-center lg:gap-[72px] xl:grid-cols-[minmax(0,620px)_minmax(0,450px)] xl:gap-[88px]">
-              <div className="relative aspect-[1.34/1] min-h-[320px] overflow-hidden rounded-[36px] bg-slate-100 shadow-[0_44px_120px_-86px_rgba(15,29,54,0.65)] md:min-h-[420px] lg:h-[462px]">
-                <Image
-                  src={activeCareSlide.image}
-                  alt={activeCareSlide.imageAlt}
-                  fill
-                  sizes="(min-width: 1280px) 620px, (min-width: 1024px) 48vw, 92vw"
-                  className="object-cover"
-                  priority={activeCareIndex === 0}
-                />
-                <div className="absolute inset-0 bg-white/20" />
+              <div className="relative aspect-[1.34/1] min-h-[320px] md:min-h-[420px] lg:h-[462px]">
+                <AnimatePresence>
+                  <motion.div
+                    key={activeCareIndex}
+                    initial={{ opacity: 0.35, x: 96, scale: 0.94, borderRadius: 240 }}
+                    animate={{ opacity: 1, x: 0, scale: 1, borderRadius: 36 }}
+                    exit={{ opacity: 0, x: -80, scale: 0.97, borderRadius: 140 }}
+                    transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute inset-0 overflow-hidden bg-slate-100 shadow-[0_44px_120px_-86px_rgba(15,29,54,0.65)]"
+                  >
+                    <Image
+                      src={activeCareSlide.image}
+                      alt={activeCareSlide.imageAlt}
+                      fill
+                      sizes="(min-width: 1280px) 620px, (min-width: 1024px) 48vw, 92vw"
+                      className="object-cover"
+                      priority={activeCareIndex === 0}
+                    />
+                    <div className="absolute inset-0 bg-white/20" />
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
               <article className="space-y-12 lg:-translate-y-4">
@@ -360,30 +391,44 @@ export default function Home() {
                   </button>
                 </div>
 
-                <div className="space-y-7">
-                  <div className="flex flex-wrap items-center gap-5">
-                    <span className="rounded-full bg-[#102f66] px-5 py-2 text-[14px] font-black tracking-tight text-white">
-                      {activeCareSlide.point}
-                    </span>
-                    <h3 className="text-[25px] font-black leading-tight tracking-tight text-ink md:text-[32px]">
-                      {activeCareSlide.title}
-                    </h3>
-                  </div>
+                <div className="relative min-h-[240px] md:min-h-[276px]">
+                  <AnimatePresence mode="popLayout">
+                    <motion.div
+                      key={activeCareIndex}
+                      variants={careTextContainer}
+                      initial="hidden"
+                      animate="show"
+                      exit="exit"
+                      className="space-y-7"
+                    >
+                      <motion.div variants={careTextItem} className="flex flex-wrap items-center gap-5">
+                        <span className="rounded-full bg-[#102f66] px-5 py-2 text-[14px] font-black tracking-tight text-white">
+                          {activeCareSlide.point}
+                        </span>
+                        <h3 className="text-[25px] font-black leading-tight tracking-tight text-ink md:text-[32px]">
+                          {activeCareSlide.title}
+                        </h3>
+                      </motion.div>
 
-                  <p className="max-w-md text-[15px] font-semibold leading-[1.85] text-ink-sub md:text-[16px]">
-                    {activeCareSlide.desc}
-                  </p>
-
-                  <div className="flex flex-wrap gap-3">
-                    {activeCareSlide.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-slate-200 bg-white px-4 py-2 text-[13px] font-bold text-ink-sub shadow-[0_10px_28px_-24px_rgba(15,29,54,0.35)]"
+                      <motion.p
+                        variants={careTextItem}
+                        className="max-w-md text-[15px] font-semibold leading-[1.85] text-ink-sub md:text-[16px]"
                       >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                        {activeCareSlide.desc}
+                      </motion.p>
+
+                      <motion.div variants={careTextItem} className="flex flex-wrap gap-3">
+                        {activeCareSlide.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-[13px] font-bold text-ink-sub shadow-[0_10px_28px_-24px_rgba(15,29,54,0.35)]"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </motion.div>
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
               </article>
             </div>
