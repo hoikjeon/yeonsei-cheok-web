@@ -19,6 +19,8 @@ import {
   UserCheck,
 } from 'lucide-react';
 import HomeNoticeBar from '@/components/HomeNoticeBar';
+import TrainingCenterSection from '@/components/TrainingCenterSection';
+import YoutubeSection from '@/components/YoutubeSection';
 
 const heroSlides = [
   {
@@ -325,7 +327,7 @@ export default function Home() {
 
       {/* Daily Care Promise Section */}
       <section className="relative overflow-hidden bg-white py-24 md:py-32">
-        <div className="relative z-10 mx-auto max-w-7xl px-6">
+        <div className="relative z-10 mx-auto max-w-6xl px-6">
           <div className="max-w-4xl">
             <h2 className="text-4xl font-extrabold leading-[1.14] tracking-tight text-[#123f86] md:text-5xl">
               모두의 일상이 흔들림 없이 바로 설 수 있도록
@@ -340,7 +342,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative z-10 mx-auto mt-24 max-w-7xl px-6 md:mt-28">
+        <div className="relative z-10 mx-auto mt-24 max-w-6xl px-6 md:mt-28">
           <div className="relative min-h-[500px] lg:min-h-[500px]">
             <div className="relative z-10 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,600px)_minmax(0,430px)] lg:items-center lg:gap-[72px] xl:grid-cols-[minmax(0,620px)_minmax(0,450px)] xl:gap-[88px]">
               <div className="relative aspect-[1.34/1] min-h-[320px] md:min-h-[420px] lg:h-[462px]">
@@ -436,13 +438,16 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 🌏 국제 척추내시경 트레이닝 센터 Section */}
+      <TrainingCenterSection />
+
       {/* 🧬 Specialty System Section */}
       <section className="relative overflow-hidden bg-[#f4f9ff] py-28 text-ink">
         <div className="absolute inset-0 bg-[linear-gradient(180deg,#ffffff_0%,#eef7ff_48%,#ffffff_100%)]" />
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white to-transparent" />
 
-        <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
+        <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
           <motion.div
             initial={{ opacity: 0, y: 54 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -468,10 +473,10 @@ export default function Home() {
                 transition={{ delay: index * 0.12, duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
                 className="group grid min-h-[218px] overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_28px_80px_-56px_rgba(15,29,54,0.5)] transition-all duration-500 hover:-translate-y-1 hover:border-primary/25 hover:bg-primary"
               >
-                <div className="grid grid-cols-1 md:grid-cols-[minmax(0,0.95fr)_minmax(280px,1.05fr)]">
+                <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.1fr)_minmax(220px,0.9fr)]">
                   <div className="flex min-h-[230px] flex-col justify-center p-8 md:p-9">
                     <div className="space-y-4">
-                      <h3 className="text-3xl font-extrabold tracking-tight text-ink transition-colors duration-500 group-hover:text-white md:text-4xl">
+                      <h3 className="break-keep text-2xl font-extrabold tracking-tight text-ink transition-colors duration-500 group-hover:text-white md:text-[32px]">
                         {program.title}
                       </h3>
                       <p className="max-w-md text-[15px] font-medium leading-relaxed text-ink-muted transition-colors duration-500 group-hover:text-white/[0.82]">
@@ -495,9 +500,12 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ▶️ 척추관절 연세척TV Section */}
+      <YoutubeSection />
+
       {/* 🧭 Medical Expertise Section: Editorial Grid */}
       <section id="expertise" className="py-40 bg-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 w-full">
+        <div className="max-w-6xl mx-auto px-6 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-24">
             <div className="lg:col-span-5 space-y-6">
               <motion.span 
@@ -634,7 +642,7 @@ export default function Home() {
 
       {/* 🚀 Final CTA Section */}
       <section id="reservation-cta" className="py-40 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6">
           <motion.div 
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
