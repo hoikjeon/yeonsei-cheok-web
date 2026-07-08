@@ -235,7 +235,7 @@ export default function Home() {
           <div className="absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-t from-navy-950 to-transparent" />
         </div>
         
-        <div className="relative z-20 mx-auto w-full max-w-7xl px-6 pt-8 md:pt-12">
+        <div className="relative z-20 mx-auto w-full max-w-[1540px] px-7 xl:px-10 pt-8 md:pt-12">
           <motion.div
             key={activeSlide.id}
             initial={{ opacity: 0.7 }}
@@ -282,11 +282,11 @@ export default function Home() {
       <HomeNoticeBar />
 
       {/* Quick Access Section */}
-      <section className="relative overflow-hidden bg-white px-6 py-16 md:py-20">
+      <section className="relative overflow-hidden bg-white py-16 md:py-20">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#f4f9ff] to-transparent" />
 
-        <div className="relative z-10 mx-auto max-w-6xl">
+        <div className="relative z-10 mx-auto max-w-[1540px] px-7 xl:px-10">
           <h2 className="sr-only">연세척병원 빠른 메뉴</h2>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
             {quickAccessItems.map((item, index) => (
@@ -327,7 +327,7 @@ export default function Home() {
 
       {/* Daily Care Promise Section */}
       <section className="relative overflow-hidden bg-white py-24 md:py-32">
-        <div className="relative z-10 mx-auto max-w-6xl px-6">
+        <div className="relative z-10 mx-auto max-w-[1540px] px-7 xl:px-10">
           <div className="max-w-4xl">
             <h2 className="text-4xl font-extrabold leading-[1.14] tracking-tight text-[#123f86] md:text-5xl">
               모두의 일상이 흔들림 없이 바로 설 수 있도록
@@ -342,9 +342,9 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative z-10 mx-auto mt-24 max-w-6xl px-6 md:mt-28">
+        <div className="relative z-10 mx-auto mt-24 max-w-[1540px] px-7 xl:px-10 md:mt-28">
           <div className="relative min-h-[500px] lg:min-h-[500px]">
-            <div className="relative z-10 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,600px)_minmax(0,430px)] lg:items-center lg:gap-[72px] xl:grid-cols-[minmax(0,620px)_minmax(0,450px)] xl:gap-[88px]">
+            <div className="relative z-10 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.32fr)_minmax(0,1fr)] lg:items-center lg:gap-[72px] xl:gap-[96px]">
               <div className="relative aspect-[1.34/1] min-h-[320px] md:min-h-[420px] lg:h-[462px]">
                 <AnimatePresence>
                   <motion.div
@@ -414,7 +414,7 @@ export default function Home() {
 
                       <motion.p
                         variants={careTextItem}
-                        className="max-w-md text-[15px] font-semibold leading-[1.85] text-ink-sub md:text-[16px]"
+                        className="max-w-xl text-[15px] font-semibold leading-[1.85] text-ink-sub md:text-[16px]"
                       >
                         {activeCareSlide.desc}
                       </motion.p>
@@ -447,7 +447,7 @@ export default function Home() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white to-transparent" />
 
-        <div className="relative z-10 mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
+        <div className="relative z-10 mx-auto grid max-w-[1540px] grid-cols-1 gap-12 px-7 xl:px-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
           <motion.div
             initial={{ opacity: 0, y: 54 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -505,7 +505,7 @@ export default function Home() {
 
       {/* 🧭 Medical Expertise Section: Editorial Grid */}
       <section id="expertise" className="py-40 bg-white relative overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6 w-full">
+        <div className="max-w-[1540px] mx-auto px-7 xl:px-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-24">
             <div className="lg:col-span-5 space-y-6">
               <motion.span 
@@ -590,7 +590,7 @@ export default function Home() {
 
       {/* 🛡️ Trust & Performance Section */}
       <section className="py-40 bg-navy-950 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-[1540px] mx-auto px-7 xl:px-10 relative z-10">
           <div className="flex flex-col items-center text-center space-y-12 mb-32">
             <div className="flex items-center gap-3 px-4 py-1 bg-white/5 rounded-full border border-white/5">
               <Shield className="text-primary w-4 h-4" />
@@ -642,7 +642,7 @@ export default function Home() {
 
       {/* 🚀 Final CTA Section */}
       <section id="reservation-cta" className="py-40 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-[1540px] mx-auto px-7 xl:px-10">
           <motion.div 
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}

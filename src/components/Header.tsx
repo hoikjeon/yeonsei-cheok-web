@@ -39,8 +39,9 @@ const MENU_DATA = [
     items: [
       { name: 'UBE 소개', desc: '두 개의 작은 통로로 접근하는 척추내시경 치료', href: '/treatments/spine/ube' },
       { name: '치료 장점', desc: '정상 조직 손상을 줄이는 최소침습 접근', href: '/treatments/spine/ube#benefits' },
-      { name: '적용 질환', desc: '디스크, 협착증 등 환자별 적응증 안내', href: '/treatments/spine/ube#indications' },
+      { name: '적용대상', desc: '경추·흉추·요추 적용대상 안내', href: '/treatments/spine/ube#decompression-candidates' },
       { name: '치료 과정', desc: '진단부터 회복까지 단계별 치료 흐름', href: '/treatments/spine/ube#process' },
+      { name: '혁신적인 수술치료', desc: '최신 수술 기법을 활용한 혁신적인 치료', href: '/treatments/spine/ube/innovative' },
     ]
   },
   {
@@ -87,7 +88,7 @@ const MENU_DATA = [
     subTitle: '소통과 공감으로 완성되는 치유',
     items: [
       { name: '치료체험후기', desc: '완치의 기쁨을 누리는 환자분들의 생생한 수기', href: '/board/reviews' },
-      { name: '온라인 상담', desc: '증상에 대한 궁금증을 전문의가 직접 상담해 드립니다', href: '/consultation' },
+      { name: '온라인 상담', desc: '증상에 대한 궁금증을 전문 상담사가 직접 상담해 드립니다', href: '/consultation' },
       { name: '온라인 예약', desc: '원하시는 스케줄에 맞춰 신속하고 간편한 진료 예약', href: '/reservation' },
       { name: '자주하는 질문', desc: '진료, 입원, 서류 발급 등 잦은 문의 안내', href: '/board/faq' },
     ]
@@ -109,6 +110,7 @@ const Header = () => {
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isHeaderHovered, setIsHeaderHovered] = useState(false);
+  const [isHeaderHidden, setIsHeaderHidden] = useState(false);
   const isMenuOpen = activeMenu !== null;
   const activeMenuData = MENU_DATA.find((menu) => menu.id === activeMenu);
   const isHomePage = pathname === '/';
@@ -116,6 +118,7 @@ const Header = () => {
   
 
   const headerRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
   const supabase = createClient();
   
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -219,6 +222,29 @@ const Header = () => {
     };
   }, [supabase]);
 
+  // 스크롤 방향에 따라 헤더 숨김/표시 (아래로 내리면 숨김, 위로 올리면 표시)
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+
+      // 메뉴 상호작용 중이거나 상단 근처에서는 항상 표시
+      if (isMenuOpen || isMobileMenuOpen || isHeaderHovered || currentY < 100) {
+        setIsHeaderHidden(false);
+        lastScrollY.current = currentY;
+        return;
+      }
+
+      const delta = currentY - lastScrollY.current;
+      if (Math.abs(delta) < 6) return; // 미세한 흔들림 무시
+
+      setIsHeaderHidden(delta > 0);
+      lastScrollY.current = currentY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isMenuOpen, isMobileMenuOpen, isHeaderHovered]);
+
   if (pathname.startsWith('/admin')) return null;
 
   return (
@@ -236,6 +262,8 @@ const Header = () => {
       onBlur={handleHeaderBlur}
       onKeyDown={handleHeaderKeyDown}
       className={`fixed top-0 w-full z-[100] backdrop-blur-xl transition-all duration-300 ${
+        isHeaderHidden ? '-translate-y-full' : 'translate-y-0'
+      } ${
         isLightHeader
           ? 'border-b border-slate-100 bg-white/95 shadow-sm'
           : 'border-b border-white/10 bg-navy-950/75 shadow-none'

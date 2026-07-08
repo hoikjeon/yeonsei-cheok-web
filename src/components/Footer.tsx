@@ -167,8 +167,8 @@ const Footer = () => {
   const footerNotices = getTopFooterNotices(notices);
 
   return (
-    <footer className="border-t-2 border-primary bg-[#F5F6F8] px-6 py-16 text-ink md:py-20">
-      <div className="mx-auto max-w-7xl">
+    <footer className="border-t-2 border-primary bg-[#F5F6F8] py-16 text-ink md:py-20">
+      <div className="mx-auto max-w-[1540px] px-7 xl:px-10">
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(420px,0.86fr)] lg:gap-16">
           <section aria-labelledby="footer-notice-title">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">

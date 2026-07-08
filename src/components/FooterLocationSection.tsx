@@ -13,8 +13,8 @@ export default function FooterLocationSection() {
   if (pathname === '/login') return null;
 
   return (
-    <section className="border-t border-slate-100 bg-white px-6 py-16">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-stretch">
+    <section className="border-t border-slate-100 bg-white py-16">
+      <div className="mx-auto grid max-w-[1540px] px-7 xl:px-10 grid-cols-1 gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-stretch">
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
           <div className="rounded-2xl border border-slate-100 bg-white p-7 shadow-[0_24px_70px_-54px_rgba(15,29,54,0.45)]">
             <div className="mb-5 flex items-center gap-3">

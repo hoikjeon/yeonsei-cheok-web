@@ -21,8 +21,8 @@ export default function ConsultationPage() {
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isAgreed, setIsAgreed] = useState(false);
-  const [isMarketingAgreed, setIsMarketingAgreed] = useState(false);
+  const [isAgreed, setIsAgreed] = useState(true);
+  const [isMarketingAgreed, setIsMarketingAgreed] = useState(true);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,9 +60,9 @@ export default function ConsultationPage() {
         phone: '', 
         message: ''
       });
-      setIsAgreed(false);
-      setIsMarketingAgreed(false);
-      alert('상담 신청이 완료되었습니다. 담당 전문의 확인 후 성심성의껏 답변드리겠습니다.');
+      setIsAgreed(true);
+      setIsMarketingAgreed(true);
+      alert('상담 신청이 완료되었습니다. 전문 상담사 확인 후 성심성의껏 답변드리겠습니다.');
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : '알 수 없는 오류';
       console.error('Error submitting consultation:', message);
@@ -81,7 +81,7 @@ export default function ConsultationPage() {
     <div className="flex flex-col min-h-screen">
       <SubHero 
         title="온라인 상담" 
-        subtitle="증상에 대한 궁금증을 전문의가 직접 명확하고 친절하게 상담해 드립니다."
+        subtitle="증상에 대한 궁금증을 전문 상담사가 직접 명확하고 친절하게 상담해 드립니다."
         path={[{ name: '커뮤니티' }, { name: '온라인 상담' }]}
         bgImage="/hero-bg.png"
       />
@@ -91,9 +91,9 @@ export default function ConsultationPage() {
           <div className="bg-white rounded-[2rem] border border-slate-200 shadow-premium p-10 md:p-16 space-y-12">
             
             <div className="text-center space-y-4">
-              <h2 className="text-3xl font-black text-ink tracking-tight">전문 의료진 1:1 상담</h2>
+              <h2 className="text-3xl font-black text-ink tracking-tight">전문 상담사 1:1 상담</h2>
               <p className="text-ink-muted font-medium">
-                현재 겪고 계시는 통증이나 증상을 자세히 적어주시면, 해당 과의 전문의가 직접 답변을 드립니다.
+                현재 겪고 계시는 통증이나 증상을 자세히 적어주시면, 전문 상담사가 직접 답변을 드립니다.
               </p>
             </div>
 
@@ -224,7 +224,7 @@ export default function ConsultationPage() {
                   disabled={isSubmitting}
                   className={`w-full py-5 text-white font-black text-lg rounded-[1.5rem] transition-all shadow-xl shadow-primary/20 hover:-translate-y-1 flex items-center justify-center gap-2 ${isSubmitting ? 'bg-slate-400 cursor-not-allowed' : 'bg-primary hover:bg-primary-dark active:scale-[0.98]'}`}
                 >
-                  {isSubmitting ? '상담 등록 중...' : '전문의에게 상담 접수하기'}
+                  {isSubmitting ? '상담 등록 중...' : '전문 상담사에게 상담 접수하기'}
                 </button>
               </div>
               

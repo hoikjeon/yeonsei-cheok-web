@@ -149,7 +149,7 @@ export default function TrainingCenterSection() {
     <section className="relative overflow-hidden bg-white py-24 md:py-32">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6">
+      <div className="relative z-10 mx-auto max-w-[1540px] px-7 xl:px-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
