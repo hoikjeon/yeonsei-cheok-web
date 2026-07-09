@@ -18,7 +18,21 @@ import {
 import { createClient } from '../utils/supabase/client';
 import { signOut } from '@/app/(public)/login/actions';
 
-const MENU_DATA = [
+type MenuItem = {
+  name: string;
+  desc: string;
+  href: string;
+};
+
+type MenuData = {
+  id: string;
+  name: string;
+  href: string;
+  subTitle: string;
+  items: MenuItem[];
+};
+
+const MENU_DATA: MenuData[] = [
   {
     id: 'about',
     name: '병원소개',
@@ -50,10 +64,11 @@ const MENU_DATA = [
     href: '/treatments/spine',
     subTitle: '통증의 근본을 찾는 정교한 치료',
     items: [
-      { name: '허리/목 디스크', desc: '정확한 진단과 맞춤형 비수술 치료', href: '/treatments/spine/disc' },
-      { name: '척추관 협착증', desc: '신경 압박 해소를 위한 전문 솔루션', href: '/treatments/spine/stenosis' },
-      { name: '비수술 치료', desc: '수술 없이 일상을 회복하는 방법', href: '/treatments/spine/non-surgical' },
-      { name: '도수·재활 클리닉', desc: '체계적인 맞춤형 재활 시스템', href: '/treatments/spine/rehab' },
+      { name: '목디스크', desc: '목·어깨 통증과 팔 저림의 원인을 정밀하게 확인합니다', href: '/treatments/spine/neck-disc' },
+      { name: '허리디스크', desc: '허리 통증과 다리 저림·당김 증상을 맞춤 진단합니다', href: '/treatments/spine/disc' },
+      { name: '비수술치료', desc: '주사·시술·재활을 연결해 수술 부담을 낮추는 단계적 치료입니다', href: '/treatments/spine/non-surgical' },
+      { name: '수술 치료', desc: 'UBE 양방향 척추내시경을 중심으로 최소침습 치료를 안내합니다', href: '/treatments/spine/ube' },
+      { name: '도수 재활 클리닉', desc: '도수·물리·자세교정 프로그램으로 회복과 재발 방지를 돕습니다', href: '/treatments/spine/rehab' },
     ]
   },
   {
@@ -246,6 +261,31 @@ const Header = () => {
   }, [isMenuOpen, isMobileMenuOpen, isHeaderHovered]);
 
   if (pathname.startsWith('/admin')) return null;
+
+  const renderMegaMenuCard = (item: MenuItem, idx: number) => (
+    <motion.div
+      key={item.name}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: idx * 0.03, duration: 0.18, ease: 'easeOut' }}
+    >
+      <Link 
+        href={item.href}
+        onClick={closeMegaMenuImmediately}
+        className="group relative flex min-h-[96px] items-center justify-between gap-5 overflow-hidden rounded-lg border border-slate-100 bg-white px-7 py-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:bg-primary/[0.025] hover:shadow-[0_22px_48px_-34px_rgba(40,74,165,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+      >
+        <div className="min-w-0 flex-1">
+          <h4 className="text-[18px] font-black text-ink tracking-tight transition-all duration-300 group-hover:-translate-y-1 group-hover:text-primary group-focus-visible:-translate-y-1 group-focus-visible:text-primary">
+            {item.name}
+          </h4>
+          <p className="mt-1 text-[14px] font-semibold leading-snug text-ink-muted">
+            {item.desc}
+          </p>
+        </div>
+        <ChevronRight size={18} className="shrink-0 -translate-x-1 text-slate-300 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-primary group-hover:opacity-100" />
+      </Link>
+    </motion.div>
+  );
 
   return (
     <>
@@ -489,31 +529,7 @@ const Header = () => {
                   </div>
 
                   <div className="grid grid-cols-2 gap-3 xl:gap-4">
-                    {activeMenuData.items.map((item, idx) => (
-                      <motion.div
-                        key={item.name}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: idx * 0.03, duration: 0.18, ease: 'easeOut' }}
-                      >
-                        <Link 
-                          href={item.href}
-                          onClick={closeMegaMenuImmediately}
-                          className="group relative flex min-h-[96px] items-center justify-between gap-5 overflow-hidden rounded-lg border border-slate-100 bg-white px-7 py-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:bg-primary/[0.025] hover:shadow-[0_22px_48px_-34px_rgba(40,74,165,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
-                        >
-                          <span className="absolute inset-y-4 left-0 w-1 rounded-r-full bg-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                          <div className="min-w-0 flex-1">
-                            <h4 className="text-[18px] font-black text-ink tracking-tight transition-colors duration-200 group-hover:text-primary">
-                              {item.name}
-                            </h4>
-                            <p className="mt-1 text-[14px] font-semibold leading-snug text-ink-muted">
-                              {item.desc}
-                            </p>
-                          </div>
-                          <ChevronRight size={18} className="shrink-0 -translate-x-1 text-slate-300 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-primary group-hover:opacity-100" />
-                        </Link>
-                      </motion.div>
-                    ))}
+                    {activeMenuData.items.map((item, idx) => renderMegaMenuCard(item, idx))}
                   </div>
                 </div>
               </motion.div>
@@ -575,7 +591,7 @@ const Header = () => {
                     <ChevronRight size={18} className="text-slate-300 group-hover:text-primary transition-colors" />
                   </Link>
                   <div className="grid grid-cols-1 gap-1 pl-4">
-                    {menu.items.slice(0, 4).map((item) => (
+                    {(menu.id === 'spine' ? menu.items : menu.items.slice(0, 4)).map((item) => (
                       <Link
                         key={item.name}
                         href={item.href}
@@ -583,7 +599,9 @@ const Header = () => {
                         className="p-3 text-[15px] font-medium text-ink-muted hover:text-primary transition-colors flex items-center gap-3"
                       >
                         <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />
-                        {item.name}
+                        <span className="min-w-0">
+                          {item.name}
+                        </span>
                       </Link>
                     ))}
                   </div>

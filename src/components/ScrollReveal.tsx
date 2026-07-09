@@ -3,7 +3,7 @@
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import type { ReactNode } from 'react';
 
-type RevealVariant = 'fade-up' | 'image' | 'metric';
+type RevealVariant = 'fade-up' | 'slide-right' | 'image' | 'metric';
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -17,6 +17,10 @@ const revealVariants: Record<RevealVariant, Variants> = {
   'fade-up': {
     hidden: { opacity: 0, y: 28 },
     visible: { opacity: 1, y: 0 },
+  },
+  'slide-right': {
+    hidden: { opacity: 0, x: -36, y: 8, filter: 'blur(8px)' },
+    visible: { opacity: 1, x: 0, y: 0, filter: 'blur(0px)' },
   },
   image: {
     hidden: {
@@ -51,8 +55,8 @@ const revealVariants: Record<RevealVariant, Variants> = {
 };
 
 const reducedVariants: Variants = {
-  hidden: { opacity: 1, y: 0, scale: 1, clipPath: 'inset(0% 0 0 0)', filter: 'blur(0px)' },
-  visible: { opacity: 1, y: 0, scale: 1, clipPath: 'inset(0% 0 0 0)', filter: 'blur(0px)' },
+  hidden: { opacity: 1, x: 0, y: 0, scale: 1, clipPath: 'inset(0% 0 0 0)', filter: 'blur(0px)' },
+  visible: { opacity: 1, x: 0, y: 0, scale: 1, clipPath: 'inset(0% 0 0 0)', filter: 'blur(0px)' },
 };
 
 const ScrollReveal = ({
