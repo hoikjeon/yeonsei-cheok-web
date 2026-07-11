@@ -6,10 +6,6 @@ import Image from 'next/image';
 import { AnimatePresence, motion, type Variants } from 'framer-motion';
 import {
   ChevronRight,
-  Activity,
-  Award,
-  CheckCircle,
-  Shield,
   ArrowUpRight,
   CalendarDays,
   FileText,
@@ -18,7 +14,9 @@ import {
   MessageCircle,
   UserCheck,
 } from 'lucide-react';
+import HomeDoctorsRevealSection from '@/components/HomeDoctorsRevealSection';
 import HomeNoticeBar from '@/components/HomeNoticeBar';
+import ReviewsShowcaseSection from '@/components/ReviewsShowcaseSection';
 import TrainingCenterSection from '@/components/TrainingCenterSection';
 import YoutubeSection from '@/components/YoutubeSection';
 
@@ -282,7 +280,7 @@ export default function Home() {
       <HomeNoticeBar />
 
       {/* Quick Access Section */}
-      <section className="relative overflow-hidden bg-white py-16 md:py-20">
+      <section className="relative overflow-hidden bg-white pt-16 pb-0 md:pt-20 md:pb-0">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#f4f9ff] to-transparent" />
 
@@ -325,16 +323,18 @@ export default function Home() {
         </div>
       </section>
 
+      <HomeDoctorsRevealSection />
+
       {/* Daily Care Promise Section */}
       <section className="relative overflow-hidden bg-white py-24 md:py-32">
         <div className="relative z-10 mx-auto max-w-[1540px] px-7 xl:px-10">
-          <div className="max-w-4xl">
+          <div className="mx-auto max-w-4xl text-center">
             <h2 className="text-4xl font-extrabold leading-[1.14] tracking-tight text-[#123f86] md:text-5xl">
               모두의 일상이 흔들림 없이 바로 설 수 있도록
               <br />
               깊이 있는 진료로 함께합니다.
             </h2>
-            <p className="mt-10 max-w-3xl text-[16px] font-bold leading-[1.85] text-[#1f2937] md:text-[18px]">
+            <p className="mx-auto mt-10 max-w-3xl text-[16px] font-bold leading-[1.85] text-[#1f2937] md:text-[18px]">
               환자 한 분 한 분의 건강한 내일을 위해 세심하고 정확한 진료를 약속합니다.
               <br className="hidden md:block" />
               연세척병원만의 차별화된 전문성과 따뜻한 마음을 만나보세요.
@@ -503,174 +503,8 @@ export default function Home() {
       {/* ▶️ 척추관절 연세척TV Section */}
       <YoutubeSection />
 
-      {/* 🧭 Medical Expertise Section: Editorial Grid */}
-      <section id="expertise" className="py-40 bg-white relative overflow-hidden">
-        <div className="max-w-[1540px] mx-auto px-7 xl:px-10 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-24">
-            <div className="lg:col-span-5 space-y-6">
-              <motion.span 
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="inline-block text-primary font-black tracking-[0.3em] font-montserrat uppercase text-xs"
-              >
-                Specialized Care
-              </motion.span>
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-5xl md:text-6xl font-black text-ink tracking-tight leading-[1.1]"
-              >
-                정확한 원칙 <br />
-                정교한 치료
-              </motion.h2>
-            </div>
-            <div className="lg:col-span-7 pt-4">
-              <p className="text-xl text-ink-muted leading-relaxed font-medium">
-                불필요한 과잉 진료는 지양하며, 대학병원급 첨단 MRI 등 정밀 영상 장비를 통해
-                가장 정직하고 효과적인 치료 솔루션을 제시합니다.
-              </p>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {[
-              { 
-                title: '척추 클리닉', 
-                desc: '허리디스크, 척추관 협착증 등 만성 통증부터 고난도 척추 수술까지 대학병원급 진료 경험으로 치료합니다.', 
-                icon: <Activity className="w-8 h-8" />,
-                tags: ['디스크', '신경성형술', '내시경치료']
-              },
-              { 
-                title: '관절 클리닉', 
-                desc: '무릎, 어깨, 고관절 질환에 대해 정밀한 관절 내시경 및 맞춤형 강화 치료를 제공합니다.', 
-                icon: <Award className="w-8 h-8" />,
-                tags: ['줄기세포', '오십견', '인공관절']
-              },
-              { 
-                title: '재활·통증 클리닉', 
-                desc: '도수치료 전문가의 일대일 맞춤 치료와 체외충격파 등 비수술적 통증 완화 솔루션을 운영합니다.', 
-                icon: <CheckCircle className="w-8 h-8" />,
-                tags: ['도수치료', '충격파', '체형교정']
-              },
-            ].map((item, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1, duration: 0.8 }}
-                className="group relative p-12 bg-slate-50/50 rounded-[3rem] border border-transparent hover:border-primary/10 hover:bg-white transition-all hover:shadow-premium"
-              >
-                <div className="space-y-10">
-                  <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-primary shadow-sm group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                    {item.icon}
-                  </div>
-                  <div className="space-y-4">
-                    <h3 className="text-2xl font-bold text-ink tracking-tight">{item.title}</h3>
-                    <p className="text-ink-muted leading-relaxed font-medium text-[15px]">{item.desc}</p>
-                  </div>
-                  <div className="flex flex-wrap gap-2 pt-2 opacity-60 group-hover:opacity-100 transition-opacity">
-                    {item.tags.map(tag => (
-                      <span key={tag} className="px-3 py-1 bg-white text-ink-muted text-[11px] font-bold rounded-lg border border-slate-100 font-montserrat uppercase tracking-tighter">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <Link href={`/treatments`} className="pt-6 flex items-center gap-2 text-primary text-sm font-bold opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all">
-                    자세히 보기 <ArrowUpRight size={14} />
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 🛡️ Trust & Performance Section */}
-      <section className="py-40 bg-navy-950 relative overflow-hidden">
-        <div className="max-w-[1540px] mx-auto px-7 xl:px-10 relative z-10">
-          <div className="flex flex-col items-center text-center space-y-12 mb-32">
-            <div className="flex items-center gap-3 px-4 py-1 bg-white/5 rounded-full border border-white/5">
-              <Shield className="text-primary w-4 h-4" />
-              <span className="text-white/60 text-[10px] font-bold font-montserrat uppercase tracking-[0.2em]">Our Commitment to Excellence</span>
-            </div>
-            <h2 className="max-w-4xl text-5xl md:text-7xl font-black text-white leading-[1.1] tracking-tighter">
-              최상의 결과를 위한 <br />
-              <span className="text-gradient">연세척의 3대 원칙</span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-            {[
-              { 
-                label: 'Precision Diagnosis', 
-                title: '오진 없는 정교함', 
-                desc: '대학병원 출신 의료진이 모든 케이스를 직접 검토하여 오진의 가능성을 낮춥니다.' 
-              },
-              { 
-                label: 'Advanced Technology', 
-                title: '대학병원급 첨단 장비', 
-                desc: '최고 사양의 대학병원급 MRI와 디지털 영상 장비로 보이지 않는 통증의 원인까지 찾아냅니다.'
-              },
-              { 
-                label: 'Safety First', 
-                title: '수술실 안심 모니터링', 
-                desc: '모든 수술 과정을 투명하게 관리하며 철저한 감염 예방 시스템을 운영합니다.' 
-              },
-            ].map((principle, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="space-y-6 text-center md:text-left"
-              >
-                <div className="text-[10px] font-black text-primary tracking-[0.3em] font-montserrat uppercase">{principle.label}</div>
-                <h3 className="text-3xl font-bold text-white tracking-tight">{principle.title}</h3>
-                <p className="text-ink-muted leading-relaxed font-medium text-[15px]">{principle.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Dynamic Background Element */}
-        <div className="absolute left-[-20%] bottom-[-10%] w-[600px] h-[600px] border border-primary/10 rounded-full animate-[spin_60s_linear_infinite]" />
-      </section>
-
-      {/* 🚀 Final CTA Section */}
-      <section id="reservation-cta" className="py-40 bg-white">
-        <div className="max-w-[1540px] mx-auto px-7 xl:px-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="p-20 bg-primary rounded-[4rem] text-center space-y-10 relative overflow-hidden"
-          >
-            <div className="relative z-10 space-y-6">
-              <h2 className="text-5xl md:text-6xl font-black text-white tracking-tight">
-                통증 없는 내일, <br />
-                함께 시작하세요.
-              </h2>
-              <p className="text-white/80 text-xl font-medium">
-                더 늦기 전에 연세척병원 전문가와 상담하세요. 정확한 진단이 회복의 시작입니다.
-              </p>
-              <div className="pt-6">
-                <Link 
-                  href="/reservation" 
-                  className="inline-flex items-center gap-3 px-12 py-6 bg-white text-primary font-black rounded-full hover:scale-105 active:scale-95 transition-all shadow-2xl"
-                >
-                  지금 바로 예약하기 <ChevronRight size={20} />
-                </Link>
-              </div>
-            </div>
-            {/* Background Texture Effect */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_rgba(0,0,0,0.1)_100%)]" />
-          </motion.div>
-        </div>
-      </section>
+      {/* 💬 치료체험 후기 Section */}
+      <ReviewsShowcaseSection />
     </div>
   );
 }

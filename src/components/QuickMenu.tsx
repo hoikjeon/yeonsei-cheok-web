@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   ArrowUp,
-  ClipboardPlus,
+  CalendarDays,
   MapPin,
   Menu,
   MonitorPlay,
@@ -33,9 +33,9 @@ const QUICK_ITEMS = [
     href: '/about/location',
   },
   {
-    name: '진료안내',
-    icon: <ClipboardPlus size={22} />,
-    href: '/#expertise',
+    name: '진료일정',
+    icon: <CalendarDays size={22} />,
+    href: '/doctors',
   },
   {
     name: '연세척TV',

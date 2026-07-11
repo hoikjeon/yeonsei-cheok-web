@@ -7,8 +7,8 @@ const UbeDecompressionScene = () => {
 
       <div className="absolute inset-x-[-7%] bottom-[2%] z-10 h-[62%] md:inset-x-[-2%] md:bottom-[2%] md:h-[64%]">
         <Image
-          src="/generated/ube/ube-intro-spine.png"
-          alt="양방향 척추내시경 감압술 설명을 위한 척추 3D 이미지"
+          src="/generated/ube/ube-intro-spine-herniation-cutout.png"
+          alt="중앙 디스크 돌출이 강조된 척추 3D 이미지"
           fill
           priority
           sizes="(min-width: 1024px) 1050px, 94vw"

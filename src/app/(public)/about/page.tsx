@@ -1,20 +1,53 @@
 import Image from 'next/image';
-import { Handshake, Route, ScanSearch, Syringe } from 'lucide-react';
+import { HeartPulse, Stethoscope, UserCheck, Zap } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
 import SubHero from '@/components/SubHero';
 import TreatmentStepGraph from '@/components/TreatmentStepGraph';
 
-const INTRO_SECTIONS = [
+interface DirectorCutout {
+  name: string;
+  image: string;
+  alt: string;
+  figureClassName: string;
+  labelClassName: string;
+  imageClassName?: string;
+}
+
+interface IntroSection {
+  title: string;
+  image?: string;
+  imageAlt?: string;
+  directors?: DirectorCutout[];
+  paragraphs: string[];
+  signature?: string;
+}
+
+const INTRO_SECTIONS: IntroSection[] = [
   {
     title: '병원장 인사말',
-    image: '/generated/hero-university-doctors.png',
-    imageAlt: '척추 진료 상담을 진행하는 의료진과 환자',
+    directors: [
+      {
+        name: '이남 병원장',
+        image: '/generated/doctors-lineup/lee-nam.png',
+        alt: '이남 병원장',
+        figureClassName: 'left-[35%] top-[1%] z-20 h-[145%] w-[64%]',
+        labelClassName: 'left-[35%]',
+      },
+      {
+        name: '김동한 병원장',
+        image: '/generated/doctors-lineup/kim-dong-han.png',
+        alt: '김동한 병원장',
+        figureClassName: 'left-[65%] top-[-2%] z-10 h-[156%] w-[68%]',
+        labelClassName: 'left-[65%]',
+        imageClassName: 'scale-x-[-1]',
+      },
+    ],
     paragraphs: [
       '연세척병원은 환자마다 각기 다른 통증의 원인과 생활 환경을 세심하게 고려하여 **정확한 진단**을 내리는 것을 최우선으로 삼고 있습니다.',
       '무리한 접근보다는 환자에게 꼭 필요한 **비수술적 치료를 먼저** 권해 드리며, 수술이 불가피한 경우에도 **양방향척추내시경(UBE)**과 같은 **최소침습 방식**으로 신체적 부담을 최소화하고자 합니다.',
       '아울러 진단 결과와 치료 과정을 알기 쉽게 설명하고 환자와 함께 치료 방향을 결정하는 **열린 소통**을 바탕으로, 부산 시민 여러분이 통증에서 벗어나 **건강한 일상**을 되찾으실 수 있도록 정직하고 신중하게 진료하겠습니다.',
     ],
-    signature: '연세척병원 병원장 드림',
+    signature: '연세척병원장 이남, 김동한 드림',
   },
   {
     title: '병원 소개',
@@ -42,24 +75,24 @@ function renderRichText(text: string) {
 
 const VALUE_ITEMS = [
   {
-    title: '정확한 진단을 먼저 생각합니다.',
-    desc: '통증은 같아 보여도 원인은 저마다 다릅니다. 연세척병원은 무리한 치료보다 통증의 근본 원인을 정확히 찾는 진단을 우선합니다.',
-    icon: <ScanSearch size={25} />,
+    title: '시술부터 수술까지!',
+    desc: '대학병원 출신 신경외과·정형외과 전문의의 넓은 치료영역',
+    icon: <Stethoscope size={26} />,
   },
   {
-    title: '비수술적 치료를 먼저 검토합니다.',
-    desc: '도수치료·주사 등 보존적 치료로 호전될 수 있다면 그 방법을 먼저 권해 드립니다. 수술이 필요한 경우에도 절개를 최소화하는 양방향척추내시경(UBE) 등 최소침습 치료를 지향합니다.',
-    icon: <Syringe size={25} />,
+    title: '일대일 맞춤 치료',
+    desc: '분야별 숙련의가 맞춤 치료 제안',
+    icon: <UserCheck size={26} />,
   },
   {
-    title: '신경외과·정형외과가 함께 봅니다.',
-    desc: '척추와 관절은 두 진료과의 시각이 함께 필요한 경우가 많습니다. 신경외과와 정형외과 전문의가 협진하여 환자에게 맞는 치료 방향을 찾습니다.',
-    icon: <Route size={25} />,
+    title: '올바른 사후관리',
+    desc: '재활치료센터 운영, 생활습관 지도 등 치료의 처음과 끝까지!',
+    icon: <HeartPulse size={26} />,
   },
   {
-    title: '충분히 설명하고 함께 결정합니다.',
-    desc: '진단 결과와 치료 과정을 알기 쉽게 설명해 드리고, 치료의 방향을 환자와 함께 정해 나갑니다.',
-    icon: <Handshake size={25} />,
+    title: '원스톱 진료시스템',
+    desc: '내원 당일 검사, 시술까지 가능한 One stop care system',
+    icon: <Zap size={26} />,
   },
 ];
 
@@ -81,19 +114,49 @@ export default function AboutPage() {
                 key={section.title}
                 className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1fr)] lg:items-center lg:gap-16"
               >
-                <ScrollReveal variant="image" className={`relative overflow-hidden rounded-lg bg-slate-100 shadow-[0_28px_70px_-44px_rgba(15,29,54,0.45)] ${
-                  section.title === '병원 소개' ? 'lg:order-2' : ''
-                }`}>
-                  <div className="relative aspect-[4/3]">
-                    <Image
-                      src={section.image}
-                      alt={section.imageAlt}
-                      fill
-                      sizes="(min-width: 1024px) 48vw, 100vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-tr from-navy-950/55 via-navy-950/12 to-transparent" />
-                  </div>
+                <ScrollReveal variant="image" className={`relative ${
+                  section.directors ? '' : 'overflow-hidden rounded-lg bg-slate-100 shadow-[0_28px_70px_-44px_rgba(15,29,54,0.45)]'
+                } ${section.title === '병원 소개' ? 'lg:order-2' : ''}`}>
+                  {section.directors ? (
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <Image
+                        src="/ys-logo-bg.png"
+                        alt=""
+                        aria-hidden="true"
+                        width={1551}
+                        height={1545}
+                        className="pointer-events-none absolute left-1/2 top-[6%] h-[78%] w-auto -translate-x-1/2 select-none object-contain opacity-[0.03] brightness-0"
+                      />
+
+                      {section.directors.map((director) => (
+                        <div
+                          key={director.name}
+                          className={`absolute -translate-x-1/2 ${director.figureClassName}`}
+                        >
+                          <Image
+                            src={director.image}
+                            alt={director.alt}
+                            fill
+                            sizes="(min-width: 1024px) 24vw, 46vw"
+                            className={`object-contain object-top drop-shadow-[0_22px_30px_rgba(15,29,54,0.16)] ${director.imageClassName ?? ''}`}
+                          />
+                        </div>
+                      ))}
+
+                      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-[30%] bg-gradient-to-t from-white via-white/85 to-transparent" />
+                    </div>
+                  ) : (
+                    <div className="relative aspect-[4/3]">
+                      <Image
+                        src={section.image ?? ''}
+                        alt={section.imageAlt ?? section.title}
+                        fill
+                        sizes="(min-width: 1024px) 48vw, 100vw"
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-navy-950/55 via-navy-950/12 to-transparent" />
+                    </div>
+                  )}
                 </ScrollReveal>
 
                 <div className={`space-y-7 ${
@@ -155,28 +218,26 @@ export default function AboutPage() {
               </p>
             </ScrollReveal>
 
-            <div className="overflow-hidden rounded-lg border border-slate-100 bg-white shadow-[0_30px_80px_-58px_rgba(15,29,54,0.45)]">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               {VALUE_ITEMS.map((item, index) => (
-                <ScrollReveal
-                  key={item.title}
-                  className="border-b border-slate-100 last:border-b-0"
-                  delay={index * 0.08}
-                  amount={0.16}
-                >
-                  <article className="group grid grid-cols-1 gap-5 px-6 py-7 md:grid-cols-[76px_minmax(0,0.72fr)_minmax(0,1fr)] md:items-center md:gap-7 md:px-8 md:py-8">
-                    <div className="flex h-[52px] w-[52px] items-center justify-center rounded-lg bg-primary-light text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white">
+                <ScrollReveal key={item.title} delay={index * 0.1} amount={0.2}>
+                  <article className="group relative h-full overflow-hidden rounded-2xl border border-slate-100 bg-white p-8 shadow-[0_24px_70px_-56px_rgba(15,29,54,0.5)] transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/25 hover:shadow-[0_42px_90px_-52px_rgba(40,74,165,0.55)] md:p-9">
+                    <span className="pointer-events-none absolute -right-2 -top-5 font-montserrat text-[112px] font-black leading-none text-primary/[0.05] transition-colors duration-500 group-hover:text-primary/[0.09]">
+                      0{index + 1}
+                    </span>
+
+                    <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-light text-primary transition-all duration-500 group-hover:scale-110 group-hover:bg-primary group-hover:text-white">
                       {item.icon}
                     </div>
 
-                    <div>
-                      <h3 className="text-2xl font-black leading-snug tracking-tight text-ink">
-                        {item.title}
-                      </h3>
-                    </div>
-
-                    <p className="text-[17px] font-medium leading-relaxed text-ink-sub">
+                    <h3 className="relative mt-7 text-2xl font-black tracking-tight text-ink md:text-[1.7rem]">
+                      {item.title}
+                    </h3>
+                    <p className="relative mt-3.5 text-[16px] font-medium leading-relaxed text-ink-sub md:text-[17px]">
                       {item.desc}
                     </p>
+
+                    <span className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-primary transition-transform duration-500 group-hover:scale-x-100" />
                   </article>
                 </ScrollReveal>
               ))}

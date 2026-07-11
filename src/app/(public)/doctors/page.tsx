@@ -1,7 +1,7 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { CalendarCheck, ChevronRight, ShieldCheck, Stethoscope, UsersRound } from 'lucide-react';
 import DoctorsDirectory, { type DoctorProfile } from '@/components/DoctorsDirectory';
+import DoctorsHeroLineup from '@/components/DoctorsHeroLineup';
 import ScrollReveal from '@/components/ScrollReveal';
 import SubHero from '@/components/SubHero';
 
@@ -438,37 +438,7 @@ export default function DoctorsPage() {
       />
 
       <main className="w-full">
-        <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1fr)] lg:items-center lg:gap-16">
-            <ScrollReveal variant="image" className="relative overflow-hidden rounded-lg border border-slate-100 bg-slate-100 shadow-[0_34px_90px_-62px_rgba(15,29,54,0.55)]">
-              <div className="relative aspect-[4/3]">
-                <Image
-                  src="/generated/doctors-group-dummy.png"
-                  alt="연세척병원 의료진 5명 더미 이미지"
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 46vw, 100vw"
-                  className="object-cover object-left"
-                />
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal className="space-y-6" delay={0.08}>
-              <div className="space-y-5">
-                <h2 className="text-4xl font-black leading-tight tracking-tight text-ink md:text-5xl">
-                  정확한 진단에서 회복까지
-                  <br />
-                  함께 보는 의료진
-                </h2>
-                <p className="max-w-2xl text-lg font-medium leading-relaxed text-ink-sub">
-                  척추와 관절의 통증은 같은 증상처럼 보여도 원인이 다를 수 있습니다.
-                  연세척병원 의료진은 환자의 상태와 생활 환경을 함께 살피고,
-                  비수술 치료부터 최소침습 치료까지 필요한 방향을 신중하게 제안합니다.
-                </p>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
+        <DoctorsHeroLineup />
 
         <DoctorsDirectory doctors={doctorList} />
 

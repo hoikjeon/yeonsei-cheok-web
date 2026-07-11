@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Check, ChevronDown, Home } from 'lucide-react';
 import NeckDiseaseSection from '@/components/NeckDiseaseSection';
 import ScrollReveal from '@/components/ScrollReveal';
+import SpineCenterStrengthSection from '@/components/SpineCenterStrengthSection';
 
 export const metadata: Metadata = {
   title: '목디스크 | 연세척병원',
@@ -215,6 +216,8 @@ export default function NeckDiscPage() {
       </section>
 
       <NeckDiseaseSection />
+
+      <SpineCenterStrengthSection />
     </main>
   );
 }

@@ -358,7 +358,10 @@ const CredentialDetails = ({ doctor }: { doctor: DoctorProfile }) => {
 const DoctorProfileBlock = ({ doctor, index }: { doctor: DoctorProfile; index: number }) => {
   return (
     <ScrollReveal delay={index * 0.08} amount={0.14}>
-      <article className="grid grid-cols-1 gap-12 border-b border-slate-100 py-20 last:border-b-0 lg:grid-cols-[minmax(360px,0.42fr)_minmax(0,1fr)] lg:gap-16">
+      <article
+        id={doctor.id}
+        className="grid scroll-mt-28 grid-cols-1 gap-12 border-b border-slate-100 py-20 last:border-b-0 lg:grid-cols-[minmax(360px,0.42fr)_minmax(0,1fr)] lg:gap-16"
+      >
         <div className="lg:pt-32 xl:pt-36">
           <div className="relative overflow-hidden rounded-[28px] bg-[#d5dbe8]">
             <div className="relative aspect-[3/4]">
