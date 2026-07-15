@@ -214,7 +214,7 @@ export default function Home() {
   return (
     <div className="flex flex-col space-y-0">
       {/* Hero Section */}
-      <section className="relative -mt-[72px] flex h-[calc(100svh-132px)] min-h-[620px] max-h-[820px] items-center overflow-hidden bg-navy-950 pt-[72px]">
+      <section className="relative -mt-[72px] flex h-[calc(100svh-72px)] min-h-[540px] max-h-[720px] items-center overflow-hidden bg-navy-950 pt-[72px] md:h-[calc(100svh-132px)] md:min-h-[620px] md:max-h-[820px]">
         <div className="absolute inset-0 z-0">
           <AnimatePresence mode="sync">
             <motion.img
@@ -225,7 +225,7 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.985 }}
               transition={{ duration: 1.02, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover object-center"
             />
           </AnimatePresence>
           <div className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(10,20,40,0.96)_0%,rgba(10,20,40,0.84)_32%,rgba(10,20,40,0.44)_66%,rgba(10,20,40,0.36)_100%)]" />
@@ -233,16 +233,16 @@ export default function Home() {
           <div className="absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-t from-navy-950 to-transparent" />
         </div>
         
-        <div className="relative z-20 mx-auto w-full max-w-[1540px] px-7 xl:px-10 pt-8 md:pt-12">
+        <div className="relative z-20 mx-auto w-full max-w-[1540px] px-5 pt-4 sm:px-7 md:pt-12 xl:px-10">
           <motion.div
             key={activeSlide.id}
             initial={{ opacity: 0.7 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-[880px] space-y-7"
+            className="max-w-[880px] space-y-5 md:space-y-7"
           >
-            <div className="space-y-6">
-              <h1 className="text-4xl font-bold leading-[1.14] tracking-normal text-white sm:text-5xl lg:text-6xl">
+            <div className="space-y-4 md:space-y-6">
+              <h1 className="break-keep text-[32px] font-bold leading-[1.18] tracking-normal text-white sm:text-[40px] md:text-5xl lg:text-6xl">
                 {activeSlide.titleLines.map((line, index) => (
                   <span
                     key={line}
@@ -252,7 +252,7 @@ export default function Home() {
                   </span>
                 ))}
               </h1>
-              <p className="max-w-xl text-base font-normal leading-relaxed text-slate-200/90 md:text-lg">
+              <p className="max-w-xl break-keep text-[15px] font-normal leading-[1.75] text-slate-200/90 sm:text-base md:text-lg md:leading-relaxed">
                 {activeSlide.desc}
               </p>
             </div>
@@ -262,7 +262,7 @@ export default function Home() {
         <button
           type="button"
           onClick={showPreviousSlide}
-          className="absolute left-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/[0.12] bg-navy-950/[0.35] text-white/[0.78] backdrop-blur-md transition-all hover:border-white/25 hover:bg-white/10 hover:text-white md:left-8 md:h-14 md:w-14"
+          className="absolute left-8 top-1/2 z-30 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/[0.12] bg-navy-950/[0.35] text-white/[0.78] backdrop-blur-md transition-all hover:border-white/25 hover:bg-white/10 hover:text-white md:flex"
           aria-label="이전 배너 보기"
         >
           <ChevronRight size={24} className="rotate-180" />
@@ -270,23 +270,45 @@ export default function Home() {
         <button
           type="button"
           onClick={showNextSlide}
-          className="absolute right-4 top-1/2 z-30 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/[0.12] bg-navy-950/[0.35] text-white/[0.78] backdrop-blur-md transition-all hover:border-white/25 hover:bg-white/10 hover:text-white md:right-8 md:h-14 md:w-14"
+          className="absolute right-8 top-1/2 z-30 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/[0.12] bg-navy-950/[0.35] text-white/[0.78] backdrop-blur-md transition-all hover:border-white/25 hover:bg-white/10 hover:text-white md:flex"
           aria-label="다음 배너 보기"
         >
           <ChevronRight size={24} />
         </button>
+
+        <div className="absolute bottom-5 right-5 z-30 flex items-center overflow-hidden rounded-full border border-white/15 bg-navy-950/45 text-white backdrop-blur-md md:hidden">
+          <button
+            type="button"
+            onClick={showPreviousSlide}
+            className="flex h-10 w-10 items-center justify-center text-white/80 active:bg-white/10"
+            aria-label="이전 배너 보기"
+          >
+            <ChevronRight size={19} className="rotate-180" />
+          </button>
+          <span className="min-w-10 text-center font-montserrat text-[12px] font-bold tabular-nums text-white/75">
+            {activeSlideIndex + 1}/{heroSlides.length}
+          </span>
+          <button
+            type="button"
+            onClick={showNextSlide}
+            className="flex h-10 w-10 items-center justify-center text-white/80 active:bg-white/10"
+            aria-label="다음 배너 보기"
+          >
+            <ChevronRight size={19} />
+          </button>
+        </div>
       </section>
 
       <HomeNoticeBar />
 
       {/* Quick Access Section */}
-      <section className="relative overflow-hidden bg-white pt-16 pb-0 md:pt-20 md:pb-0">
+      <section className="relative overflow-hidden bg-white pb-0 pt-12 md:pt-20 md:pb-0">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#f4f9ff] to-transparent" />
 
-        <div className="relative z-10 mx-auto max-w-[1540px] px-7 xl:px-10">
+        <div className="relative z-10 mx-auto max-w-[1540px] px-5 sm:px-7 xl:px-10">
           <h2 className="sr-only">연세척병원 빠른 메뉴</h2>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-6">
             {quickAccessItems.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -298,17 +320,17 @@ export default function Home() {
                 <Link
                   href={item.href}
                   prefetch
-                  className="group relative flex min-h-[142px] flex-col items-center justify-center gap-4 overflow-hidden rounded-lg border border-slate-100 bg-slate-50/80 px-4 py-7 text-center shadow-[0_20px_58px_-48px_rgba(15,29,54,0.55)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:bg-primary hover:shadow-blue-glow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary md:min-h-[172px] md:gap-5"
+                  className="group relative flex min-h-[118px] flex-col items-center justify-center gap-2.5 overflow-hidden rounded-lg border border-slate-100 bg-slate-50/80 px-3 py-4 text-center shadow-[0_20px_58px_-48px_rgba(15,29,54,0.55)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:bg-primary hover:shadow-blue-glow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary md:min-h-[172px] md:gap-5 md:px-4 md:py-7"
                   aria-label={`${item.title} 바로가기`}
                 >
                   <span
                     aria-hidden="true"
                     className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-70"
                   />
-                  <span className="flex h-[68px] w-[68px] items-center justify-center text-primary transition-all duration-300 group-hover:scale-105 group-hover:text-white md:h-20 md:w-20">
+                  <span className="flex h-12 w-12 items-center justify-center text-primary transition-all duration-300 group-hover:scale-105 group-hover:text-white [&>svg]:h-10 [&>svg]:w-10 md:h-20 md:w-20 md:[&>svg]:h-[58px] md:[&>svg]:w-[58px]">
                     {item.icon}
                   </span>
-                  <span className="text-[19px] font-black tracking-tight text-ink transition-colors duration-300 group-hover:text-white md:text-[24px]">
+                  <span className="break-keep text-[16px] font-black leading-tight tracking-tight text-ink transition-colors duration-300 group-hover:text-white md:text-[24px]">
                     {item.title}
                   </span>
                   <ArrowUpRight
@@ -326,15 +348,15 @@ export default function Home() {
       <HomeDoctorsRevealSection />
 
       {/* Daily Care Promise Section */}
-      <section className="relative overflow-hidden bg-white py-24 md:py-32">
-        <div className="relative z-10 mx-auto max-w-[1540px] px-7 xl:px-10">
+      <section className="relative overflow-hidden bg-white py-16 md:py-32">
+        <div className="relative z-10 mx-auto max-w-[1540px] px-5 sm:px-7 xl:px-10">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="text-4xl font-extrabold leading-[1.14] tracking-tight text-[#123f86] md:text-5xl">
+            <h2 className="break-keep text-[28px] font-extrabold leading-[1.3] tracking-tight text-[#123f86] sm:text-[32px] md:text-5xl md:leading-[1.14]">
               모두의 일상이 흔들림 없이 바로 설 수 있도록
-              <br />
+              <br className="hidden md:block" />{' '}
               깊이 있는 진료로 함께합니다.
             </h2>
-            <p className="mx-auto mt-10 max-w-3xl text-[16px] font-bold leading-[1.85] text-[#1f2937] md:text-[18px]">
+            <p className="mx-auto mt-6 max-w-3xl break-keep text-[15px] font-medium leading-[1.75] text-[#1f2937] md:mt-10 md:text-[18px] md:font-bold md:leading-[1.85]">
               환자 한 분 한 분의 건강한 내일을 위해 세심하고 정확한 진료를 약속합니다.
               <br className="hidden md:block" />
               연세척병원만의 차별화된 전문성과 따뜻한 마음을 만나보세요.
@@ -342,10 +364,10 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative z-10 mx-auto mt-24 max-w-[1540px] px-7 xl:px-10 md:mt-28">
-          <div className="relative min-h-[500px] lg:min-h-[500px]">
-            <div className="relative z-10 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.32fr)_minmax(0,1fr)] lg:items-center lg:gap-[72px] xl:gap-[96px]">
-              <div className="relative aspect-[1.34/1] min-h-[320px] md:min-h-[420px] lg:h-[462px]">
+        <div className="relative z-10 mx-auto mt-14 max-w-[1540px] px-5 sm:px-7 md:mt-28 xl:px-10">
+          <div className="relative min-h-0 lg:min-h-[500px]">
+            <div className="relative z-10 grid grid-cols-1 gap-7 lg:grid-cols-[minmax(0,1.32fr)_minmax(0,1fr)] lg:items-center lg:gap-[72px] xl:gap-[96px]">
+              <div className="relative aspect-[4/3] min-h-0 overflow-hidden rounded-[24px] md:aspect-[1.34/1] md:min-h-[420px] md:rounded-none lg:h-[462px]">
                 <AnimatePresence>
                   <motion.div
                     key={activeCareIndex}
@@ -368,7 +390,7 @@ export default function Home() {
                 </AnimatePresence>
               </div>
 
-              <article className="space-y-12 lg:-translate-y-4">
+              <article className="space-y-7 md:space-y-12 lg:-translate-y-4">
                 <div className="flex items-center gap-4">
                   <button
                     type="button"
@@ -393,7 +415,7 @@ export default function Home() {
                   </button>
                 </div>
 
-                <div className="relative min-h-[240px] md:min-h-[276px]">
+                <div className="relative min-h-0 md:min-h-[276px]">
                   <AnimatePresence mode="popLayout">
                     <motion.div
                       key={activeCareIndex}
@@ -401,20 +423,20 @@ export default function Home() {
                       initial="hidden"
                       animate="show"
                       exit="exit"
-                      className="space-y-7"
+                      className="space-y-5 md:space-y-7"
                     >
-                      <motion.div variants={careTextItem} className="flex flex-wrap items-center gap-5">
-                        <span className="rounded-full bg-[#102f66] px-5 py-2 text-[14px] font-black tracking-tight text-white">
+                      <motion.div variants={careTextItem} className="flex flex-wrap items-center gap-3 md:gap-5">
+                        <span className="rounded-full bg-[#102f66] px-4 py-2 text-[13px] font-black tracking-tight text-white md:px-5 md:text-[14px]">
                           {activeCareSlide.point}
                         </span>
-                        <h3 className="text-[25px] font-black leading-tight tracking-tight text-ink md:text-[32px]">
+                        <h3 className="break-keep text-[22px] font-black leading-tight tracking-tight text-ink md:text-[32px]">
                           {activeCareSlide.title}
                         </h3>
                       </motion.div>
 
                       <motion.p
                         variants={careTextItem}
-                        className="max-w-xl text-[15px] font-semibold leading-[1.85] text-ink-sub md:text-[16px]"
+                        className="max-w-xl break-keep text-[15px] font-medium leading-[1.75] text-ink-sub md:text-[16px] md:font-semibold md:leading-[1.85]"
                       >
                         {activeCareSlide.desc}
                       </motion.p>
@@ -442,12 +464,12 @@ export default function Home() {
       <TrainingCenterSection />
 
       {/* 🧬 Specialty System Section */}
-      <section className="relative overflow-hidden bg-[#f4f9ff] py-28 text-ink">
+      <section className="relative overflow-hidden bg-[#f4f9ff] py-16 text-ink md:py-28">
         <div className="absolute inset-0 bg-[linear-gradient(180deg,#ffffff_0%,#eef7ff_48%,#ffffff_100%)]" />
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white to-transparent" />
 
-        <div className="relative z-10 mx-auto grid max-w-[1540px] grid-cols-1 gap-12 px-7 xl:px-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
+        <div className="relative z-10 mx-auto grid max-w-[1540px] grid-cols-1 gap-8 px-5 sm:px-7 md:gap-12 xl:px-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
           <motion.div
             initial={{ opacity: 0, y: 54 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -456,7 +478,7 @@ export default function Home() {
             className="space-y-5"
           >
             <div className="space-y-3">
-              <h2 className="text-4xl font-extrabold leading-[1.14] tracking-tight md:text-5xl">
+              <h2 className="break-keep text-[30px] font-extrabold leading-[1.2] tracking-tight md:text-5xl md:leading-[1.14]">
                 척추/관절 특화 병원
                 <span className="mt-2 block text-primary">연세척병원</span>
               </h2>
@@ -471,21 +493,21 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.28 }}
                 transition={{ delay: index * 0.12, duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
-                className="group grid min-h-[218px] overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_28px_80px_-56px_rgba(15,29,54,0.5)] transition-all duration-500 hover:-translate-y-1 hover:border-primary/25 hover:bg-primary"
+                className="group grid min-h-0 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_28px_80px_-56px_rgba(15,29,54,0.5)] transition-all duration-500 hover:-translate-y-1 hover:border-primary/25 hover:bg-primary md:min-h-[218px]"
               >
                 <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.1fr)_minmax(220px,0.9fr)]">
-                  <div className="flex min-h-[230px] flex-col justify-center p-8 md:p-9">
+                  <div className="flex min-h-0 flex-col justify-center p-5 sm:p-6 md:min-h-[230px] md:p-9">
                     <div className="space-y-4">
-                      <h3 className="break-keep text-2xl font-extrabold tracking-tight text-ink transition-colors duration-500 group-hover:text-white md:text-[32px]">
+                      <h3 className="break-keep text-[22px] font-extrabold tracking-tight text-ink transition-colors duration-500 group-hover:text-white md:text-[32px]">
                         {program.title}
                       </h3>
-                      <p className="max-w-md text-[15px] font-medium leading-relaxed text-ink-muted transition-colors duration-500 group-hover:text-white/[0.82]">
+                      <p className="max-w-md break-keep text-[15px] font-medium leading-[1.7] text-ink-sub transition-colors duration-500 group-hover:text-white/[0.82] md:leading-relaxed">
                         {program.desc}
                       </p>
                     </div>
                   </div>
 
-                  <div className="relative min-h-[230px] overflow-hidden bg-[#e8f3ff] md:min-h-full">
+                  <div className="relative aspect-[16/10] min-h-0 overflow-hidden bg-[#e8f3ff] md:aspect-auto md:min-h-full">
                     <motion.img
                       src={program.image}
                       alt={program.title}

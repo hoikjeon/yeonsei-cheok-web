@@ -44,31 +44,31 @@ export default function SpineCenterPage() {
       />
 
       {/* 척추센터 소개 */}
-      <section className="max-w-7xl mx-auto px-6 py-24 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-24">
-          <div className="lg:col-span-5 space-y-6">
+      <section className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-6 md:py-24">
+        <div className="mb-16 grid grid-cols-1 items-start gap-10 md:mb-24 lg:grid-cols-12 lg:gap-16">
+          <div className="space-y-5 lg:col-span-5 lg:space-y-6">
             <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">Spine Center</span>
-            <h2 className="text-4xl font-extrabold text-ink tracking-tight">
+            <h2 className="break-keep text-[2rem] font-extrabold leading-tight tracking-tight text-ink md:text-4xl">
               정확한 진단이<br />치료의 시작입니다
             </h2>
             <div className="w-16 h-1.5 bg-primary rounded-full" />
-            <p className="text-ink-muted leading-relaxed font-medium">
+            <p className="break-keep text-[15px] font-medium leading-[1.75] text-ink-sub md:text-base">
               연세척병원 척추센터는 연세대 세브란스 교수 출신의 전문 의료진이 
               대학병원급 첨단 MRI 등 정밀 영상 장비를 활용하여 통증의 정확한 원인을 진단합니다.
               불필요한 수술은 하지 않으며, 환자에게 가장 안전하고 효과적인 
               치료법을 우선적으로 제안합니다.
             </p>
           </div>
-          <div className="lg:col-span-7 grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:col-span-7 lg:gap-8">
             {[
               { value: '15,000+', label: '연간 척추 환자 진료' },
               { value: '99%', label: '환자 만족도' },
               { value: '3,000+', label: '연간 시술 건수' },
               { value: '15Y+', label: '전문의 임상 경력' },
             ].map((stat, i) => (
-              <div key={i} className="p-8 bg-slate-50 rounded-3xl text-center space-y-2">
-                <p className="text-3xl font-black text-primary tracking-tighter">{stat.value}</p>
-                <p className="text-ink-muted text-sm font-medium">{stat.label}</p>
+              <div key={i} className="space-y-1.5 rounded-2xl bg-slate-50 px-3 py-5 text-center sm:p-6 lg:rounded-3xl lg:p-8">
+                <p className="text-[1.55rem] font-black tracking-tighter text-primary sm:text-3xl">{stat.value}</p>
+                <p className="break-keep text-[12px] font-medium leading-snug text-ink-sub sm:text-sm">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -78,7 +78,7 @@ export default function SpineCenterPage() {
         <div className="space-y-8">
           <div className="space-y-4">
             <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">Our Specialties</span>
-            <h2 className="text-3xl font-extrabold text-ink tracking-tight">전문 진료 분야</h2>
+            <h2 className="text-[1.75rem] font-extrabold tracking-tight text-ink md:text-3xl">전문 진료 분야</h2>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -86,24 +86,24 @@ export default function SpineCenterPage() {
               <Link
                 key={idx}
                 href={service.href}
-                className="group p-10 bg-white rounded-3xl border border-slate-100 hover:border-primary/20 hover:shadow-premium transition-all"
+                className="group rounded-2xl border border-slate-100 bg-white p-6 transition-all hover:border-primary/20 hover:shadow-premium md:rounded-3xl md:p-10"
               >
                 <div className="space-y-6">
-                  <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-ink-muted group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-50 text-slate-600 transition-all duration-500 group-hover:bg-primary group-hover:text-white">
                     {service.icon}
                   </div>
                   <div className="space-y-3">
                     <h3 className="text-2xl font-bold text-ink group-hover:text-primary transition-colors">{service.title}</h3>
-                    <p className="text-ink-muted leading-relaxed font-medium text-[15px]">{service.desc}</p>
+                    <p className="break-keep text-[15px] font-medium leading-relaxed text-ink-sub">{service.desc}</p>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {service.tags.map(tag => (
-                      <span key={tag} className="px-3 py-1 bg-slate-50 text-ink-muted text-[11px] font-bold rounded-lg border border-slate-100 font-montserrat uppercase tracking-tight">
+                      <span key={tag} className="rounded-lg border border-slate-100 bg-slate-50 px-3 py-1 font-montserrat text-[11px] font-bold uppercase tracking-tight text-slate-600">
                         {tag}
                       </span>
                     ))}
                   </div>
-                  <div className="flex items-center gap-2 text-primary text-sm font-bold opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all">
+                  <div className="flex translate-x-0 items-center gap-2 text-sm font-bold text-primary opacity-100 transition-all lg:-translate-x-4 lg:opacity-0 lg:group-hover:translate-x-0 lg:group-hover:opacity-100">
                     자세히 보기 →
                   </div>
                 </div>
@@ -114,16 +114,16 @@ export default function SpineCenterPage() {
       </section>
 
       {/* 비수술 우선 원칙 배너 */}
-      <section className="bg-navy-950 py-24 px-6">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
+      <section className="bg-navy-950 px-5 py-14 sm:px-6 md:py-24">
+        <div className="mx-auto max-w-4xl space-y-6 text-center md:space-y-8">
           <span className="text-primary text-[10px] font-black tracking-[0.3em] font-montserrat uppercase">Our Philosophy</span>
-          <h2 className="text-3xl font-bold text-white">"비수술 우선, 정직한 진료"</h2>
-          <p className="text-ink-muted text-lg leading-relaxed">
+          <h2 className="break-keep text-[1.75rem] font-bold leading-tight text-white md:text-3xl">&ldquo;비수술 우선, 정직한 진료&rdquo;</h2>
+          <p className="break-keep text-base leading-[1.75] text-white/75 md:text-lg">
             연세척병원은 무조건적인 수술보다 정밀한 진단을 통해<br className="hidden md:block" />
             환자에게 가장 안전하고 효과적인 비수술적 치료법을 먼저 고민합니다.
           </p>
           <div className="flex justify-center gap-4 pt-4">
-            <Link href="/reservation" className="px-8 py-4 bg-primary text-white font-bold rounded-full hover:bg-primary-dark transition-all shadow-blue-glow">
+            <Link href="/reservation" className="w-full rounded-full bg-primary px-8 py-4 font-bold text-white shadow-blue-glow transition-all hover:bg-primary-dark sm:w-auto">
               진료 상담 예약 →
             </Link>
           </div>

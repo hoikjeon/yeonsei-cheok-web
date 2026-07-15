@@ -6,6 +6,7 @@ import UbeFaqAccordion from '@/components/UbeFaqAccordion';
 import UbeParallaxBackground from '@/components/UbeParallaxBackground';
 import UbeDecompressionScene from '@/components/UbeDecompressionScene';
 import UbeIndicationMap from '@/components/UbeIndicationMap';
+import YonseiSpecialFeaturesSection from '@/components/YonseiSpecialFeaturesSection';
 
 const overviewBenefits = [
   {
@@ -114,21 +115,6 @@ const faqItems = [
   },
 ];
 
-const precautions = [
-  {
-    title: '수술 후 척추에 무리가 가지 않도록 주의하세요',
-    desc: '수술 후 전문의 안내에 따라 어느 정도 안정을 취한 뒤 보행을 시작합니다. 퇴원 후 4~6주간은 허리를 무리하게 굽히거나 비틀기, 무거운 물건을 드는 행동은 반드시 삼가야 합니다.',
-  },
-  {
-    title: '회복 과정에는 개인차가 있을 수 있습니다',
-    desc: '환자의 연령, 체력, 특성에 따라 회복 속도에 개인차가 있습니다. 수술 부위의 일시적인 열감, 부기, 미세한 방사통 등이 동반될 수 있으며, 특이 증상이 있을 경우 즉시 의료진과 상담해 주세요.',
-  },
-  {
-    title: '수술 후 꾸준한 관리가 재발을 막습니다',
-    desc: '통증이 가라앉은 후에는 걷기 등 가벼운 운동부터 천천히 강도를 올려 허리 코어 근육을 강화해야 합니다. 체중을 적절히 유지하고 올바른 자세를 생활화하는 것이 중요합니다.',
-  },
-];
-
 const strengths = [
   {
     no: '01',
@@ -173,10 +159,10 @@ const centerImages = [
 ];
 
 const sectionTitleClass =
-  'text-4xl font-extrabold leading-[1.14] tracking-tight text-ink md:text-5xl';
+  'break-keep text-[1.9rem] font-extrabold leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-5xl md:leading-[1.14]';
 
 const blueSectionTitleClass =
-  'text-4xl font-extrabold leading-[1.14] tracking-tight text-white md:text-5xl';
+  'break-keep text-[1.9rem] font-extrabold leading-[1.25] tracking-tight text-white sm:text-4xl md:text-5xl md:leading-[1.14]';
 
 export default function UbePage() {
   return (
@@ -192,28 +178,28 @@ export default function UbePage() {
       />
 
       <main className="w-full">
-        <section className="bg-[#F5F7FA] px-6 py-20 md:py-28">
+        <section className="bg-[#F5F7FA] px-5 py-16 sm:px-6 md:py-28">
           <div className="mx-auto max-w-7xl">
             <ScrollReveal variant="image">
               <UbeDecompressionScene />
             </ScrollReveal>
 
-            <ScrollReveal className="mx-auto mt-12 max-w-5xl">
-              <div className="space-y-6">
+            <ScrollReveal className="mx-auto mt-8 max-w-5xl sm:mt-12">
+              <div className="space-y-5 sm:space-y-6">
                 <h2 className={sectionTitleClass}>
                   양방향 척추내시경 감압술이란?
                 </h2>
-                <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+                <div className="grid grid-cols-2 gap-2.5 sm:gap-3 md:grid-cols-4">
                   {decompressionFacts.map((item) => (
-                    <div key={item.label} className="rounded-lg border border-slate-200 bg-white px-5 py-4">
-                      <div className="text-sm font-black text-primary">{item.label}</div>
-                      <div className="mt-2 text-lg font-black leading-snug text-ink md:text-xl">
+                    <div key={item.label} className="rounded-lg border border-slate-200 bg-white px-3 py-3 sm:px-5 sm:py-4">
+                      <div className="text-[12px] font-black text-primary sm:text-sm">{item.label}</div>
+                      <div className="mt-1.5 break-keep text-[1rem] font-black leading-snug text-ink sm:mt-2 sm:text-lg md:text-xl">
                         {item.value}
                       </div>
                     </div>
                   ))}
                 </div>
-                <div className="space-y-5 text-lg font-medium leading-relaxed text-ink-sub">
+                <div className="space-y-4 break-keep text-base font-medium leading-[1.8] text-ink-sub sm:space-y-5 md:text-lg md:leading-relaxed">
                   <p>
                     두 개의 1cm 이하 절개창을 이용하는 정밀 수술방법으로, 한쪽은 내시경,
                     다른 한쪽에는 수술기구를 삽입하여 감압하는 방법입니다. 부분마취하에서
@@ -234,15 +220,15 @@ export default function UbePage() {
           </div>
         </section>
 
-        <section id="benefits" className="mx-auto max-w-7xl px-6 py-20 md:py-28">
-          <div className="grid grid-cols-1 gap-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
-            <ScrollReveal className="space-y-6">
+        <section id="benefits" className="mx-auto max-w-7xl px-5 py-16 sm:px-6 md:py-28">
+          <div className="grid grid-cols-1 gap-9 sm:gap-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
+            <ScrollReveal className="space-y-5 sm:space-y-6">
               <h2 className={sectionTitleClass}>
                 작은 절개로 접근하는
-                <br />
+                <br className="hidden md:block" />
                 정밀 척추 치료
               </h2>
-              <div className="space-y-5 text-lg font-medium leading-relaxed text-ink-sub">
+              <div className="space-y-4 break-keep text-base font-medium leading-[1.8] text-ink-sub sm:space-y-5 md:text-lg md:leading-relaxed">
                 <p>
                   양방향 척추내시경은 병변 주변으로 약 5~7mm의 작은 구멍 두 개를 내어
                   진행하는 치료법입니다. 한 쪽에는 초고화질 특수 내시경을 삽입해 넓고 선명한
@@ -270,7 +256,7 @@ export default function UbePage() {
             </ScrollReveal>
           </div>
 
-          <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5 md:gap-5">
+          <div className="mt-10 grid grid-cols-1 gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-4 md:gap-5 lg:grid-cols-5">
             {overviewBenefits.map((item, index) => (
               <ScrollReveal
                 key={item.title}
@@ -279,22 +265,22 @@ export default function UbePage() {
                 amount={0.38}
                 className="h-full"
               >
-                <div className="group relative flex h-full min-h-[220px] flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white px-6 py-8 transition-all duration-500 ease-out hover:-translate-y-1 hover:border-primary/30 hover:shadow-blue-glow">
+                <div className="group relative flex h-full flex-col justify-between overflow-hidden rounded-xl border border-slate-200 bg-white px-5 py-5 transition-all duration-500 ease-out hover:-translate-y-1 hover:border-primary/30 hover:shadow-blue-glow sm:rounded-2xl md:min-h-[220px] md:px-6 md:py-8">
                   <div
                     aria-hidden
                     className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-primary-light opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-70"
                   />
 
                   <div className="relative">
-                    <h3 className="text-xl font-extrabold leading-snug text-ink md:text-2xl">
+                    <h3 className="text-[1.1rem] font-extrabold leading-snug text-ink sm:text-xl md:text-2xl">
                       {item.title}
                     </h3>
-                    <p className="mt-5 text-base font-semibold leading-relaxed text-ink-sub">
+                    <p className="mt-3 break-keep text-[15px] font-semibold leading-[1.7] text-ink-sub sm:mt-5 sm:text-base sm:leading-relaxed">
                       {item.desc}
                     </p>
                   </div>
 
-                  <div className="relative mt-8 h-px w-full bg-slate-200">
+                  <div className="relative mt-5 h-px w-full bg-slate-200 sm:mt-8">
                     <span
                       aria-hidden
                       className="absolute inset-y-0 left-0 w-full origin-left scale-x-0 bg-gradient-to-r from-primary to-primary/40 transition-transform duration-[600ms] ease-out group-hover:scale-x-100"
@@ -306,8 +292,8 @@ export default function UbePage() {
           </div>
         </section>
 
-        <section className="bg-[#F5F7FA] px-6 py-20 md:py-28">
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center">
+        <section className="bg-[#F5F7FA] px-5 py-16 sm:px-6 md:py-28">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-9 sm:gap-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center">
             <ScrollReveal variant="image">
               <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-slate-200">
                 <Image
@@ -320,17 +306,17 @@ export default function UbePage() {
               </div>
             </ScrollReveal>
 
-            <ScrollReveal delay={0.08} className="space-y-7">
+            <ScrollReveal delay={0.08} className="space-y-5 sm:space-y-7">
               <div className="space-y-5">
                 <h2 className={sectionTitleClass}>
                   초고화질 내시경 시야와
-                  <br />
+                  <br className="hidden md:block" />
                   숙련된 신경외과 전문의의
-                  <br />
+                  <br className="hidden md:block" />
                   섬세한 술기로 안전하게 치료합니다.
                 </h2>
               </div>
-              <div className="space-y-5 text-lg font-medium leading-relaxed text-ink-sub">
+              <div className="space-y-4 break-keep text-base font-medium leading-[1.8] text-ink-sub sm:space-y-5 md:text-lg md:leading-relaxed">
                 <p>
                   척추 수술은 심리적, 신체적으로 큰 부담이 될 수 있습니다. 수술의 정확성과
                   안정성을 높이기 위해서는 병변 부위를 오차 없이 확인하는 정확한 눈과 수술 도구를
@@ -346,7 +332,7 @@ export default function UbePage() {
           </div>
         </section>
 
-        <section id="decompression-candidates" className="bg-[#F5F7FA] px-6 py-20 md:py-28">
+        <section id="decompression-candidates" className="bg-[#F5F7FA] px-5 py-16 sm:px-6 md:py-28">
           <div className="mx-auto max-w-7xl">
             <ScrollReveal className="max-w-4xl">
               <h2 className={sectionTitleClass}>양방향 척추내시경 적용대상</h2>
@@ -358,24 +344,24 @@ export default function UbePage() {
           </div>
         </section>
 
-        <section id="indications" className="mx-auto max-w-7xl px-6 py-20 md:py-28">
+        <section id="indications" className="mx-auto max-w-7xl px-5 py-16 sm:px-6 md:py-28">
           <ScrollReveal className="max-w-4xl">
             <h2 className={sectionTitleClass}>
               보존적 치료 후에도 통증이 이어진다면
-              <br />
+              <br className="hidden md:block" />
               정밀하게 원인을 확인합니다.
             </h2>
-            <p className="mt-6 max-w-3xl text-lg font-medium leading-relaxed text-ink-sub">
+            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-ink-sub sm:mt-6 md:text-lg md:leading-relaxed">
               환자의 증상, 영상 검사, 신경 압박 정도에 따라 양방향 척추내시경의 필요성과
               적합성을 전문의가 판단합니다.
             </p>
           </ScrollReveal>
 
-          <div className="mt-12 grid grid-cols-1 border-y border-slate-200 md:grid-cols-2">
+          <div className="mt-8 grid grid-cols-1 border-y border-slate-200 sm:mt-12 md:grid-cols-2">
             {indications.map((item, index) => (
               <ScrollReveal key={item} delay={index * 0.04}>
                 <div
-                  className={`group relative grid min-h-28 grid-cols-[64px_minmax(0,1fr)] items-center gap-5 overflow-hidden border-b border-slate-200 py-6 md:border-r md:px-6 ${
+                  className={`group relative grid min-h-0 grid-cols-[44px_minmax(0,1fr)] items-center gap-3 overflow-hidden border-b border-slate-200 py-4 sm:min-h-28 sm:grid-cols-[64px_minmax(0,1fr)] sm:gap-5 sm:py-6 md:border-r md:px-6 ${
                     index % 2 === 0 ? '' : 'md:border-r-0'
                   } ${index >= indications.length - 2 ? 'md:border-b-0' : ''}`}
                 >
@@ -385,10 +371,10 @@ export default function UbePage() {
                     className="absolute inset-0 origin-left scale-x-0 bg-gradient-to-r from-navy-900 via-primary-dark to-primary transition-transform duration-500 ease-out group-hover:scale-x-100"
                   />
 
-                  <span className="relative z-10 font-montserrat text-2xl font-black text-primary transition-colors duration-500 ease-out group-hover:text-white">
+                  <span className="relative z-10 font-montserrat text-xl font-black text-primary transition-colors duration-500 ease-out group-hover:text-white sm:text-2xl">
                     {String(index + 1).padStart(2, '0')}
                   </span>
-                  <p className="relative z-10 text-lg font-black leading-relaxed text-ink transition-colors duration-500 ease-out group-hover:text-white">
+                  <p className="relative z-10 break-keep text-[1rem] font-black leading-[1.65] text-ink transition-colors duration-500 ease-out group-hover:text-white sm:text-lg sm:leading-relaxed">
                     {item}
                   </p>
                 </div>
@@ -397,21 +383,21 @@ export default function UbePage() {
           </div>
         </section>
 
-        <section id="process" className="bg-[#F5F7FA] px-6 py-20 md:py-28">
+        <section id="process" className="bg-[#F5F7FA] px-5 py-16 sm:px-6 md:py-28">
           <div className="mx-auto max-w-7xl">
             <ScrollReveal className="mx-auto max-w-4xl text-center">
               <h2 className={sectionTitleClass}>
                 특수 내시경으로 병변을 직접 확인하며,
-                <br />
+                <br className="hidden md:block" />
                 통증의 근본 원인만 선택적으로 제거합니다.
               </h2>
-              <p className="mt-6 text-lg font-medium leading-relaxed text-ink-sub">
+              <p className="mt-5 break-keep text-base font-medium leading-[1.8] text-ink-sub sm:mt-6 md:text-lg md:leading-relaxed">
                 기존 개방형 수술과 달리 특수 내시경으로 병변 부위를 확대해 직접 확인하므로, 정상
                 조직 보존율이 높고 수술 후 당일 또는 다음날 보행을 목표로 회복을 관리합니다.
               </p>
             </ScrollReveal>
 
-            <div className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-14 sm:gap-6 lg:grid-cols-3">
               {treatmentSteps.map((step, index) => (
                 <ScrollReveal key={step.no} delay={index * 0.08}>
                   <article className="h-full overflow-hidden rounded-lg bg-white">
@@ -424,10 +410,10 @@ export default function UbePage() {
                         className="object-cover transition-transform duration-700 hover:scale-105"
                       />
                     </div>
-                    <div className="px-7 pb-8 pt-7">
-                      <div className="font-montserrat text-2xl font-black text-primary">{step.no}</div>
-                      <h3 className="mt-5 text-2xl font-black leading-snug text-ink">{step.title}</h3>
-                      <p className="mt-4 text-[17px] font-medium leading-relaxed text-ink-sub">{step.desc}</p>
+                    <div className="px-5 pb-6 pt-5 sm:px-7 sm:pb-8 sm:pt-7">
+                      <div className="font-montserrat text-xl font-black text-primary sm:text-2xl">{step.no}</div>
+                      <h3 className="mt-3 text-xl font-black leading-snug text-ink sm:mt-5 sm:text-2xl">{step.title}</h3>
+                      <p className="mt-3 break-keep text-[15px] font-medium leading-[1.75] text-ink-sub sm:mt-4 sm:text-[17px] sm:leading-relaxed">{step.desc}</p>
                     </div>
                   </article>
                 </ScrollReveal>
@@ -441,12 +427,12 @@ export default function UbePage() {
 
           <div className="relative mx-auto max-w-7xl">
             <ScrollReveal className="mx-auto max-w-4xl text-center">
-              <h2 className="text-3xl font-extrabold leading-[1.12] tracking-tight text-white md:text-5xl">
+              <h2 className="break-keep text-[1.75rem] font-extrabold leading-[1.22] tracking-tight text-white sm:text-3xl md:text-5xl md:leading-[1.12]">
                 한방향 척추 수술과
-                <br />
+                <br className="hidden md:block" />
                 양방향 척추내시경의 차이
               </h2>
-              <p className="mx-auto mt-5 max-w-3xl text-base font-semibold leading-relaxed text-white/80 md:text-lg">
+              <p className="mx-auto mt-4 max-w-3xl break-keep text-[15px] font-semibold leading-[1.7] text-white/80 sm:mt-5 sm:text-base sm:leading-relaxed md:text-lg">
                 두 개의 독립 통로로 시야와 기구 움직임을 분리해 더 넓고 정밀한 접근을 돕습니다.
               </p>
             </ScrollReveal>
@@ -461,7 +447,7 @@ export default function UbePage() {
                         : 'border-white/55 bg-white/85'
                     }`}
                   >
-                    <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div className="flex flex-wrap items-start justify-between gap-2 sm:gap-3">
                       <h3
                         className={`text-xl font-black leading-snug md:text-2xl ${
                           index === 1 ? 'text-primary' : 'text-ink'
@@ -483,7 +469,7 @@ export default function UbePage() {
                       {item.rows.map((row) => (
                         <div
                           key={row.label}
-                          className="grid gap-3 py-3 sm:grid-cols-[112px_minmax(0,1fr)] sm:gap-5"
+                          className="grid gap-2 py-3 sm:grid-cols-[112px_minmax(0,1fr)] sm:gap-5"
                         >
                           <div>
                             <span
@@ -494,7 +480,7 @@ export default function UbePage() {
                               {row.label}
                             </span>
                           </div>
-                          <p className="text-[15px] font-semibold leading-relaxed text-slate-700 md:text-base">
+                          <p className="break-keep text-[14px] font-semibold leading-[1.7] text-slate-700 sm:text-[15px] sm:leading-relaxed md:text-base">
                             {row.desc}
                           </p>
                         </div>
@@ -507,69 +493,41 @@ export default function UbePage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
+        <section className="mx-auto max-w-7xl px-5 py-16 sm:px-6 md:py-28">
           <ScrollReveal className="mx-auto max-w-3xl text-center">
             <h2 className={sectionTitleClass}>
               환자분들이 자주 묻는 질문에
-              <br />
+              <br className="hidden md:block" />
               연세척병원이 답합니다.
             </h2>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.08} className="mx-auto mt-12 max-w-5xl">
+          <ScrollReveal delay={0.08} className="mx-auto mt-8 max-w-5xl sm:mt-12">
             <UbeFaqAccordion items={faqItems} />
           </ScrollReveal>
         </section>
 
-        <section className="bg-[#F5F7FA] px-6 py-20 md:py-28">
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-start lg:gap-16">
-            <ScrollReveal className="space-y-5">
-              <h2 className={sectionTitleClass}>
-                건강한 일상을 위한
-                <br />
-                회복 관리 안내
-              </h2>
-            </ScrollReveal>
+        <YonseiSpecialFeaturesSection />
 
-            <ScrollReveal delay={0.08}>
-              <div className="divide-y divide-slate-200 border-y border-slate-200 bg-white">
-                {precautions.map((item, index) => (
-                  <div key={item.title} className="grid gap-4 px-6 py-7 md:grid-cols-[70px_minmax(0,1fr)] md:px-8">
-                    <span className="font-montserrat text-2xl font-black text-primary">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <div>
-                      <h3 className="text-xl font-black leading-snug text-ink">{item.title}</h3>
-                      <p className="mt-3 text-base font-medium leading-relaxed text-ink-sub md:text-[17px]">
-                        {item.desc}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-
-        <section className="relative overflow-hidden bg-[#071A3D] px-6 py-20 text-white md:py-28">
+        <section className="relative overflow-hidden bg-[#071A3D] px-5 py-16 text-white sm:px-6 md:py-28">
           <UbeParallaxBackground />
 
           <div className="relative mx-auto max-w-7xl">
-            <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-stretch">
-              <ScrollReveal className="space-y-6">
+            <div className="grid grid-cols-1 gap-8 sm:gap-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-stretch">
+              <ScrollReveal className="space-y-5 sm:space-y-6">
                 <h2 className={blueSectionTitleClass}>
                   환자의 척추 건강을
                   <br />
                   평생 책임지는 척추센터
                 </h2>
-                <p className="text-lg font-medium leading-relaxed text-white/82">
+                <p className="break-keep text-base font-medium leading-[1.75] text-white/82 md:text-lg md:leading-relaxed">
                   척추 질환은 초기에 정확한 원인을 파악해 치료하는 것이 가장 중요합니다.
                   연세척병원 척추센터는 정밀 진단과 풍부한 임상경험을 갖춘 신경외과 전문의가
                   꼭 필요한 치료만 선별해 시행합니다.
                 </p>
               </ScrollReveal>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:h-full">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 lg:h-full">
                 {centerImages.map((image, index) => (
                   <ScrollReveal key={image.src} delay={index * 0.06} variant="image" className="lg:h-full">
                     <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-white/10 lg:aspect-auto lg:h-full lg:min-h-[220px]">
@@ -577,7 +535,7 @@ export default function UbePage() {
                         src={image.src}
                         alt={image.alt}
                         fill
-                        sizes="(min-width: 1024px) 23vw, (min-width: 640px) 31vw, 100vw"
+                        sizes="(min-width: 1024px) 23vw, 31vw"
                         className="object-cover"
                       />
                     </div>
@@ -586,13 +544,13 @@ export default function UbePage() {
               </div>
             </div>
 
-            <div className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-5">
+            <div className="mt-8 grid grid-cols-1 gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4 lg:grid-cols-5">
               {strengths.map((item, index) => (
                 <ScrollReveal key={item.no} delay={index * 0.04}>
-                  <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-cyan-300/40 hover:bg-white/[0.1] hover:shadow-[0_24px_60px_rgba(2,12,32,0.45)]">
+                  <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-cyan-300/40 hover:bg-white/[0.1] hover:shadow-[0_24px_60px_rgba(2,12,32,0.45)] sm:p-6">
                     <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                     <h3 className="text-lg font-black leading-snug text-white transition-colors duration-300 group-hover:text-cyan-400">{item.title}</h3>
-                    <p className="mt-3 text-sm font-medium leading-relaxed text-white/70">{item.desc}</p>
+                    <p className="mt-3 break-keep text-sm font-medium leading-[1.7] text-white/75 sm:leading-relaxed sm:text-white/70">{item.desc}</p>
                   </article>
                 </ScrollReveal>
               ))}
@@ -600,18 +558,18 @@ export default function UbePage() {
           </div>
         </section>
 
-        <section className="px-6 py-16 md:py-20">
+        <section className="px-5 py-12 sm:px-6 md:py-20">
           <ScrollReveal className="mx-auto grid max-w-7xl grid-cols-1 overflow-hidden rounded-lg border border-slate-200 bg-white lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
-            <div className="space-y-4 p-8 md:p-10 lg:p-12">
-              <h2 className="text-3xl font-black leading-tight text-ink md:text-4xl">
+            <div className="space-y-3 p-5 sm:space-y-4 sm:p-8 md:p-10 lg:p-12">
+              <h2 className="break-keep text-[1.55rem] font-black leading-tight text-ink sm:text-3xl md:text-4xl">
                 내 증상에 맞는 치료인지 확인하고 싶다면
               </h2>
-              <p className="max-w-2xl text-lg font-medium leading-relaxed text-ink-sub">
+              <p className="max-w-2xl break-keep text-[15px] font-medium leading-[1.75] text-ink-sub sm:text-lg sm:leading-relaxed">
                 검사 자료와 증상을 바탕으로 양방향 척추내시경 적용 가능 여부를 전문의가
                 안내해 드립니다.
               </p>
             </div>
-            <div className="flex flex-col gap-3 border-t border-slate-200 p-8 md:flex-row md:p-10 lg:border-l lg:border-t-0 lg:p-12">
+            <div className="flex flex-col gap-3 border-t border-slate-200 p-5 sm:p-8 md:flex-row md:p-10 lg:border-l lg:border-t-0 lg:p-12">
               <Link
                 href="/reservation"
                 className="inline-flex items-center justify-center rounded-lg bg-primary px-7 py-4 text-base font-black text-white transition-all hover:bg-primary-dark"

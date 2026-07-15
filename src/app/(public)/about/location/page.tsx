@@ -28,8 +28,8 @@ export default function LocationPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* 📍 Header Hero Section */}
-      <section className="pt-40 pb-20 bg-slate-50 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 text-center space-y-6">
+      <section className="border-b border-slate-100 bg-slate-50 pb-12 pt-14 sm:pb-14 sm:pt-16 lg:pb-20 lg:pt-40">
+        <div className="mx-auto max-w-7xl space-y-4 px-4 text-center sm:space-y-6 sm:px-6">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -42,7 +42,7 @@ export default function LocationPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-6xl font-black text-ink tracking-tight leading-tight"
+            className="break-keep text-[34px] font-black leading-tight tracking-tight text-ink sm:text-4xl lg:text-6xl"
           >
             오시는 길
           </motion.h1>
@@ -50,7 +50,7 @@ export default function LocationPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-lg md:text-xl text-ink-muted font-medium max-w-2xl mx-auto"
+            className="mx-auto max-w-2xl break-keep text-[15px] font-medium leading-[1.75] text-ink-muted sm:text-[17px] lg:text-xl"
           >
             대학병원급 의료 시스템을 더 가까이에서 만나보세요. <br className="hidden md:block" />
             찾아오시는 길을 상세히 안내해 드립니다.
@@ -59,15 +59,15 @@ export default function LocationPage() {
       </section>
 
       {/* 🗺️ Map & Info Section */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-6 space-y-16">
+      <section className="py-14 sm:py-16 lg:py-24">
+        <div className="mx-auto max-w-7xl space-y-12 px-4 sm:px-6 md:space-y-14 lg:space-y-16">
           
           {/* Top: Info Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-             <div className="p-8 bg-slate-50 rounded-[2rem] border border-slate-100 flex flex-col justify-center items-start gap-3">
+             <div className="flex flex-col items-start justify-center gap-3 rounded-2xl border border-slate-100 bg-slate-50 p-5 sm:p-6 lg:rounded-[2rem] lg:p-8">
                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary shadow-sm mb-2"><MapPin size={24} /></div>
                <h3 className="text-sm font-black text-ink-muted font-montserrat uppercase tracking-widest">Address</h3>
-               <p className="text-xl font-bold text-ink leading-snug">부산광역시 부산진구 가야대로 715 <br />(당감동 974, 위너스빌딩 1~4층)</p>
+               <p className="break-keep text-lg font-bold leading-snug text-ink sm:text-xl">부산광역시 부산진구 가야대로 715 <br />(당감동 974, 위너스빌딩 1~4층)</p>
                <button 
                  onClick={handleCopyAddress}
                  className="mt-2 text-sm font-bold text-primary hover:text-ink transition-colors flex items-center gap-1"
@@ -76,19 +76,19 @@ export default function LocationPage() {
                </button>
              </div>
              
-             <div className="p-8 bg-slate-50 rounded-[2rem] border border-slate-100 flex flex-col justify-center items-start gap-3">
+             <div className="flex flex-col items-start justify-center gap-3 rounded-2xl border border-slate-100 bg-slate-50 p-5 sm:p-6 lg:rounded-[2rem] lg:p-8">
                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary shadow-sm mb-2"><Phone size={24} /></div>
                <h3 className="text-sm font-black text-ink-muted font-montserrat uppercase tracking-widest">Contact</h3>
-               <p className="text-[28px] font-black text-ink tracking-tight">051-935-1004</p>
+               <p className="text-[26px] font-black tracking-tight text-ink sm:text-[28px]">051-935-1004</p>
                <p className="mt-2 text-sm font-medium text-ink-muted">팩스: 051-935-1008</p>
              </div>
 
-             <div className="p-8 bg-primary rounded-[2rem] text-white flex flex-col justify-center items-start gap-3 shadow-blue-glow relative overflow-hidden">
+             <div className="relative flex flex-col items-start justify-center gap-3 overflow-hidden rounded-2xl bg-primary p-5 text-white shadow-blue-glow sm:p-6 lg:rounded-[2rem] lg:p-8">
                <div className="relative z-10 space-y-3">
                   <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-white backdrop-blur-md mb-2"><Navigation size={24} /></div>
                   <h3 className="text-sm font-black text-white/70 font-montserrat uppercase tracking-widest">Navigation</h3>
-                  <p className="text-xl font-bold">내비게이션 검색</p>
-                  <p className="mt-2 text-sm font-medium text-white/80">
+                  <p className="text-lg font-bold sm:text-xl">내비게이션 검색</p>
+                  <p className="mt-2 break-keep text-sm font-medium leading-relaxed text-white/80">
                      '연세척병원' 또는 '가야대로 715' 명칭 검색
                   </p>
                </div>
@@ -97,13 +97,13 @@ export default function LocationPage() {
           </div>
 
           {/* Middle: Map Container */}
-          <div className="w-full h-[500px] md:h-[600px] bg-slate-50 rounded-[3rem] p-4 border border-slate-100 shadow-premium overflow-hidden">
+          <div className="h-[400px] w-full overflow-hidden rounded-2xl border border-slate-100 bg-slate-50 p-2 shadow-premium sm:h-[460px] sm:p-3 md:h-[500px] lg:h-[600px] lg:rounded-[3rem] lg:p-4">
              {/* 네이버 지도 컴포넌트 렌더링 */}
              <NaverMap lat={HOSPITAL_COORDS.lat} lng={HOSPITAL_COORDS.lng} placeName={HOSPITAL_NAME} />
           </div>
 
           {/* Bottom: Public Transport */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pt-10 border-t border-slate-100">
+          <div className="grid grid-cols-1 gap-8 border-t border-slate-100 pt-8 md:grid-cols-3 lg:gap-10 lg:pt-10">
              
              {/* Subway */}
              <div className="space-y-6">
@@ -116,17 +116,17 @@ export default function LocationPage() {
                 <div className="space-y-4 pt-2 pl-4 border-l-2 border-emerald-100">
                    <div>
                      <span className="inline-block px-3 py-1 bg-emerald-500 text-white text-[12px] font-bold rounded-lg tracking-widest">2호선</span>
-                     <p className="text-lg font-bold text-ink-sub mt-2">
+                     <p className="mt-2 break-keep text-base font-bold leading-relaxed text-ink-sub sm:text-lg">
                         <span className="text-emerald-600 font-black">부암역 6번 출구</span> <br />
                         출구로 나오셔서 바로 앞 약 10M 지점
                      </p>
                    </div>
                    <div className="space-y-3 pt-2">
-                      <div className="text-[13px] text-ink-muted">
+                      <div className="break-keep text-[14px] leading-relaxed text-ink-muted">
                          <p className="font-bold text-ink-sub">■ 노포역/부산역 출발 시</p>
                          <p>서면역에서 2호선(사상/양산 방향) 환승 → 부암역 하차</p>
                       </div>
-                      <div className="text-[13px] text-ink-muted">
+                      <div className="break-keep text-[14px] leading-relaxed text-ink-muted">
                          <p className="font-bold text-ink-sub">■ 사상역 출발 시</p>
                          <p>2호선(장산 방향) 이용 → 부암역 하차</p>
                       </div>
@@ -171,7 +171,7 @@ export default function LocationPage() {
                      <p className="text-[15px] font-bold text-ink-sub leading-relaxed mb-3">
                         병원 정문 옆에 위치한 병원 전용 주차장
                      </p>
-                     <p className="text-[13px] font-medium text-ink-muted">
+                     <p className="break-keep text-[14px] font-medium leading-relaxed text-ink-muted">
                         (주차공간이 한정되어 있는 관계로 가급적 대중교통 이용을 부탁드립니다.)
                      </p>
                    </div>

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import { useReducedMotion } from 'framer-motion';
 
 type ReviewTone = 'navy' | 'mist' | 'amber' | 'paper';
 
@@ -128,6 +129,7 @@ export default function ReviewsShowcaseSection() {
   const [slotWidth, setSlotWidth] = useState(344);
   const [animated, setAnimated] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
   const total = reviews.length;
 
   useEffect(() => {
@@ -147,14 +149,14 @@ export default function ReviewsShowcaseSection() {
   }, []);
 
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || shouldReduceMotion) return;
 
     const interval = window.setInterval(() => {
       setStep((current) => current + 1);
     }, STEP_INTERVAL_MS);
 
     return () => window.clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, shouldReduceMotion]);
 
   useEffect(() => {
     if (step < total) return;
@@ -178,32 +180,32 @@ export default function ReviewsShowcaseSection() {
   }, [animated]);
 
   const cards = [...reviews, ...reviews];
-  const transition = animated ? `transform ${SLIDE_DURATION_MS}ms ${SLIDE_EASING}` : 'none';
+  const transition = animated && !shouldReduceMotion ? `transform ${SLIDE_DURATION_MS}ms ${SLIDE_EASING}` : 'none';
 
   return (
-    <section className="overflow-hidden bg-[#edf2fa] py-24 md:py-32" aria-labelledby="reviews-showcase-title">
-      <div className="mx-auto w-full max-w-[1540px] px-7 xl:px-10">
+    <section className="overflow-hidden bg-[#edf2fa] py-16 md:py-32" aria-labelledby="reviews-showcase-title">
+      <div className="mx-auto w-full max-w-[1540px] px-5 sm:px-7 xl:px-10">
         <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_auto]">
           <div className="space-y-6">
             <h2
               id="reviews-showcase-title"
-              className="break-keep text-[38px] font-black leading-[1.28] tracking-normal text-black md:text-[54px]"
+              className="break-keep text-[32px] font-black leading-[1.28] tracking-normal text-black sm:text-[38px] md:text-[54px]"
             >
               끄덕임으로 전해지는
               <br />
               환자들의 치료후기
             </h2>
-            <p className="break-keep text-[17px] font-bold leading-relaxed text-ink md:text-[21px]">
-              수술없이도 척추·관절의 건강을 회복한 생생한 이야기를 만나보세요.
+            <p className="break-keep text-[15px] font-medium leading-[1.7] text-ink sm:text-[17px] sm:font-bold md:text-[21px] md:leading-relaxed">
+              수술 후 통증에서 벗어난 환자분들이 직접 남겨주신 생생한 회복 이야기를 만나보세요.
             </p>
-            <p className="inline-flex max-w-full break-keep rounded-full bg-[#dbe8ff] px-3.5 py-2 text-[12px] font-bold leading-relaxed text-primary md:text-[13px]">
+            <p className="inline-flex max-w-full break-keep rounded-xl bg-[#dbe8ff] px-3.5 py-2 text-[12px] font-bold leading-relaxed text-primary sm:rounded-full md:text-[13px]">
               ※ 의료법 규정에 따라 자세한 내용은 로그인 후 확인할 수 있습니다.
             </p>
           </div>
 
           <Link
             href="/board/reviews"
-            className="group inline-flex w-fit items-center gap-4 rounded-full border border-ink/45 px-8 py-4 text-[17px] font-black text-ink transition-all duration-300 hover:border-primary hover:bg-primary hover:text-white lg:mt-[108px]"
+            className="group inline-flex w-fit items-center gap-3 rounded-full border border-ink/45 px-6 py-3.5 text-[15px] font-black text-ink transition-all duration-300 hover:border-primary hover:bg-primary hover:text-white sm:gap-4 sm:px-8 sm:py-4 sm:text-[17px] lg:mt-[108px]"
           >
             자세히보기
             <ArrowRight size={21} className="transition-transform duration-300 group-hover:translate-x-1" />
@@ -212,13 +214,15 @@ export default function ReviewsShowcaseSection() {
       </div>
 
       <div
-        className="mt-14 overflow-hidden md:mt-16"
+        className="mt-10 overflow-hidden md:mt-16"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
+        onTouchStart={() => setIsPaused(true)}
+        onTouchEnd={() => setIsPaused(false)}
       >
         <div
           ref={trackRef}
-          className="ml-7 flex h-[420px] w-max items-start gap-7 md:-ml-44"
+          className="ml-5 flex h-[380px] w-max items-start gap-4 sm:ml-7 sm:gap-7 md:-ml-44 md:h-[420px]"
           style={{
             transform: `translateX(${-step * slotWidth}px)`,
             transition,
@@ -232,19 +236,19 @@ export default function ReviewsShowcaseSection() {
               <article
                 key={`${review.title}-${index}`}
                 aria-hidden={index >= total}
-                className={`flex h-[342px] w-[286px] shrink-0 flex-col rounded-[28px] px-7 py-8 md:w-[320px] ${tone.card}`}
+                className={`flex h-[300px] w-[calc(100vw-40px)] max-w-[286px] shrink-0 flex-col rounded-[22px] px-5 py-6 sm:h-[342px] sm:rounded-[28px] sm:px-7 sm:py-8 md:w-[320px] md:max-w-none ${tone.card}`}
                 style={{
                   transform: `translateY(${isLower ? LOWER_OFFSET_PX : 0}px)`,
                   transition,
                 }}
               >
-                <span className={`inline-flex w-fit rounded-full px-5 py-3 text-[15px] font-black leading-none ${tone.chip}`}>
+                <span className={`inline-flex w-fit rounded-full px-4 py-2.5 text-[13px] font-black leading-none sm:px-5 sm:py-3 sm:text-[15px] ${tone.chip}`}>
                   {review.category}
                 </span>
-                <p className={`mt-6 line-clamp-4 break-keep text-[20px] font-black leading-[1.55] tracking-normal ${tone.body}`}>
+                <p className={`mt-5 line-clamp-4 break-keep text-[18px] font-black leading-[1.5] tracking-normal sm:mt-6 sm:text-[20px] sm:leading-[1.55] ${tone.body}`}>
                   {review.title}
                 </p>
-                <div className={`mt-auto flex items-center justify-between gap-4 pt-10 text-[17px] font-bold tracking-normal ${tone.meta}`}>
+                <div className={`mt-auto flex items-center justify-between gap-4 pt-7 text-[15px] font-bold tracking-normal sm:pt-10 sm:text-[17px] ${tone.meta}`}>
                   <span>{review.author}</span>
                   <time dateTime={review.date.replaceAll('.', '-')}>{review.date}</time>
                 </div>
@@ -254,7 +258,7 @@ export default function ReviewsShowcaseSection() {
         </div>
       </div>
 
-      <div className="mx-auto mt-8 flex w-full max-w-[1540px] justify-center px-7 xl:px-10">
+      <div className="mx-auto mt-4 flex w-full max-w-[1540px] justify-center px-5 sm:px-7 md:mt-8 xl:px-10">
         <div className="flex items-center">
           <span className="h-1.5 w-[62px] rounded-full bg-[#10346f]" />
           <span className="h-1.5 w-[110px] rounded-full bg-white/70" />

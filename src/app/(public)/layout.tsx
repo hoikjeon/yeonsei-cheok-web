@@ -11,16 +11,16 @@ export default function PublicLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <div className="public-site-shell flex min-h-screen min-w-0 flex-1 flex-col">
       <VisitTracker />
       <Header />
       <MainPopup />
-      <main className="flex-grow pt-[72px]">
+      <main className="min-w-0 flex-grow pt-[72px]">
         {children}
       </main>
       <QuickMenu />
       <FooterConsultationSection />
       <Footer />
-    </>
+    </div>
   );
 }

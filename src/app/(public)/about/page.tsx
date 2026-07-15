@@ -107,12 +107,12 @@ export default function AboutPage() {
       />
 
       <main className="w-full">
-        <div className="mx-auto max-w-7xl px-6 py-20 md:py-28">
-          <div className="space-y-20 md:space-y-28">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 md:py-28">
+          <div className="space-y-16 md:space-y-28">
             {INTRO_SECTIONS.map((section) => (
               <section
                 key={section.title}
-                className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1fr)] lg:items-center lg:gap-16"
+                className="grid grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1fr)] lg:items-center lg:gap-16"
               >
                 <ScrollReveal variant="image" className={`relative ${
                   section.directors ? '' : 'overflow-hidden rounded-lg bg-slate-100 shadow-[0_28px_70px_-44px_rgba(15,29,54,0.45)]'
@@ -163,20 +163,20 @@ export default function AboutPage() {
                   section.title === '병원 소개' ? 'lg:order-1' : ''
                 }`}>
                   <ScrollReveal className="space-y-4" delay={0.08}>
-                    <h3 className="text-3xl font-black leading-tight tracking-tight text-ink md:text-4xl">
+                  <h3 className="break-keep text-[28px] font-black leading-[1.25] tracking-tight text-ink sm:text-3xl md:text-4xl">
                       {section.title}
                     </h3>
                     <div className="h-1 w-14 rounded-full bg-primary" />
                   </ScrollReveal>
 
-                  <ScrollReveal className="space-y-6 text-[17px] font-medium leading-[2] text-ink-sub md:text-lg" delay={0.16}>
+                  <ScrollReveal className="space-y-5 text-[15px] font-medium leading-[1.8] text-ink-sub sm:space-y-6 sm:text-[17px] md:text-lg md:leading-[2]" delay={0.16}>
                     {section.paragraphs.map((paragraph) => (
-                      <p key={paragraph}>{renderRichText(paragraph)}</p>
+                      <p key={paragraph} className="break-keep">{renderRichText(paragraph)}</p>
                     ))}
                   </ScrollReveal>
 
                   {section.signature ? (
-                    <ScrollReveal className="border-t border-slate-100 pt-6 text-right text-lg font-black tracking-tight text-ink" delay={0.24}>
+                    <ScrollReveal className="break-keep border-t border-slate-100 pt-5 text-right text-base font-black tracking-tight text-ink sm:pt-6 sm:text-lg" delay={0.24}>
                       {section.signature}
                     </ScrollReveal>
                   ) : null}
@@ -186,16 +186,16 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <section className="border-t border-slate-100 bg-white px-6 py-20 md:py-28">
+        <section className="border-t border-slate-100 bg-white px-4 py-14 sm:px-6 sm:py-16 md:py-28">
           <div className="mx-auto max-w-7xl">
-            <ScrollReveal className="mx-auto mb-12 max-w-3xl text-center md:mb-14">
+            <ScrollReveal className="mx-auto mb-9 max-w-3xl text-center sm:mb-12 md:mb-14">
               <p className="font-montserrat text-sm font-extrabold uppercase tracking-[0.34em] text-primary/75">
                 Mission &amp; Vision
               </p>
-              <h2 className="mt-5 text-4xl font-black leading-tight tracking-tight text-ink md:text-5xl">
+              <h2 className="mt-4 break-keep text-[30px] font-black leading-[1.3] tracking-tight text-ink sm:mt-5 sm:text-4xl md:text-5xl">
                 연세척의 단계적 치료 원칙
               </h2>
-              <p className="mx-auto mt-5 max-w-2xl text-lg font-medium leading-relaxed text-ink-sub">
+              <p className="mx-auto mt-4 max-w-2xl break-keep text-[15px] font-medium leading-[1.75] text-ink-sub sm:mt-5 sm:text-lg sm:leading-relaxed">
                 척추·관절 치료는 처음부터 끝까지 환자 상태에 맞춰 필요한 방향을 차근히 확인합니다.
               </p>
             </ScrollReveal>
@@ -204,16 +204,16 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="border-y border-slate-100 bg-slate-50/70 px-6 py-20 md:py-28">
+        <section className="border-y border-slate-100 bg-slate-50/70 px-4 py-14 sm:px-6 sm:py-16 md:py-28">
           <div className="mx-auto max-w-7xl">
-            <ScrollReveal className="mx-auto mb-12 max-w-3xl text-center md:mb-14">
+            <ScrollReveal className="mx-auto mb-9 max-w-3xl text-center sm:mb-12 md:mb-14">
               <p className="font-montserrat text-sm font-extrabold uppercase tracking-[0.34em] text-primary/75">
                 Core Values
               </p>
-              <h2 className="mt-5 text-4xl font-black leading-tight tracking-tight text-ink md:text-5xl">
+              <h2 className="mt-4 break-keep text-[30px] font-black leading-[1.3] tracking-tight text-ink sm:mt-5 sm:text-4xl md:text-5xl">
                 연세척병원이 지키는 가치
               </h2>
-              <p className="mx-auto mt-5 max-w-2xl text-lg font-medium leading-relaxed text-ink-sub">
+              <p className="mx-auto mt-4 max-w-2xl break-keep text-[15px] font-medium leading-[1.75] text-ink-sub sm:mt-5 sm:text-lg sm:leading-relaxed">
                 연세척병원은 진료의 속도보다 정확함을, 치료의 크기보다 꼭 필요한 방향을 먼저 생각합니다.
               </p>
             </ScrollReveal>
@@ -221,8 +221,8 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               {VALUE_ITEMS.map((item, index) => (
                 <ScrollReveal key={item.title} delay={index * 0.1} amount={0.2}>
-                  <article className="group relative h-full overflow-hidden rounded-2xl border border-slate-100 bg-white p-8 shadow-[0_24px_70px_-56px_rgba(15,29,54,0.5)] transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/25 hover:shadow-[0_42px_90px_-52px_rgba(40,74,165,0.55)] md:p-9">
-                    <span className="pointer-events-none absolute -right-2 -top-5 font-montserrat text-[112px] font-black leading-none text-primary/[0.05] transition-colors duration-500 group-hover:text-primary/[0.09]">
+                  <article className="group relative h-full overflow-hidden rounded-2xl border border-slate-100 bg-white p-5 shadow-[0_24px_70px_-56px_rgba(15,29,54,0.5)] transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/25 hover:shadow-[0_42px_90px_-52px_rgba(40,74,165,0.55)] sm:p-7 md:p-9">
+                    <span className="pointer-events-none absolute -right-2 -top-3 font-montserrat text-[82px] font-black leading-none text-primary/[0.05] transition-colors duration-500 group-hover:text-primary/[0.09] sm:-top-5 sm:text-[102px] md:text-[112px]">
                       0{index + 1}
                     </span>
 
@@ -230,10 +230,10 @@ export default function AboutPage() {
                       {item.icon}
                     </div>
 
-                    <h3 className="relative mt-7 text-2xl font-black tracking-tight text-ink md:text-[1.7rem]">
+                    <h3 className="relative mt-6 break-keep text-xl font-black tracking-tight text-ink sm:mt-7 sm:text-2xl md:text-[1.7rem]">
                       {item.title}
                     </h3>
-                    <p className="relative mt-3.5 text-[16px] font-medium leading-relaxed text-ink-sub md:text-[17px]">
+                    <p className="relative mt-3 break-keep text-[15px] font-medium leading-[1.7] text-ink-sub sm:mt-3.5 sm:text-[16px] sm:leading-relaxed md:text-[17px]">
                       {item.desc}
                     </p>
 

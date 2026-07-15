@@ -47,7 +47,7 @@ const ConsentCheckbox = ({
   required?: boolean;
   children: ReactNode;
 }) => (
-  <label className="flex items-center gap-2.5">
+  <label className="flex min-w-0 items-start gap-2.5 leading-relaxed">
     <input
       type="checkbox"
       checked={checked}
@@ -55,10 +55,10 @@ const ConsentCheckbox = ({
       className="peer sr-only"
       required={required}
     />
-    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-[3px] border border-white/75 bg-transparent transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-white/40">
+    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-[3px] border border-white/75 bg-transparent transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-white/40">
       {checked ? <Check size={15} strokeWidth={3} className="text-white" /> : null}
     </span>
-    <span>{children}</span>
+    <span className="min-w-0 flex-1">{children}</span>
   </label>
 );
 
@@ -73,10 +73,10 @@ const PolicyModal = ({
   const content = type === 'privacy' ? PRIVACY_CONSENT_TEXT : MARKETING_CONSENT_TEXT;
 
   return (
-    <div className="fixed inset-0 z-[300] flex items-center justify-center bg-navy-950/55 px-5 backdrop-blur-sm">
-      <div className="max-h-[82vh] w-full max-w-3xl overflow-hidden rounded-lg bg-white shadow-[0_30px_90px_-50px_rgba(10,20,40,0.75)]">
-        <div className="flex items-center justify-between border-b border-slate-100 px-6 py-5">
-          <h3 className="text-xl font-black tracking-tight text-ink">{title}</h3>
+    <div className="fixed inset-0 z-[300] flex items-center justify-center bg-navy-950/55 px-4 py-[calc(1rem_+_env(safe-area-inset-top))] backdrop-blur-sm sm:px-5">
+      <div className="max-h-[calc(100dvh_-_2rem_-_env(safe-area-inset-top)_-_env(safe-area-inset-bottom))] w-full max-w-3xl overflow-hidden rounded-lg bg-white shadow-[0_30px_90px_-50px_rgba(10,20,40,0.75)]">
+        <div className="flex items-center justify-between gap-3 border-b border-slate-100 px-4 py-4 sm:px-6 sm:py-5">
+          <h3 className="break-keep text-[18px] font-black leading-snug tracking-tight text-ink sm:text-xl">{title}</h3>
           <button
             type="button"
             onClick={onClose}
@@ -86,7 +86,7 @@ const PolicyModal = ({
             <X size={22} />
           </button>
         </div>
-        <div className="max-h-[64vh] overflow-y-auto whitespace-pre-line px-6 py-6 text-[14px] font-medium leading-relaxed text-ink-sub">
+        <div className="max-h-[calc(100dvh_-_8rem_-_env(safe-area-inset-top)_-_env(safe-area-inset-bottom))] overflow-y-auto whitespace-pre-line px-4 py-5 text-[14px] font-medium leading-relaxed text-ink-sub sm:max-h-[64vh] sm:px-6 sm:py-6">
           {content}
         </div>
       </div>
@@ -170,25 +170,25 @@ export default function FooterConsultationSection() {
   };
 
   return (
-    <section className="relative z-20 overflow-visible bg-[linear-gradient(135deg,#162d5f_0%,#122951_100%)] px-6 pb-36 pt-24 text-white md:pb-40 md:pt-32">
+    <section className="relative z-20 overflow-visible bg-[linear-gradient(135deg,#162d5f_0%,#122951_100%)] px-5 pb-20 pt-16 text-white sm:px-6 md:pb-24 md:pt-20 lg:pb-40 lg:pt-32">
       {activePolicy ? <PolicyModal type={activePolicy} onClose={() => setActivePolicy(null)} /> : null}
 
       <div className="relative z-10 mx-auto max-w-7xl">
         <div className="text-center">
-          <h2 className="text-[34px] font-bold leading-[1.55] tracking-[0.045em] md:text-[44px]">
+          <h2 className="break-keep text-[28px] font-bold leading-[1.35] tracking-tight sm:text-[32px] md:text-[36px] lg:text-[44px] lg:leading-[1.55] lg:tracking-[0.045em]">
             회복을 위한 가장 빠른 시작
             <br />
             예약·상담은 기다림 없이 편하게
           </h2>
         </div>
 
-        <div className="mx-auto mt-16 grid max-w-6xl grid-cols-1 gap-14 lg:grid-cols-[minmax(0,560px)_minmax(420px,1fr)] lg:items-start lg:gap-16">
-          <form onSubmit={handleSubmit} className="relative z-30 grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_140px]">
+        <div className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-10 md:mt-12 lg:mt-16 lg:grid-cols-[minmax(0,560px)_minmax(420px,1fr)] lg:items-start lg:gap-16">
+          <form onSubmit={handleSubmit} className="relative z-30 grid grid-cols-1 gap-2.5 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_140px] md:gap-3">
             <div ref={selectRef} className="relative md:col-span-1">
               <button
                 type="button"
                 onClick={() => setIsSelectOpen((current) => !current)}
-                className="flex h-12 w-full items-center justify-between rounded-md border border-white/50 bg-transparent px-5 text-left text-[15px] font-medium text-white transition-colors hover:border-white focus:outline-none focus:ring-2 focus:ring-white/30"
+                className="flex h-12 w-full items-center justify-between rounded-md border border-white/50 bg-transparent px-4 text-left text-[16px] font-medium text-white transition-colors hover:border-white focus:outline-none focus:ring-2 focus:ring-white/30 md:px-5 md:text-[15px]"
                 aria-expanded={isSelectOpen}
               >
                 <span className={formData.consultationType ? 'text-white' : 'text-white/92'}>
@@ -219,26 +219,20 @@ export default function FooterConsultationSection() {
               ) : null}
             </div>
 
-            <ConsultationDatePicker
-              value={formData.preferredDate}
-              onChange={(value) => updateField('preferredDate', value)}
-              variant="dark"
-              placeholder="희망 날짜 *"
-            />
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="row-span-2 min-h-12 rounded-md bg-white/16 px-6 text-[16px] font-black text-white transition-all hover:bg-primary disabled:cursor-not-allowed disabled:bg-white/10 md:min-h-[108px]"
-            >
-              {isSubmitting ? '신청 중' : '신청하기'}
-            </button>
+            <div className="min-w-0 [&_button]:text-[16px] md:[&_button]:text-[15px]">
+              <ConsultationDatePicker
+                value={formData.preferredDate}
+                onChange={(value) => updateField('preferredDate', value)}
+                variant="dark"
+                placeholder="희망 날짜 *"
+              />
+            </div>
 
             <input
               type="text"
               value={formData.name}
               onChange={(event) => updateField('name', event.target.value)}
-              className="h-12 rounded-md border border-white/50 bg-transparent px-5 text-[15px] font-medium text-white placeholder:text-white/92 focus:outline-none focus:ring-2 focus:ring-white/30"
+              className="h-12 min-w-0 rounded-md border border-white/50 bg-transparent px-4 text-[16px] font-medium text-white placeholder:text-white/92 focus:outline-none focus:ring-2 focus:ring-white/30 md:px-5 md:text-[15px]"
               placeholder="성함 *"
               required
             />
@@ -247,12 +241,12 @@ export default function FooterConsultationSection() {
               type="tel"
               value={formData.phone}
               onChange={(event) => updateField('phone', event.target.value)}
-              className="h-12 rounded-md border border-white/50 bg-transparent px-5 text-[15px] font-medium text-white placeholder:text-white/92 focus:outline-none focus:ring-2 focus:ring-white/30"
+              className="h-12 min-w-0 rounded-md border border-white/50 bg-transparent px-4 text-[16px] font-medium text-white placeholder:text-white/92 focus:outline-none focus:ring-2 focus:ring-white/30 md:px-5 md:text-[15px]"
               placeholder="연락처 *"
               required
             />
 
-            <div className="mt-3 space-y-2 text-[14px] font-medium md:col-span-2">
+            <div className="mt-2 space-y-2 text-[13px] font-medium sm:text-[14px] md:col-span-2 md:mt-3">
               <ConsentCheckbox checked={isPrivacyAgreed} onChange={setIsPrivacyAgreed} required>
                 (필수) 개인정보 수집 · 이용 동의
                 <button
@@ -281,19 +275,27 @@ export default function FooterConsultationSection() {
                 </button>
               </ConsentCheckbox>
             </div>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="min-h-12 rounded-md bg-white/16 px-6 text-[16px] font-black text-white transition-all hover:bg-primary disabled:cursor-not-allowed disabled:bg-white/10 md:col-start-3 md:row-span-2 md:row-start-1 md:min-h-[108px]"
+            >
+              {isSubmitting ? '신청 중' : '신청하기'}
+            </button>
           </form>
 
-          <div className="grid grid-cols-3 gap-7 text-center lg:self-start lg:pt-4 lg:translate-x-10">
+          <div className="grid grid-cols-3 gap-2 text-center sm:gap-5 lg:self-start lg:gap-7 lg:pt-4">
             {CONTACT_CHANNELS.map((channel) => (
               <Link
                 key={channel.label}
                 href={channel.href}
-                className="group flex flex-col items-center gap-5 text-white"
+                className="group flex min-w-0 flex-col items-center gap-3 text-white sm:gap-5"
               >
-                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/12 transition-all duration-300 group-hover:scale-105 group-hover:bg-white/20 md:h-[74px] md:w-[74px]">
+                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/12 transition-all duration-300 group-hover:scale-105 group-hover:bg-white/20 sm:h-16 sm:w-16 md:h-[74px] md:w-[74px]">
                   {channel.icon}
                 </span>
-                <span className="text-[15px] font-black tracking-tight transition-colors group-hover:text-white/75">
+                <span className="break-keep text-[13px] font-black leading-[1.35] tracking-tight transition-colors group-hover:text-white/75 sm:text-[14px] md:text-[15px]">
                   {channel.label}
                 </span>
               </Link>

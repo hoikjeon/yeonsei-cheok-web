@@ -18,7 +18,7 @@ const isExternalHref = (href: string) =>
 
 function NoticeLink({ notice }: { notice: HomeNoticeItem }) {
   const className =
-    'block min-w-0 truncate text-[15px] font-black tracking-tight text-white md:text-[18px]';
+    'line-clamp-2 block min-w-0 break-keep text-[14px] font-bold leading-[1.55] tracking-tight text-white md:truncate md:text-[18px] md:font-black md:leading-normal';
 
   if (isExternalHref(notice.href)) {
     return (
@@ -89,10 +89,10 @@ export default function HomeNoticeBar() {
 
   return (
     <section className="relative z-30 bg-gradient-to-r from-[#17326F] via-[#284AA5] to-[#3C63C4] shadow-[0_22px_60px_-34px_rgba(10,20,40,0.45)]">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-6 py-5 text-white md:h-24 md:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] md:items-center md:gap-8 md:py-0">
-        <div className="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-[108px_minmax(0,1fr)_42px] md:items-center md:gap-5">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-0 px-5 py-4 text-white sm:px-6 md:h-24 md:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] md:items-center md:gap-8 md:py-0">
+        <div className="grid min-w-0 grid-cols-[72px_minmax(0,1fr)] items-start gap-3 md:grid-cols-[108px_minmax(0,1fr)_42px] md:items-center md:gap-5">
           <div className="flex items-center">
-            <span className="text-[18px] font-black tracking-tight md:text-[20px]">공지사항</span>
+            <span className="pt-0.5 text-[15px] font-black tracking-tight md:pt-0 md:text-[20px]">공지사항</span>
           </div>
 
           <div className="relative min-w-0 overflow-hidden" aria-live="polite">
@@ -133,15 +133,15 @@ export default function HomeNoticeBar() {
 
         <div className="hidden h-10 w-px bg-white/35 md:block" />
 
-        <div className="grid min-w-0 grid-cols-1 gap-3 border-t border-white/20 pt-4 md:grid-cols-[108px_minmax(0,1fr)] md:items-center md:gap-5 md:border-t-0 md:pt-0">
+        <div className="mt-3 grid min-w-0 grid-cols-[72px_minmax(0,1fr)] gap-3 border-t border-white/20 pt-3 md:mt-0 md:grid-cols-[108px_minmax(0,1fr)] md:items-center md:gap-5 md:border-t-0 md:pt-0">
           <div className="flex items-center">
-            <span className="text-[18px] font-black tracking-tight md:text-[20px]">휴진일</span>
+            <span className="pt-0.5 text-[15px] font-black tracking-tight md:pt-0 md:text-[20px]">휴진일</span>
           </div>
-          <div className="flex min-w-0 flex-wrap items-center gap-x-5 gap-y-1">
-            <span className="text-[20px] font-black tracking-tight text-white md:text-[22px]">
+          <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1 md:items-center md:gap-x-5">
+            <span className="text-[17px] font-black tracking-tight text-white md:text-[22px]">
               {settings.closed_month}
             </span>
-            <span className="min-w-0 text-[15px] font-bold text-white/90 md:text-[18px]">
+            <span className="min-w-0 break-keep text-[14px] font-bold leading-[1.5] text-white/90 md:text-[18px] md:leading-normal">
               {settings.closed_message}
             </span>
           </div>

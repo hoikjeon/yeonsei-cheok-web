@@ -47,25 +47,25 @@ const centerImages = [
 
 const SpineCenterStrengthSection = () => {
   return (
-    <section className="relative overflow-hidden bg-[#071A3D] px-6 py-20 text-white md:py-28">
+    <section className="relative overflow-hidden bg-[#071A3D] px-5 py-16 text-white sm:px-6 md:py-28">
       <UbeParallaxBackground />
 
       <div className="relative mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-stretch">
-          <ScrollReveal className="space-y-6">
-            <h2 className="text-4xl font-extrabold leading-[1.14] tracking-normal text-white md:text-5xl">
+        <div className="grid grid-cols-1 gap-8 sm:gap-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-stretch">
+          <ScrollReveal className="space-y-5 sm:space-y-6">
+            <h2 className="break-keep text-[1.9rem] font-extrabold leading-[1.25] tracking-normal text-white sm:text-4xl md:text-5xl md:leading-[1.14]">
               환자의 척추 건강을
               <br />
               평생 책임지는 척추센터
             </h2>
-            <p className="text-lg font-medium leading-relaxed text-white/82">
+            <p className="break-keep text-base font-medium leading-[1.75] text-white/82 md:text-lg md:leading-relaxed">
               척추 질환은 초기에 정확한 원인을 파악해 치료하는 것이 가장 중요합니다.
               연세척병원 척추센터는 정밀 진단과 풍부한 임상경험을 갖춘 신경외과 전문의가
               꼭 필요한 치료만 선별해 시행합니다.
             </p>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:h-full">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 lg:h-full">
             {centerImages.map((image, index) => (
               <ScrollReveal key={image.src} delay={index * 0.06} variant="image" className="lg:h-full">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-white/10 lg:aspect-auto lg:h-full lg:min-h-[220px]">
@@ -73,7 +73,7 @@ const SpineCenterStrengthSection = () => {
                     src={image.src}
                     alt={image.alt}
                     fill
-                    sizes="(min-width: 1024px) 23vw, (min-width: 640px) 31vw, 100vw"
+                    sizes="(min-width: 1024px) 23vw, 31vw"
                     className="object-cover"
                   />
                 </div>
@@ -82,15 +82,15 @@ const SpineCenterStrengthSection = () => {
           </div>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-5">
+        <div className="mt-8 grid grid-cols-1 gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4 lg:grid-cols-5">
           {strengths.map((item, index) => (
             <ScrollReveal key={item.no} delay={index * 0.04}>
-              <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-cyan-300/40 hover:bg-white/[0.1] hover:shadow-[0_24px_60px_rgba(2,12,32,0.45)]">
+              <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-cyan-300/40 hover:bg-white/[0.1] hover:shadow-[0_24px_60px_rgba(2,12,32,0.45)] sm:p-6">
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <h3 className="text-lg font-black leading-snug text-white transition-colors duration-300 group-hover:text-cyan-400">
                   {item.title}
                 </h3>
-                <p className="mt-3 text-sm font-medium leading-relaxed text-white/70">{item.desc}</p>
+                <p className="mt-3 break-keep text-sm font-medium leading-[1.7] text-white/75 sm:leading-relaxed sm:text-white/70">{item.desc}</p>
               </article>
             </ScrollReveal>
           ))}

@@ -406,7 +406,7 @@ const DetailBlock = ({ number, title, items }: { number: number; title: string; 
       </span>
       {title}
     </h4>
-    <ul className="mt-4 space-y-2 text-[16px] font-medium leading-relaxed text-ink-sub md:text-[17px]">
+    <ul className="mt-4 space-y-2 break-keep text-[15px] font-medium leading-[1.7] text-ink-sub sm:text-[16px] md:text-[17px] md:leading-relaxed">
       {items.map((item) => (
         <li key={item}>· {item}</li>
       ))}
@@ -416,7 +416,7 @@ const DetailBlock = ({ number, title, items }: { number: number; title: string; 
 
 const DetailModal = ({ content, onClose }: { content: ModalContent; onClose: () => void }) => (
   <div
-    className="fixed inset-0 z-[999] flex items-center justify-center bg-black/68 px-4 py-6 backdrop-blur-[2px]"
+    className="fixed inset-0 z-[999] flex items-center justify-center bg-black/68 px-3 py-4 backdrop-blur-[2px] sm:px-4 sm:py-6"
     onMouseDown={(event) => {
       if (event.target === event.currentTarget) {
         onClose();
@@ -427,24 +427,24 @@ const DetailModal = ({ content, onClose }: { content: ModalContent; onClose: () 
       role="dialog"
       aria-modal="true"
       aria-labelledby="ube-indication-modal-title"
-      className="flex max-h-[82vh] w-full max-w-[760px] flex-col overflow-hidden rounded-[1.15rem] bg-white shadow-[0_30px_100px_-40px_rgba(0,0,0,0.65)]"
+      className="flex max-h-[calc(100dvh-2rem)] w-full max-w-[760px] flex-col overflow-hidden rounded-[1rem] bg-white shadow-[0_30px_100px_-40px_rgba(0,0,0,0.65)] sm:max-h-[82vh] sm:rounded-[1.15rem]"
     >
-      <header className="flex h-20 shrink-0 items-center justify-between bg-navy-900 px-7 text-white">
-        <h3 id="ube-indication-modal-title" className="text-[1.45rem] font-black tracking-tight">
+      <header className="flex min-h-16 shrink-0 items-center justify-between gap-3 bg-navy-900 px-5 py-2 text-white sm:h-20 sm:px-7 sm:py-0">
+        <h3 id="ube-indication-modal-title" className="break-keep text-[1.15rem] font-black leading-tight tracking-tight sm:text-[1.45rem]">
           {content.title}
         </h3>
         <button
           type="button"
           onClick={onClose}
           aria-label="팝업 닫기"
-          className="flex h-11 w-11 items-center justify-center rounded-full text-white/90 transition hover:bg-white/10 hover:text-white focus:outline-none focus:ring-4 focus:ring-white/20"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white/90 transition hover:bg-white/10 hover:text-white focus:outline-none focus:ring-4 focus:ring-white/20 sm:h-11 sm:w-11"
         >
           <X size={32} strokeWidth={1.8} />
         </button>
       </header>
 
-      <div className="overflow-y-auto px-7 py-8 md:px-10 md:py-10">
-        <div className="relative aspect-[16/7] overflow-hidden rounded-sm bg-slate-100">
+      <div className="overflow-y-auto px-5 py-6 sm:px-7 sm:py-8 md:px-10 md:py-10">
+        <div className="relative aspect-[16/9] overflow-hidden rounded-lg bg-slate-100 sm:aspect-[16/7] sm:rounded-sm">
           <Image
             src={content.image}
             alt={content.imageAlt}
@@ -454,7 +454,7 @@ const DetailModal = ({ content, onClose }: { content: ModalContent; onClose: () 
           />
         </div>
 
-        <p className="mt-8 text-[18px] font-semibold leading-relaxed tracking-tight text-ink md:text-[20px]">
+        <p className="mt-6 break-keep text-[16px] font-semibold leading-[1.7] tracking-tight text-ink sm:mt-8 sm:text-[18px] sm:leading-relaxed md:text-[20px]">
           {content.description}
         </p>
 
@@ -469,9 +469,9 @@ const DetailModal = ({ content, onClose }: { content: ModalContent; onClose: () 
           ))}
         </div>
 
-        <div className="my-8 h-px bg-slate-200" />
+        <div className="my-6 h-px bg-slate-200 sm:my-8" />
 
-        <div className="space-y-10">
+        <div className="space-y-8 sm:space-y-10">
           <DetailBlock number={1} title="주요 증상" items={content.symptoms} />
           <DetailBlock number={2} title="진단 체크포인트" items={content.checkpoints} />
         </div>
@@ -519,8 +519,43 @@ const UbeIndicationMap = () => {
 
   return (
     <>
-      <div className="relative mt-12 rounded-[28px] border border-slate-100 bg-white px-4 py-8 shadow-[0_24px_70px_rgba(15,29,54,0.07)] md:px-10 md:py-10">
-        <div className="relative mx-auto aspect-[16/9] min-h-[430px] w-full max-w-6xl overflow-hidden md:min-h-0">
+      <div className="relative mt-8 rounded-[1.25rem] border border-slate-100 bg-white px-4 py-5 shadow-[0_24px_70px_rgba(15,29,54,0.07)] sm:mt-12 sm:rounded-[28px] sm:py-8 md:px-10 md:py-10">
+        <div className="grid gap-2.5 md:hidden">
+          {regionTargets.map((target) => {
+            const isActive = target.id === activeId;
+
+            return (
+              <button
+                key={target.id}
+                type="button"
+                aria-pressed={isActive}
+                onClick={() => selectTarget(target.id)}
+                className={`flex min-h-16 w-full items-center justify-between gap-4 rounded-xl border px-4 py-3 text-left transition-colors focus:outline-none focus:ring-4 focus:ring-primary/15 ${
+                  isActive
+                    ? 'border-primary/25 bg-primary-light/65 text-primary'
+                    : 'border-slate-200 bg-slate-50 text-ink'
+                }`}
+              >
+                <span className="flex items-center gap-3">
+                  <span
+                    aria-hidden="true"
+                    className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-sm font-black ${
+                      isActive ? 'bg-primary text-white' : 'bg-white text-primary ring-1 ring-primary/15'
+                    }`}
+                  >
+                    {target.label.slice(0, 1)}
+                  </span>
+                  <span className="text-[1rem] font-black">{target.title}</span>
+                </span>
+                <span className="shrink-0 text-[12px] font-bold text-ink-sub">
+                  {target.conditionIds.length}개 질환
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="relative mx-auto hidden aspect-[16/9] w-full max-w-6xl overflow-hidden md:block">
           <Image
             src="/generated/ube/ube-indication-spine-map.png"
             alt="경추, 흉추, 요추 적용 부위를 표시하기 위한 인체 척추 이미지"
@@ -578,9 +613,9 @@ const UbeIndicationMap = () => {
           })}
         </div>
 
-        <div className="mx-auto mt-6 max-w-6xl rounded-2xl border border-primary/12 bg-[#F7FAFF] p-6 md:p-7">
-          <div className="text-xl font-black text-primary">{activeTarget.title}</div>
-          <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mx-auto mt-4 max-w-6xl rounded-xl border border-primary/12 bg-[#F7FAFF] p-4 sm:mt-6 sm:rounded-2xl sm:p-6 md:p-7">
+          <div className="text-lg font-black text-primary sm:text-xl">{activeTarget.title}</div>
+          <div className="mt-3 flex flex-wrap gap-2 sm:mt-4">
             {activeTarget.conditionIds.map((conditionId) => {
               const condition = conditions[conditionId];
 
@@ -589,7 +624,7 @@ const UbeIndicationMap = () => {
                   key={condition.id}
                   type="button"
                   onClick={() => selectCondition(condition.id)}
-                  className="whitespace-nowrap rounded-full border border-primary/12 bg-white px-4 py-2 text-sm font-bold text-ink-sub transition hover:border-primary/35 hover:text-primary focus:outline-none focus:ring-4 focus:ring-primary/15"
+                  className="rounded-full border border-primary/12 bg-white px-3 py-2 text-[13px] font-bold leading-snug text-ink-sub transition hover:border-primary/35 hover:text-primary focus:outline-none focus:ring-4 focus:ring-primary/15 sm:whitespace-nowrap sm:px-4 sm:text-sm"
                 >
                   {condition.title}
                 </button>

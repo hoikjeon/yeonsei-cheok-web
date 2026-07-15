@@ -22,7 +22,7 @@
   /* Text Palette (Charcoal Black System) */
   --color-ink: #232527;        /* 메인 텍스트 블랙 (본문·제목) */
   --color-ink-sub: #444444;    /* 다크 그레이 (보조 텍스트) */
-  --color-ink-muted: #A0A0A0;  /* 보조 그레이 (캡션·라벨) */
+  --color-ink-muted: #6B7280;  /* 보조 그레이 (캡션·라벨, 흰 배경 대비 확보) */
 
   --font-sans: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-montserrat: "Montserrat", "Pretendard Variable", "Pretendard", sans-serif;
@@ -38,6 +38,11 @@
 :root {
   --background: #FFFFFF;
   --foreground: #232527;
+  --mobile-quick-menu-height: 4.25rem;
+}
+
+html {
+  overflow-x: clip;
 }
 
 body {
@@ -47,6 +52,44 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+/* Keep the last public-page content clear of the mobile fixed navigation. */
+@media (max-width: 1023px) {
+  html {
+    scroll-padding-bottom: calc(var(--mobile-quick-menu-height) + env(safe-area-inset-bottom));
+  }
+
+  .public-site-shell {
+    padding-bottom: calc(var(--mobile-quick-menu-height) + env(safe-area-inset-bottom));
+  }
+}
+
+/* Korean mobile copy should wrap by phrase first, with a safe fallback for long tokens. */
+@media (max-width: 767px) {
+  h1,
+  h2,
+  h3,
+  h4 {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+  }
+
+  p,
+  li,
+  dd {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
 }
 
 /* Premium Utilities */

@@ -42,9 +42,9 @@ export default function YoutubeWritePage() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-50 pt-[96px]">
-      <div className="max-w-[1000px] mx-auto px-6 py-16">
-        <div className="flex items-center gap-2 text-[14px] text-ink-muted font-bold mb-10 tracking-tight">
+    <main className="min-h-screen bg-slate-50 pt-0 md:pt-[96px]">
+      <div className="mx-auto max-w-[1000px] px-4 py-10 sm:px-6 sm:py-14 md:py-16">
+        <div className="mb-6 flex flex-wrap items-center gap-1.5 text-[12px] font-bold tracking-tight text-ink-muted sm:mb-10 sm:gap-2 sm:text-[14px]">
           <Link href="/" className="hover:text-primary transition-colors"><Home size={16} strokeWidth={2.5} /></Link>
           <ChevronRight size={14} strokeWidth={2.5} />
           <Link href="/news/youtube" className="text-ink-muted">병원소식 / 유튜브</Link>
@@ -52,32 +52,32 @@ export default function YoutubeWritePage() {
           <span className="text-ink">영상 소식 등록</span>
         </div>
 
-        <Link href="/news/youtube" className="inline-flex items-center gap-2 text-ink font-black text-[24px] tracking-tight hover:text-primary transition-colors mb-12">
+        <Link href="/news/youtube" className="mb-8 inline-flex items-center gap-2 text-[20px] font-black tracking-tight text-ink transition-colors hover:text-primary sm:mb-12 sm:text-[24px]">
           <ArrowLeft size={28} strokeWidth={2.5} /> 유튜브 소식 작성
         </Link>
         
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-[2rem] p-10 md:p-14 shadow-sm border border-slate-100">
-          <h2 className="text-[32px] md:text-[40px] font-black text-ink tracking-tighter mb-8 flex items-center gap-4">
-             <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white"><Play size={30} fill="white" /></div> 
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm sm:p-6 md:rounded-[2rem] md:p-14">
+          <h2 className="mb-7 flex items-center gap-3 break-keep text-[26px] font-black leading-[1.3] tracking-tight text-ink sm:mb-8 sm:gap-4 sm:text-[32px] md:text-[40px]">
+             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-600 text-white sm:h-16 sm:w-16"><Play size={26} fill="white" /></div>
              새로운 영상 공유
           </h2>
 
-          <form onSubmit={handleSubmit} className="space-y-10">
+          <form onSubmit={handleSubmit} className="space-y-7 sm:space-y-10">
             <div className="space-y-4">
               <label className="block text-[16px] font-black text-ink tracking-tight flex items-center gap-2">
                 <Video size={18} className="text-red-500" /> 유튜브 영상 링크 (URL) <span className="text-red-500">*</span>
               </label>
-              <input type="url" required value={videoUrl} onChange={(e) => setVideoUrl(e.target.value)} placeholder="https://www.youtube.com/watch?v=..." className="w-full px-6 py-5 rounded-[1.25rem] border-2 border-slate-100 font-bold text-ink text-[18px] outline-none focus:border-red-500 transition-all bg-slate-50 focus:bg-white" />
+              <input type="url" required value={videoUrl} onChange={(e) => setVideoUrl(e.target.value)} placeholder="https://www.youtube.com/watch?v=..." className="w-full rounded-xl border-2 border-slate-100 bg-slate-50 px-4 py-4 text-[16px] font-bold text-ink transition-all focus:border-red-500 focus:bg-white focus:outline-none sm:rounded-[1.25rem] sm:px-6 sm:py-5 sm:text-[18px]" />
             </div>
 
             <div className="space-y-4">
               <label className="block text-[16px] font-black text-ink tracking-tight">영상 제목 <span className="text-red-500">*</span></label>
-              <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} className="w-full px-6 py-5 rounded-[1.25rem] border-2 border-slate-100 font-bold text-ink text-[18px] outline-none focus:border-primary transition-all" />
+              <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} className="w-full rounded-xl border-2 border-slate-100 px-4 py-4 text-[16px] font-bold text-ink transition-all focus:border-primary focus:outline-none sm:rounded-[1.25rem] sm:px-6 sm:py-5 sm:text-[18px]" />
             </div>
 
             <div className="space-y-4">
               <label className="block text-[16px] font-black text-ink tracking-tight">영상 요약 및 설명</label>
-              <textarea rows={6} value={content} onChange={(e) => setContent(e.target.value)} className="w-full px-8 py-7 rounded-[1.5rem] border-2 border-slate-100 font-bold text-ink text-[17px] leading-[1.8] outline-none focus:border-primary transition-all resize-none" />
+              <textarea rows={6} value={content} onChange={(e) => setContent(e.target.value)} className="w-full resize-none rounded-xl border-2 border-slate-100 px-4 py-4 text-[16px] font-bold leading-[1.75] text-ink transition-all focus:border-primary focus:outline-none sm:rounded-[1.5rem] sm:px-8 sm:py-7 sm:text-[17px] sm:leading-[1.8]" />
             </div>
 
             <div className="pt-8 border-t border-slate-100 flex flex-col md:flex-row gap-4">

@@ -70,7 +70,7 @@ const SOCIAL_LINKS = [
     name: '카카오톡 채널',
     href: '#',
     icon: (
-      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-current font-montserrat text-[13px] font-black leading-none text-white transition-colors group-hover:bg-slate-400">
+      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black font-montserrat text-[13px] font-black leading-none text-white transition-colors group-hover:bg-slate-400">
         Ch
       </span>
     ),
@@ -102,17 +102,17 @@ const getTopFooterNotices = (items: HomeNoticeItem[]) => {
 
 function NoticeAnchor({ notice }: { notice: HomeNoticeItem }) {
   const className =
-    'group flex min-h-[80px] items-center justify-between gap-5 border-b border-slate-200/80 py-5 text-ink transition-colors last:border-b-0 hover:text-primary';
+    'group flex min-h-[64px] items-center justify-between gap-3 border-b border-slate-200/80 py-4 text-ink transition-colors last:border-b-0 hover:text-primary md:min-h-[80px] md:gap-5 md:py-5';
 
   const content = (
     <>
-      <span className="min-w-0 text-[17px] font-black leading-snug tracking-tight md:text-[18px]">
+      <span className="min-w-0 break-keep text-[15px] font-bold leading-[1.5] tracking-tight sm:text-[16px] md:text-[18px] md:font-black md:leading-snug">
         {notice.title}
       </span>
       <ArrowRight
         size={21}
         strokeWidth={1.9}
-        className="shrink-0 translate-x-[-8px] text-primary opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+        className="hidden shrink-0 translate-x-[-8px] text-primary opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 md:block"
         aria-hidden="true"
       />
     </>
@@ -167,29 +167,29 @@ const Footer = () => {
   const footerNotices = getTopFooterNotices(notices);
 
   return (
-    <footer className="border-t-2 border-primary bg-[#F5F6F8] py-16 text-ink md:py-20">
-      <div className="mx-auto max-w-[1540px] px-7 xl:px-10">
-        <div className="grid grid-cols-1 gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(420px,0.86fr)] lg:gap-16">
+    <footer className="border-t-2 border-primary bg-[#F5F6F8] py-12 text-ink md:py-20">
+      <div className="mx-auto max-w-[1540px] px-5 sm:px-7 xl:px-10">
+        <div className="grid grid-cols-1 gap-10 md:gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(420px,0.86fr)] lg:gap-16">
           <section aria-labelledby="footer-notice-title">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 id="footer-notice-title" className="text-[34px] font-black leading-tight tracking-tight md:text-[40px]">
+                <h2 id="footer-notice-title" className="text-[30px] font-black leading-tight tracking-tight md:text-[40px]">
                   공지사항
                 </h2>
-                <p className="mt-5 text-[17px] font-medium leading-relaxed text-ink-sub">
+                <p className="mt-3 break-keep text-[15px] font-medium leading-[1.7] text-ink-sub md:mt-5 md:text-[17px] md:leading-relaxed">
                   중요한 소식 놓치지 않도록 안내드립니다.
                 </p>
               </div>
               <Link
                 href="/news/notice"
-                className="inline-flex h-14 items-center justify-center gap-7 rounded-full border border-ink px-7 text-[15px] font-black tracking-tight text-ink transition-all hover:border-primary hover:bg-primary hover:text-white"
+                className="inline-flex h-12 items-center justify-center gap-4 rounded-full border border-ink px-6 text-[14px] font-black tracking-tight text-ink transition-all hover:border-primary hover:bg-primary hover:text-white md:h-14 md:gap-7 md:px-7 md:text-[15px]"
               >
                 자세히보기
                 <ArrowRight size={20} strokeWidth={1.8} />
               </Link>
             </div>
 
-            <div className="mt-14 border-y-2 border-ink/85">
+            <div className="mt-8 border-y-2 border-ink/85 md:mt-14">
               {footerNotices.map((notice) => (
                 <NoticeAnchor key={`${notice.title}-${notice.href}`} notice={notice} />
               ))}
@@ -197,46 +197,46 @@ const Footer = () => {
           </section>
 
           <section aria-labelledby="footer-reservation-title">
-            <h2 id="footer-reservation-title" className="text-[34px] font-black leading-tight tracking-tight md:text-[40px]">
+            <h2 id="footer-reservation-title" className="text-[30px] font-black leading-tight tracking-tight md:text-[40px]">
               예약 · 상담
             </h2>
-            <p className="mt-5 text-[17px] font-medium leading-relaxed text-ink-sub">
+            <p className="mt-3 break-keep text-[15px] font-medium leading-[1.7] text-ink-sub md:mt-5 md:text-[17px] md:leading-relaxed">
               편하신 방법으로 예약/상담을 진행해보세요.
             </p>
 
             <Link
               href={`tel:${REPRESENTATIVE_PHONE.replace(/-/g, '')}`}
-              className="mt-14 inline-flex items-center gap-4 text-[36px] font-black leading-none tracking-tight text-ink transition-colors hover:text-primary md:text-[45px]"
+              className="mt-8 inline-flex max-w-full flex-wrap items-center gap-2.5 text-[28px] font-black leading-none tracking-tight text-ink transition-colors hover:text-primary sm:text-[32px] md:mt-14 md:gap-4 md:text-[45px]"
             >
-              <Phone size={33} fill="currentColor" strokeWidth={0} aria-hidden="true" />
+              <Phone size={28} fill="currentColor" strokeWidth={0} className="shrink-0 md:h-[33px] md:w-[33px]" aria-hidden="true" />
               {REPRESENTATIVE_PHONE}
             </Link>
 
-            <div className="mt-16 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="mt-10 grid grid-cols-2 gap-2.5 md:mt-16 md:gap-3">
               <a
                 href={NAVER_RESERVATION_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative min-h-[116px] overflow-hidden rounded-lg bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.24),transparent_30%),linear-gradient(135deg,#04170E_0%,#047A46_52%,#18A66B_100%)] p-6 text-white shadow-[0_22px_54px_-38px_rgba(0,96,58,0.9)] transition-transform duration-300 hover:scale-[1.035]"
+                className="group relative min-h-[96px] overflow-hidden rounded-lg bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.24),transparent_30%),linear-gradient(135deg,#04170E_0%,#047A46_52%,#18A66B_100%)] p-4 text-white shadow-[0_22px_54px_-38px_rgba(0,96,58,0.9)] transition-transform duration-300 hover:scale-[1.035] md:min-h-[116px] md:p-6"
               >
-                <span className="relative z-10 flex items-center gap-3 text-[17px] font-black tracking-tight">
+                <span className="relative z-10 flex items-center gap-1.5 break-keep text-[14px] font-black leading-snug tracking-tight sm:gap-2 sm:text-[15px] md:gap-3 md:text-[17px]">
                   네이버 바로 예약
-                  <ChevronRight size={23} strokeWidth={1.9} className="transition-transform group-hover:translate-x-1" />
+                  <ChevronRight size={19} strokeWidth={1.9} className="shrink-0 transition-transform group-hover:translate-x-1 md:h-[23px] md:w-[23px]" />
                 </span>
-                <span className="absolute bottom-5 right-6 font-montserrat text-[46px] font-black leading-none text-white">
+                <span className="absolute bottom-4 right-4 font-montserrat text-[36px] font-black leading-none text-white md:bottom-5 md:right-6 md:text-[46px]">
                   N
                 </span>
               </a>
 
               <a
                 href={KAKAO_CONSULT_URL}
-                className="group relative min-h-[116px] overflow-hidden rounded-lg bg-[radial-gradient(circle_at_84%_70%,rgba(255,255,255,0.35),transparent_24%),linear-gradient(135deg,#FFC915_0%,#FFAE13_100%)] p-6 text-white shadow-[0_22px_54px_-38px_rgba(255,174,19,0.9)] transition-transform duration-300 hover:scale-[1.035]"
+                className="group relative min-h-[96px] overflow-hidden rounded-lg bg-[radial-gradient(circle_at_84%_70%,rgba(255,255,255,0.35),transparent_24%),linear-gradient(135deg,#FFC915_0%,#FFAE13_100%)] p-4 text-white shadow-[0_22px_54px_-38px_rgba(255,174,19,0.9)] transition-transform duration-300 hover:scale-[1.035] md:min-h-[116px] md:p-6"
               >
-                <span className="relative z-10 flex items-center gap-3 text-[17px] font-black tracking-tight">
+                <span className="relative z-10 flex items-center gap-1.5 break-keep text-[14px] font-black leading-snug tracking-tight sm:gap-2 sm:text-[15px] md:gap-3 md:text-[17px]">
                   카카오톡 1:1 상담
-                  <ChevronRight size={23} strokeWidth={1.9} className="transition-transform group-hover:translate-x-1" />
+                  <ChevronRight size={19} strokeWidth={1.9} className="shrink-0 transition-transform group-hover:translate-x-1 md:h-[23px] md:w-[23px]" />
                 </span>
-                <span className="absolute bottom-5 right-5 flex h-9 w-9 items-center justify-center rounded-full bg-white font-montserrat text-[11px] font-black text-[#FFB800]">
+                <span className="absolute bottom-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-white font-montserrat text-[10px] font-black text-[#FFB800] md:bottom-5 md:right-5 md:h-9 md:w-9 md:text-[11px]">
                   TALK
                 </span>
               </a>
@@ -244,7 +244,7 @@ const Footer = () => {
           </section>
         </div>
 
-        <div className="mt-20 grid grid-cols-1 gap-10 border-t border-slate-300/80 pt-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+        <div className="mt-14 grid grid-cols-1 gap-8 border-t border-slate-300/80 pt-8 md:mt-20 md:gap-10 md:pt-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <div>
             <Link href="/" className="inline-flex">
               <Image
@@ -252,11 +252,11 @@ const Footer = () => {
                 alt="연세척병원"
                 width={260}
                 height={72}
-                className="h-12 w-auto"
+                className="h-10 w-auto md:h-12"
               />
             </Link>
 
-            <address className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-medium not-italic leading-relaxed text-ink-sub md:text-[15px]">
+            <address className="mt-5 flex flex-wrap gap-x-4 gap-y-1.5 break-keep text-[13px] font-medium not-italic leading-[1.65] text-ink-sub md:mt-7 md:gap-x-6 md:gap-y-2 md:text-[15px] md:leading-relaxed">
               <span>연세척병원</span>
               <span>부산광역시 부산진구 가야대로 715 (당감동 974, 위너스빌딩 1,2,3,4층)</span>
               <span>
@@ -274,7 +274,7 @@ const Footer = () => {
             </address>
           </div>
 
-          <div className="flex flex-col gap-8 lg:items-end">
+          <div className="flex flex-col gap-6 md:gap-8 lg:items-end">
             <div className="flex items-center gap-7">
               {SOCIAL_LINKS.map((social) => (
                 <a
@@ -288,7 +288,7 @@ const Footer = () => {
               ))}
             </div>
 
-            <nav className="flex flex-wrap gap-x-6 gap-y-2 text-[14px] font-black text-ink">
+            <nav className="flex flex-wrap gap-x-4 gap-y-2 text-[13px] font-black leading-relaxed text-ink md:gap-x-6 md:text-[14px]">
               {POLICY_LINKS.map((link) => (
                 <Link key={link.label} href={link.href} className="transition-colors hover:text-primary">
                   {link.label}

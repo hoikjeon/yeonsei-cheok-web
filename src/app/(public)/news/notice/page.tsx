@@ -10,16 +10,16 @@ export default function NoticePage() {
         bgImage="/hero-bg.png"
       />
 
-      <section className="bg-white py-24 flex-grow">
-        <div className="max-w-4xl mx-auto px-6 w-full text-center">
-          <div className="bg-slate-50 rounded-[2rem] border border-slate-100 p-16 md:p-24 space-y-8">
-            <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto shadow-sm">
-              <span className="text-3xl">📢</span>
+      <section className="flex-grow bg-white py-14 sm:py-16 md:py-24">
+        <div className="mx-auto w-full max-w-4xl px-4 text-center sm:px-6">
+          <div className="space-y-6 rounded-2xl border border-slate-100 bg-slate-50 p-6 sm:space-y-8 sm:p-10 md:rounded-[2rem] md:p-24">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-sm sm:h-20 sm:w-20">
+              <span className="text-2xl sm:text-3xl">📢</span>
             </div>
             
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-3xl font-black text-ink tracking-tight">공지사항 리뉴얼 준비 중</h2>
-              <p className="text-ink-muted font-medium text-[17px] leading-relaxed">
+              <h2 className="break-keep text-[24px] font-black tracking-tight text-ink md:text-3xl">공지사항 리뉴얼 준비 중</h2>
+              <p className="break-keep text-[15px] font-medium leading-[1.75] text-ink-muted sm:text-[17px] sm:leading-relaxed">
                 보다 편리하게 병원 소식을 확인하실 수 있도록 <br className="hidden md:block" />
                 새로운 공지사항 게시판을 준비하고 있습니다.
               </p>

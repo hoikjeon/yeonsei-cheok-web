@@ -5,6 +5,7 @@ import { Check, ChevronDown, Home } from 'lucide-react';
 import LumbarDiseaseSection from '@/components/LumbarDiseaseSection';
 import ScrollReveal from '@/components/ScrollReveal';
 import SpineCenterStrengthSection from '@/components/SpineCenterStrengthSection';
+import YonseiSpecialFeaturesSection from '@/components/YonseiSpecialFeaturesSection';
 
 export const metadata: Metadata = {
   title: '허리디스크 | 연세척병원',
@@ -76,9 +77,9 @@ const faqItems = [
 
 export default function DiscPage() {
   return (
-    <main className="bg-white">
-      <section className="px-4 pt-3 sm:px-8 lg:px-14 xl:px-20">
-        <div className="relative isolate flex min-h-[300px] items-center overflow-hidden rounded-[1.75rem] bg-slate-50 shadow-[0_24px_60px_-40px_rgba(15,29,54,0.4)] ring-1 ring-navy-900/5 sm:rounded-[2.25rem] md:min-h-[360px]">
+    <main className="overflow-x-hidden bg-white">
+      <section className="px-3 pt-2 sm:px-8 sm:pt-3 lg:px-14 xl:px-20">
+        <div className="relative isolate flex min-h-[230px] items-center overflow-hidden rounded-[1.35rem] bg-slate-50 shadow-[0_24px_60px_-40px_rgba(15,29,54,0.4)] ring-1 ring-navy-900/5 sm:min-h-[300px] sm:rounded-[2.25rem] md:min-h-[360px]">
           <Image
             src="/generated/lumbar-disc/lumbar-disc-banner-3d.png"
             alt=""
@@ -89,9 +90,9 @@ export default function DiscPage() {
           />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(238,242,248,0.98)_0%,rgba(238,242,248,0.84)_42%,rgba(238,242,248,0.12)_70%,transparent_100%)]" />
 
-          <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col justify-center px-7 py-12 sm:px-9 md:px-12">
-            <div className="max-w-3xl space-y-5">
-              <nav className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] font-semibold text-slate-500 md:text-sm">
+          <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col justify-center px-5 py-9 sm:px-9 sm:py-12 md:px-12">
+            <div className="max-w-3xl space-y-4 sm:space-y-5">
+              <nav className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[12px] font-semibold text-slate-500 sm:gap-x-2 sm:text-[13px] md:text-sm">
                 <Link
                   href="/"
                   aria-label="홈으로"
@@ -115,10 +116,10 @@ export default function DiscPage() {
               </nav>
 
               <div className="space-y-3">
-                <h1 className="text-[1.9rem] font-black leading-[1.15] tracking-normal text-navy-900 sm:text-4xl md:text-[3.25rem]">
+                <h1 className="break-keep text-[1.75rem] font-black leading-[1.18] tracking-normal text-navy-900 sm:text-4xl md:text-[3.25rem]">
                   허리디스크
                 </h1>
-                <p className="max-w-xl text-[14px] font-medium leading-relaxed text-slate-500 sm:text-base md:text-[17px]">
+                <p className="max-w-xl break-keep text-[14px] font-medium leading-[1.65] text-slate-600 sm:text-base md:text-[17px] md:text-slate-500">
                   허리 통증과 다리 저림·당김 증상을 맞춤 진단합니다.
                 </p>
               </div>
@@ -127,16 +128,16 @@ export default function DiscPage() {
         </div>
       </section>
 
-      <section className="mx-auto flex w-full max-w-7xl flex-col items-center px-6 py-20 text-center md:py-28">
+      <section className="mx-auto flex w-full max-w-7xl flex-col items-start px-5 py-14 text-left sm:px-6 md:items-center md:py-28 md:text-center">
         <div className="mx-auto max-w-5xl">
-          <h1 className="text-4xl font-extrabold leading-[1.14] tracking-normal text-ink md:text-5xl">
+          <h1 className="break-keep text-[1.9rem] font-extrabold leading-[1.25] tracking-normal text-ink sm:text-4xl md:text-5xl md:leading-[1.14]">
             쑤시고 당기는 허리 통증,
-            <br />
+            <br className="hidden md:block" />
             척추 불균형은 허리 건강의 경고 신호입니다.
           </h1>
         </div>
 
-        <div className="relative mt-12 w-full max-w-5xl overflow-hidden rounded-[1.75rem] border border-slate-100 bg-slate-50 shadow-[0_30px_80px_-48px_rgba(15,29,54,0.55)]">
+        <div className="relative mt-8 w-full max-w-5xl overflow-hidden rounded-[1.25rem] border border-slate-100 bg-slate-50 shadow-[0_30px_80px_-48px_rgba(15,29,54,0.55)] sm:mt-12 sm:rounded-[1.75rem]">
           <Image
             src="/generated/lumbar-disc/lumbar-disc-neutral-hero.png"
             alt="허리 통증을 표현한 반투명 요추 의료 이미지"
@@ -146,7 +147,7 @@ export default function DiscPage() {
           />
         </div>
 
-        <div className="mt-12 max-w-5xl space-y-5 text-lg font-medium leading-relaxed text-ink-sub">
+        <div className="mt-8 max-w-5xl space-y-4 break-keep text-base font-medium leading-[1.8] text-ink-sub sm:mt-12 sm:space-y-5 md:text-lg md:leading-relaxed">
           <p>
             허리 통증은 디스크 돌출, 근육 긴장, 자세 불균형 등 다양한 원인으로 발생합니다.
           </p>
@@ -161,7 +162,7 @@ export default function DiscPage() {
 
       <div
         aria-hidden="true"
-        className="marquee-fade pointer-events-none relative -mt-8 mb-20 overflow-hidden py-4 md:-mt-12 md:mb-24 md:py-6"
+        className="marquee-fade pointer-events-none relative -mt-5 mb-12 overflow-hidden py-4 md:-mt-12 md:mb-24 md:py-6"
       >
         <div className="marquee-track flex w-max select-none font-montserrat text-[clamp(3rem,7.2vw,6.6rem)] font-semibold uppercase leading-none tracking-normal text-navy-900/[0.055]">
           <span className="shrink-0 pr-12 md:pr-20">{marqueeText}</span>
@@ -169,26 +170,26 @@ export default function DiscPage() {
         </div>
       </div>
 
-      <section className="relative overflow-hidden px-6 pb-24 pt-4 md:pb-32 md:pt-8">
+      <section className="relative overflow-hidden px-5 pb-16 pt-2 sm:px-6 md:pb-32 md:pt-8">
         <div className="mx-auto w-full max-w-7xl">
           <ScrollReveal variant="slide-right" amount={0.22}>
             <div className="max-w-4xl">
-              <h2 className="text-4xl font-black leading-[1.18] tracking-normal text-ink md:text-[3.25rem]">
+              <h2 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-normal text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
                 혹시 내 이야기 같으신가요?
-                <br />
+                <br className="hidden md:block" />
                 허리 통증 주요 증상과 원인
               </h2>
             </div>
           </ScrollReveal>
 
-          <div className="mt-20 md:mt-24">
+          <div className="mt-12 md:mt-24">
             <ScrollReveal variant="slide-right" amount={0.3}>
-              <h3 className="text-3xl font-black tracking-normal text-ink md:text-[2.35rem]">
+              <h3 className="text-[1.5rem] font-black tracking-normal text-ink sm:text-3xl md:text-[2.35rem]">
                 주요 증상
               </h3>
             </ScrollReveal>
 
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-10 sm:gap-6 xl:grid-cols-4">
               {symptomCards.map((card, index) => (
                 <ScrollReveal
                   key={card.title}
@@ -196,7 +197,7 @@ export default function DiscPage() {
                   delay={index * 0.08}
                   amount={0.18}
                 >
-                  <article className="group h-full overflow-hidden rounded-[1.45rem] bg-slate-50 ring-1 ring-slate-200/70 transition duration-500 hover:-translate-y-1 hover:shadow-[0_26px_70px_-46px_rgba(15,29,54,0.6)]">
+                  <article className="group h-full overflow-hidden rounded-[1.1rem] bg-slate-50 ring-1 ring-slate-200/70 transition duration-500 hover:-translate-y-1 hover:shadow-[0_26px_70px_-46px_rgba(15,29,54,0.6)] sm:rounded-[1.45rem]">
                     <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
                       <Image
                         src={card.image}
@@ -207,8 +208,8 @@ export default function DiscPage() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-tr from-navy-900/10 via-transparent to-primary/5 opacity-60 transition-opacity duration-500 group-hover:opacity-30" />
                     </div>
-                    <div className="flex min-h-[76px] items-center justify-center bg-slate-50 px-4 text-center">
-                      <h4 className="text-[1.35rem] font-black tracking-normal text-ink md:text-[1.5rem]">
+                    <div className="flex min-h-[62px] items-center justify-center bg-slate-50 px-2 text-center sm:min-h-[76px] sm:px-4">
+                      <h4 className="break-keep text-[1rem] font-black leading-snug tracking-normal text-ink sm:text-[1.2rem] md:text-[1.5rem]">
                         {card.title}
                       </h4>
                     </div>
@@ -218,21 +219,21 @@ export default function DiscPage() {
             </div>
           </div>
 
-          <div className="mt-24 grid gap-10 md:mt-28 lg:grid-cols-[0.8fr_1.65fr] lg:items-start">
+          <div className="mt-16 grid gap-7 md:mt-28 md:gap-10 lg:grid-cols-[0.8fr_1.65fr] lg:items-start">
             <ScrollReveal variant="slide-right" amount={0.28}>
-              <h3 className="text-3xl font-black tracking-normal text-ink md:text-[2.35rem]">
+              <h3 className="text-[1.5rem] font-black tracking-normal text-ink sm:text-3xl md:text-[2.35rem]">
                 주요 원인
               </h3>
             </ScrollReveal>
 
-            <div className="grid gap-5 sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2 sm:gap-5">
               {causeItems.map((item, index) => (
                 <ScrollReveal key={item} delay={index * 0.07} amount={0.18}>
-                  <div className="flex min-h-[92px] items-center gap-4 rounded-[1.25rem] bg-slate-50 px-6 ring-1 ring-slate-200/70 transition duration-300 hover:bg-primary-light/70 hover:ring-primary/20">
+                  <div className="flex min-h-[76px] items-center gap-3 rounded-[1rem] bg-slate-50 px-4 ring-1 ring-slate-200/70 transition duration-300 hover:bg-primary-light/70 hover:ring-primary/20 sm:min-h-[92px] sm:gap-4 sm:rounded-[1.25rem] sm:px-6">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white shadow-[0_10px_22px_-12px_rgba(40,74,165,0.9)]">
                       <Check size={21} strokeWidth={3.4} />
                     </span>
-                    <span className="text-[1.05rem] font-extrabold leading-snug tracking-normal text-ink md:text-[1.22rem]">
+                    <span className="break-keep text-[0.98rem] font-extrabold leading-snug tracking-normal text-ink sm:text-[1.05rem] md:text-[1.22rem]">
                       {item}
                     </span>
                   </div>
@@ -245,36 +246,36 @@ export default function DiscPage() {
 
       <LumbarDiseaseSection />
 
-      <section className="bg-white px-6 py-24 md:py-32">
+      <section className="bg-white px-5 py-16 sm:px-6 md:py-32">
         <div className="mx-auto max-w-7xl">
           <ScrollReveal variant="slide-right" amount={0.22}>
             <div className="max-w-4xl">
-              <h2 className="text-4xl font-black leading-tight tracking-normal text-ink md:text-[3.25rem]">
+              <h2 className="text-[1.9rem] font-black leading-tight tracking-normal text-ink sm:text-4xl md:text-[3.25rem]">
                 자주 묻는 질문
               </h2>
-              <p className="mt-8 text-lg font-semibold leading-relaxed text-ink-sub md:text-xl">
+              <p className="mt-5 break-keep text-base font-semibold leading-[1.75] text-ink-sub sm:mt-8 md:text-xl md:leading-relaxed">
                 허리 통증과 관련된 연세척의 노하우, 많은 분들이 궁금해하신 내용을 확인해 보세요.
               </p>
             </div>
           </ScrollReveal>
 
-          <div className="mt-20 divide-y divide-slate-200 border-y border-slate-200">
+          <div className="mt-10 divide-y divide-slate-200 border-y border-slate-200 sm:mt-20">
             {faqItems.map((item) => (
               <details key={item.question} className="group">
-                <summary className="flex cursor-pointer list-none items-center gap-5 px-2 py-8 text-left [&::-webkit-details-marker]:hidden">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-navy-900 text-[1rem] font-black text-white">
+                <summary className="flex cursor-pointer list-none items-center gap-3 px-1 py-5 text-left sm:gap-5 sm:px-2 sm:py-8 [&::-webkit-details-marker]:hidden">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-navy-900 text-sm font-black text-white sm:h-10 sm:w-10 sm:text-[1rem]">
                     Q
                   </span>
-                  <span className="flex-1 text-[1.15rem] font-black leading-snug tracking-normal text-ink md:text-[1.35rem]">
+                  <span className="flex-1 break-keep text-[1rem] font-black leading-snug tracking-normal text-ink sm:text-[1.15rem] md:text-[1.35rem]">
                     {item.question}
                   </span>
                   <ChevronDown
-                    size={34}
+                    size={28}
                     strokeWidth={2.4}
                     className="shrink-0 text-slate-400 transition-transform duration-300 group-open:rotate-180"
                   />
                 </summary>
-                <div className="px-2 pb-8 pl-[4.25rem] text-[1rem] font-medium leading-relaxed text-ink-sub md:text-lg">
+                <div className="break-keep px-1 pb-6 text-[0.95rem] font-medium leading-[1.75] text-ink-sub sm:px-2 sm:pb-8 sm:pl-[4.25rem] sm:text-[1rem] md:text-lg md:leading-relaxed">
                   {item.answer}
                 </div>
               </details>
@@ -283,6 +284,7 @@ export default function DiscPage() {
         </div>
       </section>
 
+      <YonseiSpecialFeaturesSection />
       <SpineCenterStrengthSection />
     </main>
   );

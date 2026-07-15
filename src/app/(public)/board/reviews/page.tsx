@@ -41,15 +41,15 @@ export default async function ReviewsPage() {
 
       {/* 🔹 Main Content Area */}
       <section className="bg-white">
-        <div className="max-w-[1440px] mx-auto px-10 py-24 border-x border-slate-50 min-h-[800px] shadow-sm">
-          <div className="mb-16">
-            <div className="flex items-center gap-5">
-              <span className="text-[15px] font-bold text-ink-muted flex items-center gap-1.5 tracking-tight">
+        <div className="mx-auto min-h-0 max-w-[1440px] border-x border-slate-50 px-4 py-14 shadow-sm sm:px-6 sm:py-16 md:min-h-[800px] lg:px-10 lg:py-24">
+          <div className="mb-10 sm:mb-16">
+            <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
+              <span className="flex break-keep text-[14px] font-bold leading-[1.7] tracking-tight text-ink-muted sm:items-center sm:gap-1.5 sm:text-[15px]">
                 <strong className="text-ink text-[16px]">※</strong> 의료법 규정에 따라 자세한 내용은 로그인 후 확인할 수 있습니다.
               </span>
               <Link 
                 href="/login"
-                className="inline-flex flex-shrink-0 items-center justify-center px-7 py-2 bg-primary/10 text-primary hover:bg-primary hover:text-white font-black rounded-full transition-colors text-[14px]"
+                className="inline-flex flex-shrink-0 items-center justify-center rounded-full bg-primary/10 px-5 py-2 text-[14px] font-black text-primary transition-colors hover:bg-primary hover:text-white sm:px-7"
               >
                 로그인하기
               </Link>
@@ -57,12 +57,12 @@ export default async function ReviewsPage() {
           </div>
 
           {/* List Area */}
-          <div className="space-y-6">
-            <div className="flex justify-between items-end border-b-2 border-slate-200 pb-4">
+          <div className="space-y-5 sm:space-y-6">
+            <div className="flex flex-col items-stretch gap-4 border-b-2 border-slate-200 pb-4 sm:flex-row sm:items-end sm:justify-between">
               <div className="text-[16px] font-bold text-ink-muted tracking-tight">
                 총 <strong className="text-ink font-black text-[18px]">{reviewsCount}</strong>건
               </div>
-              <div className="relative group w-full max-w-[340px]">
+              <div className="group relative w-full sm:max-w-[340px]">
                 <input
                   type="text"
                   placeholder="검색어를 입력해주세요."
@@ -81,10 +81,10 @@ export default async function ReviewsPage() {
                   <Link
                     href={`/board/reviews/${review.id}`}
                     key={review.id}
-                    className="group py-8 flex flex-col md:flex-row md:items-center gap-10 hover:bg-slate-50/50 transition-colors px-6 -mx-6 rounded-[2rem] border border-transparent hover:border-slate-100"
+                    className="group flex flex-col gap-5 rounded-xl border border-transparent py-5 transition-colors hover:border-slate-100 hover:bg-slate-50/50 sm:-mx-6 sm:gap-8 sm:px-6 sm:py-7 md:flex-row md:items-center md:gap-10 md:rounded-[2rem] md:py-8"
                   >
                     {/* Thumbnail */}
-                    <div className="w-full md:w-48 aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 shrink-0 border border-slate-200">
+                    <div className="aspect-[16/10] w-full shrink-0 overflow-hidden rounded-xl border border-slate-200 bg-slate-100 sm:aspect-[4/3] sm:rounded-2xl md:w-48">
                       {review.image_urls && review.image_urls.length > 0 ? (
                         <img 
                           src={review.image_urls[0]} 
@@ -105,10 +105,10 @@ export default async function ReviewsPage() {
                         </span>
                         <span className="text-[14px] font-bold text-ink-muted">#{review.id.slice(0, 8)}</span>
                       </div>
-                      <h3 className="text-[22px] font-bold text-ink group-hover:text-primary transition-colors tracking-tight line-clamp-2 block">
+                      <h3 className="block line-clamp-2 break-keep text-[19px] font-bold leading-[1.45] tracking-tight text-ink transition-colors group-hover:text-primary sm:text-[22px]">
                         {review.title}
                       </h3>
-                      <p className="text-ink-muted text-[15px] font-medium tracking-tight">
+                      <p className="break-keep text-[14px] font-medium leading-[1.7] tracking-tight text-ink-muted sm:text-[15px]">
                         의료법 규정에 따라 상세 내용은 로그인 후 보실 수 있습니다.
                       </p>
                     </div>
@@ -126,10 +126,10 @@ export default async function ReviewsPage() {
             </div>
 
             {/* Actions */}
-            <div className="flex justify-end pt-12 border-t border-slate-100">
+            <div className="flex justify-end border-t border-slate-100 pt-8 sm:pt-12">
               <Link 
                 href="/board/reviews/write"
-                className="inline-flex items-center gap-3 px-8 py-5 bg-navy-950 text-white rounded-[1.25rem] hover:bg-primary font-black shadow-lg hover:shadow-blue-glow transition-all active:scale-95 text-[17px] tracking-tight"
+                className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-navy-950 px-5 py-4 text-[16px] font-black tracking-tight text-white shadow-lg transition-all hover:bg-primary hover:shadow-blue-glow active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-8 sm:py-5 sm:text-[17px]"
               >
                 <PenSquare size={20} strokeWidth={2.5} />
                 리뷰 작성하기

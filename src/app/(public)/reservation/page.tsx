@@ -101,30 +101,30 @@ export default function ReservationPage() {
         bgImage="/hero-bg.png"
       />
 
-      <section className="bg-white py-24 flex-grow">
-        <div className="max-w-4xl mx-auto px-6 w-full">
-          <div className="bg-white rounded-[2rem] border border-slate-200 shadow-premium p-10 md:p-16 space-y-12">
+      <section className="flex-grow bg-white py-14 sm:py-16 md:py-24">
+        <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
+          <div className="space-y-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-premium sm:space-y-10 sm:p-6 md:space-y-12 md:rounded-[2rem] md:p-16">
             
             <div className="text-center space-y-4">
-              <h2 className="text-3xl font-black text-ink tracking-tight">진료 예약 신청</h2>
-              <p className="text-ink-muted font-medium">
+              <h2 className="break-keep text-[26px] font-black tracking-tight text-ink sm:text-3xl">진료 예약 신청</h2>
+              <p className="break-keep text-[15px] font-medium leading-[1.75] text-ink-muted sm:text-base">
                 정보를 정확히 기입해 주시면, 전문 상담원이 예약 확정을 위해 연락을 드립니다.
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-10">
+            <form onSubmit={handleSubmit} className="space-y-7 sm:space-y-8 md:space-y-10">
               
               {/* === 기본 정보 입력 === */}
-              <div className="space-y-8 p-8 bg-slate-50 rounded-2xl border border-slate-100">
+              <div className="space-y-6 rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:p-6 md:space-y-8 md:p-8">
                 <h3 className="text-lg font-bold text-ink border-b border-slate-200 pb-3">기본 정보</h3>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8">
                   {/* 방문 분류 */}
                   <div className="space-y-3 md:col-span-2">
                     <label className="text-sm font-bold text-ink-sub">방문 분류</label>
-                    <div className="flex gap-4">
+                    <div className="flex gap-2 sm:gap-4">
                       {['초진', '재진'].map((cat) => (
-                        <label key={cat} className={`flex-1 flex items-center justify-center gap-2 p-4 rounded-xl cursor-pointer font-bold border transition-all ${formData.category === cat ? 'bg-primary border-primary text-white shadow-md' : 'bg-white border-slate-200 text-ink-muted hover:border-primary/50'}`}>
+                        <label key={cat} className={`flex min-h-14 flex-1 cursor-pointer items-center justify-center rounded-xl border p-3 font-bold transition-all sm:p-4 ${formData.category === cat ? 'bg-primary border-primary text-white shadow-md' : 'bg-white border-slate-200 text-ink-muted hover:border-primary/50'}`}>
                           <input 
                             type="radio" 
                             name="category" 
@@ -133,7 +133,7 @@ export default function ReservationPage() {
                             onChange={handleInputChange}
                             className="hidden" 
                           />
-                          <span>{cat} {cat === '초진' && <span className="text-xs font-normal opacity-80">(처음 오신 분)</span>}</span>
+                          <span className="text-center leading-tight">{cat} {cat === '초진' && <span className="mt-1 block text-[11px] font-normal opacity-80 sm:ml-1 sm:mt-0 sm:inline sm:text-xs">(처음 오신 분)</span>}</span>
                         </label>
                       ))}
                     </div>
@@ -147,7 +147,7 @@ export default function ReservationPage() {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full px-5 py-4 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-primary transition-all text-ink font-medium"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-medium text-ink transition-all focus:border-primary focus:outline-none sm:px-5 sm:py-4"
                       placeholder="이름을 입력해 주세요"
                       required
                     />
@@ -159,7 +159,7 @@ export default function ReservationPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-5 py-4 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-primary transition-all text-ink font-medium"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-medium text-ink transition-all focus:border-primary focus:outline-none sm:px-5 sm:py-4"
                       placeholder="010-0000-0000"
                       required
                     />
@@ -168,10 +168,10 @@ export default function ReservationPage() {
               </div>
 
               {/* === 진료 정보 입력 === */}
-              <div className="space-y-8 p-8 bg-slate-50 rounded-2xl border border-slate-100">
+              <div className="space-y-6 rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:p-6 md:space-y-8 md:p-8">
                 <h3 className="text-lg font-bold text-ink border-b border-slate-200 pb-3">진료 예약 정보</h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8">
                   {/* 진료과목 & 의료진 */}
                   <div className="space-y-3">
                     <label className="text-sm font-bold text-ink-sub">진료과목</label>
@@ -179,7 +179,7 @@ export default function ReservationPage() {
                       name="specialty"
                       value={formData.specialty}
                       onChange={handleInputChange}
-                      className="w-full px-5 py-4 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-primary transition-all text-ink font-bold appearance-none cursor-pointer"
+                      className="w-full cursor-pointer appearance-none rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-bold text-ink transition-all focus:border-primary focus:outline-none sm:px-5 sm:py-4"
                     >
                       {Object.keys(DOCTORS_BY_SPECIALTY).map((spec) => (
                         <option key={spec} value={spec}>{spec}</option>
@@ -193,7 +193,7 @@ export default function ReservationPage() {
                       name="doctor"
                       value={formData.doctor}
                       onChange={handleInputChange}
-                      className="w-full px-5 py-4 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-primary transition-all text-ink font-bold appearance-none cursor-pointer"
+                      className="w-full cursor-pointer appearance-none rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-bold text-ink transition-all focus:border-primary focus:outline-none sm:px-5 sm:py-4"
                     >
                       {DOCTORS_BY_SPECIALTY[formData.specialty as keyof typeof DOCTORS_BY_SPECIALTY].map((doc) => (
                         <option key={doc} value={doc}>
@@ -212,7 +212,7 @@ export default function ReservationPage() {
                       value={formData.reservation_date}
                       onChange={handleInputChange}
                       min={new Date().toISOString().split('T')[0]}
-                      className="w-full px-5 py-4 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-primary transition-all text-ink font-medium"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-medium text-ink transition-all focus:border-primary focus:outline-none sm:px-5 sm:py-4"
                       required
                     />
                   </div>
@@ -222,7 +222,7 @@ export default function ReservationPage() {
                       name="reservation_time"
                       value={formData.reservation_time}
                       onChange={handleInputChange}
-                      className="w-full px-5 py-4 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-primary transition-all text-ink font-medium appearance-none cursor-pointer"
+                      className="w-full cursor-pointer appearance-none rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-medium text-ink transition-all focus:border-primary focus:outline-none sm:px-5 sm:py-4"
                     >
                       <option value="">원하시는 시간대를 선택해주세요 (선택)</option>
                       <option value="오전 (09:00 - 12:00)">오전 (09:00 - 12:00)</option>
@@ -235,7 +235,7 @@ export default function ReservationPage() {
               {/* === 개인정보 처리방침 === */}
               <div className="space-y-4">
                 <label className="text-sm font-bold text-ink-sub">개인정보 수집 및 이용 동의 <span className="text-red-500">*</span></label>
-                <div className="h-48 overflow-y-auto p-5 bg-slate-50 border border-slate-200 rounded-xl text-[13px] text-ink-sub leading-relaxed font-medium">
+                <div className="h-48 overflow-y-auto rounded-xl border border-slate-200 bg-slate-50 p-4 text-[13px] font-medium leading-[1.7] text-ink-sub sm:p-5">
                   <h4 className="font-bold text-ink mb-2">개인정보의 수집 및 이용목적</h4>
                   <p className="mb-4">
                     연세척병원은 수집한 개인정보를 다음의 목적을 위해 활용합니다. 이용자가 제공한 모든 정보는 하기 목적에 필요한 용도 이외로는 사용되지 않으며 이용 목적이 변경될 시에는 사전 동의를 구할 것입니다.
@@ -269,13 +269,13 @@ export default function ReservationPage() {
                   </ul>
                 </div>
                 
-                <div className="flex items-center gap-3 pt-2">
+                <div className="flex items-start gap-3 pt-2">
                   <input 
                     type="checkbox" 
                     id="privacy-agree" 
                     checked={isAgreed}
                     onChange={(e) => setIsAgreed(e.target.checked)}
-                    className="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary" 
+                    className="mt-0.5 h-5 w-5 shrink-0 rounded border-slate-300 text-primary focus:ring-primary"
                     required 
                   />
                   <label htmlFor="privacy-agree" className="text-[15px] font-bold text-ink cursor-pointer">
@@ -288,7 +288,7 @@ export default function ReservationPage() {
                 <button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className={`w-full py-5 text-white font-black text-lg rounded-[1.5rem] transition-all shadow-xl shadow-primary/20 hover:-translate-y-1 ${isSubmitting ? 'bg-slate-400 cursor-not-allowed' : 'bg-primary hover:bg-primary-dark active:scale-[0.98]'}`}
+                  className={`w-full rounded-xl py-4 text-base font-black text-white shadow-xl shadow-primary/20 transition-all hover:-translate-y-1 sm:rounded-[1.5rem] sm:py-5 sm:text-lg ${isSubmitting ? 'bg-slate-400 cursor-not-allowed' : 'bg-primary hover:bg-primary-dark active:scale-[0.98]'}`}
                 >
                   {isSubmitting ? '신청 처리 중...' : '예약 신청 완료하기'}
                 </button>

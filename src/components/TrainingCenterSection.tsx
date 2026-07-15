@@ -146,23 +146,23 @@ export default function TrainingCenterSection() {
   }, [animate]);
 
   return (
-    <section className="relative overflow-hidden bg-white py-24 md:py-32">
+    <section className="relative overflow-hidden bg-white py-16 md:py-32">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
 
-      <div className="relative z-10 mx-auto max-w-[1540px] px-7 xl:px-10">
+      <div className="relative z-10 mx-auto max-w-[1540px] px-5 sm:px-7 xl:px-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-start justify-between gap-6"
+          className="flex items-start justify-between gap-4 md:gap-6"
         >
           <div className="space-y-3">
-            <p className="text-[22px] font-bold text-ink-sub md:text-[30px]">
+            <p className="break-keep text-[18px] font-bold leading-snug text-ink-sub sm:text-[20px] md:text-[30px]">
               연세척병원과 함께합니다.
             </p>
-            <h2 className="text-[30px] font-black leading-[1.12] tracking-tight text-ink md:text-[46px]">
+            <h2 className="break-keep text-[27px] font-black leading-[1.22] tracking-tight text-ink sm:text-[30px] md:text-[46px] md:leading-[1.12]">
               국제 척추내시경 <span className="text-primary">트레이닝 센터</span>
             </h2>
           </div>
@@ -170,7 +170,7 @@ export default function TrainingCenterSection() {
           <Link
             href="/news/training"
             aria-label="국제 척추내시경 트레이닝 센터 전체보기"
-            className="group mt-1 inline-flex shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white p-4 text-ink-sub shadow-[0_14px_36px_-28px_rgba(15,29,54,0.5)] transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:bg-primary hover:text-white"
+            className="group inline-flex shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white p-3 text-ink-sub shadow-[0_14px_36px_-28px_rgba(15,29,54,0.5)] transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:bg-primary hover:text-white md:mt-1 md:p-4"
           >
             <Plus size={20} strokeWidth={2.75} className="transition-transform duration-300 group-hover:rotate-90" />
           </Link>
@@ -178,7 +178,7 @@ export default function TrainingCenterSection() {
 
         {/* Carousel */}
         <div
-          className="relative mt-12 md:mt-16"
+          className="relative mt-10 md:mt-16"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onTouchStart={() => setPaused(true)}
@@ -208,7 +208,7 @@ export default function TrainingCenterSection() {
                       whileHover={{ y: -12 }}
                       transition={{ type: 'spring', stiffness: 260, damping: 20 }}
                     >
-                      <div className="relative aspect-[3/4] overflow-hidden rounded-[1.5rem] bg-slate-100 shadow-[0_22px_55px_-30px_rgba(15,29,54,0.45)] ring-1 ring-slate-900/5 transition-shadow duration-500 group-hover:shadow-[0_40px_80px_-32px_rgba(40,74,165,0.55)]">
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-slate-100 shadow-[0_22px_55px_-30px_rgba(15,29,54,0.45)] ring-1 ring-slate-900/5 transition-shadow duration-500 group-hover:shadow-[0_40px_80px_-32px_rgba(40,74,165,0.55)] sm:aspect-[3/4] sm:rounded-[1.5rem]">
                         <img
                           src={card.image}
                           alt={card.title}
@@ -221,8 +221,8 @@ export default function TrainingCenterSection() {
                         />
                       </div>
 
-                      <div className="px-1 pt-5">
-                        <h3 className="line-clamp-2 text-[16px] font-bold leading-snug tracking-tight text-ink transition-colors duration-300 group-hover:text-primary md:text-[18px]">
+                      <div className="px-1 pt-4 md:pt-5">
+                        <h3 className="line-clamp-2 break-keep text-[15px] font-bold leading-snug tracking-tight text-ink transition-colors duration-300 group-hover:text-primary md:text-[18px]">
                           {card.title}
                         </h3>
                       </div>

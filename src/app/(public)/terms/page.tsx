@@ -8,11 +8,11 @@ export const metadata: Metadata = {
 
 export default function TermsOfServicePage() {
   return (
-    <main className="min-h-screen bg-white py-16 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-white px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-center text-gray-900 mb-12">이용약관</h1>
+        <h1 className="mb-8 break-keep text-center text-[28px] font-bold leading-[1.3] text-gray-900 sm:mb-12 sm:text-3xl">이용약관</h1>
         
-        <div className="space-y-12 text-gray-700 leading-relaxed text-sm md:text-base">
+        <div className="space-y-10 break-keep text-[15px] leading-[1.75] text-gray-700 [overflow-wrap:anywhere] [&_h2]:break-keep [&_h2]:leading-[1.45] sm:space-y-12 md:text-base md:leading-relaxed">
           <section>
             <h2 className="text-xl font-bold text-[#e6005c] mb-4">제1조(목적)</h2>
             <p className="mb-4">
@@ -188,7 +188,7 @@ export default function TermsOfServicePage() {
             <p className="mb-4">그러나 예외 사항에서도 관계법령에 의하거나 수사기관의 요청에 의해 정보를 제공한 경우에는 이를 당사자에게 고지하는 것을 원칙으로 운영하고 있습니다. 법률상의 근거에 의해 부득이하게 고지를 하지 못할 수도 있습니다. 본래의 수집목적 및 이용목적에 반하여 무분별하게 정보가 제공되지 않도록 최대한 노력하겠습니다.</p>
             <p className="mb-4">④ 연세척병원는 2항과 3항에 의해 이용자의 동의를 받아야 하는 경우에는 개인정보 관리 책임자의 신원(소속, 성명 및 전화번호 기타 연락처), 정보의 수집목적 및 이용목적, 제3자에 대한 정보제공 관련 사항(제공받는자, 제공목적 및 제공할 정보의 내용)등 정보통신망 이용 촉진 등에 관한 법률 제16조 제3항이 규정한 사항을 미리 명시하거나 고지해야 하며 이용자는 언제든지 이 동의를 철회할 수 있습니다.</p>
             
-            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-4 inline-block">
+            <div className="mb-4 inline-block rounded-lg border border-gray-200 bg-gray-50 p-4 [overflow-wrap:anywhere]">
               <p><strong>개인정보 관리 책임자 :</strong> (주)연세척병원 대표 손용갑</p>
             </div>
 

@@ -50,17 +50,17 @@ export default function TreatmentsPage() {
         bgImage="/hero-bg.png"
       />
 
-      <section className="max-w-7xl mx-auto px-6 py-24 w-full">
-        <div className="space-y-32">
+      <section className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-6 md:py-24">
+        <div className="space-y-20 md:space-y-32">
           {treatmentCategories.map((category, idx) => (
-            <div key={category.id} className={`flex flex-col lg:flex-row gap-16 items-start ${idx % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
-              <div className="lg:w-1/3 space-y-6 sticky top-28">
+            <div key={category.id} className={`flex flex-col items-start gap-9 md:gap-12 lg:flex-row lg:gap-16 ${idx % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+              <div className="space-y-5 lg:sticky lg:top-28 lg:w-1/3 lg:space-y-6">
                 <div className="space-y-4">
                   <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">{category.subtitle}</span>
-                  <h2 className="text-4xl font-extrabold text-ink tracking-tight">{category.title}</h2>
+                  <h2 className="break-keep text-[2rem] font-extrabold leading-tight tracking-tight text-ink md:text-4xl">{category.title}</h2>
                   <div className="w-16 h-1.5 bg-primary rounded-full" />
                 </div>
-                <p className="text-ink-muted leading-relaxed font-medium">
+                <p className="break-keep text-[15px] font-medium leading-[1.75] text-ink-sub md:text-base">
                   {category.description}
                 </p>
                 <div className="pt-4">
@@ -70,15 +70,15 @@ export default function TreatmentsPage() {
                 </div>
               </div>
 
-              <div className="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+              <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:w-2/3">
                 {category.treatments.map((t, i) => (
-                  <div key={i} className="p-10 bg-white rounded-3xl border border-slate-100 hover:border-primary/20 hover:shadow-premium transition-all group">
+                  <div key={i} className="group rounded-2xl border border-slate-100 bg-white p-6 transition-all hover:border-primary/20 hover:shadow-premium md:rounded-3xl md:p-10">
                     <div className="space-y-4">
-                      <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-300 font-black text-xs group-hover:bg-primary group-hover:text-white transition-colors">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-50 text-xs font-black text-slate-500 transition-colors group-hover:bg-primary group-hover:text-white">
                         {i + 1}
                       </div>
                       <h3 className="text-xl font-bold text-ink">{t.name}</h3>
-                      <p className="text-sm text-ink-muted leading-relaxed">{t.desc}</p>
+                      <p className="break-keep text-sm leading-relaxed text-ink-sub">{t.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -89,17 +89,17 @@ export default function TreatmentsPage() {
       </section>
 
       {/* Philosophy Banner */}
-      <section className="bg-slate-50 py-24 px-6 border-y border-slate-100">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
-           <h2 className="text-3xl font-bold text-ink">“연세척병원은 비수술 우선 치료를 원칙으로 합니다”</h2>
-           <p className="text-ink-muted text-lg leading-relaxed">
+      <section className="border-y border-slate-100 bg-slate-50 px-5 py-14 sm:px-6 md:py-24">
+        <div className="mx-auto max-w-4xl space-y-6 text-center md:space-y-8">
+           <h2 className="break-keep text-[1.75rem] font-bold leading-tight text-ink md:text-3xl">“연세척병원은 비수술 우선 치료를 원칙으로 합니다”</h2>
+           <p className="break-keep text-base leading-[1.75] text-ink-sub md:text-lg">
              무조건적인 수술보다는 정밀한 진단을 통해 환자에게 가장 안전하고 효과적인 <br className="hidden md:block" />
              비수술적 치료법을 먼저 고민하며, 꼭 필요한 경우에만 최소침습 수술을 시행합니다.
            </p>
-           <div className="flex justify-center gap-4">
-             <div className="px-6 py-3 bg-white border border-slate-200 rounded-full text-sm font-bold text-ink-sub">통증 완화</div>
-             <div className="px-6 py-3 bg-white border border-slate-200 rounded-full text-sm font-bold text-ink-sub">기능 회복</div>
-             <div className="px-6 py-3 bg-white border border-slate-200 rounded-full text-sm font-bold text-ink-sub">재발 방지</div>
+           <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
+             <div className="rounded-full border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-ink-sub sm:px-6 sm:py-3">통증 완화</div>
+             <div className="rounded-full border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-ink-sub sm:px-6 sm:py-3">기능 회복</div>
+             <div className="rounded-full border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-ink-sub sm:px-6 sm:py-3">재발 방지</div>
            </div>
         </div>
       </section>

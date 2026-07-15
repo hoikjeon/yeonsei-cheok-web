@@ -51,12 +51,12 @@ export default function StenosisPage() {
       />
 
       {/* 질환 소개 */}
-      <section className="max-w-7xl mx-auto px-6 py-24 w-full">
-        <div className="space-y-6 mb-20">
+      <section className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-6 md:py-24">
+        <div className="mb-14 space-y-5 md:mb-20 md:space-y-6">
           <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">Spinal Stenosis</span>
-          <h2 className="text-4xl font-extrabold text-ink tracking-tight">척추관 협착증이란?</h2>
+          <h2 className="break-keep text-[2rem] font-extrabold leading-tight tracking-tight text-ink md:text-4xl">척추관 협착증이란?</h2>
           <div className="w-16 h-1.5 bg-primary rounded-full" />
-          <p className="text-ink-muted leading-relaxed font-medium max-w-3xl text-lg">
+          <p className="max-w-3xl break-keep text-base font-medium leading-[1.75] text-ink-sub md:text-lg">
             척추관 협착증은 나이가 들면서 척추의 퇴행성 변화로 인해 신경이 지나가는 
             공간(척추관)이 점점 좁아지는 질환입니다. 50~60대 이상에서 흔하며, 
             걸을 때 다리가 저리고 아파서 자주 쉬어야 하는 &ldquo;간헐적 파행&rdquo;이 
@@ -65,17 +65,17 @@ export default function StenosisPage() {
         </div>
 
         {/* 협착증 유형 */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-24">
+        <div className="mb-16 grid grid-cols-1 gap-4 md:mb-24 lg:grid-cols-3 lg:gap-8">
           {stenosisTypes.map((type, idx) => (
-            <div key={idx} className="p-10 bg-white rounded-3xl border border-slate-100 space-y-6 hover:shadow-premium transition-all group">
+            <div key={idx} className="group space-y-5 rounded-2xl border border-slate-100 bg-white p-6 transition-all hover:shadow-premium md:rounded-3xl md:p-10 lg:space-y-6">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary font-black text-sm group-hover:bg-primary group-hover:text-white transition-colors">
                   {idx + 1}
                 </div>
-                <span className="px-3 py-1 bg-slate-50 text-ink-muted text-[11px] font-bold rounded-lg">{type.severity}</span>
+                <span className="rounded-lg bg-slate-50 px-3 py-1 text-[11px] font-bold text-slate-600">{type.severity}</span>
               </div>
               <h3 className="text-xl font-bold text-ink">{type.title}</h3>
-              <p className="text-ink-muted leading-relaxed font-medium text-[15px]">{type.description}</p>
+              <p className="break-keep text-[15px] font-medium leading-relaxed text-ink-sub">{type.description}</p>
             </div>
           ))}
         </div>
@@ -84,20 +84,20 @@ export default function StenosisPage() {
         <div className="space-y-8">
           <div className="space-y-4">
             <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">Step-by-Step Treatment</span>
-            <h2 className="text-3xl font-extrabold text-ink tracking-tight">단계별 맞춤 치료 프로토콜</h2>
-            <p className="text-ink-muted font-medium max-w-2xl">
+            <h2 className="break-keep text-[1.75rem] font-extrabold leading-tight tracking-tight text-ink md:text-3xl">단계별 맞춤 치료 프로토콜</h2>
+            <p className="max-w-2xl break-keep text-[15px] font-medium leading-[1.75] text-ink-sub md:text-base">
               연세척병원은 환자의 협착 정도와 증상에 따라 보존적 치료부터 시작하여, 
               필요한 경우에만 단계적으로 시술 및 수술을 진행합니다.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
             {treatmentSteps.map((t, i) => (
-              <div key={i} className="p-10 bg-slate-50 rounded-3xl space-y-6 hover:bg-white hover:shadow-premium border border-transparent hover:border-primary/10 transition-all group">
+              <div key={i} className="group space-y-5 rounded-2xl border border-transparent bg-slate-50 p-6 transition-all hover:border-primary/10 hover:bg-white hover:shadow-premium md:rounded-3xl md:p-10 lg:space-y-6">
                 <div className="space-y-4">
                   <span className="text-primary text-[11px] font-black tracking-widest font-montserrat uppercase">{t.step}</span>
                   <h3 className="text-2xl font-bold text-ink">{t.title}</h3>
-                  <p className="text-ink-muted leading-relaxed font-medium text-[15px]">{t.desc}</p>
+                  <p className="break-keep text-[15px] font-medium leading-relaxed text-ink-sub">{t.desc}</p>
                 </div>
                 <ul className="space-y-3 pt-2">
                   {t.items.map((item, j) => (
@@ -114,18 +114,18 @@ export default function StenosisPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-slate-50 py-24 px-6 border-y border-slate-100">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
-          <h2 className="text-3xl font-bold text-ink">걷기가 힘드신가요?</h2>
-          <p className="text-ink-muted text-lg leading-relaxed">
+      <section className="border-y border-slate-100 bg-slate-50 px-5 py-14 sm:px-6 md:py-24">
+        <div className="mx-auto max-w-4xl space-y-6 text-center md:space-y-8">
+          <h2 className="text-[1.75rem] font-bold leading-tight text-ink md:text-3xl">걷기가 힘드신가요?</h2>
+          <p className="break-keep text-base leading-[1.75] text-ink-sub md:text-lg">
             척추관 협착증은 정확한 진단 후 적절한 치료를 받으면<br className="hidden md:block" />
             보행 능력과 일상생활을 크게 개선할 수 있습니다.
           </p>
-          <div className="flex justify-center gap-4">
-            <Link href="/reservation" className="px-8 py-4 bg-primary text-white font-bold rounded-full hover:bg-primary-dark transition-all shadow-blue-glow">
+          <div className="flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
+            <Link href="/reservation" className="w-full rounded-full bg-primary px-8 py-4 font-bold text-white shadow-blue-glow transition-all hover:bg-primary-dark sm:w-auto">
               진료 예약하기 →
             </Link>
-            <Link href="/consultation" className="px-8 py-4 bg-white text-ink-sub font-bold rounded-full border border-slate-200 hover:border-primary/30 transition-all">
+            <Link href="/consultation" className="w-full rounded-full border border-slate-200 bg-white px-8 py-4 font-bold text-ink-sub transition-all hover:border-primary/30 sm:w-auto">
               온라인 상담
             </Link>
           </div>

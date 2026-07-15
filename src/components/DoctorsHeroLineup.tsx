@@ -80,13 +80,13 @@ const backDoctorNameLabels: DoctorNameLabel[] = [
   {
     id: 'kim-beom-jun-label',
     text: '김범준 원장',
-    className: 'left-[26%] top-[34%] text-[17px] md:left-[24%] md:top-[44%] md:text-[30px] lg:text-[33px]',
+    className: 'left-[26%] top-[34%] text-[15px] sm:text-[17px] md:left-[24%] md:top-[44%] md:text-[30px] lg:text-[33px]',
   },
   {
     id: 'jang-hwi-yeol-label',
     text: '장휘열 원장',
     // 위치는 위의 JANG_HWI_YEOL_LABEL_POSITION 에서 조정하세요. (아래는 글자 크기만)
-    className: `${JANG_HWI_YEOL_LABEL_POSITION} text-[17px] md:text-[30px] lg:text-[33px]`,
+    className: `${JANG_HWI_YEOL_LABEL_POSITION} text-[15px] sm:text-[17px] md:text-[30px] lg:text-[33px]`,
   },
 ];
 
@@ -94,17 +94,17 @@ const frontDoctorNameLabels: DoctorNameLabel[] = [
   {
     id: 'kim-dong-han-label',
     text: '김동한 병원장',
-    className: 'left-[20%] bottom-[8%] text-[17px] md:left-[31%] md:bottom-[10%] md:text-[31px] lg:text-[34px]',
+    className: 'left-[20%] bottom-[8%] text-[15px] sm:text-[17px] md:left-[31%] md:bottom-[10%] md:text-[31px] lg:text-[34px]',
   },
   {
     id: 'lee-nam-label',
     text: '이남 병원장',
-    className: 'left-[50%] bottom-[8%] text-[17px] md:left-[48%] md:bottom-[10%] md:text-[31px] lg:text-[34px]',
+    className: 'left-[50%] bottom-[8%] text-[15px] sm:text-[17px] md:left-[48%] md:bottom-[10%] md:text-[31px] lg:text-[34px]',
   },
   {
     id: 'choi-ho-label',
     text: '최호 원장',
-    className: 'left-[80%] bottom-[8%] text-[17px] md:left-[65%] md:bottom-[10%] md:text-[31px] lg:text-[34px]',
+    className: 'left-[80%] bottom-[8%] text-[15px] sm:text-[17px] md:left-[65%] md:bottom-[10%] md:text-[31px] lg:text-[34px]',
   },
 ];
 
@@ -173,9 +173,9 @@ export default function DoctorsHeroLineup() {
   };
 
   return (
-    <section id="doctors-lineup" className="bg-white px-4 py-10 md:px-6 md:py-[4.5rem]">
+    <section id="doctors-lineup" className="bg-white px-4 py-8 sm:py-10 md:px-6 md:py-[4.5rem]">
       <div className="mx-auto max-w-[1500px]">
-        <div className="relative isolate aspect-[16/10] min-h-[360px] overflow-hidden bg-white md:aspect-[16/8.45] md:min-h-[560px] lg:min-h-[660px] xl:min-h-[700px]">
+        <div className="relative isolate h-[340px] w-full overflow-hidden bg-white sm:h-auto sm:aspect-[16/10] sm:min-h-[360px] md:aspect-[16/8.45] md:min-h-[560px] lg:min-h-[660px] xl:min-h-[700px]">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_26%,rgba(40,74,165,0.055),rgba(255,255,255,0)_42%),linear-gradient(90deg,#ffffff_0%,rgba(248,250,252,0.72)_38%,rgba(248,250,252,0.72)_62%,#ffffff_100%)]" />
 
           <div className="pointer-events-none absolute right-[3.5%] top-[8%] z-[60] hidden max-w-[34%] text-right md:block">

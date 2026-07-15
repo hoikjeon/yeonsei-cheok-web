@@ -8,11 +8,11 @@ export const metadata: Metadata = {
 
 export default function CctvPolicyPage() {
   return (
-    <main className="min-h-screen bg-white py-16 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-white px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-center text-gray-900 mb-12">영상정보처리기기 운영방침</h1>
+        <h1 className="mb-8 break-keep text-center text-[28px] font-bold leading-[1.3] text-gray-900 sm:mb-12 sm:text-3xl">영상정보처리기기 운영방침</h1>
         
-        <div className="space-y-12 text-gray-700 leading-relaxed text-sm md:text-base">
+        <div className="space-y-10 break-keep text-[15px] leading-[1.75] text-gray-700 [overflow-wrap:anywhere] [&_h2]:break-keep [&_h2]:leading-[1.45] sm:space-y-12 md:text-base md:leading-relaxed">
           
           <section>
             <h2 className="text-xl font-bold text-[#e6005c] mb-4">1. 목적</h2>
@@ -37,8 +37,8 @@ export default function CctvPolicyPage() {
             <h2 className="text-xl font-bold text-[#e6005c] mb-4">3. 영상정보처리기기 운영현황 및 처리방법</h2>
             <p className="mb-2">가. 운영현황(설치대수, 설치위치, 촬영범위)</p>
             
-            <div className="overflow-x-auto mb-6">
-              <table className="w-full border-collapse border border-gray-200 text-sm">
+            <div className="mb-6 overflow-x-auto overscroll-x-contain">
+              <table className="w-full min-w-[780px] border-collapse border border-gray-200 text-sm">
                 <thead className="bg-gray-50 border-t-2 border-gray-700">
                   <tr>
                     <th className="border border-gray-200 p-3 font-semibold text-gray-800 text-center whitespace-nowrap">설치목적</th>
@@ -73,8 +73,8 @@ export default function CctvPolicyPage() {
             <h2 className="text-xl font-bold text-[#e6005c] mb-4">4. 관리책임자 및 접근권한자</h2>
             <p className="mb-4">영상정보를 보호하고 개인영상정보와 관련한 불만을 처리하기 위하여 아래와 같이 개인영상정보 보호 및 관리책임자를 지정 함.</p>
             
-            <div className="overflow-x-auto mb-4">
-              <table className="w-full border-collapse border border-gray-200 text-sm">
+            <div className="mb-4 overflow-x-auto overscroll-x-contain">
+              <table className="w-full min-w-[640px] border-collapse border border-gray-200 text-sm">
                 <thead className="bg-gray-50 border-t-2 border-gray-700">
                   <tr>
                     <th className="border border-gray-200 p-3 font-semibold text-gray-800 text-center whitespace-nowrap">구분</th>

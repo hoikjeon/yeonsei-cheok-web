@@ -10,15 +10,15 @@ export default function BoardPage() {
         bgImage="/hero-bg.png"
       />
 
-      <section className="max-w-7xl mx-auto px-6 py-24 w-full">
-        <div className="text-center space-y-12">
+      <section className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 sm:py-16 md:py-24">
+        <div className="space-y-8 text-center sm:space-y-12">
           <div className="text-4xl">📢</div>
           <div className="space-y-4">
-             <h2 className="text-3xl font-bold text-ink tracking-tight">커뮤니티 기능 준비 중</h2>
-             <p className="text-ink-muted font-medium">실시간 후기 및 게시판 기능은 현재 고도화 작업 중에 있습니다. <br />조만간 더 편리한 기능으로 찾아뵙겠습니다.</p>
+             <h2 className="break-keep text-[26px] font-bold tracking-tight text-ink sm:text-3xl">커뮤니티 기능 준비 중</h2>
+             <p className="break-keep text-[15px] font-medium leading-[1.75] text-ink-muted sm:text-base">실시간 후기 및 게시판 기능은 현재 고도화 작업 중에 있습니다. <br className="hidden sm:block" />조만간 더 편리한 기능으로 찾아뵙겠습니다.</p>
           </div>
-          <div className="pt-10">
-             <button className="px-10 py-5 bg-slate-100 text-ink-muted font-bold rounded-2xl cursor-not-allowed">준비 중</button>
+          <div className="pt-4 sm:pt-10">
+             <button className="cursor-not-allowed rounded-xl bg-slate-100 px-8 py-4 font-bold text-ink-muted sm:rounded-2xl sm:px-10 sm:py-5">준비 중</button>
           </div>
         </div>
       </section>

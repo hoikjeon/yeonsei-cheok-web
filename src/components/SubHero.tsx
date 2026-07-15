@@ -11,22 +11,22 @@ interface SubHeroProps {
 
 const SubHero = ({ title, subtitle, path }: SubHeroProps) => {
   return (
-    <section className="px-4 pt-3 sm:px-8 lg:px-14 xl:px-20">
-      <div className="relative isolate flex min-h-[240px] items-center overflow-hidden rounded-[1.75rem] bg-[linear-gradient(100deg,#e8edf8_0%,#eef1f7_46%,#f7f0e3_100%)] shadow-[0_24px_60px_-40px_rgba(15,29,54,0.4)] ring-1 ring-navy-900/5 sm:rounded-[2.25rem] md:min-h-[360px]">
+    <section className="px-3 pt-2 sm:px-8 sm:pt-3 lg:px-14 xl:px-20">
+      <div className="relative isolate flex min-h-[220px] items-center overflow-hidden rounded-[1.35rem] bg-[linear-gradient(100deg,#e8edf8_0%,#eef1f7_46%,#f7f0e3_100%)] shadow-[0_24px_60px_-40px_rgba(15,29,54,0.4)] ring-1 ring-navy-900/5 sm:min-h-[240px] sm:rounded-[2.25rem] md:min-h-[360px]">
         {/* 우측 따뜻한 글로우 + 동심원 데코 */}
         <div className="pointer-events-none absolute inset-0 z-0">
           {/* 동심원 아크 */}
-          <div className="absolute right-[4%] top-1/2 h-[760px] w-[760px] -translate-y-1/2 rounded-full opacity-70 bg-[repeating-radial-gradient(circle,transparent_0,transparent_46px,rgba(226,168,88,0.16)_47px,transparent_49px)]" />
+          <div className="absolute right-[-28%] top-1/2 h-[420px] w-[420px] -translate-y-1/2 rounded-full opacity-60 bg-[repeating-radial-gradient(circle,transparent_0,transparent_34px,rgba(226,168,88,0.16)_35px,transparent_37px)] sm:right-[4%] sm:h-[760px] sm:w-[760px] sm:opacity-70 sm:bg-[repeating-radial-gradient(circle,transparent_0,transparent_46px,rgba(226,168,88,0.16)_47px,transparent_49px)]" />
           {/* 따뜻한 포컬 글로우 */}
-          <div className="absolute right-[8%] top-1/2 h-[540px] w-[540px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,205,128,0.5)_0%,rgba(255,224,173,0.22)_34%,transparent_66%)] blur-[4px]" />
+          <div className="absolute right-[-12%] top-1/2 h-[320px] w-[320px] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,205,128,0.42)_0%,rgba(255,224,173,0.18)_34%,transparent_66%)] blur-[4px] sm:right-[8%] sm:h-[540px] sm:w-[540px] sm:bg-[radial-gradient(circle,rgba(255,205,128,0.5)_0%,rgba(255,224,173,0.22)_34%,transparent_66%)]" />
           {/* 좌측 텍스트 영역 정돈용 페이드 */}
           <div className="absolute inset-0 bg-[linear-gradient(90deg,#e9edf8_16%,rgba(233,237,248,0.35)_52%,transparent_80%)]" />
         </div>
 
         {/* 콘텐츠 */}
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col justify-center px-7 py-12 sm:px-9 md:px-12">
-          <div className="fade-up max-w-2xl space-y-4 md:space-y-5">
-            <nav className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[13px] font-semibold text-slate-500 md:text-sm">
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col justify-center px-5 py-9 sm:px-9 sm:py-12 md:px-12">
+          <div className="fade-up max-w-2xl space-y-3 sm:space-y-4 md:space-y-5">
+            <nav className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[12px] font-semibold text-slate-500 sm:gap-x-2 sm:text-[13px] md:text-sm">
               <Link
                 href="/"
                 aria-label="홈으로"
@@ -56,10 +56,10 @@ const SubHero = ({ title, subtitle, path }: SubHeroProps) => {
             </nav>
 
             <div className="space-y-3">
-              <h1 className="text-[1.9rem] font-black leading-[1.15] tracking-tight text-navy-900 sm:text-4xl md:text-[3.25rem]">
+              <h1 className="break-keep text-[1.75rem] font-black leading-[1.18] tracking-tight text-navy-900 sm:text-4xl md:text-[3.25rem]">
                 {title}
               </h1>
-              <p className="max-w-xl whitespace-pre-line text-[14px] font-medium leading-relaxed text-slate-500 sm:text-base md:text-[17px]">
+              <p className="max-w-xl whitespace-pre-line break-keep text-[14px] font-medium leading-[1.65] text-slate-600 sm:text-base md:text-[17px] md:text-slate-500">
                 {subtitle}
               </p>
             </div>

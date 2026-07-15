@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const UbeDecompressionScene = () => {
   return (
-    <div className="relative h-[360px] w-full overflow-hidden rounded-lg border border-slate-200 bg-gradient-to-b from-[#F8FAFC] to-white md:h-[540px]">
+    <div className="relative h-[280px] w-full overflow-hidden rounded-lg border border-slate-200 bg-gradient-to-b from-[#F8FAFC] to-white sm:h-[360px] md:h-[540px]">
       <div aria-hidden className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-primary-light/70 to-transparent" />
 
       <div className="absolute inset-x-[-7%] bottom-[2%] z-10 h-[62%] md:inset-x-[-2%] md:bottom-[2%] md:h-[64%]">

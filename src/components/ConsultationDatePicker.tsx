@@ -84,7 +84,7 @@ export default function ConsultationDatePicker({
   const panelClass =
     variant === 'dark'
       ? 'left-0 w-[286px] max-w-[calc(100vw-48px)]'
-      : 'left-0 w-full min-w-[300px] max-w-[calc(100vw-48px)]';
+      : 'right-0 w-[300px] max-w-[calc(100vw-32px)] md:left-0 md:right-auto md:w-full md:min-w-[300px] md:max-w-[calc(100vw-48px)]';
 
   const handleToggle = () => {
     if (!isOpen) {

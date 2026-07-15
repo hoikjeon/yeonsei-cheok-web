@@ -8,11 +8,11 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="min-h-screen bg-white py-16 px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-white px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-center text-gray-900 mb-12">개인정보처리방침</h1>
+        <h1 className="mb-8 break-keep text-center text-[28px] font-bold leading-[1.3] text-gray-900 sm:mb-12 sm:text-3xl">개인정보처리방침</h1>
         
-        <div className="space-y-12 text-gray-700 leading-relaxed text-sm md:text-base">
+        <div className="space-y-10 break-keep text-[15px] leading-[1.75] text-gray-700 [overflow-wrap:anywhere] [&_h2]:break-keep [&_h2]:leading-[1.45] sm:space-y-12 md:text-base md:leading-relaxed">
           <section>
             <p className="mb-4 font-medium text-gray-900">
               연세척병원(이하 "본원"이라 한다)은 개인정보 보호법 제30조에 따라 정보주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립ㆍ공개합니다.
@@ -40,8 +40,8 @@ export default function PrivacyPolicyPage() {
               ② 본원이 개인정보보호법 제32조에 따라 등록ㆍ공개하는 개인정보파일의 처리목적은 다음과 같습니다.
             </p>
 
-            <div className="overflow-x-auto mb-4">
-              <table className="w-full border-collapse border border-gray-200 text-sm">
+            <div className="mb-4 overflow-x-auto overscroll-x-contain">
+              <table className="w-full min-w-[720px] border-collapse border border-gray-200 text-sm">
                 <thead className="bg-gray-50 border-t-2 border-gray-700">
                   <tr>
                     <th className="border border-gray-200 p-3 font-semibold text-gray-800 text-center whitespace-nowrap">순번</th>
@@ -139,8 +139,8 @@ export default function PrivacyPolicyPage() {
               ② 제공받는 기관은 다음과 같습니다.
             </p>
 
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse border border-gray-200 text-sm">
+            <div className="overflow-x-auto overscroll-x-contain">
+              <table className="w-full min-w-[860px] border-collapse border border-gray-200 text-sm">
                 <thead className="bg-gray-50 border-t-2 border-gray-700">
                   <tr>
                     <th className="border border-gray-200 p-3 font-semibold text-gray-800 text-center whitespace-nowrap">개인정보파일</th>
@@ -187,8 +187,8 @@ export default function PrivacyPolicyPage() {
               ① 본원은 원활한 개인정보 업무처리를 위하여 다음과 같이 개인정보 처리업무를 위탁하고 있습니다.
             </p>
             
-            <div className="overflow-x-auto mb-4">
-              <table className="w-full border-collapse border border-gray-200 text-sm">
+            <div className="mb-4 overflow-x-auto overscroll-x-contain">
+              <table className="w-full min-w-[720px] border-collapse border border-gray-200 text-sm">
                 <thead className="bg-gray-50 border-t-2 border-gray-700">
                   <tr>
                     <th className="border border-gray-200 p-3 font-semibold text-gray-800 text-center whitespace-nowrap">위탁사</th>
@@ -353,7 +353,7 @@ export default function PrivacyPolicyPage() {
             <p className="mb-4">
               ① 본원은 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 정보주체의 불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.
             </p>
-            <div className="grid md:grid-cols-2 gap-6 bg-gray-50 p-6 rounded-lg border border-gray-200 mb-4">
+            <div className="mb-4 grid gap-5 rounded-lg border border-gray-200 bg-gray-50 p-5 sm:gap-6 sm:p-6 md:grid-cols-2">
               <div>
                 <h3 className="font-bold text-gray-900 mb-2">1. 개인정보 보호책임자</h3>
                 <ul className="text-gray-600 space-y-1">
@@ -384,7 +384,7 @@ export default function PrivacyPolicyPage() {
             <p className="mb-4">
               ① 정보주체는 개인정보 보호법 제35조에 따른 개인정보의 열람 청구를 아래의 부서에 할 수 있습니다. 본원은 정보주체의 개인정보 열람청구가 신속하게 처리되도록 노력하겠습니다.
             </p>
-            <div className="bg-gray-50 p-6 rounded-lg border border-gray-200 mb-4">
+            <div className="mb-4 rounded-lg border border-gray-200 bg-gray-50 p-5 sm:p-6">
               <h3 className="font-bold text-gray-900 mb-2">개인정보 열람청구 접수ㆍ처리부서</h3>
               <ul className="text-gray-600 space-y-1">
                 <li><strong>부서명 :</strong> 총무팀</li>
@@ -454,7 +454,7 @@ export default function PrivacyPolicyPage() {
             <p className="mb-4">
               ① 이 개인정보처리방침은 시행일로부터 적용됩니다.
             </p>
-            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200 inline-block text-gray-700">
+            <div className="inline-flex flex-col gap-1 rounded-lg border border-gray-200 bg-gray-50 p-4 text-gray-700 sm:inline-block">
               <span className="mr-6"><strong>시행일자 :</strong> 2018. 10</span>
               <span className="mr-6"><strong>담당부서 :</strong> 총무팀</span>
               <span><strong>연락처 :</strong> 010-8558-2126</span>

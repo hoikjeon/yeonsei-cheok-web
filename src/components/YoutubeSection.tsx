@@ -156,23 +156,23 @@ export default function YoutubeSection() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-white py-24 md:py-32">
+    <section className="relative overflow-hidden bg-white py-16 md:py-32">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
 
-      <div className="relative z-10 mx-auto max-w-[1540px] px-7 xl:px-10">
+      <div className="relative z-10 mx-auto max-w-[1540px] px-5 sm:px-7 xl:px-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-start justify-between gap-6"
+          className="flex items-start justify-between gap-4 md:gap-6"
         >
-          <div className="space-y-4">
-            <h2 className="text-[32px] font-black leading-[1.1] tracking-tight text-ink md:text-[48px]">
+          <div className="min-w-0 space-y-3 md:space-y-4">
+            <h2 className="break-keep text-[28px] font-black leading-[1.2] tracking-tight text-ink sm:text-[32px] md:text-[48px] md:leading-[1.1]">
               척추·관절 <span className="text-primary">연세척TV</span>
             </h2>
-            <p className="text-[16px] font-bold leading-[1.85] text-[#1f2937] md:text-[18px]">
+            <p className="break-keep text-[15px] font-medium leading-[1.7] text-[#1f2937] md:text-[18px] md:font-bold md:leading-[1.85]">
               척추·관절 정확히 알고 회복할 수 있도록, 신경외과·정형외과 전문의에게 듣는 의학 정보
             </p>
           </div>
@@ -180,18 +180,18 @@ export default function YoutubeSection() {
           <Link
             href="/news/youtube"
             aria-label="척추·관절 연세척TV 전체보기"
-            className="group mt-1 inline-flex shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white p-4 text-ink-sub shadow-[0_14px_36px_-28px_rgba(15,29,54,0.5)] transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:bg-primary hover:text-white"
+            className="group inline-flex shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white p-3 text-ink-sub shadow-[0_14px_36px_-28px_rgba(15,29,54,0.5)] transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:bg-primary hover:text-white md:mt-1 md:p-4"
           >
             <Plus size={20} strokeWidth={2.75} className="transition-transform duration-300 group-hover:rotate-90" />
           </Link>
         </motion.div>
 
         {/* Featured + List */}
-        <div className="mt-12 grid grid-cols-1 gap-6 md:mt-16 lg:grid-cols-[1.72fr_1fr] lg:items-stretch lg:gap-8">
+        <div className="mt-10 grid grid-cols-1 gap-6 md:mt-16 lg:grid-cols-[1.72fr_1fr] lg:items-stretch lg:gap-8">
           {/* Featured (latest / selected) */}
           <div>
             <Link href={active.href} className="group block">
-              <div className="relative aspect-video overflow-hidden rounded-[1.5rem] bg-slate-900 shadow-[0_28px_70px_-38px_rgba(15,29,54,0.55)] ring-1 ring-slate-900/5">
+              <div className="relative aspect-video overflow-hidden rounded-2xl bg-slate-900 shadow-[0_28px_70px_-38px_rgba(15,29,54,0.55)] ring-1 ring-slate-900/5 md:rounded-[1.5rem]">
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={active.id}
@@ -225,7 +225,7 @@ export default function YoutubeSection() {
                 </div>
               )}
               <Link href={active.href} className="group block">
-                <h3 className="text-[20px] font-black leading-snug tracking-tight text-ink transition-colors duration-300 group-hover:text-primary md:text-[24px]">
+                <h3 className="break-keep text-[18px] font-black leading-snug tracking-tight text-ink transition-colors duration-300 group-hover:text-primary md:text-[24px]">
                   {active.title}
                 </h3>
               </Link>
@@ -233,16 +233,18 @@ export default function YoutubeSection() {
           </div>
 
           {/* Scrollable list */}
-          <div className="relative min-h-[360px]">
+          <div className="relative min-h-0 lg:min-h-[360px]">
             <div className="space-y-2.5 lg:absolute lg:inset-0 lg:overflow-y-auto lg:pr-2 lg:[scrollbar-color:#cbd5e1_transparent] lg:[scrollbar-width:thin] lg:[&::-webkit-scrollbar-thumb]:rounded-full lg:[&::-webkit-scrollbar-thumb]:bg-slate-300 lg:[&::-webkit-scrollbar]:w-1.5">
-              {cards.map((card) => {
+              {cards.map((card, index) => {
                 const isActive = card.id === active.id;
                 return (
                   <button
                     key={card.id}
                     type="button"
                     onClick={() => setActiveId(card.id)}
-                    className={`group flex w-full items-center gap-4 rounded-2xl border p-2.5 text-left transition-all duration-300 ${
+                    className={`group w-full items-center gap-3 rounded-xl border p-2 text-left transition-all duration-300 sm:gap-4 sm:rounded-2xl sm:p-2.5 ${
+                      index >= 3 ? 'hidden lg:flex' : 'flex'
+                    } ${
                       isActive
                         ? 'border-primary/25 bg-primary-light/60'
                         : 'border-transparent hover:border-slate-100 hover:bg-slate-50'

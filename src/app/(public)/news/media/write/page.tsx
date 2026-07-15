@@ -65,10 +65,10 @@ export default function MediaWritePage() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-50 pt-[96px]">
-      <div className="max-w-[1000px] mx-auto px-6 py-16">
+    <main className="min-h-screen bg-slate-50 pt-0 md:pt-[96px]">
+      <div className="mx-auto max-w-[1000px] px-4 py-10 sm:px-6 sm:py-14 md:py-16">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-[14px] text-ink-muted font-bold mb-10 tracking-tight">
+        <div className="mb-6 flex flex-wrap items-center gap-1.5 text-[12px] font-bold tracking-tight text-ink-muted sm:mb-10 sm:gap-2 sm:text-[14px]">
           <Link href="/" className="hover:text-primary transition-colors">
             <Home size={16} strokeWidth={2.5} />
           </Link>
@@ -78,7 +78,7 @@ export default function MediaWritePage() {
           <span className="text-ink">보도자료 등록</span>
         </div>
 
-        <Link href="/news/media" className="inline-flex items-center gap-2 text-ink font-black text-[24px] tracking-tight hover:text-primary transition-colors mb-12">
+        <Link href="/news/media" className="mb-8 inline-flex items-center gap-2 text-[20px] font-black tracking-tight text-ink transition-colors hover:text-primary sm:mb-12 sm:text-[24px]">
           <ArrowLeft size={28} strokeWidth={2.5} />
           새 보도자료 작성
         </Link>
@@ -86,18 +86,18 @@ export default function MediaWritePage() {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-[2rem] p-10 md:p-14 shadow-sm border border-slate-100"
+          className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm sm:p-6 md:rounded-[2rem] md:p-14"
         >
-          <div className="mb-12">
-            <h2 className="text-[32px] md:text-[40px] font-black text-ink tracking-tighter mb-4">
+          <div className="mb-8 sm:mb-12">
+            <h2 className="mb-4 break-keep text-[26px] font-black leading-[1.3] tracking-tight text-ink sm:text-[32px] md:text-[40px]">
               언론 보도 소식을 기록합니다
             </h2>
-            <p className="text-ink-muted text-[16px] md:text-[18px] font-bold tracking-tight">
+            <p className="break-keep text-[15px] font-bold leading-[1.75] tracking-tight text-ink-muted sm:text-[16px] md:text-[18px]">
               연세척병원의 대외적인 활동과 언론 보도를 체계적으로 관리하세요.
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-10">
+          <form onSubmit={handleSubmit} className="space-y-7 sm:space-y-10">
             {errorVisible && (
               <div className="p-4 bg-red-50 text-red-500 font-bold rounded-xl text-center border border-red-100">
                 {errorMessage}
@@ -115,7 +115,7 @@ export default function MediaWritePage() {
                   value={sourceName}
                   onChange={(e) => setSourceName(e.target.value)}
                   placeholder="예: KBS 뉴스, 동아일보 등"
-                  className="w-full px-6 py-5 rounded-[1.25rem] border-2 border-slate-100 bg-white font-bold text-ink outline-none focus:border-primary transition-all"
+                  className="w-full rounded-xl border-2 border-slate-100 bg-white px-4 py-4 font-bold text-ink transition-all focus:border-primary focus:outline-none sm:rounded-[1.25rem] sm:px-6 sm:py-5"
                 />
               </div>
               <div className="space-y-4">
@@ -127,7 +127,7 @@ export default function MediaWritePage() {
                   value={sourceUrl}
                   onChange={(e) => setSourceUrl(e.target.value)}
                   placeholder="https://..."
-                  className="w-full px-6 py-5 rounded-[1.25rem] border-2 border-slate-100 bg-white font-bold text-ink outline-none focus:border-primary transition-all"
+                  className="w-full rounded-xl border-2 border-slate-100 bg-white px-4 py-4 font-bold text-ink transition-all focus:border-primary focus:outline-none sm:rounded-[1.25rem] sm:px-6 sm:py-5"
                 />
               </div>
             </div>
@@ -140,7 +140,7 @@ export default function MediaWritePage() {
                 required
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-6 py-5 rounded-[1.25rem] border-2 border-slate-100 bg-white font-bold text-ink text-[18px] outline-none focus:border-primary transition-all"
+                className="w-full rounded-xl border-2 border-slate-100 bg-white px-4 py-4 text-[16px] font-bold text-ink transition-all focus:border-primary focus:outline-none sm:rounded-[1.25rem] sm:px-6 sm:py-5 sm:text-[18px]"
               />
             </div>
 
@@ -152,7 +152,7 @@ export default function MediaWritePage() {
                 required
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="w-full px-8 py-7 rounded-[1.5rem] border-2 border-slate-100 bg-white font-bold text-ink text-[17px] leading-[1.8] outline-none focus:border-primary transition-all resize-none"
+                className="w-full resize-none rounded-xl border-2 border-slate-100 bg-white px-4 py-4 text-[16px] font-bold leading-[1.75] text-ink transition-all focus:border-primary focus:outline-none sm:rounded-[1.5rem] sm:px-8 sm:py-7 sm:text-[17px] sm:leading-[1.8]"
               />
             </div>
 
@@ -162,7 +162,7 @@ export default function MediaWritePage() {
               <div 
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
-                className="border-2 border-dashed rounded-[2rem] p-12 flex flex-col items-center justify-center bg-slate-50 hover:bg-primary/5 transition-all group relative"
+                className="group relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed bg-slate-50 p-6 text-center transition-all hover:bg-primary/5 sm:p-8 md:rounded-[2rem] md:p-12"
               >
                 <input type="file" multiple onChange={handleFileSelect} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*" />
                 <div className="w-16 h-16 bg-white shadow-sm rounded-full flex items-center justify-center text-ink-muted group-hover:text-primary mb-4 transition-all">
@@ -175,7 +175,7 @@ export default function MediaWritePage() {
               {files.length > 0 && (
                 <div className="flex flex-wrap gap-4 mt-6">
                   {files.map((file, idx) => (
-                    <div key={idx} className="relative group rounded-[1rem] overflow-hidden border border-slate-200 bg-white flex items-center p-3 pr-5 min-w-[200px]">
+                    <div key={idx} className="group relative flex w-full min-w-0 items-center overflow-hidden rounded-[1rem] border border-slate-200 bg-white p-3 pr-5 sm:w-auto sm:min-w-[200px]">
                       <div className="flex-1 truncate text-[14px] font-bold text-ink">{file.name}</div>
                       <button onClick={() => removeFile(idx)} className="ml-3 p-1 text-slate-300 hover:text-red-500"><X size={16} /></button>
                     </div>

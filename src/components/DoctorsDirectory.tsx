@@ -138,9 +138,52 @@ const ScheduleTable = ({ doctor }: { doctor: DoctorProfile }) => {
 
   return (
     <div className="space-y-5">
-      <h4 className="text-2xl font-black tracking-tight text-ink">진료시간표</h4>
+      <h4 className="text-[22px] font-black tracking-tight text-ink sm:text-2xl">진료시간표</h4>
 
-      <div className="overflow-hidden rounded-lg border border-[#d7d7d7] bg-white">
+      <div className="grid gap-2 md:hidden">
+        {timetable.map((item) => {
+          const morning = normalizeScheduleValue(item.morning);
+          const afternoon = normalizeScheduleValue(item.afternoon);
+
+          return (
+            <div
+              key={`mobile-${item.day}`}
+              className="grid grid-cols-[44px_minmax(0,1fr)_minmax(0,1fr)] items-stretch overflow-hidden rounded-lg border border-[#d7d7d7] bg-white"
+            >
+              <div className="flex items-center justify-center bg-[#d0d0d0] text-[15px] font-black text-ink">
+                {item.day}
+              </div>
+              {[
+                { label: '오전', value: morning },
+                { label: '오후', value: afternoon },
+              ].map((period) => {
+                const isOpen = period.value === '진료' || period.value === '순환진료';
+
+                return (
+                  <div key={period.label} className="flex min-w-0 flex-col items-center justify-center gap-1.5 border-l border-[#e1e1e1] px-2 py-3">
+                    <span className="text-[11px] font-bold text-ink-muted">{period.label}</span>
+                    {period.value ? (
+                      <span
+                        className={`inline-flex min-h-8 max-w-full items-center justify-center break-keep rounded-full px-2.5 text-center text-[12px] font-black leading-tight ${
+                          isOpen
+                            ? 'bg-primary text-white'
+                            : 'bg-[#d5d5d5] text-[#777777]'
+                        }`}
+                      >
+                        {period.value}
+                      </span>
+                    ) : (
+                      <span aria-hidden="true" className="inline-block min-h-8" />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="hidden overflow-x-auto rounded-lg border border-[#d7d7d7] bg-white md:block">
         <table className="w-full min-w-[640px] border-separate border-spacing-0 text-center">
           <thead>
             <tr className="bg-[#d0d0d0]">
@@ -189,7 +232,7 @@ const ScheduleTable = ({ doctor }: { doctor: DoctorProfile }) => {
         </table>
       </div>
 
-      <div className="space-y-2 text-[15px] font-medium leading-relaxed text-ink-sub">
+      <div className="space-y-2 break-keep text-[14px] font-medium leading-[1.7] text-ink-sub sm:text-[15px] sm:leading-relaxed">
         <p>* 토요일 진료는 의료진별 일정에 따라 변경될 수 있습니다.</p>
         <p>※ 진료시간표는 상황에 따라 변경될 수 있으니, 내원 전 병원에 문의해주시길 바랍니다.</p>
       </div>
@@ -202,7 +245,7 @@ const FocusAreaChips = ({ areas }: { areas: string[] }) => (
     {areas.map((area) => (
       <span
         key={area}
-        className="inline-flex items-center rounded-full border border-primary/15 bg-primary-light/70 px-3.5 py-2 text-[14px] font-extrabold leading-none text-primary-dark"
+        className="inline-flex items-center break-keep rounded-full border border-primary/15 bg-primary-light/70 px-3 py-2 text-[13px] font-extrabold leading-tight text-primary-dark sm:px-3.5 sm:text-[14px] sm:leading-none"
       >
         {area}
       </span>
@@ -220,7 +263,7 @@ const CredentialBulletList = ({ items }: { items: string[] }) => (
     {splitIntoColumns(items).map((column) => (
       <ul key={column.join('|')} className="space-y-3">
         {column.map((item) => (
-          <li key={item} className="flex gap-3 text-[17px] font-medium leading-relaxed text-ink">
+          <li key={item} className="flex gap-3 text-[15px] font-medium leading-[1.75] text-ink sm:text-[17px] sm:leading-relaxed">
             <span aria-hidden="true" className="mt-[0.72em] h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
             <span>{item}</span>
           </li>
@@ -241,21 +284,21 @@ const PapersList = ({ papers }: { papers: DoctorPaper[] }) => {
         {visiblePapers.map((paper, index) => (
           <div
             key={`${paper.title}-${index}`}
-            className="rounded-lg border border-slate-100 bg-white p-5 shadow-[0_18px_45px_-38px_rgba(15,29,54,0.45)]"
+            className="rounded-lg border border-slate-100 bg-white p-4 shadow-[0_18px_45px_-38px_rgba(15,29,54,0.45)] sm:p-5"
           >
             <p className="font-montserrat text-xs font-extrabold uppercase tracking-[0.18em] text-primary/70">
               논문 {String(index + 1).padStart(2, '0')}
             </p>
-            <h5 className="mt-3 text-[17px] font-black leading-relaxed tracking-tight text-ink">
+            <h5 className="mt-3 text-[15px] font-black leading-[1.7] tracking-tight text-ink [overflow-wrap:anywhere] sm:text-[17px] sm:leading-relaxed">
               {paper.title}
             </h5>
             {paper.authors ? (
-              <p className="mt-2 text-[15px] font-semibold leading-relaxed text-ink-sub">
+              <p className="mt-2 text-[14px] font-semibold leading-relaxed text-ink-sub [overflow-wrap:anywhere] sm:text-[15px]">
                 {paper.authors}
               </p>
             ) : null}
             {paper.citation ? (
-              <p className="mt-2 text-[15px] font-medium leading-relaxed text-ink-muted">
+              <p className="mt-2 text-[14px] font-medium leading-relaxed text-ink-muted [overflow-wrap:anywhere] sm:text-[15px]">
                 {paper.citation}
               </p>
             ) : null}
@@ -307,11 +350,11 @@ const CredentialDetails = ({ doctor }: { doctor: DoctorProfile }) => {
         <h4 className="text-2xl font-black tracking-tight text-ink">학력 및 경력</h4>
       </div>
 
-      <div className="-mx-1 overflow-x-auto pb-2">
+      <div className="-mx-1 overflow-x-auto overscroll-x-contain pb-2">
         <div
           role="tablist"
           aria-label={`${doctor.name} ${doctor.title} 상세 이력`}
-          className="grid min-w-[520px] gap-1 rounded-lg bg-slate-50 p-1 md:min-w-full"
+          className="grid min-w-[420px] gap-1 rounded-lg bg-slate-50 p-1 sm:min-w-[520px] md:min-w-full"
           style={{ gridTemplateColumns: `repeat(${availableTabs.length}, minmax(0, 1fr))` }}
         >
           {availableTabs.map((tab) => {
@@ -360,10 +403,10 @@ const DoctorProfileBlock = ({ doctor, index }: { doctor: DoctorProfile; index: n
     <ScrollReveal delay={index * 0.08} amount={0.14}>
       <article
         id={doctor.id}
-        className="grid scroll-mt-28 grid-cols-1 gap-12 border-b border-slate-100 py-20 last:border-b-0 lg:grid-cols-[minmax(360px,0.42fr)_minmax(0,1fr)] lg:gap-16"
+        className="grid scroll-mt-24 grid-cols-1 gap-8 border-b border-slate-100 py-14 last:border-b-0 sm:scroll-mt-28 sm:gap-10 sm:py-16 md:gap-12 md:py-20 lg:grid-cols-[minmax(360px,0.42fr)_minmax(0,1fr)] lg:gap-16"
       >
         <div className="lg:pt-32 xl:pt-36">
-          <div className="relative overflow-hidden rounded-[28px] bg-[#d5dbe8]">
+          <div className="relative mx-auto max-w-[360px] overflow-hidden rounded-2xl bg-[#d5dbe8] sm:rounded-[28px] lg:max-w-none">
             <div className="relative aspect-[3/4]">
               <Image
                 src={doctor.image}
@@ -377,15 +420,15 @@ const DoctorProfileBlock = ({ doctor, index }: { doctor: DoctorProfile; index: n
           </div>
         </div>
 
-        <div className="space-y-10 lg:pt-5">
+        <div className="space-y-8 sm:space-y-10 lg:pt-5">
           <div className="space-y-5">
-            <p className="text-xl font-black tracking-tight text-primary">
+            <p className="break-keep text-base font-black leading-[1.55] tracking-tight text-primary sm:text-lg md:text-xl">
               {doctor.center} · {doctor.specialty}
             </p>
-            <h3 className="text-4xl font-black leading-tight tracking-tight text-ink md:text-5xl">
+            <h3 className="break-keep text-[30px] font-black leading-tight tracking-tight text-ink sm:text-4xl md:text-5xl">
               {doctor.name} {doctor.title}
             </h3>
-            <p className="max-w-3xl text-[17px] font-medium leading-relaxed text-ink-sub">
+            <p className="max-w-3xl break-keep text-[15px] font-medium leading-[1.75] text-ink-sub sm:text-[17px] sm:leading-relaxed">
               {doctor.summary}
             </p>
             <FocusAreaChips areas={doctor.focusAreas} />
@@ -405,7 +448,7 @@ const DoctorsDirectory = ({ doctors }: DoctorsDirectoryProps) => {
   ));
 
   return (
-    <section id="doctor-schedule" className="scroll-mt-28 bg-white px-6 py-12 md:py-20">
+    <section id="doctor-schedule" className="scroll-mt-24 bg-white px-4 py-4 sm:scroll-mt-28 sm:px-6 sm:py-8 md:py-20">
       <div className="mx-auto max-w-7xl">
         {orderedDoctors.map((doctor, index) => (
           <DoctorProfileBlock key={doctor.id} doctor={doctor} index={index} />

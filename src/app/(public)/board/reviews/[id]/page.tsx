@@ -34,10 +34,10 @@ export default async function ReviewDetailPage({ params }: { params: { id: strin
   }
 
   return (
-    <main className="min-h-screen bg-white pt-[96px]">
+    <main className="min-h-screen bg-white pt-0 md:pt-[96px]">
       {/* 🔹 Breadcrumb Section */}
       <section className="bg-slate-50 border-b border-slate-100">
-        <div className="max-w-[1200px] mx-auto px-6 py-6 flex items-center gap-2 text-[13px] text-ink-muted font-bold tracking-tight">
+        <div className="mx-auto flex max-w-[1200px] items-center gap-1.5 overflow-hidden px-4 py-4 text-[12px] font-bold tracking-tight text-ink-muted sm:gap-2 sm:px-6 sm:py-6 sm:text-[13px]">
           <Link href="/" className="hover:text-primary transition-colors">
             <Home size={14} strokeWidth={2.5} />
           </Link>
@@ -46,22 +46,22 @@ export default async function ReviewDetailPage({ params }: { params: { id: strin
           <ChevronRight size={12} strokeWidth={3} />
           <Link href="/board/reviews" className="hover:text-primary transition-colors hover:bg-slate-200">치료체험후기</Link>
           <ChevronRight size={12} strokeWidth={3} />
-          <span className="text-ink truncate max-w-[200px]">{review.title}</span>
+          <span className="min-w-0 flex-1 truncate text-ink">{review.title}</span>
         </div>
       </section>
 
-      <div className="max-w-[1000px] mx-auto px-6 py-16 md:py-24">
+      <div className="mx-auto max-w-[1000px] px-4 py-10 sm:px-6 sm:py-14 md:py-24">
         {/* 🔹 Detail Header */}
-        <div className="mb-12 border-b border-slate-100 pb-12">
+        <div className="mb-8 border-b border-slate-100 pb-8 sm:mb-12 sm:pb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/5 border border-primary/10 rounded-full text-primary text-[13px] font-black tracking-tight mb-6">
             <Tag size={12} />
             {review.category}
           </div>
-          <h1 className="text-[32px] md:text-[44px] font-black text-ink tracking-tighter leading-[1.2] mb-8">
+          <h1 className="mb-6 break-keep text-[28px] font-black leading-[1.35] tracking-tight text-ink sm:mb-8 sm:text-[32px] md:text-[44px] md:leading-[1.2]">
             {review.title}
           </h1>
           
-          <div className="flex flex-wrap items-center gap-6 text-[15px] font-bold text-ink-muted tracking-tight">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[14px] font-bold tracking-tight text-ink-muted sm:gap-6 sm:text-[15px]">
             <div className="flex items-center gap-2">
               <Calendar size={18} className="text-slate-300" />
               {new Date(review.created_at).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
@@ -77,7 +77,7 @@ export default async function ReviewDetailPage({ params }: { params: { id: strin
 
         {/* 🔹 Image Content (Top Gallery) */}
         {review.image_urls && review.image_urls.length > 0 && (
-          <div className="mb-20 flex flex-col items-center gap-10">
+          <div className="mb-12 flex flex-col items-center gap-6 sm:mb-20 sm:gap-10">
             {review.image_urls.map((url: string, index: number) => (
               <div 
                 key={index} 
@@ -98,25 +98,25 @@ export default async function ReviewDetailPage({ params }: { params: { id: strin
         )}
 
         {/* 🔹 Text Content */}
-        <div className="prose prose-slate max-w-none mb-24">
-          <p className="text-[18px] md:text-[20px] font-medium text-ink-sub leading-[1.9] tracking-tight whitespace-pre-wrap">
+        <div className="prose prose-slate mb-14 max-w-none sm:mb-20 md:mb-24">
+          <p className="whitespace-pre-wrap break-keep text-[16px] font-medium leading-[1.8] tracking-tight text-ink-sub sm:text-[18px] sm:leading-[1.9] md:text-[20px]">
             {review.content}
           </p>
         </div>
 
         {/* 🔹 Medical Law Notice (Floating style) */}
-        <div className="bg-slate-50 border border-slate-100 rounded-[1.5rem] p-8 mb-20 text-center">
-          <p className="text-[15px] font-bold text-ink-muted tracking-tight">
+        <div className="mb-14 rounded-2xl border border-slate-100 bg-slate-50 p-5 text-center sm:mb-20 sm:rounded-[1.5rem] sm:p-8">
+          <p className="break-keep text-[14px] font-bold leading-[1.7] tracking-tight text-ink-muted sm:text-[15px]">
             <strong className="text-ink font-black">※ 안내사항</strong><br className="md:hidden"/>
             본 후기는 의료법 제56조 및 동법 시행령을 준수하여 환자가 직접 작성한 실제 사례입니다.
           </p>
         </div>
 
         {/* 🔹 Bottom Actions */}
-        <div className="flex justify-center items-center gap-4">
+        <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">
           <Link 
             href="/board/reviews"
-            className="flex items-center gap-2 px-10 py-5 bg-slate-100 hover:bg-slate-200 text-ink-sub font-black rounded-[1.25rem] transition-all active:scale-95 text-[17px]"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-5 py-4 text-[16px] font-black text-ink-sub transition-all hover:bg-slate-200 active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-10 sm:py-5 sm:text-[17px]"
           >
             <ArrowLeft size={20} strokeWidth={2.5} />
             목록으로 돌아가기

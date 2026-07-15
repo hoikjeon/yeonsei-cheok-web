@@ -1,20 +1,25 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Trophy, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
+
+type PopupItem = {
+  id: string | number;
+  title: string;
+  content?: string | null;
+  image_url?: string | null;
+};
 
 const MainPopup = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const [popups, setPopups] = useState<any[]>([]);
+  const [popups, setPopups] = useState<PopupItem[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const supabase = createClient();
-
-  if (pathname.startsWith('/admin')) return null;
+  const supabase = useMemo(() => createClient(), []);
 
   useEffect(() => {
     const fetchActivePopups = async () => {
@@ -49,6 +54,8 @@ const MainPopup = () => {
     return () => clearInterval(intervalId);
   }, [isOpen, popups.length]);
 
+  if (pathname.startsWith('/admin')) return null;
+
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % popups.length);
   };
@@ -73,7 +80,7 @@ const MainPopup = () => {
   return (
     <AnimatePresence mode="wait">
       {isOpen && (
-        <div className="fixed left-8 top-[120px] z-[2000] pointer-events-none">
+        <div className="pointer-events-none fixed inset-x-3 bottom-[calc(5.25rem_+_env(safe-area-inset-bottom))] top-auto z-[2000] sm:inset-x-auto sm:bottom-auto sm:left-6 sm:top-[96px] md:left-8 md:top-[120px]">
           <motion.div
             initial={{ opacity: 0, x: -50, scale: 0.95 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -84,10 +91,10 @@ const MainPopup = () => {
               stiffness: 300,
               delay: 0.2
             }}
-            className="relative w-[380px] bg-white rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.2)] border border-slate-100 pointer-events-auto group"
+            className="group pointer-events-auto relative max-h-[calc(100dvh_-_6.5rem_-_env(safe-area-inset-bottom))] w-full max-w-[380px] overflow-y-auto rounded-[1.25rem] border border-slate-100 bg-white shadow-[0_20px_50px_rgba(0,0,0,0.2)] sm:w-[380px] sm:rounded-[2rem]"
           >
             {/* 🖼️ Main Ceremonial Image Area */}
-            <div className="relative aspect-[4/5] overflow-hidden">
+            <div className="relative aspect-[4/3] overflow-hidden sm:aspect-[4/5]">
                <AnimatePresence mode="wait">
                  <motion.img 
                     key={`img-${currentPopup.id}`}
@@ -109,13 +116,15 @@ const MainPopup = () => {
                  <>
                    <button 
                      onClick={handlePrev}
-                     className="absolute left-4 top-1/2 -translate-y-12 w-10 h-10 flex items-center justify-center bg-white/20 hover:bg-white/40 text-white rounded-full transition-all backdrop-blur-sm z-30 opacity-0 group-hover:opacity-100"
+                     aria-label="이전 팝업 보기"
+                     className="absolute left-3 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/25 text-white opacity-100 backdrop-blur-sm transition-all hover:bg-white/40 sm:left-4 sm:h-10 sm:w-10 sm:-translate-y-12 sm:bg-white/20 sm:opacity-0 sm:group-hover:opacity-100"
                    >
                      <ChevronLeft size={24} />
                    </button>
                    <button 
                      onClick={handleNext}
-                     className="absolute right-4 top-1/2 -translate-y-12 w-10 h-10 flex items-center justify-center bg-white/20 hover:bg-white/40 text-white rounded-full transition-all backdrop-blur-sm z-30 opacity-0 group-hover:opacity-100"
+                     aria-label="다음 팝업 보기"
+                     className="absolute right-3 top-1/2 z-30 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/25 text-white opacity-100 backdrop-blur-sm transition-all hover:bg-white/40 sm:right-4 sm:h-10 sm:w-10 sm:-translate-y-12 sm:bg-white/20 sm:opacity-0 sm:group-hover:opacity-100"
                    >
                      <ChevronRight size={24} />
                    </button>
@@ -123,7 +132,7 @@ const MainPopup = () => {
                )}
 
                {/* Floating Text Over Image */}
-               <div className="absolute bottom-12 left-8 right-8 z-10 text-white">
+               <div className="absolute bottom-5 left-5 right-5 z-10 text-white sm:bottom-12 sm:left-8 sm:right-8">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={`text-${currentPopup.id}`}
@@ -132,10 +141,10 @@ const MainPopup = () => {
                       exit={{ y: -10, opacity: 0 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <h3 className="text-[26px] md:text-[28px] font-black tracking-tighter leading-[1.3] text-white whitespace-pre-line mb-3">
+                      <h3 className="mb-2 whitespace-pre-line break-keep text-[21px] font-black leading-[1.3] tracking-tight text-white sm:mb-3 sm:text-[26px] md:text-[28px]">
                         {currentPopup.title.replace(/\\n/g, '\n')}
                       </h3>
-                      <p className="text-slate-300 text-sm font-medium line-clamp-2 leading-relaxed">
+                      <p className="line-clamp-2 text-[13px] font-medium leading-relaxed text-slate-200 sm:text-sm sm:text-slate-300">
                         {currentPopup.content}
                       </p>
                     </motion.div>
@@ -149,6 +158,7 @@ const MainPopup = () => {
                      <button 
                        key={index} 
                        onClick={() => setCurrentIndex(index)}
+                       aria-label={`${index + 1}번째 팝업 보기`}
                        className={`h-1.5 rounded-full transition-all duration-500 hover:bg-primary/80 ${index === currentIndex ? 'w-6 bg-primary' : 'w-1.5 bg-white/30'}`}
                      />
                    ))}
@@ -160,13 +170,13 @@ const MainPopup = () => {
             <div className="flex border-t border-slate-100">
                <button 
                  onClick={closeForDay}
-                 className="flex-1 py-5 bg-slate-50 hover:bg-slate-100 text-ink-muted font-bold transition-colors text-[14px] border-r border-slate-100"
+                 className="flex-1 border-r border-slate-100 bg-slate-50 py-3.5 text-[13px] font-bold text-ink-sub transition-colors hover:bg-slate-100 sm:py-5 sm:text-[14px]"
                >
                  오늘 하루 보지 않기
                </button>
                <button 
                  onClick={closePopup}
-                 className="flex-1 py-5 bg-white hover:bg-slate-50 text-ink font-black transition-colors text-[15px] tracking-tight"
+                 className="flex-1 bg-white py-3.5 text-[14px] font-black tracking-tight text-ink transition-colors hover:bg-slate-50 sm:py-5 sm:text-[15px]"
                >
                  닫기
                </button>

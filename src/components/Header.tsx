@@ -77,10 +77,11 @@ const MENU_DATA: MenuData[] = [
     href: '/treatments/joint',
     subTitle: '자유로운 움직임을 위한 정교한 치료',
     items: [
-      { name: '무릎/어깨 관절', desc: '내시경을 활용한 정밀 관절 치료', href: '/treatments/joint/knee-shoulder' },
-      { name: '고관절/족부', desc: '균형 잡힌 보행을 위한 전문 센터', href: '/treatments/joint/hip-foot' },
-      { name: '스포츠 재활', desc: '빠른 복귀를 돕는 선수 맞춤 재활', href: '/treatments/joint/sports' },
-      { name: '줄기세포 치료', desc: '자기 관절을 살리는 재생 의료', href: '/treatments/joint/stem-cell' },
+      { name: '무릎 관절', desc: '퇴행성 관절염·연골 손상 등 무릎 통증 진단', href: '/treatments/joint/knee' },
+      { name: '어깨 관절', desc: '오십견·회전근개 등 어깨 통증 맞춤 진료', href: '/treatments/joint/shoulder' },
+      { name: '손 관절', desc: '손목·손가락 관절 통증과 저림 진단', href: '/treatments/joint/hand' },
+      { name: '발 관절', desc: '발목·족저근막 등 발 통증 전문 진료', href: '/treatments/joint/foot' },
+      { name: '무릎관절내시경', desc: '작은 절개로 무릎 속을 직접 보는 주력 치료', href: '/treatments/joint/knee-arthroscopy' },
     ]
   },
   {
@@ -118,6 +119,111 @@ const CLINIC_HOURS = [
   { label: '점심시간', time: '12:30 - 13:00', tone: 'text-ink-muted' },
   { label: '토요일', time: '09:00 - 13:00', tone: 'text-ink-sub' },
 ];
+
+// 헤더 위치 미세 조정값: 양수는 오른쪽, 음수는 왼쪽으로 이동합니다.
+const HEADER_DESKTOP_LAYOUT = {
+  navigationOffsetX: '0px',
+  socialOffsetX: '0px',
+  socialIconGap: '12px',
+  socialToAccountGap: '18px',
+} as const;
+
+const YouTubeMark = ({ isLight }: { isLight: boolean }) => (
+  <svg width="23" height="17" viewBox="0 0 27 20" fill="none" aria-hidden="true">
+    <rect width="27" height="20" rx="5.5" fill={isLight ? '#FF0033' : '#FFFFFF'} />
+    <path d="M11 6.2L18 10L11 13.8V6.2Z" fill={isLight ? '#FFFFFF' : '#071A3D'} />
+  </svg>
+);
+
+const BlogMark = ({ isLight }: { isLight: boolean }) => (
+  <span
+    aria-hidden="true"
+    className={`relative flex h-[18px] w-[25px] items-center justify-center rounded-[3px] font-montserrat text-[8px] font-black leading-none tracking-[-0.03em] after:absolute after:-bottom-[3px] after:left-[6px] after:h-[4px] after:w-[6px] after:[clip-path:polygon(0_0,100%_0,0_100%)] ${
+      isLight
+        ? 'bg-[#03C75A] text-white after:bg-[#03C75A]'
+        : 'bg-white text-navy-950 after:bg-white'
+    }`}
+  >
+    blog
+  </span>
+);
+
+const InstagramMark = ({ isLight }: { isLight: boolean }) => (
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="header-instagram-gradient" x1="2" y1="18" x2="18" y2="2" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#FFB600" />
+        <stop offset="0.35" stopColor="#FF3A63" />
+        <stop offset="0.68" stopColor="#D629A2" />
+        <stop offset="1" stopColor="#6A45E6" />
+      </linearGradient>
+    </defs>
+    <rect
+      x="1.7"
+      y="1.7"
+      width="16.6"
+      height="16.6"
+      rx="5.2"
+      stroke={isLight ? 'url(#header-instagram-gradient)' : '#FFFFFF'}
+      strokeWidth="2.1"
+    />
+    <circle
+      cx="10"
+      cy="10"
+      r="3.75"
+      stroke={isLight ? 'url(#header-instagram-gradient)' : '#FFFFFF'}
+      strokeWidth="2.1"
+    />
+    <circle cx="15" cy="5" r="1.15" fill={isLight ? 'url(#header-instagram-gradient)' : '#FFFFFF'} />
+  </svg>
+);
+
+// 채널 주소가 확정되면 각 href만 교체하면 바로 링크로 동작합니다.
+const HEADER_SOCIAL_LINKS = [
+  { name: '유튜브', href: '', icon: YouTubeMark },
+  { name: '네이버 블로그', href: '', icon: BlogMark },
+  { name: '인스타그램', href: '', icon: InstagramMark },
+];
+
+const HeaderSocialLinks = ({ isLight }: { isLight: boolean }) => (
+  <nav
+    aria-label="소셜 미디어"
+    style={{
+      columnGap: HEADER_DESKTOP_LAYOUT.socialIconGap,
+      transform: `translateX(${HEADER_DESKTOP_LAYOUT.socialOffsetX})`,
+    }}
+    className="hidden h-10 shrink-0 items-center px-3 lg:flex"
+  >
+    {HEADER_SOCIAL_LINKS.map((social) => {
+      const SocialIcon = social.icon;
+      const mark = (
+        <span className="flex h-7 items-center justify-center transition-transform duration-200 hover:scale-105">
+          <SocialIcon isLight={isLight} />
+        </span>
+      );
+
+      return social.href ? (
+        <a
+          key={social.name}
+          href={social.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={social.name}
+        >
+          {mark}
+        </a>
+      ) : (
+        <span
+          key={social.name}
+          role="img"
+          aria-label={`${social.name} 링크 준비 중`}
+        >
+          {mark}
+        </span>
+      );
+    })}
+  </nav>
+);
 
 const Header = () => {
   const pathname = usePathname();
@@ -260,6 +366,17 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isMenuOpen, isMobileMenuOpen, isHeaderHovered]);
 
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isMobileMenuOpen]);
+
   if (pathname.startsWith('/admin')) return null;
 
   const renderMegaMenuCard = (item: MenuItem, idx: number) => (
@@ -312,7 +429,7 @@ const Header = () => {
       }`}
     >
       {/* 🔝 Top GNB Bar */}
-      <div className="max-w-[1540px] mx-auto px-7 xl:px-10 h-[72px] flex items-center justify-between relative z-10">
+      <div className="relative z-10 mx-auto flex h-[72px] max-w-[1540px] items-center px-4 sm:px-7 xl:px-10">
         {/* Logo Section */}
         <Link href="/" className="flex items-center shrink-0 transition-transform hover:scale-[1.03] active:scale-95" onClick={() => setActiveMenu(null)}>
           <Image
@@ -321,12 +438,15 @@ const Header = () => {
             width={517}
             height={144}
             priority
-            className="h-9 lg:h-11 w-auto"
+            className="h-9 w-auto sm:h-10 lg:h-11"
           />
         </Link>
         
         {/* Main Navigation - Visible from 1100px */}
-        <nav className="hidden lg:flex items-center gap-4 xl:gap-7 2xl:gap-10">
+        <nav
+          style={{ marginLeft: HEADER_DESKTOP_LAYOUT.navigationOffsetX }}
+          className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-4 lg:flex xl:gap-7 2xl:gap-10"
+        >
           {MENU_DATA.map((menu) => (
             <Link
               key={menu.id}
@@ -364,10 +484,16 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* User Icon Side */}
-        <div className="flex items-center gap-4">
+        <div
+          className="ml-auto flex items-center"
+          style={{ columnGap: HEADER_DESKTOP_LAYOUT.socialToAccountGap }}
+        >
+          <HeaderSocialLinks isLight={isLightHeader} />
+
+          {/* User Icon Side */}
+          <div className="flex items-center gap-1 sm:gap-4">
           {user ? (
-            <div className="flex items-center gap-4">
+            <div className="hidden items-center gap-2 lg:flex lg:gap-4">
               <div className="hidden md:flex flex-col items-end -space-y-1">
                 <span className={`text-[13px] font-black transition-colors ${
                   isLightHeader ? 'text-ink' : 'text-white'
@@ -379,7 +505,7 @@ const Header = () => {
                 onMouseEnter={handleUserMenuEnter}
                 onMouseLeave={handleUserMenuLeave}
               >
-                <button className={`w-11 h-11 rounded-full overflow-hidden border-2 transition-all shadow-sm ${isUserMenuOpen ? 'border-primary' : 'border-slate-100 hover:border-primary/50'}`}>
+                <button className={`h-9 w-9 overflow-hidden rounded-full border-2 shadow-sm transition-all sm:h-11 sm:w-11 ${isUserMenuOpen ? 'border-primary' : 'border-slate-100 hover:border-primary/50'}`}>
                   {user.user_metadata?.avatar_url ? (
                     <img src={user.user_metadata.avatar_url} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
@@ -425,7 +551,7 @@ const Header = () => {
             <Link 
               href="/login" 
               aria-label="로그인"
-              className={`flex h-11 w-11 items-center justify-center rounded-full transition-all active:scale-95 ${
+                className={`hidden h-11 w-11 items-center justify-center rounded-full transition-all active:scale-95 lg:flex ${
                 isLightHeader
                   ? 'text-ink hover:bg-primary-light hover:text-primary'
                   : 'text-white/92 hover:bg-white/12 hover:text-white'
@@ -439,12 +565,15 @@ const Header = () => {
           {/* Mobile Menu Toggle */}
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`lg:hidden w-11 h-11 flex items-center justify-center rounded-xl transition-colors ${
+            aria-label={isMobileMenuOpen ? '전체메뉴 닫기' : '전체메뉴 열기'}
+            aria-expanded={isMobileMenuOpen}
+            className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors sm:h-11 sm:w-11 sm:rounded-xl lg:hidden ${
               isLightHeader ? 'bg-slate-50 text-ink hover:bg-slate-100' : 'bg-white/10 text-white hover:bg-white/18'
             }`}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
+          </div>
         </div>
       </div>
 
@@ -562,7 +691,7 @@ const Header = () => {
             closeMegaMenuImmediately();
             setIsMobileMenuOpen(false);
           }}
-          className="fixed inset-0 bg-navy-950/[0.16] backdrop-blur-[2px] z-[40]"
+          className={`fixed inset-0 bg-navy-950/[0.16] backdrop-blur-[2px] ${isMobileMenuOpen ? 'z-[2050]' : 'z-[40]'}`}
         />
       )}
     </AnimatePresence>
@@ -575,37 +704,38 @@ const Header = () => {
           animate={{ x: 0 }}
           exit={{ x: '100%' }}
           transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-          className="fixed inset-y-0 right-0 w-[85%] max-w-sm bg-white z-[150] shadow-2xl flex flex-col"
+          className="fixed inset-y-0 right-0 z-[2100] flex max-h-[100dvh] w-[88%] max-w-sm flex-col bg-white shadow-2xl"
         >
-          <div className="p-8 flex items-center justify-between border-b border-slate-50">
+          <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4 sm:p-8">
             <span className="text-xl font-black text-ink">전체메뉴</span>
             <button 
               onClick={() => setIsMobileMenuOpen(false)}
-              className="w-10 h-10 flex items-center justify-center bg-slate-50 rounded-full text-ink-muted"
+              aria-label="전체메뉴 닫기"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-50 text-ink-sub"
             >
               <X size={20} />
             </button>
           </div>
           
-          <div className="flex-1 overflow-y-auto p-6">
-            <div className="space-y-2">
+          <div className="flex-1 overscroll-contain overflow-y-auto p-4 sm:p-6">
+            <div className="space-y-1 sm:space-y-2">
               {MENU_DATA.map((menu) => (
                 <div key={menu.id} className="space-y-1">
                   <Link 
                     href={menu.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50 transition-colors group"
+                    className="group flex items-center justify-between rounded-xl p-3.5 transition-colors hover:bg-slate-50 sm:rounded-2xl sm:p-4"
                   >
-                    <span className="text-lg font-bold text-ink group-hover:text-primary">{menu.name}</span>
+                    <span className="text-[17px] font-bold text-ink group-hover:text-primary sm:text-lg">{menu.name}</span>
                     <ChevronRight size={18} className="text-slate-300 group-hover:text-primary transition-colors" />
                   </Link>
-                  <div className="grid grid-cols-1 gap-1 pl-4">
+                  <div className="grid grid-cols-1 gap-0.5 pl-3 sm:gap-1 sm:pl-4">
                     {(menu.id === 'spine' ? menu.items : menu.items.slice(0, 4)).map((item) => (
                       <Link
                         key={item.name}
                         href={item.href}
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className="p-3 text-[15px] font-medium text-ink-muted hover:text-primary transition-colors flex items-center gap-3"
+                        className="flex items-center gap-3 p-2.5 text-[15px] font-medium leading-snug text-ink-sub transition-colors hover:text-primary sm:p-3"
                       >
                         <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />
                         <span className="min-w-0">
@@ -619,8 +749,21 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="p-8 bg-slate-50/50 border-t border-slate-100">
-            {!user && (
+          <div className="border-t border-slate-100 bg-slate-50/50 px-5 pb-[calc(1rem_+_env(safe-area-inset-bottom))] pt-4 sm:p-8 sm:pb-[calc(2rem_+_env(safe-area-inset-bottom))]">
+            {user ? (
+              <button
+                type="button"
+                onClick={async () => {
+                  setIsMobileMenuOpen(false);
+                  setUser(null);
+                  await signOut();
+                }}
+                className="flex w-full items-center justify-center gap-3 rounded-2xl bg-slate-200 py-4 font-bold text-ink transition-all active:scale-95"
+              >
+                <LogOut size={18} />
+                로그아웃하기
+              </button>
+            ) : (
               <Link 
                 href="/login"
                 onClick={() => setIsMobileMenuOpen(false)}

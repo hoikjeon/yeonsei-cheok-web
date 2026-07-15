@@ -152,13 +152,13 @@ const Marker = ({
     <>
       <span
         aria-hidden
-        className="absolute z-20 hidden border-t-2 border-dashed border-primary/75 md:block"
+        className="absolute z-20 hidden border-t-2 border-dashed border-primary/75 lg:block"
         style={marker.line}
       />
 
       <span
         aria-hidden
-        className="pointer-events-none absolute z-30 hidden h-12 w-12 -translate-x-1/2 -translate-y-1/2 md:block"
+        className="pointer-events-none absolute z-30 hidden h-12 w-12 -translate-x-1/2 -translate-y-1/2 lg:block"
         style={marker.point}
       >
         <span className="animate-ripple absolute inset-0 rounded-full bg-primary/30" />
@@ -168,7 +168,7 @@ const Marker = ({
         type="button"
         onClick={() => onSelect(marker.diseaseId)}
         aria-label={`${disease.title} 자세히 보기`}
-        className="absolute z-40 hidden h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-white shadow-[0_12px_28px_rgba(38,84,190,0.24)] transition duration-300 hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-primary/20 md:flex"
+        className="absolute z-40 hidden h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-white shadow-[0_12px_28px_rgba(38,84,190,0.24)] transition duration-300 hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-primary/20 lg:flex"
         style={marker.point}
       >
         <span aria-hidden className="text-[19px] font-black leading-none">
@@ -179,7 +179,7 @@ const Marker = ({
       <button
         type="button"
         onClick={() => onSelect(marker.diseaseId)}
-        className="absolute z-50 hidden -translate-y-1/2 items-center rounded-full bg-primary px-5 py-2.5 text-[17px] font-black tracking-tight text-white shadow-[0_14px_34px_rgba(38,84,190,0.2)] transition duration-300 hover:-translate-y-[calc(50%+2px)] hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-primary/20 md:flex"
+        className="absolute z-50 hidden -translate-y-1/2 items-center rounded-full bg-primary px-5 py-2.5 text-[17px] font-black tracking-tight text-white shadow-[0_14px_34px_rgba(38,84,190,0.2)] transition duration-300 hover:-translate-y-[calc(50%+2px)] hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-primary/20 lg:flex"
         style={marker.button}
       >
         {disease.title}
@@ -196,7 +196,7 @@ const DetailBlock = ({ number, title, items }: { number: number; title: string; 
       </span>
       {title}
     </h4>
-    <ul className="mt-4 space-y-2 text-[16px] font-medium leading-relaxed text-ink-sub md:text-[17px]">
+    <ul className="mt-4 space-y-2 break-keep text-[15px] font-medium leading-[1.7] text-ink-sub sm:text-[16px] md:text-[17px] md:leading-relaxed">
       {items.map((item) => (
         <li key={item}>· {item}</li>
       ))}
@@ -212,7 +212,7 @@ const DiseaseModal = ({
   onClose: () => void;
 }) => (
   <div
-    className="fixed inset-0 z-[999] flex items-center justify-center bg-black/68 px-4 py-6 backdrop-blur-[2px]"
+    className="fixed inset-0 z-[999] flex items-center justify-center bg-black/68 px-3 py-4 backdrop-blur-[2px] sm:px-4 sm:py-6"
     onMouseDown={(event) => {
       if (event.target === event.currentTarget) {
         onClose();
@@ -223,24 +223,24 @@ const DiseaseModal = ({
       role="dialog"
       aria-modal="true"
       aria-labelledby="lumbar-disease-modal-title"
-      className="flex max-h-[79vh] w-full max-w-[760px] flex-col overflow-hidden rounded-[1.15rem] bg-white shadow-[0_30px_100px_-40px_rgba(0,0,0,0.65)]"
+      className="flex max-h-[calc(100dvh-2rem)] w-full max-w-[760px] flex-col overflow-hidden rounded-[1rem] bg-white shadow-[0_30px_100px_-40px_rgba(0,0,0,0.65)] sm:max-h-[79vh] sm:rounded-[1.15rem]"
     >
-      <header className="flex h-20 shrink-0 items-center justify-between bg-navy-900 px-7 text-white">
-        <h3 id="lumbar-disease-modal-title" className="text-[1.45rem] font-black tracking-tight">
+      <header className="flex min-h-16 shrink-0 items-center justify-between gap-3 bg-navy-900 px-5 py-2 text-white sm:h-20 sm:px-7 sm:py-0">
+        <h3 id="lumbar-disease-modal-title" className="break-keep text-[1.2rem] font-black leading-tight tracking-tight sm:text-[1.45rem]">
           {disease.title}
         </h3>
         <button
           type="button"
           onClick={onClose}
           aria-label="팝업 닫기"
-          className="flex h-11 w-11 items-center justify-center rounded-full text-white/90 transition hover:bg-white/10 hover:text-white focus:outline-none focus:ring-4 focus:ring-white/20"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white/90 transition hover:bg-white/10 hover:text-white focus:outline-none focus:ring-4 focus:ring-white/20 sm:h-11 sm:w-11"
         >
           <X size={32} strokeWidth={1.8} />
         </button>
       </header>
 
-      <div className="overflow-y-auto px-7 py-8 md:px-10 md:py-10">
-        <div className="relative aspect-[16/7] overflow-hidden rounded-sm bg-slate-100">
+      <div className="overflow-y-auto px-5 py-6 sm:px-7 sm:py-8 md:px-10 md:py-10">
+        <div className="relative aspect-[16/9] overflow-hidden rounded-lg bg-slate-100 sm:aspect-[16/7] sm:rounded-sm">
           <Image
             src={disease.image}
             alt={disease.imageAlt}
@@ -250,13 +250,13 @@ const DiseaseModal = ({
           />
         </div>
 
-        <p className="mt-8 text-[18px] font-semibold leading-relaxed tracking-tight text-ink md:text-[20px]">
+        <p className="mt-6 break-keep text-[16px] font-semibold leading-[1.7] tracking-tight text-ink sm:mt-8 sm:text-[18px] sm:leading-relaxed md:text-[20px]">
           {disease.description}
         </p>
 
-        <div className="my-8 h-px bg-slate-200" />
+        <div className="my-6 h-px bg-slate-200 sm:my-8" />
 
-        <div className="space-y-10">
+        <div className="space-y-8 sm:space-y-10">
           <DetailBlock number={1} title="증상" items={disease.symptoms} />
           <DetailBlock number={2} title="원인" items={disease.causes} />
         </div>
@@ -291,17 +291,17 @@ const LumbarDiseaseSection = () => {
   }, [activeDiseaseId]);
 
   return (
-    <section className="bg-[#F5F7FA] px-6 py-24 md:py-32">
+    <section className="bg-[#F5F7FA] px-5 py-16 sm:px-6 md:py-32">
       <div className="mx-auto max-w-7xl">
         <ScrollReveal amount={0.24}>
           <div className="text-center">
-            <h2 className="text-4xl font-black leading-[1.18] tracking-tight text-ink md:text-[3.25rem]">
+            <h2 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
               지긋지긋한 허리 통증,
-              <br />
+              <br className="hidden md:block" />
               제대로 알아야 건강을 되찾을 수 있습니다
             </h2>
-            <div className="mt-8 inline-flex items-center gap-3 rounded-xl bg-white px-5 py-3 text-[1rem] font-extrabold text-navy-900 shadow-[0_18px_40px_-30px_rgba(15,29,54,0.45)]">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-navy-900 text-white">
+            <div className="mt-6 inline-flex w-full max-w-[34rem] items-start gap-2.5 rounded-xl bg-white px-4 py-3 text-left text-[14px] font-extrabold leading-[1.55] text-navy-900 shadow-[0_18px_40px_-30px_rgba(15,29,54,0.45)] sm:mt-8 sm:w-auto sm:items-center sm:gap-3 sm:px-5 sm:text-[1rem]">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-navy-900 text-white">
                 <span aria-hidden className="text-[13px] font-black leading-none">
                   !
                 </span>
@@ -311,13 +311,13 @@ const LumbarDiseaseSection = () => {
           </div>
         </ScrollReveal>
 
-        <ScrollReveal className="mt-24" amount={0.18}>
-          <div className="relative min-h-[540px] overflow-hidden rounded-[28px] border border-slate-100 bg-white px-7 py-10 shadow-[0_24px_70px_rgba(15,29,54,0.07)] md:min-h-[620px] md:px-14 md:py-14">
-            <h3 className="relative z-10 text-3xl font-black tracking-tight text-ink md:text-[2.25rem]">
+        <ScrollReveal className="mt-12 md:mt-24" amount={0.18}>
+          <div className="relative overflow-hidden rounded-[1.25rem] border border-slate-100 bg-white px-5 py-6 shadow-[0_24px_70px_rgba(15,29,54,0.07)] sm:px-7 sm:py-8 lg:min-h-[620px] lg:rounded-[28px] lg:px-14 lg:py-14">
+            <h3 className="relative z-10 text-[1.5rem] font-black tracking-tight text-ink sm:text-3xl md:text-[2.25rem]">
               허리 통증 주요 질환
             </h3>
 
-            <div className="absolute inset-x-[6%] bottom-[2%] top-[8%] hidden md:block">
+            <div className="absolute inset-x-[6%] bottom-[2%] top-[8%] hidden lg:block">
               <Image
                 src="/generated/lumbar-disc/lumbar-disease-map-illustration.png"
                 alt=""
@@ -331,16 +331,16 @@ const LumbarDiseaseSection = () => {
               <Marker key={marker.diseaseId} marker={marker} onSelect={setActiveDiseaseId} />
             ))}
 
-            <div className="relative z-10 mt-12 grid gap-3 md:hidden">
+            <div className="relative z-10 mt-8 grid gap-2.5 lg:hidden">
               {diseases.map((disease) => (
                 <button
                   key={disease.id}
                   type="button"
                   onClick={() => setActiveDiseaseId(disease.id)}
-                  className="flex items-center justify-between rounded-2xl bg-primary px-5 py-4 text-left text-[1.1rem] font-black text-white shadow-[0_16px_34px_-24px_rgba(40,74,165,0.8)]"
+                  className="flex min-h-14 items-center justify-between gap-3 rounded-xl bg-primary px-4 py-3 text-left text-[1rem] font-black text-white shadow-[0_16px_34px_-24px_rgba(40,74,165,0.8)] sm:rounded-2xl sm:px-5 sm:py-4 sm:text-[1.1rem]"
                 >
                   <span>{disease.title}</span>
-                  <span aria-hidden="true">보기</span>
+                  <span aria-hidden="true" className="shrink-0 text-[12px] font-bold text-white/75 sm:text-sm">자세히</span>
                 </button>
               ))}
             </div>

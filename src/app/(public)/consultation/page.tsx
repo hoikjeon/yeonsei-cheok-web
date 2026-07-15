@@ -86,29 +86,29 @@ export default function ConsultationPage() {
         bgImage="/hero-bg.png"
       />
 
-      <section className="bg-white py-24 flex-grow">
-        <div className="max-w-4xl mx-auto px-6 w-full">
-          <div className="bg-white rounded-[2rem] border border-slate-200 shadow-premium p-10 md:p-16 space-y-12">
+      <section className="flex-grow bg-white py-14 sm:py-16 md:py-24">
+        <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
+          <div className="space-y-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-premium sm:space-y-10 sm:p-6 md:space-y-12 md:rounded-[2rem] md:p-16">
             
             <div className="text-center space-y-4">
-              <h2 className="text-3xl font-black text-ink tracking-tight">전문 상담사 1:1 상담</h2>
-              <p className="text-ink-muted font-medium">
+              <h2 className="break-keep text-[26px] font-black tracking-tight text-ink sm:text-3xl">전문 상담사 1:1 상담</h2>
+              <p className="break-keep text-[15px] font-medium leading-[1.75] text-ink-muted sm:text-base">
                 현재 겪고 계시는 통증이나 증상을 자세히 적어주시면, 전문 상담사가 직접 답변을 드립니다.
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-10">
-              <div className="space-y-8 p-8 bg-slate-50 rounded-2xl border border-slate-100">
+            <form onSubmit={handleSubmit} className="space-y-7 sm:space-y-8 md:space-y-10">
+              <div className="space-y-6 rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:p-6 md:space-y-8 md:p-8">
                 <h3 className="text-lg font-bold text-ink border-b border-slate-200 pb-3">상담 정보</h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8">
                   <div className="space-y-3">
                     <label className="text-sm font-bold text-ink-sub">상담내용 <span className="text-red-500">*</span></label>
                     <select
                       name="consultationType"
                       value={formData.consultationType}
                       onChange={handleInputChange}
-                      className="w-full px-5 py-4 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-primary transition-all text-ink font-medium"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-medium text-ink transition-all focus:border-primary focus:outline-none sm:px-5 sm:py-4"
                       required
                     >
                       <option value="">상담내용을 선택해 주세요</option>
@@ -131,10 +131,10 @@ export default function ConsultationPage() {
               </div>
               
               {/* === 기본 정보 입력 === */}
-              <div className="space-y-8 p-8 bg-slate-50 rounded-2xl border border-slate-100">
+              <div className="space-y-6 rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:p-6 md:space-y-8 md:p-8">
                 <h3 className="text-lg font-bold text-ink border-b border-slate-200 pb-3">환자 기본 정보</h3>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8">
                   {/* 이름 & 연락처 */}
                   <div className="space-y-3">
                     <label className="text-sm font-bold text-ink-sub">이름 <span className="text-red-500">*</span></label>
@@ -143,7 +143,7 @@ export default function ConsultationPage() {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full px-5 py-4 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-primary transition-all text-ink font-medium"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-medium text-ink transition-all focus:border-primary focus:outline-none sm:px-5 sm:py-4"
                       placeholder="이름을 입력해 주세요"
                       required
                     />
@@ -155,7 +155,7 @@ export default function ConsultationPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-5 py-4 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-primary transition-all text-ink font-medium"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-medium text-ink transition-all focus:border-primary focus:outline-none sm:px-5 sm:py-4"
                       placeholder="010-0000-0000"
                       required
                     />
@@ -171,7 +171,7 @@ export default function ConsultationPage() {
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={8}
-                  className="w-full px-5 py-4 bg-white border border-slate-200 rounded-xl focus:outline-none focus:border-primary transition-all text-ink font-medium resize-y"
+                  className="w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-medium text-ink transition-all focus:border-primary focus:outline-none sm:px-5 sm:py-4"
                   placeholder={`예) 허리 통증이 심한데 디스크일까요? 
 과거 수술 이력이 있는데도 상담을 받고 싶습니다. 등 증상과 궁금한 점을 최대한 자세하게 적어주시면 정확한 상담이 가능합니다.`}
                   required
@@ -181,17 +181,17 @@ export default function ConsultationPage() {
               {/* === 개인정보 처리방침 === */}
               <div className="space-y-4 pt-4 border-t border-slate-100">
                 <label className="text-sm font-bold text-ink-sub">개인정보 수집 및 이용 동의 <span className="text-red-500">*</span></label>
-                <div className="h-48 overflow-y-auto whitespace-pre-line p-5 bg-slate-50 border border-slate-200 rounded-xl text-[13px] text-ink-sub leading-relaxed font-medium">
+                <div className="h-48 overflow-y-auto whitespace-pre-line rounded-xl border border-slate-200 bg-slate-50 p-4 text-[13px] font-medium leading-[1.7] text-ink-sub sm:p-5">
                   {PRIVACY_CONSENT_TEXT}
                 </div>
                 
-                <div className="flex items-center gap-3 pt-2">
+                <div className="flex items-start gap-3 pt-2">
                   <input 
                     type="checkbox" 
                     id="privacy-agree" 
                     checked={isAgreed}
                     onChange={(e) => setIsAgreed(e.target.checked)}
-                    className="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary cursor-pointer" 
+                    className="mt-0.5 h-5 w-5 shrink-0 cursor-pointer rounded border-slate-300 text-primary focus:ring-primary"
                     required 
                   />
                   <label htmlFor="privacy-agree" className="text-[15px] font-bold text-ink cursor-pointer select-none">
@@ -200,17 +200,17 @@ export default function ConsultationPage() {
                 </div>
 
                 <label className="text-sm font-bold text-ink-sub block pt-5">마케팅 정보 수신 및 활용 동의 <span className="text-ink-muted">(선택)</span></label>
-                <div className="h-40 overflow-y-auto whitespace-pre-line p-5 bg-slate-50 border border-slate-200 rounded-xl text-[13px] text-ink-sub leading-relaxed font-medium">
+                <div className="h-40 overflow-y-auto whitespace-pre-line rounded-xl border border-slate-200 bg-slate-50 p-4 text-[13px] font-medium leading-[1.7] text-ink-sub sm:p-5">
                   {MARKETING_CONSENT_TEXT}
                 </div>
 
-                <div className="flex items-center gap-3 pt-2">
+                <div className="flex items-start gap-3 pt-2">
                   <input
                     type="checkbox"
                     id="marketing-agree"
                     checked={isMarketingAgreed}
                     onChange={(e) => setIsMarketingAgreed(e.target.checked)}
-                    className="w-5 h-5 rounded border-slate-300 text-primary focus:ring-primary cursor-pointer"
+                    className="mt-0.5 h-5 w-5 shrink-0 cursor-pointer rounded border-slate-300 text-primary focus:ring-primary"
                   />
                   <label htmlFor="marketing-agree" className="text-[15px] font-bold text-ink cursor-pointer select-none">
                     마케팅 정보 수신 및 활용에 동의합니다.
@@ -222,7 +222,7 @@ export default function ConsultationPage() {
                 <button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className={`w-full py-5 text-white font-black text-lg rounded-[1.5rem] transition-all shadow-xl shadow-primary/20 hover:-translate-y-1 flex items-center justify-center gap-2 ${isSubmitting ? 'bg-slate-400 cursor-not-allowed' : 'bg-primary hover:bg-primary-dark active:scale-[0.98]'}`}
+                  className={`flex w-full items-center justify-center gap-2 rounded-xl py-4 text-base font-black text-white shadow-xl shadow-primary/20 transition-all hover:-translate-y-1 sm:rounded-[1.5rem] sm:py-5 sm:text-lg ${isSubmitting ? 'bg-slate-400 cursor-not-allowed' : 'bg-primary hover:bg-primary-dark active:scale-[0.98]'}`}
                 >
                   {isSubmitting ? '상담 등록 중...' : '전문 상담사에게 상담 접수하기'}
                 </button>
