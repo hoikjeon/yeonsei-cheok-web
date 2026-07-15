@@ -28,7 +28,6 @@ const comparison = [
     label: "직접 보강",
     title: "경피적 척추성형술",
     desc: "영상으로 위치를 확인하며 가느다란 바늘을 골절된 척추체 안에 놓고, 의료용 골시멘트를 직접 주입해 골절 부위의 안정화를 돕습니다.",
-    note: "풍선을 사용하지 않으며, 눌린 척추 높이를 원래대로 복원하는 시술은 아닙니다.",
     image: `${ASSET_ROOT}/vertebroplasty-concept-direct-cement.webp`,
     alt: "압박골절 척추체 안에 골시멘트를 직접 주입하는 경피적 척추성형술 재구성 이미지",
   },
@@ -36,7 +35,6 @@ const comparison = [
     label: "공간 형성 후 보강",
     title: "풍선척추성형술",
     desc: "골절된 척추체 안에서 작은 풍선으로 공간을 만든 뒤 풍선을 제거하고, 만들어진 공간에 의료용 골시멘트를 채워 안정화를 돕습니다.",
-    note: "일부 골절에서 높이와 변형 개선을 시도할 수 있지만, 완전한 복원을 보장하지는 않습니다.",
     image: `${ASSET_ROOT}/kyphoplasty-concept-balloon-cavity.webp`,
     alt: "압박골절 척추체 안에서 작은 풍선으로 공간을 만드는 풍선척추성형술 재구성 이미지",
   },
@@ -234,9 +232,6 @@ export default function VertebroplastyDetailSection() {
           <div className="relative md:min-h-[560px] xl:min-h-[620px]">
             <div className="relative z-10 pb-7 md:absolute md:inset-y-0 md:left-0 md:flex md:w-[57%] md:items-center md:px-10 md:pb-0 lg:px-14 xl:px-16">
               <div className="max-w-[660px]">
-                <p className="mb-4 break-words font-montserrat text-[10px] font-black uppercase tracking-[0.14em] text-primary sm:text-[11px] sm:tracking-[0.18em] md:text-white/65">
-                  Percutaneous Vertebral Augmentation
-                </p>
                 <h2 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[2.7rem] md:leading-[1.18] md:text-white lg:text-[3.25rem]">
                   주저앉은 척추뼈의 통증,
                   <br className="hidden md:block" /> 필요한 경우에만 정밀하게
@@ -314,19 +309,11 @@ export default function VertebroplastyDetailSection() {
                     <p className="mt-3 break-keep text-[14px] font-medium leading-[1.8] text-ink-sub sm:text-[16px]">
                       {item.desc}
                     </p>
-                    <p className="mt-4 border-t border-slate-100 pt-4 break-keep text-[12px] font-semibold leading-[1.7] text-primary/80 sm:text-[13px]">
-                      {item.note}
-                    </p>
                   </div>
                 </article>
               </ScrollReveal>
             ))}
           </div>
-
-          <p className="mt-5 break-keep text-[12px] font-semibold leading-[1.75] text-ink-sub sm:text-[13px]">
-            어느 방법이 모든 환자에게 더 우수한 것은 아닙니다. 골절 형태와
-            미유합 여부, 척추관 상태와 전신 건강을 함께 평가해 방법을 정합니다.
-          </p>
         </section>
       </ScrollReveal>
 
