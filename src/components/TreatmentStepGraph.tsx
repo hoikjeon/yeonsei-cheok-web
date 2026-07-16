@@ -153,7 +153,7 @@ const TreatmentStepGraph = () => {
                   <p className="font-montserrat text-[10px] font-extrabold tracking-[0.22em] text-primary/70">
                     {step.stage}
                   </p>
-                  <h4 className="mt-1 text-[20px] font-black leading-tight tracking-tight text-ink lg:text-[25px]">
+                  <h4 className="mt-1 text-h4 leading-tight tracking-tight text-ink">
                     {step.title}
                   </h4>
                   <p className="mt-2 text-[12px] font-bold leading-[1.45] text-ink-sub lg:text-[14px]">
@@ -177,7 +177,7 @@ const TreatmentStepGraph = () => {
             ))}
           </div>
 
-          <div className="absolute left-[8%] top-[62px] z-20 select-none text-[54px] font-black leading-none tracking-tight text-ink lg:text-[72px]">
+          <div className="absolute left-[8%] top-[62px] z-20 select-none text-[54px] font-bold leading-none tracking-tight text-ink lg:text-[72px]">
             연세<span className="text-primary">척</span>이니까!
           </div>
 
@@ -235,7 +235,7 @@ const TreatmentStepGraph = () => {
                 <p className="font-montserrat text-[10px] font-extrabold uppercase tracking-[0.22em] text-primary/70">
                   {step.stage}
                 </p>
-                <h4 className="mt-1 text-xl font-black leading-tight tracking-tight text-ink">
+                <h4 className="mt-1 text-xl font-bold leading-tight tracking-tight text-ink">
                   {step.title}
                 </h4>
                 <p className="mt-2 text-[15px] font-medium leading-relaxed text-ink-sub">

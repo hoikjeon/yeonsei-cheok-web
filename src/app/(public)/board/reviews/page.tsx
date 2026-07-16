@@ -41,7 +41,7 @@ export default async function ReviewsPage() {
 
       {/* 🔹 Main Content Area */}
       <section className="bg-white">
-        <div className="mx-auto min-h-0 max-w-[1440px] border-x border-slate-50 px-4 py-14 shadow-sm sm:px-6 sm:py-16 md:min-h-[800px] lg:px-10 lg:py-24">
+        <div className="mx-auto min-h-0 max-w-7xl border-x border-slate-50 px-4 py-14 shadow-sm sm:px-6 sm:py-16 md:min-h-[800px] lg:px-10 lg:py-24">
           <div className="mb-10 sm:mb-16">
             <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
               <span className="flex break-keep text-[14px] font-bold leading-[1.7] tracking-tight text-ink-muted sm:items-center sm:gap-1.5 sm:text-[15px]">
@@ -49,7 +49,7 @@ export default async function ReviewsPage() {
               </span>
               <Link 
                 href="/login"
-                className="inline-flex flex-shrink-0 items-center justify-center rounded-full bg-primary/10 px-5 py-2 text-[14px] font-black text-primary transition-colors hover:bg-primary hover:text-white sm:px-7"
+                className="inline-flex flex-shrink-0 items-center justify-center rounded-full bg-primary/10 px-5 py-2 text-[14px] font-bold text-primary transition-colors hover:bg-primary hover:text-white sm:px-7"
               >
                 로그인하기
               </Link>
@@ -60,7 +60,7 @@ export default async function ReviewsPage() {
           <div className="space-y-5 sm:space-y-6">
             <div className="flex flex-col items-stretch gap-4 border-b-2 border-slate-200 pb-4 sm:flex-row sm:items-end sm:justify-between">
               <div className="text-[16px] font-bold text-ink-muted tracking-tight">
-                총 <strong className="text-ink font-black text-[18px]">{reviewsCount}</strong>건
+                총 <strong className="text-ink font-bold text-[18px]">{reviewsCount}</strong>건
               </div>
               <div className="group relative w-full sm:max-w-[340px]">
                 <input
@@ -100,7 +100,7 @@ export default async function ReviewsPage() {
 
                     <div className="flex-1 space-y-3">
                       <div className="flex items-center gap-3">
-                        <span className="text-[13px] font-black text-primary tracking-tight px-3 py-1 bg-primary/5 rounded-full inline-block border border-primary/10">
+                        <span className="text-[13px] font-bold text-primary tracking-tight px-3 py-1 bg-primary/5 rounded-full inline-block border border-primary/10">
                           {review.category}
                         </span>
                         <span className="text-[14px] font-bold text-ink-muted">#{review.id.slice(0, 8)}</span>
@@ -129,7 +129,7 @@ export default async function ReviewsPage() {
             <div className="flex justify-end border-t border-slate-100 pt-8 sm:pt-12">
               <Link 
                 href="/board/reviews/write"
-                className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-navy-950 px-5 py-4 text-[16px] font-black tracking-tight text-white shadow-lg transition-all hover:bg-primary hover:shadow-blue-glow active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-8 sm:py-5 sm:text-[17px]"
+                className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-navy-950 px-5 py-4 text-[16px] font-bold tracking-tight text-white shadow-lg transition-all hover:bg-primary hover:shadow-blue-glow active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-8 sm:py-5 sm:text-[17px]"
               >
                 <PenSquare size={20} strokeWidth={2.5} />
                 리뷰 작성하기

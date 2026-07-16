@@ -78,7 +78,7 @@ export default function MediaWritePage() {
           <span className="text-ink">보도자료 등록</span>
         </div>
 
-        <Link href="/news/media" className="mb-8 inline-flex items-center gap-2 text-[20px] font-black tracking-tight text-ink transition-colors hover:text-primary sm:mb-12 sm:text-[24px]">
+        <Link href="/news/media" className="mb-8 inline-flex items-center gap-2 text-h4 tracking-tight text-ink transition-colors hover:text-primary sm:mb-12">
           <ArrowLeft size={28} strokeWidth={2.5} />
           새 보도자료 작성
         </Link>
@@ -89,7 +89,7 @@ export default function MediaWritePage() {
           className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm sm:p-6 md:rounded-[2rem] md:p-14"
         >
           <div className="mb-8 sm:mb-12">
-            <h2 className="mb-4 break-keep text-[26px] font-black leading-[1.3] tracking-tight text-ink sm:text-[32px] md:text-[40px]">
+            <h2 className="mb-4 break-keep text-h2 tracking-tight text-ink">
               언론 보도 소식을 기록합니다
             </h2>
             <p className="break-keep text-[15px] font-bold leading-[1.75] tracking-tight text-ink-muted sm:text-[16px] md:text-[18px]">
@@ -107,7 +107,7 @@ export default function MediaWritePage() {
             {/* Media Info Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4">
-                <label className="block text-[16px] font-black text-ink tracking-tight flex items-center gap-2">
+                <label className="block text-[16px] font-bold text-ink tracking-tight flex items-center gap-2">
                   <Newspaper size={18} className="text-primary" /> 언론사명
                 </label>
                 <input 
@@ -119,7 +119,7 @@ export default function MediaWritePage() {
                 />
               </div>
               <div className="space-y-4">
-                <label className="block text-[16px] font-black text-ink tracking-tight flex items-center gap-2">
+                <label className="block text-[16px] font-bold text-ink tracking-tight flex items-center gap-2">
                   <LinkIcon size={18} className="text-primary" /> 기사 원문 URL
                 </label>
                 <input 
@@ -134,7 +134,7 @@ export default function MediaWritePage() {
 
             {/* Title */}
             <div className="space-y-4">
-              <label className="block text-[16px] font-black text-ink tracking-tight">보도 제목 <span className="text-red-500">*</span></label>
+              <label className="block text-[16px] font-bold text-ink tracking-tight">보도 제목 <span className="text-red-500">*</span></label>
               <input 
                 type="text" 
                 required
@@ -146,7 +146,7 @@ export default function MediaWritePage() {
 
             {/* Content Container */}
             <div className="space-y-4">
-              <label className="block text-[16px] font-black text-ink tracking-tight">보도 내용 / 요약 <span className="text-red-500">*</span></label>
+              <label className="block text-[16px] font-bold text-ink tracking-tight">보도 내용 / 요약 <span className="text-red-500">*</span></label>
               <textarea 
                 rows={10}
                 required
@@ -158,7 +158,7 @@ export default function MediaWritePage() {
 
             {/* Photos */}
             <div className="space-y-4">
-              <label className="block text-[16px] font-black text-ink tracking-tight">이미지 첨부 (보도 스크린샷 등)</label>
+              <label className="block text-[16px] font-bold text-ink tracking-tight">이미지 첨부 (보도 스크린샷 등)</label>
               <div 
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
@@ -186,11 +186,11 @@ export default function MediaWritePage() {
 
             {/* Submit */}
             <div className="pt-8 border-t border-slate-100 flex flex-col md:flex-row gap-4">
-              <Link href="/news/media" className="flex-[1] flex justify-center items-center py-5 rounded-[1.25rem] bg-slate-100 font-black text-ink-muted">취소</Link>
+              <Link href="/news/media" className="flex-[1] flex justify-center items-center py-5 rounded-[1.25rem] bg-slate-100 font-bold text-ink-muted">취소</Link>
               <button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="flex-[2] flex justify-center items-center gap-3 py-5 rounded-[1.25rem] bg-navy-950 hover:bg-primary text-white font-black text-[19px] transition-all disabled:opacity-50"
+                className="flex-[2] flex justify-center items-center gap-3 py-5 rounded-[1.25rem] bg-navy-950 hover:bg-primary text-white font-bold text-[19px] transition-all disabled:opacity-50"
               >
                 {isSubmitting ? <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin" /> : <><Send size={20} /> 보도자료 등록하기</>}
               </button>

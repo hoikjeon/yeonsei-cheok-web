@@ -79,8 +79,7 @@ const MENU_DATA: MenuData[] = [
     items: [
       { name: '무릎 관절', desc: '퇴행성 관절염·연골 손상 등 무릎 통증 진단', href: '/treatments/joint/knee' },
       { name: '어깨 관절', desc: '오십견·회전근개 등 어깨 통증 맞춤 진료', href: '/treatments/joint/shoulder' },
-      { name: '손 관절', desc: '손목·손가락 관절 통증과 저림 진단', href: '/treatments/joint/hand' },
-      { name: '발 관절', desc: '발목·족저근막 등 발 통증 전문 진료', href: '/treatments/joint/foot' },
+      { name: '손목·발목 관절', desc: '손목·손가락과 발목·족저근막 통증 통합 진단', href: '/treatments/joint/wrist-ankle' },
       { name: '무릎관절내시경', desc: '작은 절개로 무릎 속을 직접 보는 주력 치료', href: '/treatments/joint/knee-arthroscopy' },
     ]
   },
@@ -138,7 +137,7 @@ const YouTubeMark = ({ isLight }: { isLight: boolean }) => (
 const BlogMark = ({ isLight }: { isLight: boolean }) => (
   <span
     aria-hidden="true"
-    className={`relative flex h-[18px] w-[25px] items-center justify-center rounded-[3px] font-montserrat text-[8px] font-black leading-none tracking-[-0.03em] after:absolute after:-bottom-[3px] after:left-[6px] after:h-[4px] after:w-[6px] after:[clip-path:polygon(0_0,100%_0,0_100%)] ${
+    className={`relative flex h-[18px] w-[25px] items-center justify-center rounded-[3px] font-montserrat text-[8px] font-bold leading-none tracking-[-0.03em] after:absolute after:-bottom-[3px] after:left-[6px] after:h-[4px] after:w-[6px] after:[clip-path:polygon(0_0,100%_0,0_100%)] ${
       isLight
         ? 'bg-[#03C75A] text-white after:bg-[#03C75A]'
         : 'bg-white text-navy-950 after:bg-white'
@@ -392,7 +391,7 @@ const Header = () => {
         className="group relative flex min-h-[96px] items-center justify-between gap-5 overflow-hidden rounded-lg border border-slate-100 bg-white px-7 py-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:bg-primary/[0.025] hover:shadow-[0_22px_48px_-34px_rgba(40,74,165,0.55)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
       >
         <div className="min-w-0 flex-1">
-          <h4 className="text-[18px] font-black text-ink tracking-tight transition-all duration-300 group-hover:-translate-y-1 group-hover:text-primary group-focus-visible:-translate-y-1 group-focus-visible:text-primary">
+          <h4 className="text-[18px] font-bold text-ink tracking-tight transition-all duration-300 group-hover:-translate-y-1 group-hover:text-primary group-focus-visible:-translate-y-1 group-focus-visible:text-primary">
             {item.name}
           </h4>
           <p className="mt-1 text-[14px] font-semibold leading-snug text-ink-muted">
@@ -429,7 +428,7 @@ const Header = () => {
       }`}
     >
       {/* 🔝 Top GNB Bar */}
-      <div className="relative z-10 mx-auto flex h-[72px] max-w-[1540px] items-center px-4 sm:px-7 xl:px-10">
+      <div className="relative z-10 mx-auto flex h-[72px] max-w-7xl items-center px-4 sm:px-7 xl:px-10">
         {/* Logo Section */}
         <Link href="/" className="flex items-center shrink-0 transition-transform hover:scale-[1.03] active:scale-95" onClick={() => setActiveMenu(null)}>
           <Image
@@ -495,7 +494,7 @@ const Header = () => {
           {user ? (
             <div className="hidden items-center gap-2 lg:flex lg:gap-4">
               <div className="hidden md:flex flex-col items-end -space-y-1">
-                <span className={`text-[13px] font-black transition-colors ${
+                <span className={`text-[13px] font-bold transition-colors ${
                   isLightHeader ? 'text-ink' : 'text-white'
                 }`}>{user.user_metadata?.full_name || '사용자'}님</span>
                 <span className="text-[10px] font-bold text-primary tracking-widest font-montserrat uppercase">Verified</span>
@@ -588,7 +587,7 @@ const Header = () => {
             transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
             className="absolute top-[72px] left-0 w-full overflow-hidden border-t border-slate-100 bg-white/95 shadow-[0_32px_80px_-34px_rgba(15,29,54,0.35)] backdrop-blur-xl"
           >
-            <div className="max-w-[1440px] mx-auto px-10 xl:px-12 py-5">
+            <div className="max-w-7xl mx-auto px-10 xl:px-12 py-5">
               <motion.div
                 key={activeMenuData.id}
                 initial={{ opacity: 0, y: 8 }}
@@ -600,16 +599,16 @@ const Header = () => {
                 <aside className="col-span-5 xl:col-span-4 pr-8 border-r border-slate-100">
                   <div className="grid grid-cols-1 gap-2.5">
                     <div className="rounded-lg border border-slate-100 bg-slate-50/80 p-4">
-                      <div className="text-[19px] font-black tracking-tight text-ink-muted">
+                      <div className="text-[19px] font-bold tracking-tight text-ink-muted">
                         진료시간
                       </div>
                       <div className="mt-3 space-y-2.5">
                         {CLINIC_HOURS.map((hour) => (
                           <div key={hour.label} className="grid grid-cols-[108px_1fr] items-center gap-4">
-                            <span className={`text-[16px] font-black tracking-tight ${hour.tone}`}>
+                            <span className={`text-[16px] font-bold tracking-tight ${hour.tone}`}>
                               {hour.label}
                             </span>
-                            <span className="justify-self-end whitespace-nowrap text-[17px] font-black text-ink-sub tracking-tight tabular-nums">
+                            <span className="justify-self-end whitespace-nowrap text-[17px] font-bold text-ink-sub tracking-tight tabular-nums">
                               {hour.time}
                             </span>
                           </div>
@@ -621,11 +620,11 @@ const Header = () => {
                       href={`tel:${REPRESENTATIVE_PHONE.replace(/-/g, '')}`}
                       className="group rounded-lg border border-slate-100 bg-white px-4 py-3.5 shadow-[0_18px_40px_-32px_rgba(15,29,54,0.35)] transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/20 hover:bg-primary/[0.03]"
                     >
-                      <div className="flex items-center gap-2 text-[14px] font-black text-ink-muted">
+                      <div className="flex items-center gap-2 text-[14px] font-bold text-ink-muted">
                         <Phone size={15} className="text-primary" />
                         전화 문의
                       </div>
-                      <p className="mt-2 whitespace-nowrap text-[25px] font-black leading-tight tracking-tight text-ink group-hover:text-primary">
+                      <p className="mt-2 whitespace-nowrap text-h4 leading-tight tracking-tight text-ink group-hover:text-primary">
                         {REPRESENTATIVE_PHONE}
                       </p>
                     </a>
@@ -636,11 +635,11 @@ const Header = () => {
                       rel="noopener noreferrer"
                       className="group rounded-lg border border-[#03C75A]/15 bg-[#03C75A] px-4 py-3.5 text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#02b451] hover:shadow-[0_18px_38px_-22px_rgba(3,199,90,0.9)]"
                     >
-                      <div className="flex items-center gap-2 text-[15px] font-black text-white/85">
+                      <div className="flex items-center gap-2 text-[15px] font-bold text-white/85">
                         <CalendarCheck size={18} />
                         네이버 예약
                       </div>
-                      <p className="mt-2 flex items-center gap-1 whitespace-nowrap text-[23px] font-black tracking-tight">
+                      <p className="mt-2 flex items-center gap-1 whitespace-nowrap text-h4 tracking-tight">
                         바로가기
                         <ChevronRight size={21} className="transition-transform duration-200 group-hover:translate-x-1" />
                       </p>
@@ -660,7 +659,7 @@ const Header = () => {
                     className="pointer-events-none absolute -bottom-40 -right-72 h-[400px] w-auto select-none object-contain opacity-[0.03] brightness-0"
                   />
                   <div className="mb-4 flex items-end justify-between">
-                    <h3 className="text-[30px] font-black leading-none tracking-tight text-ink">
+                    <h3 className="text-h3 leading-none tracking-tight text-ink">
                       {activeMenuData.name}
                     </h3>
                     <span className="hidden h-px flex-1 bg-slate-100 sm:ml-6 sm:block" />
@@ -707,7 +706,7 @@ const Header = () => {
           className="fixed inset-y-0 right-0 z-[2100] flex max-h-[100dvh] w-[88%] max-w-sm flex-col bg-white shadow-2xl"
         >
           <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4 sm:p-8">
-            <span className="text-xl font-black text-ink">전체메뉴</span>
+            <span className="text-xl font-bold text-ink">전체메뉴</span>
             <button 
               onClick={() => setIsMobileMenuOpen(false)}
               aria-label="전체메뉴 닫기"

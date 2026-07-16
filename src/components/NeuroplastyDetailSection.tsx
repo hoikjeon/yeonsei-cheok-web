@@ -156,19 +156,19 @@ const MediaStepCard = ({
         />
         <span
           aria-hidden
-          className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/45 font-montserrat text-[13px] font-black text-white backdrop-blur-sm"
+          className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/45 font-montserrat text-[13px] font-bold text-white backdrop-blur-sm"
         >
           {item.step}
         </span>
       </div>
       <div className="p-4 sm:p-5 md:p-6">
         <h4
-          className={`break-keep text-[1.05rem] font-black leading-snug sm:text-xl ${dark ? "text-white" : "text-ink"}`}
+          className={`break-keep text-[1.05rem] font-bold leading-snug sm:text-xl ${dark ? "text-white" : "text-ink"}`}
         >
           {item.title}
         </h4>
         <p
-          className={`mt-2 break-keep text-[13px] font-medium leading-[1.7] sm:text-[15px] ${dark ? "text-white/70" : "text-ink-sub"}`}
+          className={`mt-2 break-keep text-[14px] font-medium leading-[1.7] sm:text-[15px] ${dark ? "text-white/80" : "text-ink-sub"}`}
         >
           {item.desc}
         </p>
@@ -188,12 +188,12 @@ export default function NeuroplastyDetailSection() {
           <div className="relative md:min-h-[560px] xl:min-h-[620px]">
             <div className="relative z-10 pb-7 md:absolute md:inset-y-0 md:left-0 md:flex md:w-[56%] md:items-center md:px-10 md:pb-0 lg:px-14 xl:px-16">
               <div className="max-w-[650px]">
-                <h2 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[2.7rem] md:leading-[1.18] md:text-white lg:text-[3.25rem]">
+                <h2 className="break-keep text-h2 tracking-tight text-ink sm:text-4xl md:text-[2.7rem] md:leading-[1.18] md:text-white lg:text-[3.25rem]">
                   통증을 일으키는 신경 가까이,
                   <br className="hidden md:block" /> 가느다란 카테터로
                   정밀하게 접근합니다
                 </h2>
-                <p className="mt-5 max-w-[570px] break-keep text-base font-medium leading-[1.8] text-ink-sub md:mt-7 md:text-[17px] md:text-white/75 lg:text-lg">
+                <p className="mt-5 max-w-[570px] break-keep text-body-lg text-ink-sub md:mt-7 md:text-white/85">
                   두 치료는 큰 절개 없이 통증의 원인이 되는 신경 주변에
                   접근하는 대표적인 비수술 치료입니다. 이름은 비슷하지만
                   치료의 초점을 알면 쉽게 이해할 수 있습니다.
@@ -221,10 +221,10 @@ export default function NeuroplastyDetailSection() {
                 className="absolute -right-20 -top-24 h-60 w-60 rounded-full bg-primary/25 opacity-100 blur-3xl transition-opacity duration-500 group-has-[article:nth-of-type(2):hover]/cards:opacity-0"
               />
               <div className="relative">
-                <h3 className="break-keep text-[1.45rem] font-black leading-tight text-white transition-colors duration-500 group-has-[article:nth-of-type(2):hover]/cards:text-ink sm:text-2xl md:text-[2rem]">
+                <h3 className="break-keep text-[1.45rem] font-bold leading-tight text-white transition-colors duration-500 group-has-[article:nth-of-type(2):hover]/cards:text-ink sm:text-2xl md:text-[2rem]">
                   신경성형술이란?
                 </h3>
-                <p className="mt-4 break-keep text-[15px] font-medium leading-[1.8] text-white/72 transition-colors duration-500 group-has-[article:nth-of-type(2):hover]/cards:text-ink-sub md:text-[17px]">
+                <p className="mt-4 break-keep text-[15px] font-medium leading-[1.8] text-white/80 transition-colors duration-500 group-has-[article:nth-of-type(2):hover]/cards:text-ink-sub md:text-[17px]">
                   X-ray 영상 장비로 위치를 확인하면서 피부의 작은 통로로 가느다란
                   특수 카테터를 넣고, 통증을 일으키는 신경 가까이에 약물을 전달해
                   염증과 부종 완화를 돕는 비수술 시술입니다.
@@ -238,10 +238,10 @@ export default function NeuroplastyDetailSection() {
                 className="absolute -right-20 -top-24 h-60 w-60 rounded-full bg-primary/25 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
               />
               <div className="relative">
-                <h3 className="break-keep text-[1.45rem] font-black leading-tight text-ink transition-colors duration-500 group-hover:text-white sm:text-2xl md:text-[2rem]">
+                <h3 className="break-keep text-[1.45rem] font-bold leading-tight text-ink transition-colors duration-500 group-hover:text-white sm:text-2xl md:text-[2rem]">
                   경막외유착박리술이란?
                 </h3>
-                <p className="mt-4 break-keep text-[15px] font-medium leading-[1.8] text-ink-sub transition-colors duration-500 group-hover:text-white/72 md:text-[17px]">
+                <p className="mt-4 break-keep text-body text-ink-sub transition-colors duration-500 group-hover:text-white/80 md:text-[17px]">
                   디스크·척추관협착증·수술 후 흉터 등으로 신경 주변에 달라붙은
                   유착 부위까지 카테터를 접근시켜 유착을 완화하고, 약물이 병변에
                   잘 퍼지도록 돕는 시술입니다.
@@ -262,7 +262,7 @@ export default function NeuroplastyDetailSection() {
             className="absolute -right-24 -top-36 h-96 w-96 rounded-full bg-primary/25 blur-[100px]"
           />
           <div className="relative">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight">
               신경성형술 / 경막외유착박리술의 장점
             </h3>
 
@@ -279,7 +279,7 @@ export default function NeuroplastyDetailSection() {
                       aria-hidden
                       className="absolute inset-0 rounded-full bg-[radial-gradient(80%_80%_at_50%_15%,rgba(40,74,165,0.35),transparent_70%)] opacity-80 transition-opacity duration-500 group-hover:opacity-100"
                     />
-                    <h4 className="relative break-keep text-[15px] font-black leading-snug text-white sm:text-base xl:text-lg">
+                    <h4 className="relative break-keep text-[15px] font-bold leading-snug text-white sm:text-base xl:text-lg">
                       {title}
                     </h4>
                   </div>
@@ -293,7 +293,7 @@ export default function NeuroplastyDetailSection() {
       <ScrollReveal variant="soft-rise" amount={0.08}>
         <section id="neuroplasty-candidates">
           <div className="max-w-4xl">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               이런 증상이 지속된다면
               <br className="hidden md:block" /> 적용 가능 여부를 확인합니다
             </h3>
@@ -328,7 +328,7 @@ export default function NeuroplastyDetailSection() {
           className="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-premium sm:rounded-[2rem] sm:p-7 md:p-10"
         >
           <div className="max-w-4xl px-1 pb-6 sm:pb-8">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               치료 원리를 한눈에 확인하세요
             </h3>
           </div>
@@ -347,10 +347,10 @@ export default function NeuroplastyDetailSection() {
           <ol className="mt-4 grid grid-cols-2 gap-2 sm:mt-5 sm:gap-3 md:grid-cols-4">
             {overviewSteps.map((item) => (
               <li key={item.step} className="rounded-xl bg-slate-50 p-3 sm:p-4">
-                <h4 className="break-keep text-[15px] font-black leading-snug text-ink sm:text-base">
+                <h4 className="break-keep text-[15px] font-bold leading-snug text-ink sm:text-base">
                   {item.title}
                 </h4>
-                <p className="mt-1.5 break-keep text-[12px] font-medium leading-[1.6] text-ink-sub sm:text-[13px]">
+                <p className="mt-1.5 break-keep text-[12px] font-medium leading-[1.6] text-ink-sub sm:text-[14px]">
                   {item.desc}
                 </p>
               </li>
@@ -362,10 +362,10 @@ export default function NeuroplastyDetailSection() {
       <section id="neuroplasty-clinical-process">
         <ScrollReveal variant="soft-rise" amount={0.08}>
           <div className="max-w-4xl">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               실제 시술은 이렇게 진행됩니다
             </h3>
-            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-ink-sub md:text-lg">
+            <p className="mt-5 max-w-3xl break-keep text-body-lg text-ink-sub">
               첨부된 실제 시술 자료에서 단계 표기를 분리하고 장면을 선명하게
               보정했습니다.
             </p>
@@ -384,11 +384,11 @@ export default function NeuroplastyDetailSection() {
           className="rounded-[1.5rem] bg-navy-950 px-4 py-10 text-white sm:rounded-[2rem] sm:px-7 sm:py-14 md:px-10 md:py-20"
         >
           <div className="max-w-4xl px-1">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight">
               신경성형술 / 경막외유착박리술
               <br className="hidden md:block" /> 시술 과정 · X-ray
             </h3>
-            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-white/70 md:text-lg">
+            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-white/80 md:text-lg">
               X-ray 영상을 실시간으로 확인하며 카테터를 병변 부위까지 정밀하게
               이동시킵니다.
             </p>
@@ -404,10 +404,10 @@ export default function NeuroplastyDetailSection() {
       <section id="neuroplasty-cervical-xray">
         <ScrollReveal variant="soft-rise" amount={0.08}>
           <div className="max-w-4xl">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               경추 신경성형술 시술 과정 · X-ray
             </h3>
-            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-ink-sub md:text-lg">
+            <p className="mt-5 max-w-3xl break-keep text-body-lg text-ink-sub">
               목 부위 역시 영상 장비로 목표 위치를 확인하며 안전 범위 안에서
               치료를 진행합니다.
             </p>
@@ -422,7 +422,7 @@ export default function NeuroplastyDetailSection() {
 
       <ScrollReveal variant="soft-rise" amount={0.1}>
         <aside className="rounded-xl border border-amber-200/80 bg-amber-50 px-5 py-5 sm:px-6">
-          <p className="break-keep text-[13px] font-semibold leading-[1.75] text-amber-950/75 sm:text-[14px]">
+          <p className="break-keep text-body font-semibold text-amber-950/90">
             시술 효과와 회복 기간은 환자의 상태에 따라 달라질 수 있습니다.
             드물게 출혈, 감염, 일시적 통증 악화, 신경 손상 등의 합병증이 발생할
             수 있으므로 검사 결과와 전신 상태를 바탕으로 전문의와 충분히

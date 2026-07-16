@@ -53,7 +53,7 @@ const SpineCenterStrengthSection = () => {
       <div className="relative mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-8 sm:gap-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-stretch">
           <ScrollReveal className="space-y-5 sm:space-y-6">
-            <h2 className="break-keep text-[1.9rem] font-extrabold leading-[1.25] tracking-normal text-white sm:text-4xl md:text-5xl md:leading-[1.14]">
+            <h2 className="break-keep text-h2 tracking-normal text-white">
               환자의 척추 건강을
               <br />
               평생 책임지는 척추센터
@@ -87,7 +87,7 @@ const SpineCenterStrengthSection = () => {
             <ScrollReveal key={item.no} delay={index * 0.04}>
               <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-cyan-300/40 hover:bg-white/[0.1] hover:shadow-[0_24px_60px_rgba(2,12,32,0.45)] sm:p-6">
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                <h3 className="text-lg font-black leading-snug text-white transition-colors duration-300 group-hover:text-cyan-400">
+                <h3 className="text-lg font-bold leading-snug text-white transition-colors duration-300 group-hover:text-cyan-400">
                   {item.title}
                 </h3>
                 <p className="mt-3 break-keep text-sm font-medium leading-[1.7] text-white/75 sm:leading-relaxed sm:text-white/70">{item.desc}</p>

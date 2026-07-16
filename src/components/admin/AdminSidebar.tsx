@@ -19,7 +19,7 @@ export default function AdminSidebar() {
   return (
     <aside className="w-64 bg-[#172b4d] text-white hidden md:flex flex-col shadow-xl flex-shrink-0">
       <div className="p-8 pb-4">
-        <h2 className="text-xl font-black tracking-tight">연세척 관리자</h2>
+        <h2 className="text-xl font-bold tracking-tight">연세척 관리자</h2>
         <p className="text-blue-300 text-[10px] mt-1 font-bold font-montserrat uppercase tracking-wider opacity-70">Hospital Admin System</p>
       </div>
 

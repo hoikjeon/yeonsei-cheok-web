@@ -33,7 +33,7 @@ export default function YonseiSpecialFeaturesSection() {
     <section id="yonsei-specials" className="overflow-hidden bg-white px-5 py-16 sm:px-6 md:py-28 md:pb-44">
       <div className="mx-auto max-w-[1180px]">
         <ScrollReveal className="mx-auto max-w-4xl text-center">
-          <h2 className="break-keep text-[1.9rem] font-extrabold leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-5xl md:leading-[1.14]">
+          <h2 className="break-keep text-h2 tracking-tight text-ink">
             근본적인 회복을 만드는
             <br />
             연세척의 4가지 특별함
@@ -68,7 +68,7 @@ export default function YonseiSpecialFeaturesSection() {
                 />
 
                 <div className="relative z-10 mt-auto w-full p-4 sm:p-7 md:p-10">
-                  <h3 className="break-keep text-[1.05rem] font-black leading-snug text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.25)] sm:text-xl md:text-3xl">
+                  <h3 className="break-keep text-[1.05rem] font-bold leading-snug text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.25)] sm:text-xl md:text-3xl">
                     {item.title}
                   </h3>
                   <p className="mt-2 max-w-[27rem] break-keep text-[13px] font-semibold leading-[1.55] text-white/90 sm:mt-3 sm:text-[15px] sm:leading-[1.65] md:mt-4 md:text-[17px] md:leading-relaxed md:text-white/86">

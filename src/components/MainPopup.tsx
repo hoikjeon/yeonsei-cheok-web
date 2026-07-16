@@ -141,7 +141,7 @@ const MainPopup = () => {
                       exit={{ y: -10, opacity: 0 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <h3 className="mb-2 whitespace-pre-line break-keep text-[21px] font-black leading-[1.3] tracking-tight text-white sm:mb-3 sm:text-[26px] md:text-[28px]">
+                      <h3 className="mb-2 whitespace-pre-line break-keep text-h3 tracking-tight text-white sm:mb-3">
                         {currentPopup.title.replace(/\\n/g, '\n')}
                       </h3>
                       <p className="line-clamp-2 text-[13px] font-medium leading-relaxed text-slate-200 sm:text-sm sm:text-slate-300">
@@ -176,7 +176,7 @@ const MainPopup = () => {
                </button>
                <button 
                  onClick={closePopup}
-                 className="flex-1 bg-white py-3.5 text-[14px] font-black tracking-tight text-ink transition-colors hover:bg-slate-50 sm:py-5 sm:text-[15px]"
+                 className="flex-1 bg-white py-3.5 text-[14px] font-bold tracking-tight text-ink transition-colors hover:bg-slate-50 sm:py-5 sm:text-[15px]"
                >
                  닫기
                </button>

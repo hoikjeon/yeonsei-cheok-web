@@ -244,7 +244,7 @@ const NonSurgicalTreatmentTabs = () => {
         })}
       </div>
 
-      <p className="mt-1 text-center text-[11px] font-semibold text-ink-sub/70 md:hidden">
+      <p className="mt-1 text-center text-[12px] font-semibold text-ink-sub md:hidden">
         좌우로 밀어 치료를 선택하세요.
       </p>
 
@@ -357,7 +357,7 @@ const NonSurgicalTreatmentTabs = () => {
                     />
                     <span
                       aria-hidden
-                      className="pointer-events-none absolute -bottom-8 -right-2 select-none font-montserrat text-[8.5rem] font-black leading-none text-white/[0.05] md:text-[11rem]"
+                      className="pointer-events-none absolute -bottom-8 -right-2 select-none font-montserrat text-[8.5rem] font-bold leading-none text-white/[0.05] md:text-[11rem]"
                     >
                       {String(activeIndex + 1).padStart(2, "0")}
                     </span>
@@ -365,15 +365,15 @@ const NonSurgicalTreatmentTabs = () => {
                 )}
 
                 <div className="relative flex h-full flex-col justify-between p-7 md:p-9">
-                  <span className="break-all font-montserrat text-[11px] font-black uppercase tracking-[0.24em] text-white/55 md:text-xs">
+                  <span className="break-all font-montserrat text-[11px] font-bold uppercase tracking-[0.24em] text-white/55 md:text-xs">
                     {active.engName}
                   </span>
                   <div className="space-y-3 pt-14">
-                    <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 font-montserrat text-[11px] font-black tracking-widest text-white/80 backdrop-blur-sm">
+                    <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 font-montserrat text-[11px] font-bold tracking-widest text-white/80 backdrop-blur-sm">
                       {String(activeIndex + 1).padStart(2, "0")} /{" "}
                       {String(treatments.length).padStart(2, "0")}
                     </span>
-                    <h3 className="break-keep text-2xl font-black leading-snug text-white md:text-[1.75rem]">
+                    <h3 className="break-keep text-2xl font-bold leading-snug text-white md:text-[1.75rem]">
                       {active.name}
                     </h3>
                   </div>
@@ -383,7 +383,7 @@ const NonSurgicalTreatmentTabs = () => {
               <div className="p-7 sm:p-9 md:p-11">
                 <motion.p
                   variants={itemVariants}
-                  className="break-keep text-base font-medium leading-[1.8] text-ink-sub md:text-lg md:leading-relaxed"
+                  className="break-keep text-body-lg text-ink-sub md:leading-relaxed"
                 >
                   {active.summary}
                 </motion.p>
@@ -397,10 +397,10 @@ const NonSurgicalTreatmentTabs = () => {
                       key={fact.label}
                       className="rounded-xl border border-slate-100 bg-slate-50 px-3 py-2.5 sm:px-4 sm:py-3"
                     >
-                      <div className="text-[11px] font-black text-primary sm:text-xs">
+                      <div className="text-[11px] font-bold text-primary sm:text-xs">
                         {fact.label}
                       </div>
-                      <div className="mt-1 break-keep text-[13px] font-black leading-snug text-ink sm:text-[15px]">
+                      <div className="mt-1 break-keep text-[13px] font-bold leading-snug text-ink sm:text-[15px]">
                         {fact.value}
                       </div>
                     </div>
@@ -414,7 +414,7 @@ const NonSurgicalTreatmentTabs = () => {
                       variants={itemVariants}
                       className="flex items-center gap-4 border-t border-slate-100 py-4 first:border-t-0 md:gap-5 md:py-[1.15rem]"
                     >
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 font-montserrat text-[13px] font-black text-primary">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 font-montserrat text-[13px] font-bold text-primary">
                         {String(index + 1).padStart(2, "0")}
                       </span>
                       <p className="break-keep text-[15px] font-semibold leading-relaxed text-ink md:text-base">

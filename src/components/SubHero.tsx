@@ -56,10 +56,10 @@ const SubHero = ({ title, subtitle, path }: SubHeroProps) => {
             </nav>
 
             <div className="space-y-3">
-              <h1 className="break-keep text-[1.75rem] font-black leading-[1.18] tracking-tight text-navy-900 sm:text-4xl md:text-[3.25rem]">
+              <h1 className="break-keep text-display tracking-tight text-navy-900">
                 {title}
               </h1>
-              <p className="max-w-xl whitespace-pre-line break-keep text-[14px] font-medium leading-[1.65] text-slate-600 sm:text-base md:text-[17px] md:text-slate-500">
+              <p className="max-w-xl whitespace-pre-line break-keep text-body-lg leading-[1.65] text-slate-600">
                 {subtitle}
               </p>
             </div>

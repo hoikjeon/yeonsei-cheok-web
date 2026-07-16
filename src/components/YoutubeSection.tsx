@@ -159,7 +159,7 @@ export default function YoutubeSection() {
     <section className="relative overflow-hidden bg-white py-16 md:py-32">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
 
-      <div className="relative z-10 mx-auto max-w-[1540px] px-5 sm:px-7 xl:px-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-7 xl:px-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
@@ -169,10 +169,10 @@ export default function YoutubeSection() {
           className="flex items-start justify-between gap-4 md:gap-6"
         >
           <div className="min-w-0 space-y-3 md:space-y-4">
-            <h2 className="break-keep text-[28px] font-black leading-[1.2] tracking-tight text-ink sm:text-[32px] md:text-[48px] md:leading-[1.1]">
+            <h2 className="break-keep text-h2 tracking-tight text-ink">
               척추·관절 <span className="text-primary">연세척TV</span>
             </h2>
-            <p className="break-keep text-[15px] font-medium leading-[1.7] text-[#1f2937] md:text-[18px] md:font-bold md:leading-[1.85]">
+            <p className="break-keep text-body-lg text-ink-sub">
               척추·관절 정확히 알고 회복할 수 있도록, 신경외과·정형외과 전문의에게 듣는 의학 정보
             </p>
           </div>
@@ -218,14 +218,14 @@ export default function YoutubeSection() {
               {active.tags.length > 0 && (
                 <div className="flex flex-wrap gap-x-3 gap-y-1">
                   {active.tags.map((tag) => (
-                    <span key={tag} className="text-[13px] font-bold text-ink-muted md:text-[14px]">
+                    <span key={tag} className="text-caption font-semibold text-ink-muted">
                       #{tag}
                     </span>
                   ))}
                 </div>
               )}
               <Link href={active.href} className="group block">
-                <h3 className="break-keep text-[18px] font-black leading-snug tracking-tight text-ink transition-colors duration-300 group-hover:text-primary md:text-[24px]">
+                <h3 className="break-keep text-h4 leading-snug tracking-tight text-ink transition-colors duration-300 group-hover:text-primary">
                   {active.title}
                 </h3>
               </Link>
@@ -275,7 +275,7 @@ export default function YoutubeSection() {
                         </div>
                       )}
                       <h4
-                        className={`line-clamp-2 text-[14px] font-bold leading-snug tracking-tight transition-colors duration-300 md:text-[15px] ${
+                        className={`line-clamp-2 text-body font-semibold leading-snug tracking-tight transition-colors duration-300 ${
                           isActive ? 'text-primary' : 'text-ink group-hover:text-primary'
                         }`}
                       >

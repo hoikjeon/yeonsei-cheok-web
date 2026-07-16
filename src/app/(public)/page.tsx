@@ -233,7 +233,7 @@ export default function Home() {
           <div className="absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-t from-navy-950 to-transparent" />
         </div>
         
-        <div className="relative z-20 mx-auto w-full max-w-[1540px] px-5 pt-4 sm:px-7 md:pt-12 xl:px-10">
+        <div className="relative z-20 mx-auto w-full max-w-7xl px-5 pt-4 sm:px-7 md:pt-12 xl:px-10">
           <motion.div
             key={activeSlide.id}
             initial={{ opacity: 0.7 }}
@@ -242,7 +242,7 @@ export default function Home() {
             className="max-w-[880px] space-y-5 md:space-y-7"
           >
             <div className="space-y-4 md:space-y-6">
-              <h1 className="break-keep text-[32px] font-bold leading-[1.18] tracking-normal text-white sm:text-[40px] md:text-5xl lg:text-6xl">
+              <h1 className="break-keep text-display tracking-normal text-white">
                 {activeSlide.titleLines.map((line, index) => (
                   <span
                     key={line}
@@ -252,7 +252,7 @@ export default function Home() {
                   </span>
                 ))}
               </h1>
-              <p className="max-w-xl break-keep text-[15px] font-normal leading-[1.75] text-slate-200/90 sm:text-base md:text-lg md:leading-relaxed">
+              <p className="max-w-xl break-keep text-body-lg text-slate-200/90">
                 {activeSlide.desc}
               </p>
             </div>
@@ -306,7 +306,7 @@ export default function Home() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#f4f9ff] to-transparent" />
 
-        <div className="relative z-10 mx-auto max-w-[1540px] px-5 sm:px-7 xl:px-10">
+        <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-7 xl:px-10">
           <h2 className="sr-only">연세척병원 빠른 메뉴</h2>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-6">
             {quickAccessItems.map((item, index) => (
@@ -330,7 +330,7 @@ export default function Home() {
                   <span className="flex h-12 w-12 items-center justify-center text-primary transition-all duration-300 group-hover:scale-105 group-hover:text-white [&>svg]:h-10 [&>svg]:w-10 md:h-20 md:w-20 md:[&>svg]:h-[58px] md:[&>svg]:w-[58px]">
                     {item.icon}
                   </span>
-                  <span className="break-keep text-[16px] font-black leading-tight tracking-tight text-ink transition-colors duration-300 group-hover:text-white md:text-[24px]">
+                  <span className="break-keep text-h4 leading-tight tracking-tight text-ink transition-colors duration-300 group-hover:text-white">
                     {item.title}
                   </span>
                   <ArrowUpRight
@@ -349,14 +349,14 @@ export default function Home() {
 
       {/* Daily Care Promise Section */}
       <section className="relative overflow-hidden bg-white py-16 md:py-32">
-        <div className="relative z-10 mx-auto max-w-[1540px] px-5 sm:px-7 xl:px-10">
+        <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-7 xl:px-10">
           <div className="mx-auto max-w-4xl text-center">
-            <h2 className="break-keep text-[28px] font-extrabold leading-[1.3] tracking-tight text-[#123f86] sm:text-[32px] md:text-5xl md:leading-[1.14]">
+            <h2 className="break-keep text-h2 tracking-tight text-[#123f86]">
               모두의 일상이 흔들림 없이 바로 설 수 있도록
               <br className="hidden md:block" />{' '}
               깊이 있는 진료로 함께합니다.
             </h2>
-            <p className="mx-auto mt-6 max-w-3xl break-keep text-[15px] font-medium leading-[1.75] text-[#1f2937] md:mt-10 md:text-[18px] md:font-bold md:leading-[1.85]">
+            <p className="mx-auto mt-6 max-w-3xl break-keep text-body-lg text-ink-sub md:mt-10">
               환자 한 분 한 분의 건강한 내일을 위해 세심하고 정확한 진료를 약속합니다.
               <br className="hidden md:block" />
               연세척병원만의 차별화된 전문성과 따뜻한 마음을 만나보세요.
@@ -364,7 +364,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative z-10 mx-auto mt-14 max-w-[1540px] px-5 sm:px-7 md:mt-28 xl:px-10">
+        <div className="relative z-10 mx-auto mt-14 max-w-7xl px-5 sm:px-7 md:mt-28 xl:px-10">
           <div className="relative min-h-0 lg:min-h-[500px]">
             <div className="relative z-10 grid grid-cols-1 gap-7 lg:grid-cols-[minmax(0,1.32fr)_minmax(0,1fr)] lg:items-center lg:gap-[72px] xl:gap-[96px]">
               <div className="relative aspect-[4/3] min-h-0 overflow-hidden rounded-[24px] md:aspect-[1.34/1] md:min-h-[420px] md:rounded-none lg:h-[462px]">
@@ -400,7 +400,7 @@ export default function Home() {
                   >
                     <ChevronRight size={20} className="rotate-180" />
                   </button>
-                  <div className="flex items-center gap-4 font-montserrat text-[16px] font-black tracking-widest">
+                  <div className="flex items-center gap-4 font-montserrat text-[16px] font-bold tracking-widest">
                     <span className="text-ink">{String(activeCareIndex + 1).padStart(2, '0')}</span>
                     <span className="h-1 w-1 rounded-full bg-slate-400/50" />
                     <span className="text-slate-400">{String(dailyCareSlides.length).padStart(2, '0')}</span>
@@ -426,17 +426,17 @@ export default function Home() {
                       className="space-y-5 md:space-y-7"
                     >
                       <motion.div variants={careTextItem} className="flex flex-wrap items-center gap-3 md:gap-5">
-                        <span className="rounded-full bg-[#102f66] px-4 py-2 text-[13px] font-black tracking-tight text-white md:px-5 md:text-[14px]">
+                        <span className="rounded-full bg-[#102f66] px-4 py-2 text-caption font-bold tracking-tight text-white md:px-5">
                           {activeCareSlide.point}
                         </span>
-                        <h3 className="break-keep text-[22px] font-black leading-tight tracking-tight text-ink md:text-[32px]">
+                        <h3 className="break-keep text-h3 tracking-tight text-ink">
                           {activeCareSlide.title}
                         </h3>
                       </motion.div>
 
                       <motion.p
                         variants={careTextItem}
-                        className="max-w-xl break-keep text-[15px] font-medium leading-[1.75] text-ink-sub md:text-[16px] md:font-semibold md:leading-[1.85]"
+                        className="max-w-xl break-keep text-body text-ink-sub"
                       >
                         {activeCareSlide.desc}
                       </motion.p>
@@ -445,7 +445,7 @@ export default function Home() {
                         {activeCareSlide.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-[13px] font-bold text-ink-sub shadow-[0_10px_28px_-24px_rgba(15,29,54,0.35)]"
+                            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-caption font-semibold text-ink-sub shadow-[0_10px_28px_-24px_rgba(15,29,54,0.35)]"
                           >
                             {tag}
                           </span>
@@ -469,7 +469,7 @@ export default function Home() {
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white to-transparent" />
 
-        <div className="relative z-10 mx-auto grid max-w-[1540px] grid-cols-1 gap-8 px-5 sm:px-7 md:gap-12 xl:px-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
+        <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-8 px-5 sm:px-7 md:gap-12 xl:px-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
           <motion.div
             initial={{ opacity: 0, y: 54 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -478,7 +478,7 @@ export default function Home() {
             className="space-y-5"
           >
             <div className="space-y-3">
-              <h2 className="break-keep text-[30px] font-extrabold leading-[1.2] tracking-tight md:text-5xl md:leading-[1.14]">
+              <h2 className="break-keep text-h2 tracking-tight">
                 척추/관절 특화 병원
                 <span className="mt-2 block text-primary">연세척병원</span>
               </h2>
@@ -498,10 +498,10 @@ export default function Home() {
                 <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1.1fr)_minmax(220px,0.9fr)]">
                   <div className="flex min-h-0 flex-col justify-center p-5 sm:p-6 md:min-h-[230px] md:p-9">
                     <div className="space-y-4">
-                      <h3 className="break-keep text-[22px] font-extrabold tracking-tight text-ink transition-colors duration-500 group-hover:text-white md:text-[32px]">
+                      <h3 className="break-keep text-h3 tracking-tight text-ink transition-colors duration-500 group-hover:text-white">
                         {program.title}
                       </h3>
-                      <p className="max-w-md break-keep text-[15px] font-medium leading-[1.7] text-ink-sub transition-colors duration-500 group-hover:text-white/[0.82] md:leading-relaxed">
+                      <p className="max-w-md break-keep text-body text-ink-sub transition-colors duration-500 group-hover:text-white/[0.82]">
                         {program.desc}
                       </p>
                     </div>

@@ -88,7 +88,7 @@ export default function NeckDiscPage() {
               </nav>
 
               <div className="space-y-3">
-                <h1 className="break-keep text-[1.75rem] font-black leading-[1.18] tracking-tight text-navy-900 sm:text-4xl md:text-[3.25rem]">
+                <h1 className="break-keep text-[1.75rem] font-bold leading-[1.18] tracking-tight text-navy-900 sm:text-4xl md:text-[3.25rem]">
                   목디스크
                 </h1>
                 <p className="max-w-xl break-keep text-[14px] font-medium leading-[1.65] text-slate-600 sm:text-base md:text-[17px] md:text-slate-500">
@@ -102,7 +102,7 @@ export default function NeckDiscPage() {
 
       <section className="mx-auto flex w-full max-w-7xl flex-col items-start px-5 py-14 text-left sm:px-6 md:items-center md:py-28 md:text-center">
         <div className="mx-auto max-w-5xl">
-          <h1 className="break-keep text-[1.9rem] font-extrabold leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-5xl md:leading-[1.14]">
+          <h1 className="break-keep text-h2 tracking-tight text-ink">
             목이 뻐근하고 움직임이 둔하다면
             <br className="hidden md:block" />
             목디스크가 진행 중일 수 있습니다.
@@ -146,7 +146,7 @@ export default function NeckDiscPage() {
         <div className="mx-auto w-full max-w-7xl">
           <ScrollReveal variant="slide-right" amount={0.22}>
             <div className="max-w-4xl">
-              <h2 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+              <h2 className="break-keep text-h2 tracking-tight text-ink">
                 혹시 내 이야기 같으신가요?
                 <br className="hidden md:block" />
                 목 통증 주요 증상과 원인
@@ -156,7 +156,7 @@ export default function NeckDiscPage() {
 
           <div className="mt-12 md:mt-24">
             <ScrollReveal variant="slide-right" amount={0.3}>
-              <h3 className="text-[1.5rem] font-black tracking-tight text-ink sm:text-3xl md:text-[2.35rem]">
+              <h3 className="text-h3 tracking-tight text-ink">
                 주요 증상
               </h3>
             </ScrollReveal>
@@ -181,7 +181,7 @@ export default function NeckDiscPage() {
                       <div className="absolute inset-0 bg-gradient-to-tr from-navy-900/10 via-transparent to-primary/5 opacity-60 transition-opacity duration-500 group-hover:opacity-30" />
                     </div>
                     <div className="flex min-h-[62px] items-center justify-center bg-slate-50 px-2 text-center sm:min-h-[76px] sm:px-4">
-                      <h4 className="break-keep text-[1rem] font-black leading-snug tracking-tight text-ink sm:text-[1.2rem] md:text-[1.5rem]">
+                      <h4 className="break-keep text-h4 leading-snug tracking-tight text-ink">
                         {card.title}
                       </h4>
                     </div>
@@ -193,7 +193,7 @@ export default function NeckDiscPage() {
 
           <div className="mt-16 grid gap-7 md:mt-28 md:gap-10 lg:grid-cols-[0.8fr_1.65fr] lg:items-start">
             <ScrollReveal variant="slide-right" amount={0.28}>
-              <h3 className="text-[1.5rem] font-black tracking-tight text-ink sm:text-3xl md:text-[2.35rem]">
+              <h3 className="text-h3 tracking-tight text-ink">
                 주요 원인
               </h3>
             </ScrollReveal>

@@ -18,7 +18,7 @@ const isExternalHref = (href: string) =>
 
 function NoticeLink({ notice }: { notice: HomeNoticeItem }) {
   const className =
-    'line-clamp-2 block min-w-0 break-keep text-[14px] font-bold leading-[1.55] tracking-tight text-white md:truncate md:text-[18px] md:font-black md:leading-normal';
+    'line-clamp-2 block min-w-0 break-keep text-body font-medium tracking-tight text-white md:truncate md:leading-normal';
 
   if (isExternalHref(notice.href)) {
     return (
@@ -92,7 +92,7 @@ export default function HomeNoticeBar() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-0 px-5 py-4 text-white sm:px-6 md:h-24 md:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] md:items-center md:gap-8 md:py-0">
         <div className="grid min-w-0 grid-cols-[72px_minmax(0,1fr)] items-start gap-3 md:grid-cols-[108px_minmax(0,1fr)_42px] md:items-center md:gap-5">
           <div className="flex items-center">
-            <span className="pt-0.5 text-[15px] font-black tracking-tight md:pt-0 md:text-[20px]">공지사항</span>
+            <span className="pt-0.5 text-body-lg font-bold tracking-tight md:pt-0">공지사항</span>
           </div>
 
           <div className="relative min-w-0 overflow-hidden" aria-live="polite">
@@ -135,13 +135,13 @@ export default function HomeNoticeBar() {
 
         <div className="mt-3 grid min-w-0 grid-cols-[72px_minmax(0,1fr)] gap-3 border-t border-white/20 pt-3 md:mt-0 md:grid-cols-[108px_minmax(0,1fr)] md:items-center md:gap-5 md:border-t-0 md:pt-0">
           <div className="flex items-center">
-            <span className="pt-0.5 text-[15px] font-black tracking-tight md:pt-0 md:text-[20px]">휴진일</span>
+            <span className="pt-0.5 text-body-lg font-bold tracking-tight md:pt-0">휴진일</span>
           </div>
           <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1 md:items-center md:gap-x-5">
-            <span className="text-[17px] font-black tracking-tight text-white md:text-[22px]">
+            <span className="text-h4 font-bold tracking-tight text-white">
               {settings.closed_month}
             </span>
-            <span className="min-w-0 break-keep text-[14px] font-bold leading-[1.5] text-white/90 md:text-[18px] md:leading-normal">
+            <span className="min-w-0 break-keep text-body font-medium text-white/90 md:leading-normal">
               {settings.closed_message}
             </span>
           </div>

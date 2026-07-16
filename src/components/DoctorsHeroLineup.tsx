@@ -174,17 +174,17 @@ export default function DoctorsHeroLineup() {
 
   return (
     <section id="doctors-lineup" className="bg-white px-4 py-8 sm:py-10 md:px-6 md:py-[4.5rem]">
-      <div className="mx-auto max-w-[1500px]">
+      <div className="mx-auto max-w-7xl">
         <div className="relative isolate h-[340px] w-full overflow-hidden bg-white sm:h-auto sm:aspect-[16/10] sm:min-h-[360px] md:aspect-[16/8.45] md:min-h-[560px] lg:min-h-[660px] xl:min-h-[700px]">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_26%,rgba(40,74,165,0.055),rgba(255,255,255,0)_42%),linear-gradient(90deg,#ffffff_0%,rgba(248,250,252,0.72)_38%,rgba(248,250,252,0.72)_62%,#ffffff_100%)]" />
 
           <div className="pointer-events-none absolute right-[3.5%] top-[8%] z-[60] hidden max-w-[34%] text-right md:block">
-            <p className="text-[21px] font-black leading-[1.4] tracking-tight text-ink lg:text-[27px]">
+            <p className="text-[2rem] font-bold leading-[1.25] tracking-tight text-ink lg:text-[2.5rem] xl:text-[3rem]">
               정직한 진단과
               <br />
               꼭 필요한 치료
             </p>
-            <p className="mt-2.5 text-[13px] font-semibold leading-relaxed text-ink-sub lg:text-[14.5px]">
+            <p className="mt-4 text-[15px] font-semibold leading-[1.7] text-ink-sub lg:text-[17px] xl:text-lg">
               대학병원 출신 전문의가
               <br />
               환자 곁에서 함께합니다

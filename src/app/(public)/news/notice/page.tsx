@@ -18,7 +18,7 @@ export default function NoticePage() {
             </div>
             
             <div className="space-y-4">
-              <h2 className="break-keep text-[24px] font-black tracking-tight text-ink md:text-3xl">공지사항 리뉴얼 준비 중</h2>
+              <h2 className="break-keep text-h3 tracking-tight text-ink">공지사항 리뉴얼 준비 중</h2>
               <p className="break-keep text-[15px] font-medium leading-[1.75] text-ink-muted sm:text-[17px] sm:leading-relaxed">
                 보다 편리하게 병원 소식을 확인하실 수 있도록 <br className="hidden md:block" />
                 새로운 공지사항 게시판을 준비하고 있습니다.

@@ -159,10 +159,10 @@ const centerImages = [
 ];
 
 const sectionTitleClass =
-  'break-keep text-[1.9rem] font-extrabold leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-5xl md:leading-[1.14]';
+  'break-keep text-h2 tracking-tight text-ink';
 
 const blueSectionTitleClass =
-  'break-keep text-[1.9rem] font-extrabold leading-[1.25] tracking-tight text-white sm:text-4xl md:text-5xl md:leading-[1.14]';
+  'break-keep text-h2 tracking-tight text-white';
 
 export default function UbePage() {
   return (
@@ -192,8 +192,8 @@ export default function UbePage() {
                 <div className="grid grid-cols-2 gap-2.5 sm:gap-3 md:grid-cols-4">
                   {decompressionFacts.map((item) => (
                     <div key={item.label} className="rounded-lg border border-slate-200 bg-white px-3 py-3 sm:px-5 sm:py-4">
-                      <div className="text-[12px] font-black text-primary sm:text-sm">{item.label}</div>
-                      <div className="mt-1.5 break-keep text-[1rem] font-black leading-snug text-ink sm:mt-2 sm:text-lg md:text-xl">
+                      <div className="text-[12px] font-bold text-primary sm:text-sm">{item.label}</div>
+                      <div className="mt-1.5 break-keep text-[1rem] font-bold leading-snug text-ink sm:mt-2 sm:text-lg md:text-xl">
                         {item.value}
                       </div>
                     </div>
@@ -371,10 +371,10 @@ export default function UbePage() {
                     className="absolute inset-0 origin-left scale-x-0 bg-gradient-to-r from-navy-900 via-primary-dark to-primary transition-transform duration-500 ease-out group-hover:scale-x-100"
                   />
 
-                  <span className="relative z-10 font-montserrat text-xl font-black text-primary transition-colors duration-500 ease-out group-hover:text-white sm:text-2xl">
+                  <span className="relative z-10 font-montserrat text-xl font-bold text-primary transition-colors duration-500 ease-out group-hover:text-white sm:text-2xl">
                     {String(index + 1).padStart(2, '0')}
                   </span>
-                  <p className="relative z-10 break-keep text-[1rem] font-black leading-[1.65] text-ink transition-colors duration-500 ease-out group-hover:text-white sm:text-lg sm:leading-relaxed">
+                  <p className="relative z-10 break-keep text-[1rem] font-bold leading-[1.65] text-ink transition-colors duration-500 ease-out group-hover:text-white sm:text-lg sm:leading-relaxed">
                     {item}
                   </p>
                 </div>
@@ -411,9 +411,9 @@ export default function UbePage() {
                       />
                     </div>
                     <div className="px-5 pb-6 pt-5 sm:px-7 sm:pb-8 sm:pt-7">
-                      <div className="font-montserrat text-xl font-black text-primary sm:text-2xl">{step.no}</div>
-                      <h3 className="mt-3 text-xl font-black leading-snug text-ink sm:mt-5 sm:text-2xl">{step.title}</h3>
-                      <p className="mt-3 break-keep text-[15px] font-medium leading-[1.75] text-ink-sub sm:mt-4 sm:text-[17px] sm:leading-relaxed">{step.desc}</p>
+                      <div className="font-montserrat text-xl font-bold text-primary sm:text-2xl">{step.no}</div>
+                      <h3 className="mt-3 text-xl font-bold leading-snug text-ink sm:mt-5 sm:text-2xl">{step.title}</h3>
+                      <p className="mt-3 break-keep text-body text-ink-sub sm:mt-4 sm:text-[17px] sm:leading-relaxed">{step.desc}</p>
                     </div>
                   </article>
                 </ScrollReveal>
@@ -449,7 +449,7 @@ export default function UbePage() {
                   >
                     <div className="flex flex-wrap items-start justify-between gap-2 sm:gap-3">
                       <h3
-                        className={`text-xl font-black leading-snug md:text-2xl ${
+                        className={`text-xl font-bold leading-snug md:text-2xl ${
                           index === 1 ? 'text-primary' : 'text-ink'
                         }`}
                       >
@@ -473,7 +473,7 @@ export default function UbePage() {
                         >
                           <div>
                             <span
-                              className={`inline-flex h-7 items-center whitespace-nowrap rounded-full px-3 text-sm font-black ${
+                              className={`inline-flex h-7 items-center whitespace-nowrap rounded-full px-3 text-sm font-bold ${
                                 index === 1 ? 'bg-primary text-white' : 'bg-primary/10 text-primary'
                               }`}
                             >
@@ -549,7 +549,7 @@ export default function UbePage() {
                 <ScrollReveal key={item.no} delay={index * 0.04}>
                   <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-cyan-300/40 hover:bg-white/[0.1] hover:shadow-[0_24px_60px_rgba(2,12,32,0.45)] sm:p-6">
                     <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                    <h3 className="text-lg font-black leading-snug text-white transition-colors duration-300 group-hover:text-cyan-400">{item.title}</h3>
+                    <h3 className="text-lg font-bold leading-snug text-white transition-colors duration-300 group-hover:text-cyan-400">{item.title}</h3>
                     <p className="mt-3 break-keep text-sm font-medium leading-[1.7] text-white/75 sm:leading-relaxed sm:text-white/70">{item.desc}</p>
                   </article>
                 </ScrollReveal>
@@ -561,10 +561,10 @@ export default function UbePage() {
         <section className="px-5 py-12 sm:px-6 md:py-20">
           <ScrollReveal className="mx-auto grid max-w-7xl grid-cols-1 overflow-hidden rounded-lg border border-slate-200 bg-white lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
             <div className="space-y-3 p-5 sm:space-y-4 sm:p-8 md:p-10 lg:p-12">
-              <h2 className="break-keep text-[1.55rem] font-black leading-tight text-ink sm:text-3xl md:text-4xl">
+              <h2 className="break-keep text-[1.55rem] font-bold leading-tight text-ink sm:text-3xl md:text-4xl">
                 내 증상에 맞는 치료인지 확인하고 싶다면
               </h2>
-              <p className="max-w-2xl break-keep text-[15px] font-medium leading-[1.75] text-ink-sub sm:text-lg sm:leading-relaxed">
+              <p className="max-w-2xl break-keep text-body text-ink-sub sm:text-lg sm:leading-relaxed">
                 검사 자료와 증상을 바탕으로 양방향 척추내시경 적용 가능 여부를 전문의가
                 안내해 드립니다.
               </p>
@@ -572,13 +572,13 @@ export default function UbePage() {
             <div className="flex flex-col gap-3 border-t border-slate-200 p-5 sm:p-8 md:flex-row md:p-10 lg:border-l lg:border-t-0 lg:p-12">
               <Link
                 href="/reservation"
-                className="inline-flex items-center justify-center rounded-lg bg-primary px-7 py-4 text-base font-black text-white transition-all hover:bg-primary-dark"
+                className="inline-flex items-center justify-center rounded-lg bg-primary px-7 py-4 text-base font-bold text-white transition-all hover:bg-primary-dark"
               >
                 진료 예약하기
               </Link>
               <Link
                 href="/consultation"
-                className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-7 py-4 text-base font-black text-ink transition-all hover:border-primary hover:text-primary"
+                className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-7 py-4 text-base font-bold text-ink transition-all hover:border-primary hover:text-primary"
               >
                 온라인 상담하기
               </Link>

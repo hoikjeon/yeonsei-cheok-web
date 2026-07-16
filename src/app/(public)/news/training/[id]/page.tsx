@@ -35,10 +35,10 @@ export default async function TrainingDetailPage({ params }: { params: { id: str
 
       <div className="mx-auto max-w-[1000px] px-4 py-10 sm:px-6 sm:py-14 md:py-24">
         <div className="mb-8 border-b border-slate-100 pb-8 sm:mb-12 sm:pb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 border border-blue-100 rounded-full text-blue-600 text-[13px] font-black tracking-tight mb-6 font-montserrat uppercase">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 border border-blue-100 rounded-full text-blue-600 text-[13px] font-bold tracking-tight mb-6 font-montserrat uppercase">
             <Globe2 size={12} /> Training Center Detail
           </div>
-          <h1 className="mb-6 break-keep text-[28px] font-black leading-[1.35] tracking-tight text-ink sm:mb-8 sm:text-[32px] md:text-[44px] md:leading-[1.2]">{item.title}</h1>
+          <h1 className="mb-6 break-keep text-h2 tracking-tight text-ink sm:mb-8">{item.title}</h1>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[14px] font-bold tracking-tight text-ink-muted sm:gap-6 sm:text-[15px]">
             <div className="flex items-center gap-2"><Calendar size={18} className="text-slate-300" />{new Date(item.created_at).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
             <div className="flex items-center gap-2"><GraduationCap size={18} className="text-slate-300" />글로벌 교육 교류</div>
@@ -60,7 +60,7 @@ export default async function TrainingDetailPage({ params }: { params: { id: str
         </div>
 
         <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">
-          <Link href="/news/training" className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-5 py-4 text-[16px] font-black text-ink-sub transition-all hover:bg-slate-200 active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-10 sm:py-5 sm:text-[17px]">
+          <Link href="/news/training" className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-5 py-4 text-[16px] font-bold text-ink-sub transition-all hover:bg-slate-200 active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-10 sm:py-5 sm:text-[17px]">
             <ArrowLeft size={20} strokeWidth={2.5} /> 목록으로 돌아가기
           </Link>
         </div>

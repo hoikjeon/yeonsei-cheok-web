@@ -42,10 +42,10 @@ export default async function YoutubePage() {
       />
 
       <section className="bg-white">
-        <div className="mx-auto min-h-0 max-w-[1440px] border-x border-slate-50 px-4 py-14 sm:px-6 sm:py-16 md:min-h-[800px] lg:px-10 lg:py-24">
+        <div className="mx-auto min-h-0 max-w-7xl border-x border-slate-50 px-4 py-14 sm:px-6 sm:py-16 md:min-h-[800px] lg:px-10 lg:py-24">
           <div className="space-y-6 sm:space-y-8">
             <div className="flex flex-col items-stretch gap-4 border-b-2 border-slate-200 pb-5 sm:flex-row sm:items-end sm:justify-between">
-              <div className="text-[16px] font-bold text-ink-muted">총 <strong className="text-ink font-black text-[18px]">{newsCount}</strong>건</div>
+              <div className="text-[16px] font-bold text-ink-muted">총 <strong className="text-ink font-bold text-[18px]">{newsCount}</strong>건</div>
               <div className="group relative w-full sm:max-w-[340px]">
                 <input type="text" placeholder="영상을 검색하세요." className="w-full pl-4 pr-12 py-3 border-b-2 border-slate-200 bg-transparent text-[15px] outline-none focus:border-primary transition-colors font-medium" />
                 <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-ink-muted"><Search size={22} strokeWidth={2.5} /></button>
@@ -71,10 +71,10 @@ export default async function YoutubePage() {
                             <Play size={28} fill="currentColor" />
                           </div>
                         </div>
-                        <div className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-red-600/90 px-3 py-1.5 font-montserrat text-[10px] font-black uppercase tracking-widest text-white backdrop-blur-md sm:left-6 sm:top-6 sm:px-4"><Play size={10} fill="white" />YouTube</div>
+                        <div className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-red-600/90 px-3 py-1.5 font-montserrat text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md sm:left-6 sm:top-6 sm:px-4"><Play size={10} fill="white" />YouTube</div>
                       </div>
                       <div className="flex flex-1 flex-col p-5 sm:p-6 md:p-8">
-                        <h3 className="mb-5 line-clamp-2 break-keep text-[19px] font-black leading-[1.45] tracking-tight text-ink transition-colors group-hover:text-primary sm:text-[20px] md:mb-6">{item.title}</h3>
+                        <h3 className="mb-5 line-clamp-2 break-keep text-[19px] font-bold leading-[1.45] tracking-tight text-ink transition-colors group-hover:text-primary sm:text-[20px] md:mb-6">{item.title}</h3>
                         <div className="mt-auto flex items-center justify-between text-[14px] font-bold text-ink-muted">
                           <span>{new Date(item.created_at).toLocaleDateString('ko-KR')}</span>
                         </div>
@@ -88,7 +88,7 @@ export default async function YoutubePage() {
             )}
 
             <div className="flex justify-center pt-10 border-t border-slate-100">
-              <Link href="/news/youtube/write" className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-navy-950 px-5 py-4 text-[16px] font-black text-white shadow-lg shadow-navy-950/20 transition-all hover:bg-primary sm:w-auto sm:rounded-[1.25rem] sm:px-12 sm:py-5 sm:text-[18px]">
+              <Link href="/news/youtube/write" className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-navy-950 px-5 py-4 text-[16px] font-bold text-white shadow-lg shadow-navy-950/20 transition-all hover:bg-primary sm:w-auto sm:rounded-[1.25rem] sm:px-12 sm:py-5 sm:text-[18px]">
                 <PenSquare size={20} strokeWidth={2.5} /> 유튜브 소식 등록하기
               </Link>
             </div>

@@ -56,11 +56,11 @@ export default function TreatmentsPage() {
             <div key={category.id} className={`flex flex-col items-start gap-9 md:gap-12 lg:flex-row lg:gap-16 ${idx % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
               <div className="space-y-5 lg:sticky lg:top-28 lg:w-1/3 lg:space-y-6">
                 <div className="space-y-4">
-                  <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">{category.subtitle}</span>
-                  <h2 className="break-keep text-[2rem] font-extrabold leading-tight tracking-tight text-ink md:text-4xl">{category.title}</h2>
+                  <span className="text-primary font-bold tracking-widest text-xs font-montserrat uppercase">{category.subtitle}</span>
+                  <h2 className="break-keep text-h3 tracking-tight text-ink">{category.title}</h2>
                   <div className="w-16 h-1.5 bg-primary rounded-full" />
                 </div>
-                <p className="break-keep text-[15px] font-medium leading-[1.75] text-ink-sub md:text-base">
+                <p className="break-keep text-body text-ink-sub md:text-base">
                   {category.description}
                 </p>
                 <div className="pt-4">
@@ -74,7 +74,7 @@ export default function TreatmentsPage() {
                 {category.treatments.map((t, i) => (
                   <div key={i} className="group rounded-2xl border border-slate-100 bg-white p-6 transition-all hover:border-primary/20 hover:shadow-premium md:rounded-3xl md:p-10">
                     <div className="space-y-4">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-50 text-xs font-black text-slate-500 transition-colors group-hover:bg-primary group-hover:text-white">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-50 text-xs font-bold text-slate-500 transition-colors group-hover:bg-primary group-hover:text-white">
                         {i + 1}
                       </div>
                       <h3 className="text-xl font-bold text-ink">{t.name}</h3>

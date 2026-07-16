@@ -25,7 +25,7 @@ export default function NonSurgicalPage() {
         <section className="px-6 py-16 md:py-20">
           <ScrollReveal className="mx-auto grid max-w-7xl grid-cols-1 overflow-hidden rounded-lg border border-slate-200 bg-white lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
             <div className="space-y-4 p-8 md:p-10 lg:p-12">
-              <h2 className="break-keep text-3xl font-black leading-tight text-ink md:text-4xl">
+              <h2 className="break-keep text-3xl font-bold leading-tight text-ink md:text-4xl">
                 수술이 부담된다면, 비수술 치료부터 확인하세요
               </h2>
               <p className="max-w-2xl break-keep text-lg font-medium leading-relaxed text-ink-sub">
@@ -36,13 +36,13 @@ export default function NonSurgicalPage() {
             <div className="flex flex-col gap-3 border-t border-slate-200 p-8 md:flex-row md:p-10 lg:border-l lg:border-t-0 lg:p-12">
               <Link
                 href="/reservation"
-                className="inline-flex items-center justify-center rounded-lg bg-primary px-7 py-4 text-base font-black text-white transition-all hover:bg-primary-dark"
+                className="inline-flex items-center justify-center rounded-lg bg-primary px-7 py-4 text-base font-bold text-white transition-all hover:bg-primary-dark"
               >
                 진료 예약하기
               </Link>
               <Link
                 href="/consultation"
-                className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-7 py-4 text-base font-black text-ink transition-all hover:border-primary hover:text-primary"
+                className="inline-flex items-center justify-center rounded-lg border border-slate-300 px-7 py-4 text-base font-bold text-ink transition-all hover:border-primary hover:text-primary"
               >
                 온라인 상담하기
               </Link>

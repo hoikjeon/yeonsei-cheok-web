@@ -400,13 +400,13 @@ const getModalContent = (modal: ModalState): ModalContent => {
 
 const DetailBlock = ({ number, title, items }: { number: number; title: string; items: string[] }) => (
   <section>
-    <h4 className="flex items-center gap-3 text-[19px] font-black tracking-tight text-ink">
-      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-[13px] font-black text-white">
+    <h4 className="flex items-center gap-3 text-[19px] font-bold tracking-tight text-ink">
+      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-[13px] font-bold text-white">
         {number}
       </span>
       {title}
     </h4>
-    <ul className="mt-4 space-y-2 break-keep text-[15px] font-medium leading-[1.7] text-ink-sub sm:text-[16px] md:text-[17px] md:leading-relaxed">
+    <ul className="mt-4 space-y-2 break-keep text-body text-ink-sub sm:text-[16px] md:text-[17px] md:leading-relaxed">
       {items.map((item) => (
         <li key={item}>· {item}</li>
       ))}
@@ -430,7 +430,7 @@ const DetailModal = ({ content, onClose }: { content: ModalContent; onClose: () 
       className="flex max-h-[calc(100dvh-2rem)] w-full max-w-[760px] flex-col overflow-hidden rounded-[1rem] bg-white shadow-[0_30px_100px_-40px_rgba(0,0,0,0.65)] sm:max-h-[82vh] sm:rounded-[1.15rem]"
     >
       <header className="flex min-h-16 shrink-0 items-center justify-between gap-3 bg-navy-900 px-5 py-2 text-white sm:h-20 sm:px-7 sm:py-0">
-        <h3 id="ube-indication-modal-title" className="break-keep text-[1.15rem] font-black leading-tight tracking-tight sm:text-[1.45rem]">
+        <h3 id="ube-indication-modal-title" className="break-keep text-[1.15rem] font-bold leading-tight tracking-tight sm:text-[1.45rem]">
           {content.title}
         </h3>
         <button
@@ -462,7 +462,7 @@ const DetailModal = ({ content, onClose }: { content: ModalContent; onClose: () 
           {content.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full border border-primary/12 bg-[#F7FAFF] px-4 py-2 text-sm font-black text-primary"
+              className="rounded-full border border-primary/12 bg-[#F7FAFF] px-4 py-2 text-sm font-bold text-primary"
             >
               {tag}
             </span>
@@ -539,13 +539,13 @@ const UbeIndicationMap = () => {
                 <span className="flex items-center gap-3">
                   <span
                     aria-hidden="true"
-                    className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-sm font-black ${
+                    className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-sm font-bold ${
                       isActive ? 'bg-primary text-white' : 'bg-white text-primary ring-1 ring-primary/15'
                     }`}
                   >
                     {target.label.slice(0, 1)}
                   </span>
-                  <span className="text-[1rem] font-black">{target.title}</span>
+                  <span className="text-[1rem] font-bold">{target.title}</span>
                 </span>
                 <span className="shrink-0 text-[12px] font-bold text-ink-sub">
                   {target.conditionIds.length}개 질환
@@ -599,7 +599,7 @@ const UbeIndicationMap = () => {
                   type="button"
                   aria-pressed={isActive}
                   onClick={() => selectTarget(target.id)}
-                  className={`absolute z-30 flex -translate-y-1/2 items-center rounded-full px-6 py-3 text-base font-black shadow-[0_14px_34px_rgba(38,84,190,0.18)] outline-none transition duration-300 ease-out hover:-translate-y-[calc(50%+2px)] focus-visible:-translate-y-[calc(50%+2px)] focus-visible:ring-4 focus-visible:ring-primary/20 md:text-lg ${
+                  className={`absolute z-30 flex -translate-y-1/2 items-center rounded-full px-6 py-3 text-base font-bold shadow-[0_14px_34px_rgba(38,84,190,0.18)] outline-none transition duration-300 ease-out hover:-translate-y-[calc(50%+2px)] focus-visible:-translate-y-[calc(50%+2px)] focus-visible:ring-4 focus-visible:ring-primary/20 md:text-lg ${
                     isActive
                       ? 'bg-primary text-white'
                       : 'bg-white text-primary ring-1 ring-primary/18 hover:bg-primary hover:text-white'
@@ -614,7 +614,7 @@ const UbeIndicationMap = () => {
         </div>
 
         <div className="mx-auto mt-4 max-w-6xl rounded-xl border border-primary/12 bg-[#F7FAFF] p-4 sm:mt-6 sm:rounded-2xl sm:p-6 md:p-7">
-          <div className="text-lg font-black text-primary sm:text-xl">{activeTarget.title}</div>
+          <div className="text-lg font-bold text-primary sm:text-xl">{activeTarget.title}</div>
           <div className="mt-3 flex flex-wrap gap-2 sm:mt-4">
             {activeTarget.conditionIds.map((conditionId) => {
               const condition = conditions[conditionId];

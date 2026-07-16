@@ -96,7 +96,7 @@ export default function ReviewWritePage() {
         </div>
 
         {/* Back navigation */}
-        <Link href="/board/reviews" className="mb-8 inline-flex items-center gap-2 text-[20px] font-black tracking-tight text-ink transition-colors hover:text-primary sm:mb-12 sm:text-[24px]">
+        <Link href="/board/reviews" className="mb-8 inline-flex items-center gap-2 text-h4 tracking-tight text-ink transition-colors hover:text-primary sm:mb-12">
           <ArrowLeft size={28} strokeWidth={2.5} />
           새로운 후기 작성
         </Link>
@@ -108,7 +108,7 @@ export default function ReviewWritePage() {
         >
           {/* Header */}
           <div className="mb-8 text-center sm:mb-12 md:text-left">
-            <h2 className="mb-4 break-keep text-[26px] font-black leading-[1.3] tracking-tight text-ink sm:text-[32px] md:text-[40px]">
+            <h2 className="mb-4 break-keep text-h2 tracking-tight text-ink">
               회복의 이야기를 들려주세요
             </h2>
             <p className="break-keep text-[15px] font-bold leading-[1.75] tracking-tight text-ink-muted sm:text-[16px] md:text-[18px] md:leading-relaxed">
@@ -127,7 +127,7 @@ export default function ReviewWritePage() {
 
             {/* Category selection */}
             <div className="space-y-4 relative">
-              <label className="block text-[16px] font-black text-ink tracking-tight text-center md:text-left">진료 과목 <span className="text-red-500">*</span></label>
+              <label className="block text-[16px] font-bold text-ink tracking-tight text-center md:text-left">진료 과목 <span className="text-red-500">*</span></label>
               <div className="relative">
                 <button 
                   type="button" 
@@ -164,7 +164,7 @@ export default function ReviewWritePage() {
 
             {/* Title */}
             <div className="space-y-4">
-              <label className="block text-[16px] font-black text-ink tracking-tight text-center md:text-left">제목 <span className="text-red-500">*</span></label>
+              <label className="block text-[16px] font-bold text-ink tracking-tight text-center md:text-left">제목 <span className="text-red-500">*</span></label>
               <input 
                 type="text" 
                 required
@@ -178,7 +178,7 @@ export default function ReviewWritePage() {
 
             {/* Photo Attachment (Drag & Drop) */}
             <div className="space-y-4">
-              <label className="block text-[16px] font-black text-ink tracking-tight flex items-center justify-center md:justify-start gap-2">
+              <label className="block text-[16px] font-bold text-ink tracking-tight flex items-center justify-center md:justify-start gap-2">
                 사진 첨부
                 <span className="text-[14px] font-medium text-ink-muted bg-slate-100 px-3 py-1 rounded-full">선택사항</span>
               </label>
@@ -198,7 +198,7 @@ export default function ReviewWritePage() {
                 <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-white text-ink-muted shadow-sm transition-all group-hover:scale-110 group-hover:text-primary sm:h-20 sm:w-20">
                   <UploadCloud size={32} strokeWidth={2.5} />
                 </div>
-                <p className="mb-2 break-keep text-[17px] font-black tracking-tight text-ink transition-colors group-hover:text-primary sm:text-[20px]">
+                <p className="mb-2 break-keep text-[17px] font-bold tracking-tight text-ink transition-colors group-hover:text-primary sm:text-[20px]">
                   사진을 여기에 드래그하거나 클릭하세요
                 </p>
                 <p className="text-ink-muted font-bold text-[15px] tracking-tight">
@@ -212,7 +212,7 @@ export default function ReviewWritePage() {
                   {files.map((file, idx) => (
                     <div key={idx} className="group relative flex w-full min-w-0 items-center overflow-hidden rounded-[1.25rem] border border-slate-200 bg-white p-3 pr-4 shadow-sm sm:w-auto sm:min-w-[240px] sm:pr-5">
                       <div className="w-14 h-14 bg-slate-50 rounded-xl flex-shrink-0 mr-4 flex items-center justify-center">
-                        <span className="text-[11px] font-black text-ink-muted font-montserrat uppercase tracking-widest">{file.name.split('.').pop()}</span>
+                        <span className="text-[11px] font-bold text-ink-muted font-montserrat uppercase tracking-widest">{file.name.split('.').pop()}</span>
                       </div>
                       <div className="flex-1 truncate space-y-1">
                         <p className="text-[14px] font-bold text-ink truncate tracking-tight">{file.name}</p>
@@ -234,7 +234,7 @@ export default function ReviewWritePage() {
 
             {/* Content Textarea */}
             <div className="space-y-4">
-              <label className="block text-[16px] font-black text-ink tracking-tight text-center md:text-left">치료 후기 <span className="text-red-500">*</span></label>
+              <label className="block text-[16px] font-bold text-ink tracking-tight text-center md:text-left">치료 후기 <span className="text-red-500">*</span></label>
               <textarea 
                 rows={12}
                 disabled={isSubmitting}
@@ -249,14 +249,14 @@ export default function ReviewWritePage() {
             <div className="pt-8 border-t border-slate-100 flex flex-col md:flex-row gap-4">
               <Link 
                 href="/board/reviews"
-                className="flex-[1] flex justify-center items-center py-5 rounded-[1.25rem] bg-slate-100 hover:bg-slate-200 text-ink-sub font-black text-[18px] transition-colors"
+                className="flex-[1] flex justify-center items-center py-5 rounded-[1.25rem] bg-slate-100 hover:bg-slate-200 text-ink-sub font-bold text-[18px] transition-colors"
               >
                 취소하기
               </Link>
               <button 
                 type="submit"
                 disabled={isSubmitting}
-                className="flex-[2] flex justify-center items-center gap-3 py-5 rounded-[1.25rem] bg-navy-950 hover:bg-primary hover:shadow-blue-glow text-white font-black text-[19px] transition-all disabled:opacity-50 disabled:cursor-not-allowed group"
+                className="flex-[2] flex justify-center items-center gap-3 py-5 rounded-[1.25rem] bg-navy-950 hover:bg-primary hover:shadow-blue-glow text-white font-bold text-[19px] transition-all disabled:opacity-50 disabled:cursor-not-allowed group"
               >
                 {isSubmitting ? (
                   <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin" />

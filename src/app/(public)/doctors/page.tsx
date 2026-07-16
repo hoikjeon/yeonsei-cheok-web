@@ -450,8 +450,8 @@ export default function DoctorsPage() {
                   <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-primary-light text-primary sm:mb-7">
                     {step.icon}
                   </div>
-                  <h3 className="break-keep text-[22px] font-black tracking-tight text-ink sm:text-2xl">{step.title}</h3>
-                  <p className="mt-3 break-keep text-[15px] font-medium leading-[1.75] text-ink-sub sm:mt-4 sm:text-[17px] sm:leading-relaxed">{step.desc}</p>
+                  <h3 className="break-keep text-h4 tracking-tight text-ink">{step.title}</h3>
+                  <p className="mt-3 break-keep text-body text-ink-sub sm:mt-4 sm:text-[17px] sm:leading-relaxed">{step.desc}</p>
                 </article>
               </ScrollReveal>
             ))}
@@ -461,7 +461,7 @@ export default function DoctorsPage() {
         <section className="px-4 py-14 sm:px-6 sm:py-16 md:py-24">
           <ScrollReveal className="mx-auto grid max-w-7xl grid-cols-1 overflow-hidden rounded-lg bg-navy-950 text-white shadow-[0_30px_90px_-55px_rgba(10,20,40,0.7)] lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
             <div className="space-y-4 p-5 sm:p-8 md:p-10 lg:p-12">
-              <h2 className="break-keep text-[26px] font-black leading-[1.35] tracking-tight sm:text-3xl md:text-4xl">
+              <h2 className="break-keep text-h3 tracking-tight">
                 어떤 의료진을 선택해야 할지 고민된다면
               </h2>
               <p className="max-w-2xl break-keep text-[15px] font-medium leading-[1.75] text-slate-300 sm:text-lg sm:leading-relaxed">
@@ -471,14 +471,14 @@ export default function DoctorsPage() {
             <div className="flex flex-col gap-3 border-t border-white/10 p-5 sm:p-8 md:flex-row md:p-10 lg:border-l lg:border-t-0 lg:p-12">
               <Link
                 href="/reservation"
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-4 text-base font-black text-navy-950 transition-all hover:bg-primary-light"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-4 text-base font-bold text-navy-950 transition-all hover:bg-primary-light"
               >
                 <CalendarCheck size={20} />
                 진료 예약하기
               </Link>
               <Link
                 href="/consultation"
-                className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/20 px-6 py-4 text-base font-black text-white transition-all hover:border-white/50 hover:bg-white/10"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/20 px-6 py-4 text-base font-bold text-white transition-all hover:border-white/50 hover:bg-white/10"
               >
                 온라인 상담
                 <ChevronRight size={18} />

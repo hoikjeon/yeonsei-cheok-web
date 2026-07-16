@@ -138,7 +138,7 @@ const ScheduleTable = ({ doctor }: { doctor: DoctorProfile }) => {
 
   return (
     <div className="space-y-5">
-      <h4 className="text-[22px] font-black tracking-tight text-ink sm:text-2xl">진료시간표</h4>
+      <h4 className="text-h4 tracking-tight text-ink">진료시간표</h4>
 
       <div className="grid gap-2 md:hidden">
         {timetable.map((item) => {
@@ -150,7 +150,7 @@ const ScheduleTable = ({ doctor }: { doctor: DoctorProfile }) => {
               key={`mobile-${item.day}`}
               className="grid grid-cols-[44px_minmax(0,1fr)_minmax(0,1fr)] items-stretch overflow-hidden rounded-lg border border-[#d7d7d7] bg-white"
             >
-              <div className="flex items-center justify-center bg-[#d0d0d0] text-[15px] font-black text-ink">
+              <div className="flex items-center justify-center bg-[#d0d0d0] text-[15px] font-bold text-ink">
                 {item.day}
               </div>
               {[
@@ -164,7 +164,7 @@ const ScheduleTable = ({ doctor }: { doctor: DoctorProfile }) => {
                     <span className="text-[11px] font-bold text-ink-muted">{period.label}</span>
                     {period.value ? (
                       <span
-                        className={`inline-flex min-h-8 max-w-full items-center justify-center break-keep rounded-full px-2.5 text-center text-[12px] font-black leading-tight ${
+                        className={`inline-flex min-h-8 max-w-full items-center justify-center break-keep rounded-full px-2.5 text-center text-[12px] font-bold leading-tight ${
                           isOpen
                             ? 'bg-primary text-white'
                             : 'bg-[#d5d5d5] text-[#777777]'
@@ -187,9 +187,9 @@ const ScheduleTable = ({ doctor }: { doctor: DoctorProfile }) => {
         <table className="w-full min-w-[640px] border-separate border-spacing-0 text-center">
           <thead>
             <tr className="bg-[#d0d0d0]">
-              <th className="w-24 px-4 py-5 text-[17px] font-black text-ink">구분</th>
+              <th className="w-24 px-4 py-5 text-[17px] font-bold text-ink">구분</th>
               {timetable.map((item) => (
-                <th key={item.day} className="px-4 py-5 text-[17px] font-black text-ink">
+                <th key={item.day} className="px-4 py-5 text-[17px] font-bold text-ink">
                   {item.day}
                 </th>
               ))}
@@ -201,7 +201,7 @@ const ScheduleTable = ({ doctor }: { doctor: DoctorProfile }) => {
               { label: '오후', key: 'afternoon' as const },
             ].map((row) => (
               <tr key={row.label} className="border-t border-[#d7d7d7]">
-                <th className="border-r border-[#d7d7d7] px-4 py-5 text-[17px] font-black text-ink">
+                <th className="border-r border-[#d7d7d7] px-4 py-5 text-[17px] font-bold text-ink">
                   {row.label}
                 </th>
                 {timetable.map((item) => {
@@ -212,7 +212,7 @@ const ScheduleTable = ({ doctor }: { doctor: DoctorProfile }) => {
                     <td key={`${item.day}-${row.key}`} className="px-4 py-5">
                       {value ? (
                         <span
-                          className={`inline-flex min-w-[58px] justify-center rounded-full px-4 py-2 text-[15px] font-black ${
+                          className={`inline-flex min-w-[58px] justify-center rounded-full px-4 py-2 text-[15px] font-bold ${
                             isOpen
                               ? 'bg-primary text-white'
                               : 'bg-[#d5d5d5] text-[#8d8d8d]'
@@ -232,7 +232,7 @@ const ScheduleTable = ({ doctor }: { doctor: DoctorProfile }) => {
         </table>
       </div>
 
-      <div className="space-y-2 break-keep text-[14px] font-medium leading-[1.7] text-ink-sub sm:text-[15px] sm:leading-relaxed">
+      <div className="space-y-2 break-keep text-body text-ink-sub sm:leading-relaxed">
         <p>* 토요일 진료는 의료진별 일정에 따라 변경될 수 있습니다.</p>
         <p>※ 진료시간표는 상황에 따라 변경될 수 있으니, 내원 전 병원에 문의해주시길 바랍니다.</p>
       </div>
@@ -289,7 +289,7 @@ const PapersList = ({ papers }: { papers: DoctorPaper[] }) => {
             <p className="font-montserrat text-xs font-extrabold uppercase tracking-[0.18em] text-primary/70">
               논문 {String(index + 1).padStart(2, '0')}
             </p>
-            <h5 className="mt-3 text-[15px] font-black leading-[1.7] tracking-tight text-ink [overflow-wrap:anywhere] sm:text-[17px] sm:leading-relaxed">
+            <h5 className="mt-3 text-[15px] font-bold leading-[1.7] tracking-tight text-ink [overflow-wrap:anywhere] sm:text-[17px] sm:leading-relaxed">
               {paper.title}
             </h5>
             {paper.authors ? (
@@ -311,7 +311,7 @@ const PapersList = ({ papers }: { papers: DoctorPaper[] }) => {
           type="button"
           aria-expanded={isExpanded}
           onClick={() => setIsExpanded((current) => !current)}
-          className="inline-flex min-h-12 items-center justify-center rounded-lg border border-primary/20 bg-primary-light px-5 text-[15px] font-black text-primary-dark transition-all hover:border-primary/35 hover:bg-primary hover:text-white"
+          className="inline-flex min-h-12 items-center justify-center rounded-lg border border-primary/20 bg-primary-light px-5 text-[15px] font-bold text-primary-dark transition-all hover:border-primary/35 hover:bg-primary hover:text-white"
         >
           {isExpanded ? '논문 접기' : `논문 전체보기 ${papers.length}편`}
         </button>
@@ -325,7 +325,7 @@ const CareerList = ({ doctor }: { doctor: DoctorProfile }) => {
 
   return (
     <div className="border-t border-[#d7d7d7] pt-10">
-      <h4 className="mb-7 text-2xl font-black tracking-tight text-ink">학력 및 경력</h4>
+      <h4 className="mb-7 text-2xl font-bold tracking-tight text-ink">학력 및 경력</h4>
       <CredentialBulletList items={careers} />
     </div>
   );
@@ -347,7 +347,7 @@ const CredentialDetails = ({ doctor }: { doctor: DoctorProfile }) => {
   return (
     <div className="border-t border-[#d7d7d7] pt-10">
       <div className="mb-7">
-        <h4 className="text-2xl font-black tracking-tight text-ink">학력 및 경력</h4>
+        <h4 className="text-2xl font-bold tracking-tight text-ink">학력 및 경력</h4>
       </div>
 
       <div className="-mx-1 overflow-x-auto overscroll-x-contain pb-2">
@@ -369,7 +369,7 @@ const CredentialDetails = ({ doctor }: { doctor: DoctorProfile }) => {
                 aria-selected={isSelected}
                 aria-controls={`${doctor.id}-${tab.id}-panel`}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex min-h-12 items-center justify-center whitespace-nowrap rounded-lg px-4 text-[15px] font-black transition-all ${
+                className={`flex min-h-12 items-center justify-center whitespace-nowrap rounded-lg px-4 text-[15px] font-bold transition-all ${
                   isSelected
                     ? 'bg-primary text-white shadow-[0_14px_28px_-20px_rgba(40,74,165,0.8)]'
                     : 'text-ink-sub hover:bg-white hover:text-primary'
@@ -422,13 +422,13 @@ const DoctorProfileBlock = ({ doctor, index }: { doctor: DoctorProfile; index: n
 
         <div className="space-y-8 sm:space-y-10 lg:pt-5">
           <div className="space-y-5">
-            <p className="break-keep text-base font-black leading-[1.55] tracking-tight text-primary sm:text-lg md:text-xl">
+            <p className="break-keep text-base font-bold leading-[1.55] tracking-tight text-primary sm:text-lg md:text-xl">
               {doctor.center} · {doctor.specialty}
             </p>
-            <h3 className="break-keep text-[30px] font-black leading-tight tracking-tight text-ink sm:text-4xl md:text-5xl">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               {doctor.name} {doctor.title}
             </h3>
-            <p className="max-w-3xl break-keep text-[15px] font-medium leading-[1.75] text-ink-sub sm:text-[17px] sm:leading-relaxed">
+            <p className="max-w-3xl break-keep text-body text-ink-sub sm:text-[17px] sm:leading-relaxed">
               {doctor.summary}
             </p>
             <FocusAreaChips areas={doctor.focusAreas} />

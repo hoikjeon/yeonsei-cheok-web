@@ -257,15 +257,15 @@ export default function ProlotherapyDetailSection() {
           <div className="relative md:min-h-[560px] xl:min-h-[620px]">
             <div className="relative z-10 pb-7 md:absolute md:inset-y-0 md:left-0 md:flex md:w-[58%] md:items-center md:px-10 md:pb-0 lg:px-14 xl:px-16">
               <div className="max-w-[680px]">
-                <p className="mb-4 break-words font-montserrat text-[10px] font-black uppercase tracking-[0.14em] text-primary sm:text-[11px] sm:tracking-[0.18em] md:text-white/65">
+                <p className="mb-4 break-words font-montserrat text-[10px] font-bold uppercase tracking-[0.14em] text-primary sm:text-[11px] sm:tracking-[0.18em] md:text-white/80">
                   Dextrose Prolotherapy
                 </p>
-                <h2 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[2.7rem] md:leading-[1.18] md:text-white lg:text-[3.25rem]">
+                <h2 className="break-keep text-h2 tracking-tight text-ink sm:text-4xl md:text-[2.7rem] md:leading-[1.18] md:text-white lg:text-[3.25rem]">
                   통증 부위를 세밀하게 확인해,
                   <br className="hidden md:block" /> 필요한 조직 가까이에
                   접근합니다
                 </h2>
-                <p className="mt-5 max-w-[610px] break-keep text-base font-medium leading-[1.8] text-ink-sub md:mt-7 md:text-[17px] md:text-white/75 lg:text-lg">
+                <p className="mt-5 max-w-[610px] break-keep text-body-lg text-ink-sub md:mt-7 md:text-white/85">
                   진찰과 필요한 영상검사를 바탕으로 목표 조직을 확인한 뒤,
                   힘줄 부착부·인대 주변 또는 관절 안에 포도당 기반 주사액을
                   투여해 통증과 기능 개선을 돕는 비수술 주사치료입니다.
@@ -287,7 +287,7 @@ export default function ProlotherapyDetailSection() {
                 className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(3,13,32,0.98)_0%,rgba(3,16,39,0.91)_40%,rgba(4,19,45,0.43)_64%,rgba(4,19,45,0.04)_84%)] md:block"
               />
             </div>
-            <p className="mt-2 px-1 break-keep text-[11px] font-semibold leading-[1.6] text-ink-sub md:absolute md:bottom-5 md:right-6 md:z-20 md:mt-0 md:rounded-full md:bg-black/35 md:px-3 md:py-1.5 md:text-white/65 md:backdrop-blur-sm">
+            <p className="mt-2 px-1 break-keep text-[12px] font-semibold leading-[1.6] text-ink-sub md:absolute md:bottom-5 md:right-6 md:z-20 md:mt-0 md:rounded-full md:bg-black/35 md:px-3 md:py-1.5 md:text-white/80 md:backdrop-blur-sm">
               시술 이해를 돕기 위한 재구성 이미지입니다.
             </p>
           </div>
@@ -297,7 +297,7 @@ export default function ProlotherapyDetailSection() {
       <ScrollReveal variant="soft-rise" amount={0.08}>
         <section id="prolotherapy-explanation">
           <div className="max-w-4xl">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               프롤로 주사, 이렇게 이해하세요
             </h3>
           </div>
@@ -306,14 +306,14 @@ export default function ProlotherapyDetailSection() {
             <div className="grid lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
               <div className="flex items-center bg-navy-950 p-5 text-white sm:p-8 md:p-10 lg:p-12">
                 <div>
-                  <span className="inline-flex rounded-full bg-white/10 px-3 py-1.5 text-[12px] font-black text-white/80">
+                  <span className="inline-flex rounded-full bg-white/10 px-3 py-1.5 text-[12px] font-bold text-white/80">
                     핵심 원리
                   </span>
-                  <h4 className="mt-5 break-keep text-[1.45rem] font-black leading-[1.3] sm:text-2xl md:text-[2rem]">
+                  <h4 className="mt-5 break-keep text-h3 md:text-[2rem]">
                     목표 조직 가까이에 주입하고
                     <br /> 반응을 세심하게 확인합니다
                   </h4>
-                  <p className="mt-4 break-keep text-[15px] font-medium leading-[1.8] text-white/70 md:text-[17px]">
+                  <p className="mt-4 break-keep text-body-lg text-white/85">
                     같은 부위의 통증이라도 원인과 손상 정도에 따라 주입 위치와
                     치료 계획이 달라집니다.
                   </p>
@@ -347,17 +347,17 @@ export default function ProlotherapyDetailSection() {
                         />
                       </div>
                       <div className="p-4">
-                        <span className="font-montserrat text-[11px] font-black tracking-[0.14em] text-primary">
+                        <span className="font-montserrat text-[11px] font-bold tracking-[0.14em] text-primary">
                           {item.number}
                         </span>
-                        <p className="mt-1 break-keep text-[14px] font-black leading-[1.55] text-ink">
+                        <p className="mt-1 break-keep text-[14px] font-bold leading-[1.55] text-ink">
                           {item.title}
                         </p>
                       </div>
                     </article>
                   ))}
                 </div>
-                <figcaption className="px-1 pt-4 break-keep text-[12px] font-semibold leading-[1.7] text-ink-sub sm:px-2 sm:text-[14px]">
+                <figcaption className="px-1 pt-4 break-keep text-[13px] font-semibold leading-[1.7] text-ink-sub sm:px-2 sm:text-[14px]">
                   조직 반응의 개념을 설명하기 위한 재구성 이미지이며, 실제 치료
                   범위와 반응은 환자 상태에 따라 달라집니다.
                 </figcaption>
@@ -371,13 +371,13 @@ export default function ProlotherapyDetailSection() {
                 key={item.number}
                 className="rounded-[1rem] border border-slate-200 bg-white p-5 sm:p-6"
               >
-                <span className="font-montserrat text-[12px] font-black tracking-[0.16em] text-primary">
+                <span className="font-montserrat text-[12px] font-bold tracking-[0.16em] text-primary">
                   {item.number}
                 </span>
-                <h4 className="mt-3 break-keep text-[1.05rem] font-black leading-snug text-ink sm:text-lg">
+                <h4 className="mt-3 break-keep text-h4 leading-snug text-ink">
                   {item.title}
                 </h4>
-                <p className="mt-2 break-keep text-[13px] font-medium leading-[1.7] text-ink-sub sm:text-[14px]">
+                <p className="mt-2 break-keep text-[14px] font-medium leading-[1.7] text-ink-sub sm:text-[14px]">
                   {item.desc}
                 </p>
               </article>
@@ -396,10 +396,10 @@ export default function ProlotherapyDetailSection() {
             className="absolute -right-24 -top-36 h-96 w-96 rounded-full bg-primary/25 blur-[100px]"
           />
           <div className="relative">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight">
               프롤로 주사의 특징
             </h3>
-            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-white/70 md:text-lg">
+            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-white/80 md:text-lg">
               주사 한 번으로 결과를 단정하지 않고, 정확한 진단과 단계적인
               회복 계획 안에서 선택적으로 고려합니다.
             </p>
@@ -413,10 +413,10 @@ export default function ProlotherapyDetailSection() {
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white sm:h-9 sm:w-9">
                     <Check size={18} strokeWidth={3} />
                   </span>
-                  <h4 className="mt-4 break-keep text-[15px] font-black leading-[1.45] text-white sm:text-base">
+                  <h4 className="mt-4 break-keep text-[15px] font-bold leading-[1.45] text-white sm:text-base">
                     {item.title}
                   </h4>
-                  <p className="mt-1.5 break-keep text-[12px] font-medium leading-[1.65] text-white/75 sm:text-[13px]">
+                  <p className="mt-1.5 break-keep text-[12px] font-medium leading-[1.65] text-white/85 sm:text-[14px]">
                     {item.desc}
                   </p>
                 </article>
@@ -430,10 +430,10 @@ export default function ProlotherapyDetailSection() {
         <section id="prolotherapy-conditions">
           <div className="flex items-end justify-between gap-5">
             <div className="max-w-4xl">
-              <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+              <h3 className="break-keep text-h2 tracking-tight text-ink">
                 진단 후 고려할 수 있는 통증 부위
               </h3>
-              <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-ink-sub md:text-lg">
+              <p className="mt-5 max-w-3xl break-keep text-body-lg text-ink-sub">
                 같은 부위의 통증이라도 원인과 조직 손상 정도에 따라 치료가
                 달라집니다. 카드를 눌러 적용 범위와 한계를 함께 확인하세요.
               </p>
@@ -506,16 +506,16 @@ export default function ProlotherapyDetailSection() {
                       />
 
                       <div className="absolute inset-x-0 bottom-0 p-4 text-white sm:p-5">
-                        <span className="font-montserrat text-[10px] font-black tracking-[0.18em] text-white/60">
+                        <span className="font-montserrat text-[10px] font-bold tracking-[0.18em] text-white/75">
                           {item.number}
                         </span>
-                        <h4 className="mt-1 break-keep text-[1.2rem] font-black leading-snug sm:text-[1.35rem]">
+                        <h4 className="mt-1 break-keep text-[1.2rem] font-bold leading-snug sm:text-[1.35rem]">
                           {item.title}
                         </h4>
-                        <p className="mt-1.5 break-keep text-[12px] font-semibold leading-[1.55] text-white/75 sm:text-[13px]">
+                        <p className="mt-1.5 break-keep text-[12px] font-semibold leading-[1.55] text-white/85 sm:text-[14px]">
                           {item.summary}
                         </p>
-                        <span className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-black text-white/70">
+                        <span className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-bold text-white/80">
                           <Info size={13} />
                           {isSelected ? "다시 눌러 닫기" : "눌러 자세히 보기"}
                         </span>
@@ -530,19 +530,19 @@ export default function ProlotherapyDetailSection() {
                             : "pointer-events-none opacity-0"
                         }`}
                       >
-                        <span className="font-montserrat text-[10px] font-black tracking-[0.18em] text-white/55">
+                        <span className="font-montserrat text-[10px] font-bold tracking-[0.18em] text-white/70">
                           {item.number} · CHECK POINT
                         </span>
-                        <h4 className="mt-2 break-keep text-[1.25rem] font-black leading-snug sm:text-[1.4rem]">
+                        <h4 className="mt-2 break-keep text-[1.25rem] font-bold leading-snug sm:text-[1.4rem]">
                           {item.title}
                         </h4>
-                        <p className="mt-2 break-keep text-[12px] font-bold leading-[1.6] text-white/80 sm:text-[13px]">
+                        <p className="mt-2 break-keep text-[12px] font-bold leading-[1.6] text-white/80 sm:text-[14px]">
                           {item.summary}
                         </p>
-                        <p className="mt-3 break-keep text-[12px] font-medium leading-[1.7] text-white/72 sm:text-[13px]">
+                        <p className="mt-3 break-keep text-[12px] font-medium leading-[1.7] text-white/80 sm:text-[14px]">
                           {item.detail}
                         </p>
-                        <span className="mt-4 text-[11px] font-black text-white/55">
+                        <span className="mt-4 text-[11px] font-bold text-white/70">
                           다시 누르거나 Esc 키로 닫기
                         </span>
                       </div>
@@ -554,7 +554,7 @@ export default function ProlotherapyDetailSection() {
           </ul>
 
           <div className="mt-1 flex items-center justify-between gap-4 sm:hidden">
-            <p className="break-keep text-[11px] font-semibold leading-[1.6] text-ink-sub">
+            <p className="break-keep text-[12px] font-semibold leading-[1.6] text-ink-sub">
               옆으로 밀어 다른 부위를 확인하세요.
             </p>
             <div className="flex shrink-0 gap-2">
@@ -584,10 +584,10 @@ export default function ProlotherapyDetailSection() {
       <ScrollReveal variant="soft-rise" amount={0.08}>
         <section id="prolotherapy-process">
           <div className="max-w-4xl">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               진단부터 경과 확인까지 세심하게
             </h3>
-            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-ink-sub md:text-lg">
+            <p className="mt-5 max-w-3xl break-keep text-body-lg text-ink-sub">
               목표 조직을 확인하고 주변 신경과 혈관을 살피며 진행합니다. 추가
               시술은 미리 정하지 않고 실제 반응을 확인해 결정합니다.
             </p>
@@ -603,7 +603,7 @@ export default function ProlotherapyDetailSection() {
                 className="object-contain"
               />
             </div>
-            <figcaption className="mt-3 px-1 break-keep text-[12px] font-semibold leading-[1.7] text-ink-sub sm:text-[13px]">
+            <figcaption className="mt-3 px-1 break-keep text-[13px] font-semibold leading-[1.7] text-ink-sub sm:text-[14px]">
               시술 과정을 이해하기 위한 재구성 이미지이며, 실제 접근 위치와
               방법은 부위와 환자 상태에 따라 달라집니다.
             </figcaption>
@@ -625,14 +625,14 @@ export default function ProlotherapyDetailSection() {
                   />
                 </div>
                 <div className="flex items-start gap-3 p-4 sm:p-5 md:block md:min-h-[214px]">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary font-montserrat text-[11px] font-black text-white">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary font-montserrat text-[11px] font-bold text-white">
                     {item.number}
                   </span>
                   <div className="min-w-0 md:mt-4">
-                    <h4 className="break-keep text-[15px] font-black leading-snug text-ink sm:text-base">
+                    <h4 className="break-keep text-[15px] font-bold leading-snug text-ink sm:text-base">
                       {item.title}
                     </h4>
-                    <p className="mt-1.5 break-keep text-[12px] font-medium leading-[1.7] text-ink-sub sm:text-[13px]">
+                    <p className="mt-1.5 break-keep text-[12px] font-medium leading-[1.7] text-ink-sub sm:text-[14px]">
                       {item.desc}
                     </p>
                   </div>
@@ -640,7 +640,7 @@ export default function ProlotherapyDetailSection() {
               </li>
             ))}
           </ol>
-          <p className="mt-2 break-keep text-[11px] font-semibold leading-[1.6] text-ink-sub md:hidden">
+          <p className="mt-2 break-keep text-[12px] font-semibold leading-[1.6] text-ink-sub md:hidden">
             카드를 옆으로 밀어 시술 과정을 확인하세요.
           </p>
         </section>
@@ -650,7 +650,7 @@ export default function ProlotherapyDetailSection() {
         <section id="prolotherapy-aftercare">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-6">
             <div className="rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-premium sm:rounded-[2rem] sm:p-8 md:p-10">
-              <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3rem] md:leading-[1.18]">
+              <h3 className="break-keep text-h2 tracking-tight text-ink sm:text-4xl md:text-[3rem] md:leading-[1.18]">
                 치료 계획과 생활 안내
               </h3>
               <div className="mt-8 grid gap-3 sm:mt-10">
@@ -659,14 +659,14 @@ export default function ProlotherapyDetailSection() {
                     key={item.title}
                     className="flex items-start gap-3.5 rounded-[1rem] bg-[#F4F7FC] p-4 sm:gap-4 sm:p-5"
                   >
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary font-montserrat text-[11px] font-black text-white">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary font-montserrat text-[11px] font-bold text-white">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <div>
-                      <h4 className="break-keep text-[15px] font-black leading-snug text-ink sm:text-base">
+                      <h4 className="break-keep text-[15px] font-bold leading-snug text-ink sm:text-base">
                         {item.title}
                       </h4>
-                      <p className="mt-1.5 break-keep text-[13px] font-medium leading-[1.7] text-ink-sub sm:text-[14px]">
+                      <p className="mt-1.5 break-keep text-[14px] font-medium leading-[1.7] text-ink-sub sm:text-[14px]">
                         {item.desc}
                       </p>
                     </div>
@@ -679,14 +679,14 @@ export default function ProlotherapyDetailSection() {
               <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white">
                 <ShieldAlert size={21} strokeWidth={2.4} />
               </span>
-              <h3 className="mt-6 break-keep text-[1.5rem] font-black leading-tight sm:text-[1.8rem]">
+              <h3 className="mt-6 break-keep text-[1.5rem] font-bold leading-tight sm:text-[1.8rem]">
                 시술 전에 꼭 알려주세요
               </h3>
               <ul className="mt-7 space-y-4">
                 {tellDoctor.map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#7CA8FF]" />
-                    <p className="break-keep text-[13px] font-semibold leading-[1.7] text-white/75 sm:text-[14px]">
+                    <p className="break-keep text-[14px] font-semibold leading-[1.7] text-white/85 sm:text-[15px]">
                       {item}
                     </p>
                   </li>
@@ -699,7 +699,7 @@ export default function ProlotherapyDetailSection() {
 
       <ScrollReveal variant="soft-rise" amount={0.1}>
         <aside className="rounded-xl border border-amber-200/80 bg-amber-50 px-5 py-5 sm:px-6">
-          <p className="break-keep text-[13px] font-semibold leading-[1.75] text-amber-950/75 sm:text-[14px]">
+          <p className="break-keep text-body font-semibold text-amber-950/90">
             치료 효과는 질환과 환자 상태에 따라 다르며 충분한 호전이 없을 수도
             있습니다. 시술 뒤 일시적인 통증, 뻐근함, 붓기 또는 멍이 생길 수
             있고 드물게 감염, 출혈, 알레르기 반응, 신경·혈관 손상이 발생할 수

@@ -47,12 +47,12 @@ export default function SpineCenterPage() {
       <section className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-6 md:py-24">
         <div className="mb-16 grid grid-cols-1 items-start gap-10 md:mb-24 lg:grid-cols-12 lg:gap-16">
           <div className="space-y-5 lg:col-span-5 lg:space-y-6">
-            <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">Spine Center</span>
-            <h2 className="break-keep text-[2rem] font-extrabold leading-tight tracking-tight text-ink md:text-4xl">
+            <span className="text-primary font-bold tracking-widest text-xs font-montserrat uppercase">Spine Center</span>
+            <h2 className="break-keep text-h3 tracking-tight text-ink">
               정확한 진단이<br />치료의 시작입니다
             </h2>
             <div className="w-16 h-1.5 bg-primary rounded-full" />
-            <p className="break-keep text-[15px] font-medium leading-[1.75] text-ink-sub md:text-base">
+            <p className="break-keep text-body text-ink-sub md:text-base">
               연세척병원 척추센터는 연세대 세브란스 교수 출신의 전문 의료진이 
               대학병원급 첨단 MRI 등 정밀 영상 장비를 활용하여 통증의 정확한 원인을 진단합니다.
               불필요한 수술은 하지 않으며, 환자에게 가장 안전하고 효과적인 
@@ -67,7 +67,7 @@ export default function SpineCenterPage() {
               { value: '15Y+', label: '전문의 임상 경력' },
             ].map((stat, i) => (
               <div key={i} className="space-y-1.5 rounded-2xl bg-slate-50 px-3 py-5 text-center sm:p-6 lg:rounded-3xl lg:p-8">
-                <p className="text-[1.55rem] font-black tracking-tighter text-primary sm:text-3xl">{stat.value}</p>
+                <p className="text-[1.55rem] font-bold tracking-tighter text-primary sm:text-3xl">{stat.value}</p>
                 <p className="break-keep text-[12px] font-medium leading-snug text-ink-sub sm:text-sm">{stat.label}</p>
               </div>
             ))}
@@ -77,8 +77,8 @@ export default function SpineCenterPage() {
         {/* 진료 분야 카드 */}
         <div className="space-y-8">
           <div className="space-y-4">
-            <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">Our Specialties</span>
-            <h2 className="text-[1.75rem] font-extrabold tracking-tight text-ink md:text-3xl">전문 진료 분야</h2>
+            <span className="text-primary font-bold tracking-widest text-xs font-montserrat uppercase">Our Specialties</span>
+            <h2 className="text-h3 tracking-tight text-ink">전문 진료 분야</h2>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -116,7 +116,7 @@ export default function SpineCenterPage() {
       {/* 비수술 우선 원칙 배너 */}
       <section className="bg-navy-950 px-5 py-14 sm:px-6 md:py-24">
         <div className="mx-auto max-w-4xl space-y-6 text-center md:space-y-8">
-          <span className="text-primary text-[10px] font-black tracking-[0.3em] font-montserrat uppercase">Our Philosophy</span>
+          <span className="text-primary text-[10px] font-bold tracking-[0.3em] font-montserrat uppercase">Our Philosophy</span>
           <h2 className="break-keep text-[1.75rem] font-bold leading-tight text-white md:text-3xl">&ldquo;비수술 우선, 정직한 진료&rdquo;</h2>
           <p className="break-keep text-base leading-[1.75] text-white/75 md:text-lg">
             연세척병원은 무조건적인 수술보다 정밀한 진단을 통해<br className="hidden md:block" />

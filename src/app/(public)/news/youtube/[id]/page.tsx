@@ -43,10 +43,10 @@ export default async function YoutubeDetailPage({ params }: { params: { id: stri
 
       <div className="mx-auto max-w-[1000px] px-4 py-10 sm:px-6 sm:py-14 md:py-24">
         <div className="mb-8 border-b border-slate-100 pb-8 sm:mb-12 sm:pb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-50 border border-red-100 rounded-full text-red-600 text-[13px] font-black tracking-tight mb-6 font-montserrat uppercase">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-50 border border-red-100 rounded-full text-red-600 text-[13px] font-bold tracking-tight mb-6 font-montserrat uppercase">
             <Play size={12} fill="currentColor" /> YouTube Channel
           </div>
-          <h1 className="mb-6 break-keep text-[28px] font-black leading-[1.35] tracking-tight text-ink sm:mb-8 sm:text-[32px] md:text-[44px] md:leading-[1.2]">{item.title}</h1>
+          <h1 className="mb-6 break-keep text-h2 tracking-tight text-ink sm:mb-8">{item.title}</h1>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[14px] font-bold tracking-tight text-ink-muted sm:gap-6 sm:text-[15px]">
             <div className="flex items-center gap-2"><Calendar size={18} className="text-slate-300" />{new Date(item.created_at).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
             <div className="flex items-center gap-2"><Video size={18} className="text-slate-300" />영상 지식 나눔</div>
@@ -77,11 +77,11 @@ export default async function YoutubeDetailPage({ params }: { params: { id: stri
         </div>
 
         <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">
-          <Link href="/news/youtube" className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-5 py-4 text-[16px] font-black text-ink-sub transition-all hover:bg-slate-200 active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-10 sm:py-5 sm:text-[17px]">
+          <Link href="/news/youtube" className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-5 py-4 text-[16px] font-bold text-ink-sub transition-all hover:bg-slate-200 active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-10 sm:py-5 sm:text-[17px]">
             <ArrowLeft size={20} strokeWidth={2.5} /> 목록으로 돌아가기
           </Link>
           {item.video_url && (
-             <a href={item.video_url} target="_blank" rel="noreferrer" className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-600 px-5 py-4 text-[16px] font-black text-white shadow-lg shadow-red-600/20 transition-all active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-10 sm:py-5 sm:text-[17px]">
+             <a href={item.video_url} target="_blank" rel="noreferrer" className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-600 px-5 py-4 text-[16px] font-bold text-white shadow-lg shadow-red-600/20 transition-all active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-10 sm:py-5 sm:text-[17px]">
                유튜브에서 직접 보기
              </a>
           )}

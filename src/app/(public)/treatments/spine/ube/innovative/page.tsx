@@ -23,7 +23,7 @@ export default function InnovativeSurgeryPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 12a3 3 0 100-6 3 3 0 000 6z" />
               </svg>
             </div>
-            <h2 className="text-[1.75rem] font-extrabold text-ink sm:text-3xl md:text-4xl">
+            <h2 className="text-h3 text-ink">
               페이지 제작 중입니다.
             </h2>
             <p className="break-keep text-base font-medium leading-[1.7] text-ink-sub sm:text-lg">

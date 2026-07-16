@@ -153,7 +153,7 @@ const QuickMenu = () => {
                     <span className="flex h-7 w-7 items-center justify-center transition-transform duration-300 group-hover:scale-110">
                       {item.icon}
                     </span>
-                    <span className="text-[13px] font-black leading-none tracking-tight">
+                    <span className="text-[13px] font-bold leading-none tracking-tight">
                       {item.name}
                     </span>
                   </Link>
@@ -166,7 +166,7 @@ const QuickMenu = () => {
                   aria-label="맨 위로 이동"
                 >
                   <ArrowUp size={22} />
-                  <span className="text-[12px] font-black leading-none tracking-tight">위로</span>
+                  <span className="text-[12px] font-bold leading-none tracking-tight">위로</span>
                 </button>
               </div>
             </nav>

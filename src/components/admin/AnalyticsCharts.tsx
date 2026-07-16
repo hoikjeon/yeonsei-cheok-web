@@ -34,7 +34,7 @@ export function AnalyticsSummary({ visits }: AnalyticsProps) {
       <div className="bg-gradient-to-br from-blue-600 to-blue-800 p-6 rounded-2xl text-white shadow-lg relative overflow-hidden">
          <div className="relative z-10">
            <p className="text-blue-100 font-bold mb-1 flex items-center gap-2"><Users size={16} /> 오늘 총 방문자</p>
-           <h3 className="text-4xl font-black">{todayTotal} <span className="text-lg font-bold text-blue-200">명</span></h3>
+           <h3 className="text-4xl font-bold">{todayTotal} <span className="text-lg font-bold text-blue-200">명</span></h3>
          </div>
          <Activity className="absolute -right-6 -bottom-6 text-white/10 w-32 h-32" />
       </div>
@@ -42,7 +42,7 @@ export function AnalyticsSummary({ visits }: AnalyticsProps) {
          <p className="text-ink-muted font-bold mb-1 text-sm flex items-center gap-2">
            <TrendingUp size={16} className={diff >= 0 ? "text-emerald-500" : "text-rose-500"}/> 어제 대비 증감
          </p>
-         <h3 className="text-2xl font-black text-ink">
+         <h3 className="text-2xl font-bold text-ink">
            {yesterdayTotal > 0 ? diffText : '첫 데이터'}
          </h3>
       </div>
@@ -85,7 +85,7 @@ export function AnalyticsGraphs({ visits }: AnalyticsProps) {
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 mt-10">
       <section className="bg-white rounded-[1.5rem] p-8 shadow-sm border border-slate-200">
-         <h3 className="text-[17px] font-black text-ink mb-6 flex items-center gap-3">
+         <h3 className="text-[17px] font-bold text-ink mb-6 flex items-center gap-3">
            <span className="w-2 h-6 bg-blue-500 rounded-full block"></span> 오늘 시간대별 접속량 추이
          </h3>
          <div className="h-[300px] w-full">
@@ -110,7 +110,7 @@ export function AnalyticsGraphs({ visits }: AnalyticsProps) {
       </section>
 
       <section className="bg-white rounded-[1.5rem] p-8 shadow-sm border border-slate-200">
-         <h3 className="text-[17px] font-black text-ink mb-6 flex items-center gap-3">
+         <h3 className="text-[17px] font-bold text-ink mb-6 flex items-center gap-3">
             <span className="w-2 h-6 bg-purple-500 rounded-full block"></span> 최근 7일 방문 트렌드
          </h3>
          <div className="h-[300px] w-full">

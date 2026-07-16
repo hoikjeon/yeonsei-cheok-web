@@ -53,11 +53,11 @@ export default async function ReviewDetailPage({ params }: { params: { id: strin
       <div className="mx-auto max-w-[1000px] px-4 py-10 sm:px-6 sm:py-14 md:py-24">
         {/* 🔹 Detail Header */}
         <div className="mb-8 border-b border-slate-100 pb-8 sm:mb-12 sm:pb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/5 border border-primary/10 rounded-full text-primary text-[13px] font-black tracking-tight mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/5 border border-primary/10 rounded-full text-primary text-[13px] font-bold tracking-tight mb-6">
             <Tag size={12} />
             {review.category}
           </div>
-          <h1 className="mb-6 break-keep text-[28px] font-black leading-[1.35] tracking-tight text-ink sm:mb-8 sm:text-[32px] md:text-[44px] md:leading-[1.2]">
+          <h1 className="mb-6 break-keep text-h2 tracking-tight text-ink sm:mb-8">
             {review.title}
           </h1>
           
@@ -90,7 +90,7 @@ export default async function ReviewDetailPage({ params }: { params: { id: strin
                 />
                 <div className="px-6 py-4 bg-white/80 backdrop-blur-md border-t border-slate-50 flex justify-between items-center">
                   <span className="text-[13px] font-bold text-ink-muted italic">Photo {index + 1}</span>
-                  <span className="text-[12px] font-black text-primary/40 tracking-widest font-montserrat uppercase">Yonsei Cheok</span>
+                  <span className="text-[12px] font-bold text-primary/40 tracking-widest font-montserrat uppercase">Yonsei Cheok</span>
                 </div>
               </div>
             ))}
@@ -107,7 +107,7 @@ export default async function ReviewDetailPage({ params }: { params: { id: strin
         {/* 🔹 Medical Law Notice (Floating style) */}
         <div className="mb-14 rounded-2xl border border-slate-100 bg-slate-50 p-5 text-center sm:mb-20 sm:rounded-[1.5rem] sm:p-8">
           <p className="break-keep text-[14px] font-bold leading-[1.7] tracking-tight text-ink-muted sm:text-[15px]">
-            <strong className="text-ink font-black">※ 안내사항</strong><br className="md:hidden"/>
+            <strong className="text-ink font-bold">※ 안내사항</strong><br className="md:hidden"/>
             본 후기는 의료법 제56조 및 동법 시행령을 준수하여 환자가 직접 작성한 실제 사례입니다.
           </p>
         </div>
@@ -116,7 +116,7 @@ export default async function ReviewDetailPage({ params }: { params: { id: strin
         <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">
           <Link 
             href="/board/reviews"
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-5 py-4 text-[16px] font-black text-ink-sub transition-all hover:bg-slate-200 active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-10 sm:py-5 sm:text-[17px]"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-5 py-4 text-[16px] font-bold text-ink-sub transition-all hover:bg-slate-200 active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-10 sm:py-5 sm:text-[17px]"
           >
             <ArrowLeft size={20} strokeWidth={2.5} />
             목록으로 돌아가기

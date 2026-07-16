@@ -39,11 +39,11 @@ export default async function MediaDetailPage({ params }: { params: { id: string
       <div className="mx-auto max-w-[1000px] px-4 py-10 sm:px-6 sm:py-14 md:py-24">
         {/* Header */}
         <div className="mb-8 border-b border-slate-100 pb-8 sm:mb-12 sm:pb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/5 border border-primary/10 rounded-full text-primary text-[13px] font-black tracking-tight mb-6 font-montserrat uppercase">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/5 border border-primary/10 rounded-full text-primary text-[13px] font-bold tracking-tight mb-6 font-montserrat uppercase">
             <Newspaper size={12} />
             Media News
           </div>
-          <h1 className="mb-6 break-keep text-[28px] font-black leading-[1.35] tracking-tight text-ink sm:mb-8 sm:text-[32px] md:text-[44px] md:leading-[1.2]">
+          <h1 className="mb-6 break-keep text-h2 tracking-tight text-ink sm:mb-8">
             {item.title}
           </h1>
           
@@ -98,7 +98,7 @@ export default async function MediaDetailPage({ params }: { params: { id: string
         <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">
           <Link 
             href="/news/media"
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-5 py-4 text-[16px] font-black text-ink-sub transition-all hover:bg-slate-200 active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-10 sm:py-5 sm:text-[17px]"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 px-5 py-4 text-[16px] font-bold text-ink-sub transition-all hover:bg-slate-200 active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-10 sm:py-5 sm:text-[17px]"
           >
             <ArrowLeft size={20} strokeWidth={2.5} />
             목록으로 돌아가기
@@ -108,7 +108,7 @@ export default async function MediaDetailPage({ params }: { params: { id: string
               href={item.source_url}
               target="_blank"
               rel="noreferrer"
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-4 text-[16px] font-black text-white shadow-blue-glow transition-all active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-10 sm:py-5 sm:text-[17px]"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-4 text-[16px] font-bold text-white shadow-blue-glow transition-all active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-10 sm:py-5 sm:text-[17px]"
              >
                기사 원문 링크 <ExternalLink size={20} />
              </a>

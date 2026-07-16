@@ -184,28 +184,28 @@ export default function ReviewsShowcaseSection() {
 
   return (
     <section className="overflow-hidden bg-[#edf2fa] py-16 md:py-32" aria-labelledby="reviews-showcase-title">
-      <div className="mx-auto w-full max-w-[1540px] px-5 sm:px-7 xl:px-10">
+      <div className="mx-auto w-full max-w-7xl px-5 sm:px-7 xl:px-10">
         <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_auto]">
           <div className="space-y-6">
             <h2
               id="reviews-showcase-title"
-              className="break-keep text-[32px] font-black leading-[1.28] tracking-normal text-black sm:text-[38px] md:text-[54px]"
+              className="break-keep text-h2 tracking-normal text-black"
             >
               끄덕임으로 전해지는
               <br />
               환자들의 치료후기
             </h2>
-            <p className="break-keep text-[15px] font-medium leading-[1.7] text-ink sm:text-[17px] sm:font-bold md:text-[21px] md:leading-relaxed">
+            <p className="break-keep text-body-lg text-ink">
               수술 후 통증에서 벗어난 환자분들이 직접 남겨주신 생생한 회복 이야기를 만나보세요.
             </p>
-            <p className="inline-flex max-w-full break-keep rounded-xl bg-[#dbe8ff] px-3.5 py-2 text-[12px] font-bold leading-relaxed text-primary sm:rounded-full md:text-[13px]">
+            <p className="inline-flex max-w-full break-keep rounded-xl bg-[#dbe8ff] px-3.5 py-2 text-caption font-semibold leading-relaxed text-primary sm:rounded-full">
               ※ 의료법 규정에 따라 자세한 내용은 로그인 후 확인할 수 있습니다.
             </p>
           </div>
 
           <Link
             href="/board/reviews"
-            className="group inline-flex w-fit items-center gap-3 rounded-full border border-ink/45 px-6 py-3.5 text-[15px] font-black text-ink transition-all duration-300 hover:border-primary hover:bg-primary hover:text-white sm:gap-4 sm:px-8 sm:py-4 sm:text-[17px] lg:mt-[108px]"
+            className="group inline-flex w-fit items-center gap-3 rounded-full border border-ink/45 px-6 py-3.5 text-body font-bold text-ink transition-all duration-300 hover:border-primary hover:bg-primary hover:text-white sm:gap-4 sm:px-8 sm:py-4 lg:mt-[108px]"
           >
             자세히보기
             <ArrowRight size={21} className="transition-transform duration-300 group-hover:translate-x-1" />
@@ -242,13 +242,13 @@ export default function ReviewsShowcaseSection() {
                   transition,
                 }}
               >
-                <span className={`inline-flex w-fit rounded-full px-4 py-2.5 text-[13px] font-black leading-none sm:px-5 sm:py-3 sm:text-[15px] ${tone.chip}`}>
+                <span className={`inline-flex w-fit rounded-full px-4 py-2.5 text-caption font-bold leading-none sm:px-5 sm:py-3 ${tone.chip}`}>
                   {review.category}
                 </span>
-                <p className={`mt-5 line-clamp-4 break-keep text-[18px] font-black leading-[1.5] tracking-normal sm:mt-6 sm:text-[20px] sm:leading-[1.55] ${tone.body}`}>
+                <p className={`mt-5 line-clamp-4 break-keep text-h4 font-bold leading-[1.55] tracking-normal sm:mt-6 ${tone.body}`}>
                   {review.title}
                 </p>
-                <div className={`mt-auto flex items-center justify-between gap-4 pt-7 text-[15px] font-bold tracking-normal sm:pt-10 sm:text-[17px] ${tone.meta}`}>
+                <div className={`mt-auto flex items-center justify-between gap-4 pt-7 text-body font-medium tracking-normal sm:pt-10 ${tone.meta}`}>
                   <span>{review.author}</span>
                   <time dateTime={review.date.replaceAll('.', '-')}>{review.date}</time>
                 </div>
@@ -258,7 +258,7 @@ export default function ReviewsShowcaseSection() {
         </div>
       </div>
 
-      <div className="mx-auto mt-4 flex w-full max-w-[1540px] justify-center px-5 sm:px-7 md:mt-8 xl:px-10">
+      <div className="mx-auto mt-4 flex w-full max-w-7xl justify-center px-5 sm:px-7 md:mt-8 xl:px-10">
         <div className="flex items-center">
           <span className="h-1.5 w-[62px] rounded-full bg-[#10346f]" />
           <span className="h-1.5 w-[110px] rounded-full bg-white/70" />

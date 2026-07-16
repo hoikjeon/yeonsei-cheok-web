@@ -136,14 +136,14 @@ export default function NucleoplastyDetailSection() {
           <div className="relative md:min-h-[560px] xl:min-h-[620px]">
             <div className="relative z-10 pb-7 md:absolute md:inset-y-0 md:left-0 md:flex md:w-[58%] md:items-center md:px-10 md:pb-0 lg:px-14 xl:px-16">
               <div className="max-w-[670px]">
-                <p className="mb-4 break-words font-montserrat text-[10px] font-black uppercase tracking-[0.14em] text-primary sm:text-[11px] sm:tracking-[0.18em] md:text-white/65">
+                <p className="mb-4 break-words font-montserrat text-[10px] font-bold uppercase tracking-[0.14em] text-primary sm:text-[11px] sm:tracking-[0.18em] md:text-white/80">
                   Radiofrequency Nucleoplasty
                 </p>
-                <h2 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[2.7rem] md:leading-[1.18] md:text-white lg:text-[3.25rem]">
+                <h2 className="break-keep text-h2 tracking-tight text-ink sm:text-4xl md:text-[2.7rem] md:leading-[1.18] md:text-white lg:text-[3.25rem]">
                   디스크 안쪽의 압력을 낮춰,
                   <br className="hidden md:block" /> 신경 자극 완화를 돕습니다
                 </h2>
-                <p className="mt-5 max-w-[590px] break-keep text-base font-medium leading-[1.8] text-ink-sub md:mt-7 md:text-[17px] md:text-white/75 lg:text-lg">
+                <p className="mt-5 max-w-[590px] break-keep text-body-lg text-ink-sub md:mt-7 md:text-white/85">
                   C-arm으로 위치를 확인하며 가는 전극을 수핵 안쪽에 놓고,
                   상대적으로 낮은 온도의 플라즈마로 수핵 일부를 미세하게
                   제거해 디스크 내부 압력 완화를 돕는 비수술 시술입니다.
@@ -165,7 +165,7 @@ export default function NucleoplastyDetailSection() {
                 className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(3,13,32,0.98)_0%,rgba(3,16,39,0.9)_40%,rgba(4,19,45,0.42)_64%,rgba(4,19,45,0.04)_84%)] md:block"
               />
             </div>
-            <p className="mt-2 px-1 break-keep text-[11px] font-semibold leading-[1.6] text-ink-sub md:absolute md:bottom-5 md:right-6 md:z-20 md:mt-0 md:rounded-full md:bg-black/35 md:px-3 md:py-1.5 md:text-white/65 md:backdrop-blur-sm">
+            <p className="mt-2 px-1 break-keep text-[12px] font-semibold leading-[1.6] text-ink-sub md:absolute md:bottom-5 md:right-6 md:z-20 md:mt-0 md:rounded-full md:bg-black/35 md:px-3 md:py-1.5 md:text-white/80 md:backdrop-blur-sm">
               시술 이해를 돕기 위한 재구성 이미지입니다.
             </p>
           </div>
@@ -175,10 +175,10 @@ export default function NucleoplastyDetailSection() {
       <ScrollReveal variant="soft-rise" amount={0.08}>
         <section id="nucleoplasty-explanation">
           <div className="max-w-4xl">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               고주파수핵감압술, 이렇게 이해하세요
             </h3>
-            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-ink-sub md:text-lg">
+            <p className="mt-5 max-w-3xl break-keep text-body-lg text-ink-sub">
               이 시술은 신경을 태우거나 차단하는 치료가 아니며, 밖으로 나온
               디스크 조각을 녹여 흡출하는 수술도 아닙니다. 디스크 안쪽 수핵의
               일부를 미세하게 제거해 여러 감압 통로를 만들고, 내부 압력이
@@ -190,14 +190,14 @@ export default function NucleoplastyDetailSection() {
             <div className="grid lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
               <div className="flex items-center bg-navy-950 p-5 text-white sm:p-8 md:p-10 lg:p-12">
                 <div>
-                  <span className="inline-flex rounded-full bg-white/10 px-3 py-1.5 text-[12px] font-black text-white/80">
+                  <span className="inline-flex rounded-full bg-white/10 px-3 py-1.5 text-[12px] font-bold text-white/80">
                     핵심 원리
                   </span>
-                  <h4 className="mt-5 break-keep text-[1.45rem] font-black leading-[1.3] sm:text-2xl md:text-[2rem]">
+                  <h4 className="mt-5 break-keep text-h3 md:text-[2rem]">
                     수핵의 작은 일부를 줄여
                     <br /> 내부 압력 완화를 돕습니다
                   </h4>
-                  <p className="mt-4 break-keep text-[15px] font-medium leading-[1.8] text-white/70 md:text-[17px]">
+                  <p className="mt-4 break-keep text-body-lg text-white/85">
                     디스크 전체를 제거하는 것이 아니라, 계획된 위치에 작은 감압
                     통로를 만드는 방식입니다.
                   </p>
@@ -231,17 +231,17 @@ export default function NucleoplastyDetailSection() {
                         />
                       </div>
                       <div className="p-4">
-                        <span className="font-montserrat text-[11px] font-black tracking-[0.14em] text-primary">
+                        <span className="font-montserrat text-[11px] font-bold tracking-[0.14em] text-primary">
                           {item.number}
                         </span>
-                        <p className="mt-1 break-keep text-[14px] font-black leading-[1.55] text-ink">
+                        <p className="mt-1 break-keep text-[14px] font-bold leading-[1.55] text-ink">
                           {item.title}
                         </p>
                       </div>
                     </div>
                   ))}
                 </div>
-                <figcaption className="px-1 pt-4 break-keep text-[12px] font-semibold leading-[1.7] text-ink-sub sm:px-2 sm:text-[14px]">
+                <figcaption className="px-1 pt-4 break-keep text-[13px] font-semibold leading-[1.7] text-ink-sub sm:px-2 sm:text-[14px]">
                   시술 이해를 돕기 위한 재구성 이미지이며, 실제 치료 범위는 환자
                   상태에 따라 달라질 수 있습니다.
                 </figcaption>
@@ -254,7 +254,7 @@ export default function NucleoplastyDetailSection() {
       <section id="nucleoplasty-principle">
         <ScrollReveal variant="soft-rise" amount={0.08}>
           <div className="max-w-4xl">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               세 가지 원리로 디스크 내부를 감압합니다
             </h3>
           </div>
@@ -270,13 +270,13 @@ export default function NucleoplastyDetailSection() {
               className="h-full"
             >
               <article className="h-full rounded-[1.15rem] border border-slate-200 bg-white p-5 shadow-[0_20px_60px_-50px_rgba(15,29,54,0.65)] sm:rounded-[1.4rem] sm:p-7">
-                <span className="font-montserrat text-[13px] font-black tracking-[0.16em] text-primary">
+                <span className="font-montserrat text-[13px] font-bold tracking-[0.16em] text-primary">
                   {item.number}
                 </span>
-                <h4 className="mt-4 break-keep text-[1.15rem] font-black leading-snug text-ink sm:text-xl">
+                <h4 className="mt-4 break-keep text-h4 leading-snug text-ink">
                   {item.title}
                 </h4>
-                <p className="mt-2.5 break-keep text-[14px] font-medium leading-[1.75] text-ink-sub sm:text-[15px]">
+                <p className="mt-2.5 break-keep text-body text-ink-sub">
                   {item.desc}
                 </p>
               </article>
@@ -295,7 +295,7 @@ export default function NucleoplastyDetailSection() {
             className="absolute -right-24 -top-36 h-96 w-96 rounded-full bg-primary/25 blur-[100px]"
           />
           <div className="relative">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight">
               고주파수핵감압술의 특징
             </h3>
 
@@ -312,10 +312,10 @@ export default function NucleoplastyDetailSection() {
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white sm:h-9 sm:w-9">
                       <Check size={18} strokeWidth={3} />
                     </span>
-                    <h4 className="mt-4 break-keep text-[15px] font-black leading-[1.45] text-white sm:text-base">
+                    <h4 className="mt-4 break-keep text-[15px] font-bold leading-[1.45] text-white sm:text-base">
                       {item.title}
                     </h4>
-                    <p className="mt-1.5 break-keep text-[12px] font-medium leading-[1.65] text-white/75 sm:text-[13px]">
+                    <p className="mt-1.5 break-keep text-[12px] font-medium leading-[1.65] text-white/85 sm:text-[14px]">
                       {item.desc}
                     </p>
                   </article>
@@ -329,10 +329,10 @@ export default function NucleoplastyDetailSection() {
       <ScrollReveal variant="soft-rise" amount={0.08}>
         <section id="nucleoplasty-candidates">
           <div className="max-w-4xl">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               이런 경우 적용 가능성을 확인합니다
             </h3>
-            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-ink-sub md:text-lg">
+            <p className="mt-5 max-w-3xl break-keep text-body-lg text-ink-sub">
               진단명만으로 결정하지 않으며, MRI에서 확인한 디스크의 형태와 실제
               증상이 일치하는지 함께 평가하는 과정이 중요합니다.
             </p>
@@ -364,10 +364,10 @@ export default function NucleoplastyDetailSection() {
       <ScrollReveal variant="soft-rise" amount={0.08}>
         <section id="nucleoplasty-mri">
           <div className="max-w-4xl">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               MRI에서 디스크 형태를 함께 확인합니다
             </h3>
-            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-ink-sub md:text-lg">
+            <p className="mt-5 max-w-3xl break-keep text-body-lg text-ink-sub">
               영상의 모양만으로 시술을 결정하지는 않습니다. 돌출된 수핵이
               섬유륜 안에 머무는지, 해당 위치가 증상과 관련되는지 함께
               판단합니다.
@@ -394,13 +394,13 @@ export default function NucleoplastyDetailSection() {
                     />
                   </div>
                   <figcaption className="p-4 sm:p-5 md:p-6">
-                    <span className="text-[11px] font-black text-primary sm:text-xs">
+                    <span className="text-[11px] font-bold text-primary sm:text-xs">
                       {item.label}
                     </span>
-                    <h4 className="mt-1 break-keep text-[1.05rem] font-black leading-snug text-ink sm:text-xl">
+                    <h4 className="mt-1 break-keep text-[1.05rem] font-bold leading-snug text-ink sm:text-xl">
                       {item.title}
                     </h4>
-                    <p className="mt-2 break-keep text-[13px] font-medium leading-[1.7] text-ink-sub sm:text-[15px]">
+                    <p className="mt-2 break-keep text-body text-ink-sub">
                       {item.desc}
                     </p>
                   </figcaption>
@@ -408,7 +408,7 @@ export default function NucleoplastyDetailSection() {
               </ScrollReveal>
             ))}
           </div>
-          <p className="mt-4 break-keep text-[12px] font-semibold leading-[1.7] text-ink-sub sm:text-[13px]">
+          <p className="mt-4 break-keep text-[13px] font-semibold leading-[1.7] text-ink-sub sm:text-[14px]">
             위 이미지는 제공된 참고 영상이며, 실제 판독과 치료 결정은 전체 MRI
             소견과 진찰 결과를 바탕으로 이루어집니다.
           </p>
@@ -421,10 +421,10 @@ export default function NucleoplastyDetailSection() {
           className="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-premium sm:rounded-[2rem] sm:p-7 md:p-10"
         >
           <div className="max-w-4xl px-1 pb-6 sm:pb-8">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               시술 과정은 네 단계로 진행됩니다
             </h3>
-            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-ink-sub md:text-lg">
+            <p className="mt-5 max-w-3xl break-keep text-body-lg text-ink-sub">
               접근 바늘과 전극의 위치를 C-arm으로 확인하며 계획한 수핵 범위에서
               감압을 진행합니다.
             </p>
@@ -440,7 +440,7 @@ export default function NucleoplastyDetailSection() {
                 className="object-contain"
               />
             </div>
-            <figcaption className="mt-3 px-1 break-keep text-[12px] font-semibold leading-[1.7] text-ink-sub sm:text-[13px]">
+            <figcaption className="mt-3 px-1 break-keep text-[13px] font-semibold leading-[1.7] text-ink-sub sm:text-[14px]">
               시술 이해를 돕기 위한 재구성 이미지이며, 실제 접근 방향과 감압
               범위는 환자 상태에 따라 달라질 수 있습니다.
             </figcaption>
@@ -462,11 +462,11 @@ export default function NucleoplastyDetailSection() {
                   />
                 </div>
                 <div className="flex items-start gap-3 p-4">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary font-montserrat text-[11px] font-black text-white">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary font-montserrat text-[11px] font-bold text-white">
                     {item.number}
                   </span>
                   <div className="min-w-0">
-                    <h4 className="break-keep text-[15px] font-black leading-snug text-ink">
+                    <h4 className="break-keep text-[15px] font-bold leading-snug text-ink">
                       {item.title}
                     </h4>
                     <p className="mt-1.5 break-keep text-[12px] font-medium leading-[1.65] text-ink-sub">
@@ -478,7 +478,7 @@ export default function NucleoplastyDetailSection() {
             ))}
           </ol>
 
-          <p className="mt-3 break-keep text-[12px] font-semibold leading-[1.7] text-ink-sub md:hidden">
+          <p className="mt-3 break-keep text-[13px] font-semibold leading-[1.7] text-ink-sub md:hidden">
             카드를 옆으로 밀어 네 단계를 이어서 확인하세요.
           </p>
 
@@ -488,14 +488,14 @@ export default function NucleoplastyDetailSection() {
                 key={item.number}
                 className="flex items-start gap-3 rounded-[0.9rem] bg-slate-50 p-3.5 sm:block sm:p-4"
               >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary font-montserrat text-[11px] font-black text-white">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary font-montserrat text-[11px] font-bold text-white">
                   {item.number}
                 </span>
                 <div className="min-w-0 sm:mt-4">
-                  <h4 className="break-keep text-[15px] font-black leading-snug text-ink sm:text-base">
+                  <h4 className="break-keep text-[15px] font-bold leading-snug text-ink sm:text-base">
                     {item.title}
                   </h4>
-                  <p className="mt-1.5 break-keep text-[12px] font-medium leading-[1.65] text-ink-sub sm:text-[13px]">
+                  <p className="mt-1.5 break-keep text-[12px] font-medium leading-[1.65] text-ink-sub sm:text-[14px]">
                     {item.desc}
                   </p>
                 </div>
@@ -511,10 +511,10 @@ export default function NucleoplastyDetailSection() {
           className="rounded-[1.5rem] bg-navy-950 px-4 py-10 text-white sm:rounded-[2rem] sm:px-7 sm:py-14 md:px-10 md:py-20"
         >
           <div className="max-w-4xl px-1">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight">
               C-arm으로 수핵 내 위치를 확인합니다
             </h3>
-            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-white/70 md:text-lg">
+            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-white/80 md:text-lg">
               목표 디스크와 접근 방향, 전극 끝의 위치를 실시간 영상으로 살피며
               시술합니다.
             </p>
@@ -540,10 +540,10 @@ export default function NucleoplastyDetailSection() {
                     />
                   </div>
                   <figcaption className="p-4 sm:p-5 md:p-6">
-                    <h4 className="break-keep text-[1.05rem] font-black leading-snug text-white sm:text-xl">
+                    <h4 className="break-keep text-[1.05rem] font-bold leading-snug text-white sm:text-xl">
                       {item.title}
                     </h4>
-                    <p className="mt-2 break-keep text-[13px] font-medium leading-[1.7] text-white/70 sm:text-[15px]">
+                    <p className="mt-2 break-keep text-[14px] font-medium leading-[1.7] text-white/80 sm:text-[15px]">
                       {item.desc}
                     </p>
                   </figcaption>
@@ -551,7 +551,7 @@ export default function NucleoplastyDetailSection() {
               </ScrollReveal>
             ))}
           </div>
-          <p className="mt-4 px-1 break-keep text-[12px] font-semibold leading-[1.7] text-white/55 sm:text-[13px]">
+          <p className="mt-4 px-1 break-keep text-[13px] font-semibold leading-[1.7] text-white/70 sm:text-[14px]">
             위 이미지는 제공된 참고 영상이며, 실제 시술 부위와 영상 방향은 환자
             상태에 따라 달라질 수 있습니다.
           </p>
@@ -564,10 +564,10 @@ export default function NucleoplastyDetailSection() {
           className="rounded-[1.5rem] border border-slate-200 bg-[#F6F8FC] p-5 sm:rounded-[2rem] sm:p-8 md:p-10"
         >
           <div className="max-w-4xl">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               이런 경우에는 다른 평가가 우선입니다
             </h3>
-            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-ink-sub md:text-lg">
+            <p className="mt-5 max-w-3xl break-keep text-body-lg text-ink-sub">
               모든 디스크 질환에 적용되는 시술은 아닙니다. 다음과 같은 경우에는
               원인과 신경 압박 정도를 다시 평가해 다른 치료를 먼저 검토할 수
               있습니다.
@@ -584,7 +584,7 @@ export default function NucleoplastyDetailSection() {
                 className="h-full"
               >
                 <article className="flex h-full items-start gap-3.5 rounded-[1rem] border border-slate-200 bg-white p-4 sm:gap-4 sm:rounded-[1.25rem] sm:p-5">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-200 text-[14px] font-black text-slate-700">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-200 text-[14px] font-bold text-slate-700">
                     !
                   </span>
                   <p className="break-keep pt-0.5 text-[14px] font-bold leading-[1.7] text-ink sm:text-[16px]">
@@ -596,7 +596,7 @@ export default function NucleoplastyDetailSection() {
           </div>
 
           <aside className="mt-4 rounded-[1rem] border border-rose-200 bg-rose-50 p-4 sm:p-5">
-            <p className="break-keep text-[13px] font-bold leading-[1.75] text-rose-950/80 sm:text-[14px]">
+            <p className="break-keep text-[14px] font-bold leading-[1.75] text-rose-950/80 sm:text-[15px]">
               진행성 근력저하, 대소변 기능 변화, 회음부 감각저하 등 마미증후군이
               의심되는 증상이 있다면 시술 선택보다 신속한 진료와 신경학적
               평가가 우선입니다.
@@ -607,7 +607,7 @@ export default function NucleoplastyDetailSection() {
 
       <ScrollReveal variant="soft-rise" amount={0.1}>
         <aside className="rounded-xl border border-amber-200/80 bg-amber-50 px-5 py-5 sm:px-6">
-          <p className="break-keep text-[13px] font-semibold leading-[1.75] text-amber-950/75 sm:text-[14px]">
+          <p className="break-keep text-body font-semibold text-amber-950/90">
             시술 효과와 회복 기간은 디스크 형태와 증상, 전신 상태에 따라 달라질
             수 있으며 증상이 남거나 추가 시술·수술이 필요할 수 있습니다.
             일시적인 통증, 근육 경련, 저림이 나타날 수 있고 드물게 출혈, 감염성

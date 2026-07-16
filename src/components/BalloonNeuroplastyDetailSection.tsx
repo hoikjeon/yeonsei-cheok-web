@@ -106,15 +106,15 @@ export default function BalloonNeuroplastyDetailSection() {
           <div className="relative md:min-h-[560px] xl:min-h-[620px]">
             <div className="relative z-10 pb-7 md:absolute md:inset-y-0 md:left-0 md:flex md:w-[58%] md:items-center md:px-10 md:pb-0 lg:px-14 xl:px-16">
               <div className="max-w-[670px]">
-                <p className="mb-4 font-montserrat text-[11px] font-black uppercase tracking-[0.2em] text-primary md:text-white/65">
+                <p className="mb-4 font-montserrat text-[11px] font-bold uppercase tracking-[0.2em] text-primary md:text-white/80">
                   Epidural Balloon Neuroplasty
                 </p>
-                <h2 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[2.7rem] md:leading-[1.18] md:text-white lg:text-[3.25rem]">
+                <h2 className="break-keep text-h2 tracking-tight text-ink sm:text-4xl md:text-[2.7rem] md:leading-[1.18] md:text-white lg:text-[3.25rem]">
                   좁아진 신경 주변에,
                   <br className="hidden md:block" /> 작은 풍선으로 정밀하게
                   접근합니다
                 </h2>
-                <p className="mt-5 max-w-[590px] break-keep text-base font-medium leading-[1.8] text-ink-sub md:mt-7 md:text-[17px] md:text-white/75 lg:text-lg">
+                <p className="mt-5 max-w-[590px] break-keep text-body-lg text-ink-sub md:mt-7 md:text-white/85">
                   C-arm 영상을 확인하며 끝에 작은 풍선이 달린 특수 카테터를
                   병변 가까이 이동한 뒤, 풍선을 짧게 확장해 신경 주변의 유착
                   완화와 표적 약물 전달을 돕는 비수술 시술입니다.
@@ -143,10 +143,10 @@ export default function BalloonNeuroplastyDetailSection() {
       <ScrollReveal variant="soft-rise" amount={0.08}>
         <section id="balloon-explanation">
           <div className="max-w-4xl">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               풍선 카테터는 어떤 역할을 하나요?
             </h3>
-            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-ink-sub md:text-lg">
+            <p className="mt-5 max-w-3xl break-keep text-body-lg text-ink-sub">
               신경이 지나는 경막외 공간이 좁아지거나 주변 조직이 달라붙으면
               약물이 필요한 부위까지 퍼지기 어려울 수 있습니다. 풍선 카테터는
               좁아진 공간의 확장을 돕고, 병변 가까이에 약물을 전달할 수 있도록
@@ -157,14 +157,14 @@ export default function BalloonNeuroplastyDetailSection() {
           <div className="mt-9 grid overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-premium sm:mt-12 sm:rounded-[2rem] lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
             <div className="flex items-center bg-navy-950 p-5 text-white sm:p-8 md:p-10 lg:p-12">
               <div>
-                <span className="inline-flex rounded-full bg-white/10 px-3 py-1.5 text-[12px] font-black text-white/80">
+                <span className="inline-flex rounded-full bg-white/10 px-3 py-1.5 text-[12px] font-bold text-white/80">
                   쉽게 이해하기
                 </span>
-                <h4 className="mt-5 break-keep text-[1.45rem] font-black leading-[1.3] sm:text-2xl md:text-[2rem]">
+                <h4 className="mt-5 break-keep text-h3 md:text-[2rem]">
                   통로를 확인하고,
                   <br /> 필요한 만큼 확장을 돕습니다
                 </h4>
-                <p className="mt-4 break-keep text-[15px] font-medium leading-[1.8] text-white/70 md:text-[17px]">
+                <p className="mt-4 break-keep text-body-lg text-white/85">
                   풍선을 크게 부풀리는 것이 목적이 아니라, 영상으로 위치를
                   확인하면서 치료가 필요한 범위에 제한적으로 적용하는
                   방식입니다.
@@ -194,7 +194,7 @@ export default function BalloonNeuroplastyDetailSection() {
       <section id="balloon-principle">
         <ScrollReveal variant="soft-rise" amount={0.08}>
           <div className="max-w-4xl">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               세 가지 원리로 통증 부위에 접근합니다
             </h3>
           </div>
@@ -210,13 +210,13 @@ export default function BalloonNeuroplastyDetailSection() {
               className="h-full"
             >
               <article className="h-full rounded-[1.15rem] border border-slate-200 bg-white p-5 shadow-[0_20px_60px_-50px_rgba(15,29,54,0.65)] sm:rounded-[1.4rem] sm:p-7">
-                <span className="font-montserrat text-[13px] font-black tracking-[0.16em] text-primary">
+                <span className="font-montserrat text-[13px] font-bold tracking-[0.16em] text-primary">
                   {item.number}
                 </span>
-                <h4 className="mt-4 break-keep text-[1.15rem] font-black leading-snug text-ink sm:text-xl">
+                <h4 className="mt-4 break-keep text-h4 leading-snug text-ink">
                   {item.title}
                 </h4>
-                <p className="mt-2.5 break-keep text-[14px] font-medium leading-[1.75] text-ink-sub sm:text-[15px]">
+                <p className="mt-2.5 break-keep text-body text-ink-sub">
                   {item.desc}
                 </p>
               </article>
@@ -235,7 +235,7 @@ export default function BalloonNeuroplastyDetailSection() {
             className="absolute -right-24 -top-36 h-96 w-96 rounded-full bg-primary/25 blur-[100px]"
           />
           <div className="relative">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight">
               경막외풍선확장술의 특징
             </h3>
 
@@ -252,10 +252,10 @@ export default function BalloonNeuroplastyDetailSection() {
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white sm:h-9 sm:w-9">
                       <Check size={18} strokeWidth={3} />
                     </span>
-                    <h4 className="mt-4 break-keep text-[14px] font-black leading-[1.45] text-white sm:text-base">
+                    <h4 className="mt-4 break-keep text-[14px] font-bold leading-[1.45] text-white sm:text-base">
                       {item.title}
                     </h4>
-                    <p className="mt-1.5 break-keep text-[11px] font-medium leading-[1.6] text-white/65 sm:text-[13px]">
+                    <p className="mt-1.5 break-keep text-[12px] font-medium leading-[1.6] text-white/80 sm:text-[14px]">
                       {item.desc}
                     </p>
                   </article>
@@ -269,10 +269,10 @@ export default function BalloonNeuroplastyDetailSection() {
       <ScrollReveal variant="soft-rise" amount={0.08}>
         <section id="balloon-candidates">
           <div className="max-w-4xl">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               이런 경우 적용 가능성을 확인합니다
             </h3>
-            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-ink-sub md:text-lg">
+            <p className="mt-5 max-w-3xl break-keep text-body-lg text-ink-sub">
               같은 진단명이라도 증상과 협착 정도, 이전 치료 이력에 따라 적합한
               치료는 달라질 수 있습니다.
             </p>
@@ -307,10 +307,10 @@ export default function BalloonNeuroplastyDetailSection() {
           className="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-premium sm:rounded-[2rem] sm:p-7 md:p-10"
         >
           <div className="max-w-4xl px-1 pb-6 sm:pb-8">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight text-ink sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight text-ink">
               시술 과정은 네 단계로 진행됩니다
             </h3>
-            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-ink-sub md:text-lg">
+            <p className="mt-5 max-w-3xl break-keep text-body-lg text-ink-sub">
               시술 중에는 C-arm으로 카테터의 위치를 확인하며 각 단계를
               진행합니다.
             </p>
@@ -333,20 +333,20 @@ export default function BalloonNeuroplastyDetailSection() {
                   />
                 </div>
                 <div className="p-3 sm:p-4">
-                  <span className="font-montserrat text-[11px] font-black tracking-[0.14em] text-primary sm:text-xs">
+                  <span className="font-montserrat text-[11px] font-bold tracking-[0.14em] text-primary sm:text-xs">
                     {item.number}
                   </span>
-                  <h4 className="break-keep text-[15px] font-black leading-snug text-ink sm:text-base">
+                  <h4 className="break-keep text-[15px] font-bold leading-snug text-ink sm:text-base">
                     {item.title}
                   </h4>
-                  <p className="mt-1.5 break-keep text-[12px] font-medium leading-[1.65] text-ink-sub sm:text-[13px]">
+                  <p className="mt-1.5 break-keep text-[12px] font-medium leading-[1.65] text-ink-sub sm:text-[14px]">
                     {item.desc}
                   </p>
                 </div>
               </li>
             ))}
           </ol>
-          <p className="mt-4 px-1 break-keep text-[12px] font-semibold leading-[1.7] text-ink-sub sm:text-[13px]">
+          <p className="mt-4 px-1 break-keep text-[13px] font-semibold leading-[1.7] text-ink-sub sm:text-[14px]">
             시술 이해를 돕기 위한 재구성 이미지이며, 실제 과정과 범위는 환자
             상태에 따라 달라질 수 있습니다.
           </p>
@@ -359,10 +359,10 @@ export default function BalloonNeuroplastyDetailSection() {
           className="rounded-[1.5rem] bg-navy-950 px-4 py-10 text-white sm:rounded-[2rem] sm:px-7 sm:py-14 md:px-10 md:py-20"
         >
           <div className="max-w-4xl px-1">
-            <h3 className="break-keep text-[1.9rem] font-black leading-[1.25] tracking-tight sm:text-4xl md:text-[3.25rem] md:leading-[1.18]">
+            <h3 className="break-keep text-h2 tracking-tight">
               C-arm으로 위치를 확인하며 진행합니다
             </h3>
-            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-white/70 md:text-lg">
+            <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-white/80 md:text-lg">
               카테터의 끝과 풍선 확장 위치를 실시간 영상으로 살피며 목표 부위에
               접근합니다.
             </p>
@@ -388,10 +388,10 @@ export default function BalloonNeuroplastyDetailSection() {
                     />
                   </div>
                   <figcaption className="p-4 sm:p-5 md:p-6">
-                    <h4 className="break-keep text-[1.05rem] font-black leading-snug text-white sm:text-xl">
+                    <h4 className="break-keep text-[1.05rem] font-bold leading-snug text-white sm:text-xl">
                       {item.title}
                     </h4>
-                    <p className="mt-2 break-keep text-[13px] font-medium leading-[1.7] text-white/70 sm:text-[15px]">
+                    <p className="mt-2 break-keep text-[14px] font-medium leading-[1.7] text-white/80 sm:text-[15px]">
                       {item.desc}
                     </p>
                   </figcaption>
@@ -404,7 +404,7 @@ export default function BalloonNeuroplastyDetailSection() {
 
       <ScrollReveal variant="soft-rise" amount={0.1}>
         <aside className="rounded-xl border border-amber-200/80 bg-amber-50 px-5 py-5 sm:px-6">
-          <p className="break-keep text-[13px] font-semibold leading-[1.75] text-amber-950/75 sm:text-[14px]">
+          <p className="break-keep text-body font-semibold text-amber-950/90">
             시술의 적용 여부와 효과, 회복 기간은 협착 정도와 증상, 전신 상태에
             따라 달라질 수 있습니다. 복용 중인 항혈소판제·항응고제, 감염,
             출혈성 질환, 조영제 알레르기가 있다면 반드시 미리 알려야 합니다.

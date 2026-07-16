@@ -42,7 +42,7 @@ export default function LocationPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="break-keep text-[34px] font-black leading-tight tracking-tight text-ink sm:text-4xl lg:text-6xl"
+            className="break-keep text-h2 tracking-tight text-ink"
           >
             오시는 길
           </motion.h1>
@@ -66,7 +66,7 @@ export default function LocationPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
              <div className="flex flex-col items-start justify-center gap-3 rounded-2xl border border-slate-100 bg-slate-50 p-5 sm:p-6 lg:rounded-[2rem] lg:p-8">
                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary shadow-sm mb-2"><MapPin size={24} /></div>
-               <h3 className="text-sm font-black text-ink-muted font-montserrat uppercase tracking-widest">Address</h3>
+               <h3 className="text-sm font-bold text-ink-muted font-montserrat uppercase tracking-widest">Address</h3>
                <p className="break-keep text-lg font-bold leading-snug text-ink sm:text-xl">부산광역시 부산진구 가야대로 715 <br />(당감동 974, 위너스빌딩 1~4층)</p>
                <button 
                  onClick={handleCopyAddress}
@@ -78,15 +78,15 @@ export default function LocationPage() {
              
              <div className="flex flex-col items-start justify-center gap-3 rounded-2xl border border-slate-100 bg-slate-50 p-5 sm:p-6 lg:rounded-[2rem] lg:p-8">
                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary shadow-sm mb-2"><Phone size={24} /></div>
-               <h3 className="text-sm font-black text-ink-muted font-montserrat uppercase tracking-widest">Contact</h3>
-               <p className="text-[26px] font-black tracking-tight text-ink sm:text-[28px]">051-935-1004</p>
+               <h3 className="text-sm font-bold text-ink-muted font-montserrat uppercase tracking-widest">Contact</h3>
+               <p className="text-h3 tracking-tight text-ink">051-935-1004</p>
                <p className="mt-2 text-sm font-medium text-ink-muted">팩스: 051-935-1008</p>
              </div>
 
              <div className="relative flex flex-col items-start justify-center gap-3 overflow-hidden rounded-2xl bg-primary p-5 text-white shadow-blue-glow sm:p-6 lg:rounded-[2rem] lg:p-8">
                <div className="relative z-10 space-y-3">
                   <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-white backdrop-blur-md mb-2"><Navigation size={24} /></div>
-                  <h3 className="text-sm font-black text-white/70 font-montserrat uppercase tracking-widest">Navigation</h3>
+                  <h3 className="text-sm font-bold text-white/70 font-montserrat uppercase tracking-widest">Navigation</h3>
                   <p className="text-lg font-bold sm:text-xl">내비게이션 검색</p>
                   <p className="mt-2 break-keep text-sm font-medium leading-relaxed text-white/80">
                      '연세척병원' 또는 '가야대로 715' 명칭 검색
@@ -111,13 +111,13 @@ export default function LocationPage() {
                   <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shadow-sm border border-emerald-100">
                     <Train size={28} />
                   </div>
-                  <h2 className="text-2xl font-black text-ink">지하철</h2>
+                  <h2 className="text-2xl font-bold text-ink">지하철</h2>
                 </div>
                 <div className="space-y-4 pt-2 pl-4 border-l-2 border-emerald-100">
                    <div>
                      <span className="inline-block px-3 py-1 bg-emerald-500 text-white text-[12px] font-bold rounded-lg tracking-widest">2호선</span>
                      <p className="mt-2 break-keep text-base font-bold leading-relaxed text-ink-sub sm:text-lg">
-                        <span className="text-emerald-600 font-black">부암역 6번 출구</span> <br />
+                        <span className="text-emerald-600 font-bold">부암역 6번 출구</span> <br />
                         출구로 나오셔서 바로 앞 약 10M 지점
                      </p>
                    </div>
@@ -140,7 +140,7 @@ export default function LocationPage() {
                   <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shadow-sm border border-blue-100">
                     <Bus size={28} />
                   </div>
-                  <h2 className="text-2xl font-black text-ink">버스</h2>
+                  <h2 className="text-2xl font-bold text-ink">버스</h2>
                 </div>
                 <div className="space-y-4 pt-2 pl-4 border-l-2 border-blue-100">
                    <div>
@@ -164,7 +164,7 @@ export default function LocationPage() {
                   <div className="w-14 h-14 bg-slate-100 rounded-2xl flex items-center justify-center text-ink-sub shadow-sm border border-slate-200">
                     <Car size={28} />
                   </div>
-                  <h2 className="text-2xl font-black text-ink">주차 안내</h2>
+                  <h2 className="text-2xl font-bold text-ink">주차 안내</h2>
                 </div>
                 <div className="space-y-4 pt-2 pl-4 border-l-2 border-slate-200">
                    <div className="p-5 bg-slate-50 rounded-3xl border border-slate-100">

@@ -149,7 +149,7 @@ export default function TrainingCenterSection() {
     <section className="relative overflow-hidden bg-white py-16 md:py-32">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
 
-      <div className="relative z-10 mx-auto max-w-[1540px] px-5 sm:px-7 xl:px-10">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-7 xl:px-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
@@ -159,10 +159,10 @@ export default function TrainingCenterSection() {
           className="flex items-start justify-between gap-4 md:gap-6"
         >
           <div className="space-y-3">
-            <p className="break-keep text-[18px] font-bold leading-snug text-ink-sub sm:text-[20px] md:text-[30px]">
+            <p className="break-keep text-body-lg text-ink-sub">
               연세척병원과 함께합니다.
             </p>
-            <h2 className="break-keep text-[27px] font-black leading-[1.22] tracking-tight text-ink sm:text-[30px] md:text-[46px] md:leading-[1.12]">
+            <h2 className="break-keep text-h2 tracking-tight text-ink">
               국제 척추내시경 <span className="text-primary">트레이닝 센터</span>
             </h2>
           </div>
@@ -222,7 +222,7 @@ export default function TrainingCenterSection() {
                       </div>
 
                       <div className="px-1 pt-4 md:pt-5">
-                        <h3 className="line-clamp-2 break-keep text-[15px] font-bold leading-snug tracking-tight text-ink transition-colors duration-300 group-hover:text-primary md:text-[18px]">
+                        <h3 className="line-clamp-2 break-keep text-body font-semibold leading-snug tracking-tight text-ink transition-colors duration-300 group-hover:text-primary">
                           {card.title}
                         </h3>
                       </div>

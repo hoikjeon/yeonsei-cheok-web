@@ -106,7 +106,7 @@ export default function ReservationPage() {
           <div className="space-y-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-premium sm:space-y-10 sm:p-6 md:space-y-12 md:rounded-[2rem] md:p-16">
             
             <div className="text-center space-y-4">
-              <h2 className="break-keep text-[26px] font-black tracking-tight text-ink sm:text-3xl">진료 예약 신청</h2>
+              <h2 className="break-keep text-h3 tracking-tight text-ink">진료 예약 신청</h2>
               <p className="break-keep text-[15px] font-medium leading-[1.75] text-ink-muted sm:text-base">
                 정보를 정확히 기입해 주시면, 전문 상담원이 예약 확정을 위해 연락을 드립니다.
               </p>
@@ -288,7 +288,7 @@ export default function ReservationPage() {
                 <button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className={`w-full rounded-xl py-4 text-base font-black text-white shadow-xl shadow-primary/20 transition-all hover:-translate-y-1 sm:rounded-[1.5rem] sm:py-5 sm:text-lg ${isSubmitting ? 'bg-slate-400 cursor-not-allowed' : 'bg-primary hover:bg-primary-dark active:scale-[0.98]'}`}
+                  className={`w-full rounded-xl py-4 text-base font-bold text-white shadow-xl shadow-primary/20 transition-all hover:-translate-y-1 sm:rounded-[1.5rem] sm:py-5 sm:text-lg ${isSubmitting ? 'bg-slate-400 cursor-not-allowed' : 'bg-primary hover:bg-primary-dark active:scale-[0.98]'}`}
                 >
                   {isSubmitting ? '신청 처리 중...' : '예약 신청 완료하기'}
                 </button>

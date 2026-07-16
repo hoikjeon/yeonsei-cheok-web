@@ -53,8 +53,8 @@ export default function StenosisPage() {
       {/* 질환 소개 */}
       <section className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-6 md:py-24">
         <div className="mb-14 space-y-5 md:mb-20 md:space-y-6">
-          <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">Spinal Stenosis</span>
-          <h2 className="break-keep text-[2rem] font-extrabold leading-tight tracking-tight text-ink md:text-4xl">척추관 협착증이란?</h2>
+          <span className="text-primary font-bold tracking-widest text-xs font-montserrat uppercase">Spinal Stenosis</span>
+          <h2 className="break-keep text-h3 tracking-tight text-ink">척추관 협착증이란?</h2>
           <div className="w-16 h-1.5 bg-primary rounded-full" />
           <p className="max-w-3xl break-keep text-base font-medium leading-[1.75] text-ink-sub md:text-lg">
             척추관 협착증은 나이가 들면서 척추의 퇴행성 변화로 인해 신경이 지나가는 
@@ -69,7 +69,7 @@ export default function StenosisPage() {
           {stenosisTypes.map((type, idx) => (
             <div key={idx} className="group space-y-5 rounded-2xl border border-slate-100 bg-white p-6 transition-all hover:shadow-premium md:rounded-3xl md:p-10 lg:space-y-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary font-black text-sm group-hover:bg-primary group-hover:text-white transition-colors">
+                <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary font-bold text-sm group-hover:bg-primary group-hover:text-white transition-colors">
                   {idx + 1}
                 </div>
                 <span className="rounded-lg bg-slate-50 px-3 py-1 text-[11px] font-bold text-slate-600">{type.severity}</span>
@@ -83,9 +83,9 @@ export default function StenosisPage() {
         {/* 단계별 치료 */}
         <div className="space-y-8">
           <div className="space-y-4">
-            <span className="text-primary font-black tracking-widest text-xs font-montserrat uppercase">Step-by-Step Treatment</span>
-            <h2 className="break-keep text-[1.75rem] font-extrabold leading-tight tracking-tight text-ink md:text-3xl">단계별 맞춤 치료 프로토콜</h2>
-            <p className="max-w-2xl break-keep text-[15px] font-medium leading-[1.75] text-ink-sub md:text-base">
+            <span className="text-primary font-bold tracking-widest text-xs font-montserrat uppercase">Step-by-Step Treatment</span>
+            <h2 className="break-keep text-h3 tracking-tight text-ink">단계별 맞춤 치료 프로토콜</h2>
+            <p className="max-w-2xl break-keep text-body text-ink-sub md:text-base">
               연세척병원은 환자의 협착 정도와 증상에 따라 보존적 치료부터 시작하여, 
               필요한 경우에만 단계적으로 시술 및 수술을 진행합니다.
             </p>
@@ -95,7 +95,7 @@ export default function StenosisPage() {
             {treatmentSteps.map((t, i) => (
               <div key={i} className="group space-y-5 rounded-2xl border border-transparent bg-slate-50 p-6 transition-all hover:border-primary/10 hover:bg-white hover:shadow-premium md:rounded-3xl md:p-10 lg:space-y-6">
                 <div className="space-y-4">
-                  <span className="text-primary text-[11px] font-black tracking-widest font-montserrat uppercase">{t.step}</span>
+                  <span className="text-primary text-[11px] font-bold tracking-widest font-montserrat uppercase">{t.step}</span>
                   <h3 className="text-2xl font-bold text-ink">{t.title}</h3>
                   <p className="break-keep text-[15px] font-medium leading-relaxed text-ink-sub">{t.desc}</p>
                 </div>

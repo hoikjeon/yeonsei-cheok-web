@@ -134,7 +134,7 @@ export default function ConsultationDatePicker({
             >
               <ChevronLeft size={20} />
             </button>
-            <div className="text-[16px] font-black">
+            <div className="text-[16px] font-bold">
               {viewDate.getFullYear()} / {pad(viewDate.getMonth() + 1)}
             </div>
             <button

@@ -76,7 +76,7 @@ const PolicyModal = ({
     <div className="fixed inset-0 z-[300] flex items-center justify-center bg-navy-950/55 px-4 py-[calc(1rem_+_env(safe-area-inset-top))] backdrop-blur-sm sm:px-5">
       <div className="max-h-[calc(100dvh_-_2rem_-_env(safe-area-inset-top)_-_env(safe-area-inset-bottom))] w-full max-w-3xl overflow-hidden rounded-lg bg-white shadow-[0_30px_90px_-50px_rgba(10,20,40,0.75)]">
         <div className="flex items-center justify-between gap-3 border-b border-slate-100 px-4 py-4 sm:px-6 sm:py-5">
-          <h3 className="break-keep text-[18px] font-black leading-snug tracking-tight text-ink sm:text-xl">{title}</h3>
+          <h3 className="break-keep text-h4 leading-snug tracking-tight text-ink">{title}</h3>
           <button
             type="button"
             onClick={onClose}
@@ -175,7 +175,7 @@ export default function FooterConsultationSection() {
 
       <div className="relative z-10 mx-auto max-w-7xl">
         <div className="text-center">
-          <h2 className="break-keep text-[28px] font-bold leading-[1.35] tracking-tight sm:text-[32px] md:text-[36px] lg:text-[44px] lg:leading-[1.55] lg:tracking-[0.045em]">
+          <h2 className="break-keep text-h2 tracking-tight">
             회복을 위한 가장 빠른 시작
             <br />
             예약·상담은 기다림 없이 편하게
@@ -199,7 +199,7 @@ export default function FooterConsultationSection() {
 
               {isSelectOpen ? (
                 <div className="absolute left-0 top-[calc(100%+1px)] z-[90] max-h-[314px] w-full overflow-y-auto rounded-md border border-slate-200 bg-white py-2 text-[#0B3470] shadow-[0_18px_44px_-30px_rgba(10,20,40,0.65)]">
-                  <div className="px-4 py-3 text-[15px] font-black">상담내용</div>
+                  <div className="px-4 py-3 text-[15px] font-bold">상담내용</div>
                   {CONSULTATION_TOPICS.map((topic) => (
                     <button
                       key={topic}
@@ -255,7 +255,7 @@ export default function FooterConsultationSection() {
                     event.preventDefault();
                     setActivePolicy('privacy');
                   }}
-                  className="ml-2 font-black underline-offset-4 hover:underline"
+                  className="ml-2 font-bold underline-offset-4 hover:underline"
                 >
                   [보기]
                 </button>
@@ -269,7 +269,7 @@ export default function FooterConsultationSection() {
                     event.preventDefault();
                     setActivePolicy('marketing');
                   }}
-                  className="ml-2 font-black underline-offset-4 hover:underline"
+                  className="ml-2 font-bold underline-offset-4 hover:underline"
                 >
                   [보기]
                 </button>
@@ -279,7 +279,7 @@ export default function FooterConsultationSection() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="min-h-12 rounded-md bg-white/16 px-6 text-[16px] font-black text-white transition-all hover:bg-primary disabled:cursor-not-allowed disabled:bg-white/10 md:col-start-3 md:row-span-2 md:row-start-1 md:min-h-[108px]"
+              className="min-h-12 rounded-md bg-white/16 px-6 text-[16px] font-bold text-white transition-all hover:bg-primary disabled:cursor-not-allowed disabled:bg-white/10 md:col-start-3 md:row-span-2 md:row-start-1 md:min-h-[108px]"
             >
               {isSubmitting ? '신청 중' : '신청하기'}
             </button>
@@ -295,7 +295,7 @@ export default function FooterConsultationSection() {
                 <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/12 transition-all duration-300 group-hover:scale-105 group-hover:bg-white/20 sm:h-16 sm:w-16 md:h-[74px] md:w-[74px]">
                   {channel.icon}
                 </span>
-                <span className="break-keep text-[13px] font-black leading-[1.35] tracking-tight transition-colors group-hover:text-white/75 sm:text-[14px] md:text-[15px]">
+                <span className="break-keep text-[13px] font-bold leading-[1.35] tracking-tight transition-colors group-hover:text-white/75 sm:text-[14px] md:text-[15px]">
                   {channel.label}
                 </span>
               </Link>

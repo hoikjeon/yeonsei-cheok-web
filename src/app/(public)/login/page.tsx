@@ -145,7 +145,7 @@ export default function LoginPage() {
             <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl text-primary mb-6">
               <ShieldCheck size={28} strokeWidth={2.5} />
             </div>
-            <h1 className="text-[28px] md:text-[32px] font-black text-ink tracking-tighter leading-tight mb-2">
+            <h1 className="text-h3 text-ink tracking-tight mb-2">
               {mode === 'signin' && '반갑습니다!'}
               {mode === 'signup' && '환영합니다!'}
               {mode === 'reset' && '비밀번호 재설정'}

@@ -96,17 +96,17 @@ const HomeDoctorsRevealSection = () => {
               y: shouldReduceMotion || isMobile ? 0 : brandY,
             }}
           >
-            <span className="bg-gradient-to-b from-[#4f9d78] to-[#2b7a58] bg-clip-text font-sans text-[clamp(1.125rem,5vw,1.5rem)] font-black leading-tight tracking-normal text-transparent drop-shadow-[0_10px_28px_rgba(255,255,255,0.92)] md:text-[clamp(1.45rem,2.7vw,3rem)]">
+            <span className="bg-gradient-to-b from-[#4f9d78] to-[#2b7a58] bg-clip-text font-sans text-[clamp(1.125rem,5vw,1.5rem)] font-extrabold leading-tight tracking-normal text-transparent drop-shadow-[0_10px_28px_rgba(255,255,255,0.92)] md:text-[clamp(1.45rem,2.7vw,3rem)]">
               척추·관절 특화병원
             </span>
-            <span className="whitespace-nowrap bg-gradient-to-b from-[#3a6dcb] to-[#1f56ad] bg-clip-text text-[clamp(2.75rem,14vw,4rem)] font-black leading-none tracking-normal text-transparent md:text-[clamp(4rem,11vw,11rem)]">
+            <span className="whitespace-nowrap bg-gradient-to-b from-[#3a6dcb] to-[#1f56ad] bg-clip-text text-[clamp(2.75rem,14vw,4rem)] font-extrabold leading-none tracking-normal text-transparent md:text-[clamp(4rem,11vw,11rem)]">
               연세척병원
             </span>
           </motion.div>
         </div>
 
         <motion.div
-          className="relative z-20 mx-auto h-[64%] min-h-0 w-full max-w-[1500px] md:h-[64vh] md:min-h-[560px]"
+          className="relative z-20 mx-auto h-[64%] min-h-0 w-full max-w-7xl md:h-[64vh] md:min-h-[560px]"
           style={{
             opacity: shouldReduceMotion || isMobile ? 1 : rawDoctorsOpacity,
             y: shouldReduceMotion || isMobile ? 0 : doctorsY,
