@@ -110,26 +110,26 @@ const findDisease = (id: DiseaseId) => diseases.find((disease) => disease.id ===
 const diseaseMarkers = [
   {
     diseaseId: 'compression-fracture',
-    point: { left: '50.5%', top: '34%' },
-    line: { left: '50.5%', top: '34%', width: '15.5%' },
+    point: { left: '50%', top: '34%' },
+    line: { left: '50%', top: '34%', width: '15%' },
     button: { left: '66%', top: '34%' },
   },
   {
     diseaseId: 'scoliosis',
-    point: { left: '50.5%', top: '47%' },
-    line: { left: '31%', top: '47%', width: '19.5%' },
+    point: { left: '50%', top: '47%' },
+    line: { left: '33%', top: '47%', width: '17%' },
     button: { left: '23%', top: '47%' },
   },
   {
     diseaseId: 'spinal-stenosis',
-    point: { left: '50.5%', top: '58%' },
-    line: { left: '50.5%', top: '58%', width: '15.5%' },
+    point: { left: '50%', top: '58%' },
+    line: { left: '50%', top: '58%', width: '15%' },
     button: { left: '66%', top: '58%' },
   },
   {
     diseaseId: 'lumbar-disc',
-    point: { left: '50.5%', top: '69%' },
-    line: { left: '32%', top: '69%', width: '18.5%' },
+    point: { left: '50%', top: '69%' },
+    line: { left: '32%', top: '69%', width: '18%' },
     button: { left: '23%', top: '69%' },
   },
 ] as const satisfies ReadonlyArray<{
@@ -190,7 +190,7 @@ const Marker = ({
 
 const DetailBlock = ({ number, title, items }: { number: number; title: string; items: string[] }) => (
   <section>
-    <h4 className="flex items-center gap-3 text-[19px] font-bold tracking-tight text-ink">
+    <h4 className="flex items-center gap-3 text-h4 tracking-tight text-ink">
       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-[13px] font-bold text-white">
         {number}
       </span>
@@ -317,7 +317,7 @@ const LumbarDiseaseSection = () => {
               허리 통증 주요 질환
             </h3>
 
-            <div className="absolute inset-x-[6%] bottom-[2%] top-[8%] hidden lg:block">
+            <div className="absolute inset-x-[6%] bottom-[2%] top-[8%] hidden [-webkit-mask-image:linear-gradient(180deg,transparent_0%,black_9%,black_91%,transparent_100%)] [mask-image:linear-gradient(180deg,transparent_0%,black_9%,black_91%,transparent_100%)] lg:block">
               <Image
                 src="/generated/lumbar-disc/lumbar-disease-map-illustration.png"
                 alt=""

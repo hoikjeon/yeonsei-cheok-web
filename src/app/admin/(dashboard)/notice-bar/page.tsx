@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { AlertCircle, CalendarDays, Eye, Link2, Megaphone, Plus, Save, Trash2 } from 'lucide-react';
+import { AlertCircle, Plus, Trash2 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 import {
   DEFAULT_HOME_NOTICE_SETTINGS,
@@ -156,9 +156,7 @@ export default function AdminNoticeBarPage() {
   return (
     <>
       <header className="sticky top-0 z-[50] border-b border-slate-200 bg-white px-10 py-6 shadow-sm">
-        <h1 className="flex items-center gap-3 text-2xl font-black tracking-tight text-ink">
-          <Megaphone className="text-primary" /> 메인 공지/휴진 관리
-        </h1>
+        <h1 className="text-2xl font-black tracking-tight text-ink">메인 공지/휴진 관리</h1>
         <p className="mt-0.5 text-sm font-medium text-ink-muted">
           메인 화면 히어로 아래에 노출되는 공지사항과 월별 휴진 정보를 설정합니다.
         </p>
@@ -217,7 +215,7 @@ export default function AdminNoticeBarPage() {
                     <div key={index} className="rounded-2xl border border-slate-200 bg-slate-50/60 p-5">
                       <div className="mb-4 flex items-center justify-between">
                         <span className="rounded-full bg-white px-3 py-1 text-xs font-black text-primary ring-1 ring-slate-100">
-                          Notice {index + 1}
+                          공지 {index + 1}
                         </span>
                         <button
                           type="button"
@@ -242,9 +240,7 @@ export default function AdminNoticeBarPage() {
                           />
                         </label>
                         <label className="space-y-2">
-                          <span className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-ink-muted">
-                            <Link2 size={13} /> 링크
-                          </span>
+                          <span className="text-xs font-black uppercase tracking-wider text-ink-muted">링크</span>
                           <input
                             name="notice_href"
                             value={notice.href}
@@ -263,9 +259,7 @@ export default function AdminNoticeBarPage() {
 
           <section className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
             <div className="mb-6 border-b border-slate-100 pb-5">
-              <h2 className="flex items-center gap-2 text-xl font-black tracking-tight text-ink">
-                <CalendarDays className="text-[#284AA5]" /> 휴진일 설정
-              </h2>
+              <h2 className="text-xl font-black tracking-tight text-ink">휴진일 설정</h2>
               <p className="mt-1 text-sm font-medium text-ink-muted">월 표기와 휴진 상태 문구를 관리합니다.</p>
             </div>
 
@@ -302,21 +296,16 @@ export default function AdminNoticeBarPage() {
               disabled={isSaving || isLoading}
               className="inline-flex min-w-44 items-center justify-center gap-2 rounded-2xl bg-navy-950 px-7 py-4 text-[15px] font-black text-white shadow-premium transition hover:-translate-y-0.5 hover:bg-primary disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none"
             >
-              <Save size={18} /> {isSaving ? '저장 중...' : '설정 저장'}
+              {isSaving ? '저장 중...' : '설정 저장'}
             </button>
           </div>
         </form>
 
         <aside className="space-y-6 xl:sticky xl:top-28 xl:self-start">
           <section className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-premium">
-            <div className="mb-5 flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-light text-primary">
-                <Eye size={19} />
-              </span>
-              <div>
-                <h2 className="text-lg font-black tracking-tight text-ink">메인 노출 미리보기</h2>
-                <p className="text-xs font-bold text-ink-muted">첫 번째 공지 기준으로 표시됩니다.</p>
-              </div>
+            <div className="mb-5">
+              <h2 className="text-lg font-black tracking-tight text-ink">메인 노출 미리보기</h2>
+              <p className="mt-0.5 text-xs font-bold text-ink-muted">첫 번째 공지 기준으로 표시됩니다.</p>
             </div>
             <NoticeBarPreview settings={previewSettings} />
           </section>

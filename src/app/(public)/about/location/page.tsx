@@ -111,7 +111,7 @@ export default function LocationPage() {
                   <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shadow-sm border border-emerald-100">
                     <Train size={28} />
                   </div>
-                  <h2 className="text-2xl font-bold text-ink">지하철</h2>
+                  <h2 className="text-h4 text-ink">지하철</h2>
                 </div>
                 <div className="space-y-4 pt-2 pl-4 border-l-2 border-emerald-100">
                    <div>
@@ -140,7 +140,7 @@ export default function LocationPage() {
                   <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 shadow-sm border border-blue-100">
                     <Bus size={28} />
                   </div>
-                  <h2 className="text-2xl font-bold text-ink">버스</h2>
+                  <h2 className="text-h4 text-ink">버스</h2>
                 </div>
                 <div className="space-y-4 pt-2 pl-4 border-l-2 border-blue-100">
                    <div>
@@ -164,7 +164,7 @@ export default function LocationPage() {
                   <div className="w-14 h-14 bg-slate-100 rounded-2xl flex items-center justify-center text-ink-sub shadow-sm border border-slate-200">
                     <Car size={28} />
                   </div>
-                  <h2 className="text-2xl font-bold text-ink">주차 안내</h2>
+                  <h2 className="text-h4 text-ink">주차 안내</h2>
                 </div>
                 <div className="space-y-4 pt-2 pl-4 border-l-2 border-slate-200">
                    <div className="p-5 bg-slate-50 rounded-3xl border border-slate-100">

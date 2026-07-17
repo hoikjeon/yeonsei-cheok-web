@@ -77,7 +77,7 @@ export default function TreatmentsPage() {
                       <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-50 text-xs font-bold text-slate-500 transition-colors group-hover:bg-primary group-hover:text-white">
                         {i + 1}
                       </div>
-                      <h3 className="text-xl font-bold text-ink">{t.name}</h3>
+                      <h3 className="text-h4 text-ink">{t.name}</h3>
                       <p className="break-keep text-sm leading-relaxed text-ink-sub">{t.desc}</p>
                     </div>
                   </div>
@@ -91,7 +91,7 @@ export default function TreatmentsPage() {
       {/* Philosophy Banner */}
       <section className="border-y border-slate-100 bg-slate-50 px-5 py-14 sm:px-6 md:py-24">
         <div className="mx-auto max-w-4xl space-y-6 text-center md:space-y-8">
-           <h2 className="break-keep text-[1.75rem] font-bold leading-tight text-ink md:text-3xl">“연세척병원은 비수술 우선 치료를 원칙으로 합니다”</h2>
+           <h2 className="break-keep text-h3 leading-tight text-ink">“연세척병원은 비수술 우선 치료를 원칙으로 합니다”</h2>
            <p className="break-keep text-base leading-[1.75] text-ink-sub md:text-lg">
              무조건적인 수술보다는 정밀한 진단을 통해 환자에게 가장 안전하고 효과적인 <br className="hidden md:block" />
              비수술적 치료법을 먼저 고민하며, 꼭 필요한 경우에만 최소침습 수술을 시행합니다.

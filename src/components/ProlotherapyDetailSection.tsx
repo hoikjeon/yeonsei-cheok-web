@@ -410,7 +410,7 @@ export default function ProlotherapyDetailSection() {
                   key={item.title}
                   className="flex min-h-[148px] flex-col rounded-[1rem] border border-white/10 bg-white/[0.06] p-4 backdrop-blur-sm sm:min-h-[176px] sm:rounded-[1.3rem] sm:p-5"
                 >
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white sm:h-9 sm:w-9">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-400 text-navy-950 sm:h-9 sm:w-9">
                     <Check size={18} strokeWidth={3} />
                   </span>
                   <h4 className="mt-4 break-keep text-[15px] font-bold leading-[1.45] text-white sm:text-base">

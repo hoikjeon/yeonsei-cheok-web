@@ -400,7 +400,7 @@ const getModalContent = (modal: ModalState): ModalContent => {
 
 const DetailBlock = ({ number, title, items }: { number: number; title: string; items: string[] }) => (
   <section>
-    <h4 className="flex items-center gap-3 text-[19px] font-bold tracking-tight text-ink">
+    <h4 className="flex items-center gap-3 text-h4 tracking-tight text-ink">
       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-[13px] font-bold text-white">
         {number}
       </span>
@@ -430,7 +430,7 @@ const DetailModal = ({ content, onClose }: { content: ModalContent; onClose: () 
       className="flex max-h-[calc(100dvh-2rem)] w-full max-w-[760px] flex-col overflow-hidden rounded-[1rem] bg-white shadow-[0_30px_100px_-40px_rgba(0,0,0,0.65)] sm:max-h-[82vh] sm:rounded-[1.15rem]"
     >
       <header className="flex min-h-16 shrink-0 items-center justify-between gap-3 bg-navy-900 px-5 py-2 text-white sm:h-20 sm:px-7 sm:py-0">
-        <h3 id="ube-indication-modal-title" className="break-keep text-[1.15rem] font-bold leading-tight tracking-tight sm:text-[1.45rem]">
+        <h3 id="ube-indication-modal-title" className="break-keep text-h4 leading-tight tracking-tight">
           {content.title}
         </h3>
         <button

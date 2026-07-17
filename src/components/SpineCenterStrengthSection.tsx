@@ -87,7 +87,7 @@ const SpineCenterStrengthSection = () => {
             <ScrollReveal key={item.no} delay={index * 0.04}>
               <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-cyan-300/40 hover:bg-white/[0.1] hover:shadow-[0_24px_60px_rgba(2,12,32,0.45)] sm:p-6">
                 <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                <h3 className="text-lg font-bold leading-snug text-white transition-colors duration-300 group-hover:text-cyan-400">
+                <h3 className="text-h4 leading-snug text-white transition-colors duration-300 group-hover:text-cyan-400">
                   {item.title}
                 </h3>
                 <p className="mt-3 break-keep text-sm font-medium leading-[1.7] text-white/75 sm:leading-relaxed sm:text-white/70">{item.desc}</p>

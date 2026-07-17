@@ -158,13 +158,13 @@ export default function TrainingCenterSection() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="flex items-start justify-between gap-4 md:gap-6"
         >
-          <div className="space-y-3">
-            <p className="break-keep text-body-lg text-ink-sub">
-              연세척병원과 함께합니다.
-            </p>
+          <div className="min-w-0 space-y-3 md:space-y-4">
             <h2 className="break-keep text-h2 tracking-tight text-ink">
               국제 척추내시경 <span className="text-primary">트레이닝 센터</span>
             </h2>
+            <p className="break-keep text-body-lg text-ink-sub">
+              의사가 의사를 가르치는 병원, 국내외 의료진이 연세척의 술기를 배우러 옵니다.
+            </p>
           </div>
 
           <Link

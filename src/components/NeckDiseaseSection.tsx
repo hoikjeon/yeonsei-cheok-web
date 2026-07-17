@@ -168,7 +168,7 @@ const Marker = ({
 
 const DetailBlock = ({ number, title, items }: { number: number; title: string; items: string[] }) => (
   <section>
-    <h4 className="flex items-center gap-3 text-[19px] font-bold tracking-tight text-ink">
+    <h4 className="flex items-center gap-3 text-h4 tracking-tight text-ink">
       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-[13px] font-bold text-white">
         {number}
       </span>

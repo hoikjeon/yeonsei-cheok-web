@@ -340,7 +340,7 @@ export default function VertebroplastyDetailSection() {
                   className="h-full"
                 >
                   <article className="flex h-full min-h-[152px] flex-col rounded-[1rem] border border-white/10 bg-white/[0.06] p-4 backdrop-blur-sm sm:min-h-[178px] sm:rounded-[1.3rem] sm:p-5">
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-white">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-amber-400 text-navy-950 shadow-[0_10px_22px_-12px_rgba(245,179,0,0.9)]">
                       <Check size={18} strokeWidth={3} />
                     </span>
                     <h4 className="mt-4 break-keep text-[15px] font-bold leading-[1.45] text-white sm:text-base">
@@ -411,7 +411,7 @@ export default function VertebroplastyDetailSection() {
             <ul className="mt-5 grid gap-3 md:grid-cols-2 md:gap-4">
               {selectionCriteria.map((item) => (
                 <li key={item} className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-white">
+                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-400 text-navy-950 shadow-[0_10px_22px_-12px_rgba(245,179,0,0.9)]">
                     <Check size={15} strokeWidth={3} />
                   </span>
                   <p className="break-keep text-body font-semibold text-ink">

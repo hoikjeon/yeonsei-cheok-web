@@ -309,7 +309,7 @@ export default function NucleoplastyDetailSection() {
                   className="h-full"
                 >
                   <article className="flex h-full min-h-[136px] flex-col rounded-[1rem] border border-white/10 bg-white/[0.06] p-4 backdrop-blur-sm sm:min-h-[170px] sm:rounded-[1.3rem] sm:p-5">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white sm:h-9 sm:w-9">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-400 text-navy-950 sm:h-9 sm:w-9">
                       <Check size={18} strokeWidth={3} />
                     </span>
                     <h4 className="mt-4 break-keep text-[15px] font-bold leading-[1.45] text-white sm:text-base">
@@ -348,7 +348,7 @@ export default function NucleoplastyDetailSection() {
                 className={`h-full ${index === candidates.length - 1 ? "md:col-span-2" : ""}`}
               >
                 <article className="flex h-full items-start gap-3.5 rounded-[1rem] border border-slate-200 bg-white p-4 shadow-[0_20px_60px_-50px_rgba(15,29,54,0.65)] sm:gap-4 sm:rounded-[1.25rem] sm:p-6">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white sm:h-9 sm:w-9">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-400 text-navy-950 sm:h-9 sm:w-9">
                     <Check size={18} strokeWidth={3} />
                   </span>
                   <p className="break-keep pt-0.5 text-[14px] font-extrabold leading-[1.7] text-ink sm:pt-1 sm:text-[17px]">

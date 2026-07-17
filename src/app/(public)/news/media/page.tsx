@@ -95,7 +95,7 @@ export default async function MediaPage() {
                     <div className="flex flex-1 flex-col p-5 sm:p-6 md:p-8">
                       <div className="flex-1 space-y-4 mb-8">
                         <div className="text-primary font-bold text-[13px] tracking-tight">{item.source_name || '언론보도'}</div>
-                        <h3 className="line-clamp-2 break-keep text-[19px] font-bold leading-[1.45] tracking-tight text-ink transition-colors group-hover:text-primary sm:text-[20px] md:text-[22px]">
+                        <h3 className="line-clamp-2 break-keep text-h4 tracking-tight text-ink transition-colors group-hover:text-primary">
                           {item.title}
                         </h3>
                       </div>

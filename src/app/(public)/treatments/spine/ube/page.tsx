@@ -272,7 +272,7 @@ export default function UbePage() {
                   />
 
                   <div className="relative">
-                    <h3 className="text-[1.1rem] font-extrabold leading-snug text-ink sm:text-xl md:text-2xl">
+                    <h3 className="text-h4 leading-snug text-ink">
                       {item.title}
                     </h3>
                     <p className="mt-3 break-keep text-[15px] font-semibold leading-[1.7] text-ink-sub sm:mt-5 sm:text-base sm:leading-relaxed">
@@ -412,7 +412,7 @@ export default function UbePage() {
                     </div>
                     <div className="px-5 pb-6 pt-5 sm:px-7 sm:pb-8 sm:pt-7">
                       <div className="font-montserrat text-xl font-bold text-primary sm:text-2xl">{step.no}</div>
-                      <h3 className="mt-3 text-xl font-bold leading-snug text-ink sm:mt-5 sm:text-2xl">{step.title}</h3>
+                      <h3 className="mt-3 text-h4 leading-snug text-ink sm:mt-5">{step.title}</h3>
                       <p className="mt-3 break-keep text-body text-ink-sub sm:mt-4 sm:text-[17px] sm:leading-relaxed">{step.desc}</p>
                     </div>
                   </article>
@@ -427,7 +427,7 @@ export default function UbePage() {
 
           <div className="relative mx-auto max-w-7xl">
             <ScrollReveal className="mx-auto max-w-4xl text-center">
-              <h2 className="break-keep text-[1.75rem] font-extrabold leading-[1.22] tracking-tight text-white sm:text-3xl md:text-5xl md:leading-[1.12]">
+              <h2 className="break-keep text-h2 tracking-tight text-white">
                 한방향 척추 수술과
                 <br className="hidden md:block" />
                 양방향 척추내시경의 차이
@@ -449,7 +449,7 @@ export default function UbePage() {
                   >
                     <div className="flex flex-wrap items-start justify-between gap-2 sm:gap-3">
                       <h3
-                        className={`text-xl font-bold leading-snug md:text-2xl ${
+                        className={`text-h4 leading-snug ${
                           index === 1 ? 'text-primary' : 'text-ink'
                         }`}
                       >
@@ -549,7 +549,7 @@ export default function UbePage() {
                 <ScrollReveal key={item.no} delay={index * 0.04}>
                   <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-cyan-300/40 hover:bg-white/[0.1] hover:shadow-[0_24px_60px_rgba(2,12,32,0.45)] sm:p-6">
                     <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                    <h3 className="text-lg font-bold leading-snug text-white transition-colors duration-300 group-hover:text-cyan-400">{item.title}</h3>
+                    <h3 className="text-h4 leading-snug text-white transition-colors duration-300 group-hover:text-cyan-400">{item.title}</h3>
                     <p className="mt-3 break-keep text-sm font-medium leading-[1.7] text-white/75 sm:leading-relaxed sm:text-white/70">{item.desc}</p>
                   </article>
                 </ScrollReveal>
@@ -561,7 +561,7 @@ export default function UbePage() {
         <section className="px-5 py-12 sm:px-6 md:py-20">
           <ScrollReveal className="mx-auto grid max-w-7xl grid-cols-1 overflow-hidden rounded-lg border border-slate-200 bg-white lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
             <div className="space-y-3 p-5 sm:space-y-4 sm:p-8 md:p-10 lg:p-12">
-              <h2 className="break-keep text-[1.55rem] font-bold leading-tight text-ink sm:text-3xl md:text-4xl">
+              <h2 className="break-keep text-h3 leading-tight text-ink">
                 내 증상에 맞는 치료인지 확인하고 싶다면
               </h2>
               <p className="max-w-2xl break-keep text-body text-ink-sub sm:text-lg sm:leading-relaxed">

@@ -74,7 +74,7 @@ export default function StenosisPage() {
                 </div>
                 <span className="rounded-lg bg-slate-50 px-3 py-1 text-[11px] font-bold text-slate-600">{type.severity}</span>
               </div>
-              <h3 className="text-xl font-bold text-ink">{type.title}</h3>
+              <h3 className="text-h4 text-ink">{type.title}</h3>
               <p className="break-keep text-[15px] font-medium leading-relaxed text-ink-sub">{type.description}</p>
             </div>
           ))}
@@ -96,7 +96,7 @@ export default function StenosisPage() {
               <div key={i} className="group space-y-5 rounded-2xl border border-transparent bg-slate-50 p-6 transition-all hover:border-primary/10 hover:bg-white hover:shadow-premium md:rounded-3xl md:p-10 lg:space-y-6">
                 <div className="space-y-4">
                   <span className="text-primary text-[11px] font-bold tracking-widest font-montserrat uppercase">{t.step}</span>
-                  <h3 className="text-2xl font-bold text-ink">{t.title}</h3>
+                  <h3 className="text-h4 text-ink">{t.title}</h3>
                   <p className="break-keep text-[15px] font-medium leading-relaxed text-ink-sub">{t.desc}</p>
                 </div>
                 <ul className="space-y-3 pt-2">
@@ -116,7 +116,7 @@ export default function StenosisPage() {
       {/* CTA */}
       <section className="border-y border-slate-100 bg-slate-50 px-5 py-14 sm:px-6 md:py-24">
         <div className="mx-auto max-w-4xl space-y-6 text-center md:space-y-8">
-          <h2 className="text-[1.75rem] font-bold leading-tight text-ink md:text-3xl">걷기가 힘드신가요?</h2>
+          <h2 className="text-h3 leading-tight text-ink">걷기가 힘드신가요?</h2>
           <p className="break-keep text-base leading-[1.75] text-ink-sub md:text-lg">
             척추관 협착증은 정확한 진단 후 적절한 치료를 받으면<br className="hidden md:block" />
             보행 능력과 일상생활을 크게 개선할 수 있습니다.

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { createClient } from '@/utils/supabase/client';
-import { MessageSquare, CheckCircle2, Phone, Search, ChevronDown, ChevronUp, Calendar, ClipboardList, Megaphone } from 'lucide-react';
+import { Search, ChevronDown, ChevronUp } from 'lucide-react';
 import { toggleConsultationChecked } from '@/app/admin/actions';
 
 interface ConsultationRecord {
@@ -83,9 +83,7 @@ export default function AdminConsultationsPage() {
     <>
       <header className="bg-white border-b border-slate-200 px-10 py-6 sticky top-0 z-[50] shadow-sm flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-black text-ink tracking-tight flex items-center gap-3">
-            <MessageSquare className="text-emerald-600" /> 온라인 상담 관리
-          </h1>
+          <h1 className="text-2xl font-black text-ink tracking-tight">온라인 상담 관리</h1>
           <p className="text-ink-muted text-sm font-medium mt-0.5">환자들이 남긴 1:1 상담 신청 내역입니다.</p>
         </div>
       </header>
@@ -131,45 +129,30 @@ export default function AdminConsultationsPage() {
               <div key={cons.id} className={`bg-white border rounded-[2.5rem] overflow-hidden transition-all shadow-sm ${cons.is_checked ? 'border-slate-100 opacity-80' : 'border-emerald-100 ring-2 ring-emerald-50 shadow-emerald-950/5 shadow-xl'}`}>
                 <div className="p-8 flex flex-col md:flex-row gap-6 md:items-center">
                   {/* Status & Name */}
-                  <div className="md:w-60 flex items-center gap-4 border-r border-slate-100 pr-6">
-                    <span className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${cons.is_checked ? 'bg-slate-100 text-ink-muted' : 'bg-emerald-100 text-emerald-600 animate-pulse'}`}>
-                      {cons.is_checked ? <CheckCircle2 size={18} /> : <MessageSquare size={18} />}
+                  <div className="md:w-60 border-r border-slate-100 pr-6">
+                    <span className={`inline-block px-3 py-1 rounded-full text-[12px] font-black mb-2 ${cons.is_checked ? 'bg-slate-100 text-ink-muted' : 'bg-emerald-100 text-emerald-700'}`}>
+                      {cons.is_checked ? '상담확인' : '신규신청'}
                     </span>
-                    <div>
-                      <p className="text-[14px] text-ink-muted font-bold mb-0.5">{cons.is_checked ? '상담확인' : '신규신청'}</p>
-                      <p className="text-xl font-black text-ink">{cons.name}</p>
-                    </div>
+                    <p className="text-xl font-black text-ink">{cons.name}</p>
                   </div>
 
                   {/* Contact Info */}
                   <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                     <div className="flex items-center gap-3">
-                       <div className="w-9 h-9 rounded-xl bg-slate-50 flex items-center justify-center text-ink-muted border border-slate-200 shadow-sm"><Phone size={16} /></div>
-                       <div>
-                          <p className="text-[10px] text-ink-muted font-black font-montserrat uppercase tracking-widest">Phone</p>
-                          <p className="text-[15px] font-bold text-ink-sub">{cons.phone}</p>
-                       </div>
+                     <div>
+                        <p className="text-xs text-ink-muted font-bold">연락처</p>
+                        <p className="text-[15px] font-bold text-ink-sub mt-0.5">{cons.phone}</p>
                      </div>
-                     <div className="flex items-center gap-3">
-                       <div className="w-9 h-9 rounded-xl bg-slate-50 flex items-center justify-center text-ink-muted border border-slate-200 shadow-sm"><ClipboardList size={16} /></div>
-                       <div>
-                          <p className="text-[10px] text-ink-muted font-black font-montserrat uppercase tracking-widest">Type</p>
-                          <p className="text-[15px] font-bold text-ink-sub">{cons.consultation_type || '미입력'}</p>
-                       </div>
+                     <div>
+                        <p className="text-xs text-ink-muted font-bold">상담 항목</p>
+                        <p className="text-[15px] font-bold text-ink-sub mt-0.5">{cons.consultation_type || '미입력'}</p>
                      </div>
-                     <div className="flex items-center gap-3">
-                       <div className="w-9 h-9 rounded-xl bg-slate-50 flex items-center justify-center text-ink-muted border border-slate-200 shadow-sm"><Calendar size={16} /></div>
-                       <div>
-                          <p className="text-[10px] text-ink-muted font-black font-montserrat uppercase tracking-widest">Preferred Date</p>
-                          <p className="text-[15px] font-bold text-ink-sub">{formatPreferredDate(cons.preferred_date)}</p>
-                       </div>
+                     <div>
+                        <p className="text-xs text-ink-muted font-bold">희망 날짜</p>
+                        <p className="text-[15px] font-bold text-ink-sub mt-0.5">{formatPreferredDate(cons.preferred_date)}</p>
                      </div>
-                     <div className="flex items-center gap-3">
-                       <div className="w-9 h-9 rounded-xl bg-slate-50 flex items-center justify-center text-ink-muted border border-slate-200 shadow-sm"><Megaphone size={16} /></div>
-                       <div>
-                          <p className="text-[10px] text-ink-muted font-black font-montserrat uppercase tracking-widest">Marketing</p>
-                          <p className="text-[15px] font-bold text-ink-sub">{cons.marketing_agreed ? '동의' : '미동의'}</p>
-                       </div>
+                     <div>
+                        <p className="text-xs text-ink-muted font-bold">마케팅 수신</p>
+                        <p className="text-[15px] font-bold text-ink-sub mt-0.5">{cons.marketing_agreed ? '동의' : '미동의'}</p>
                      </div>
                   </div>
 
@@ -183,10 +166,10 @@ export default function AdminConsultationsPage() {
                      </button>
                      <button
                         onClick={() => handleToggleCheck(cons.id, cons.is_checked)}
-                        className={`px-6 py-4 rounded-2xl font-black text-[15px] transition-all shadow-lg ${
-                          cons.is_checked 
-                            ? 'bg-slate-100 text-ink-muted hover:bg-slate-200 shadow-none' 
-                            : 'bg-emerald-600 text-white hover:bg-emerald-700 translate-y--0.5 hover:shadow-emerald-950/10'
+                        className={`px-6 py-4 rounded-2xl font-black text-[15px] transition-all ${
+                          cons.is_checked
+                            ? 'bg-slate-100 text-ink-muted hover:bg-slate-200'
+                            : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-950/10'
                         }`}
                       >
                         {cons.is_checked ? '상태변경' : '확인처리'}
@@ -196,9 +179,9 @@ export default function AdminConsultationsPage() {
 
                 {/* Expanded Content Area */}
                 {expandedId === cons.id && (
-                  <div className="bg-slate-50/50 p-8 pt-0 border-t border-slate-100 mt--1">
+                  <div className="bg-slate-50/50 p-8 border-t border-slate-100">
                      <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-inner">
-                        <p className="text-xs font-black text-emerald-600 font-montserrat uppercase tracking-widest mb-3">Consultation Details</p>
+                        <p className="text-sm font-black text-ink mb-3">상담 상세 내용</p>
                         <div className="mb-4 grid grid-cols-1 gap-3 text-[14px] font-bold text-ink-sub md:grid-cols-3">
                           <span className="rounded-xl bg-slate-50 px-4 py-3">상담내용: {cons.consultation_type || '미입력'}</span>
                           <span className="rounded-xl bg-slate-50 px-4 py-3">희망 날짜: {formatPreferredDate(cons.preferred_date)}</span>

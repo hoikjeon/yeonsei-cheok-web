@@ -599,7 +599,7 @@ const Header = () => {
                 <aside className="col-span-5 xl:col-span-4 pr-8 border-r border-slate-100">
                   <div className="grid grid-cols-1 gap-2.5">
                     <div className="rounded-lg border border-slate-100 bg-slate-50/80 p-4">
-                      <div className="text-[19px] font-bold tracking-tight text-ink-muted">
+                      <div className="text-h4 tracking-tight text-ink-muted">
                         진료시간
                       </div>
                       <div className="mt-3 space-y-2.5">
@@ -706,7 +706,7 @@ const Header = () => {
           className="fixed inset-y-0 right-0 z-[2100] flex max-h-[100dvh] w-[88%] max-w-sm flex-col bg-white shadow-2xl"
         >
           <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4 sm:p-8">
-            <span className="text-xl font-bold text-ink">전체메뉴</span>
+            <span className="text-h4 text-ink">전체메뉴</span>
             <button 
               onClick={() => setIsMobileMenuOpen(false)}
               aria-label="전체메뉴 닫기"

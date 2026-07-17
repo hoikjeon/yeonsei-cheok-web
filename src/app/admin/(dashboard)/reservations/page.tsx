@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import AdminSidebar from '@/components/admin/AdminSidebar';
-import { Calendar, CheckCircle2, Clock, User, Phone, Stethoscope, Search, Filter } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { toggleReservationChecked } from '@/app/admin/actions';
 
 export default function AdminReservationsPage() {
@@ -50,9 +50,7 @@ export default function AdminReservationsPage() {
     <>
       <header className="bg-white border-b border-slate-200 px-10 py-6 sticky top-0 z-[50] shadow-sm flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-black text-ink tracking-tight flex items-center gap-3">
-            <Calendar className="text-blue-600" /> 온라인 예약 관리
-          </h1>
+          <h1 className="text-2xl font-black text-ink tracking-tight">온라인 예약 관리</h1>
           <p className="text-ink-muted text-sm font-medium mt-0.5">환자들이 홈페이지를 통해 신청한 진료 예약 목록입니다.</p>
         </div>
       </header>
@@ -110,32 +108,25 @@ export default function AdminReservationsPage() {
                   <tr key={res.id} className={`group transition-all ${res.is_checked ? 'bg-white opacity-80' : 'bg-blue-50/10'}`}>
                     <td className="px-8 py-7">
                       <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-black tracking-tight ${
-                        res.is_checked ? 'bg-slate-100 text-ink-muted' : 'bg-blue-600 text-white animate-pulse shadow-lg shadow-blue-200'
+                        res.is_checked ? 'bg-slate-100 text-ink-muted' : 'bg-blue-600 text-white'
                       }`}>
                         {res.is_checked ? '확인완료' : '신규접수'}
                       </span>
                     </td>
                     <td className="px-8">
-                       <div className={`inline-block px-3 py-1.5 rounded-xl ${res.is_checked ? 'bg-slate-50' : 'bg-blue-100 animate-pulse-slow shadow-sm shadow-blue-200'}`}>
+                       <div className={`inline-block px-3 py-1.5 rounded-xl ${res.is_checked ? 'bg-slate-50' : 'bg-blue-50'}`}>
                          <p className={`text-sm font-black ${res.is_checked ? 'text-ink-muted' : 'text-blue-700'}`}>{new Date(res.created_at).toLocaleDateString('ko-KR', { month: 'numeric', day: 'numeric' })}</p>
                          <p className={`text-[10px] font-bold ${res.is_checked ? 'text-slate-300' : 'text-blue-400 opacity-80'}`}>{new Date(res.created_at).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })}</p>
                        </div>
                     </td>
                     <td className="px-8">
-                      <div className="flex items-center gap-3">
-                         <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-ink-muted">
-                           <User size={18} />
-                         </div>
-                         <div>
-                           <p className="text-[15px] font-black text-ink">{res.name} <span className="text-xs font-bold text-ink-muted">({res.category})</span></p>
-                           <p className="text-xs text-ink-muted font-medium flex items-center gap-1 mt-0.5"><Phone size={10} /> {res.phone}</p>
-                         </div>
+                      <div>
+                        <p className="text-[15px] font-black text-ink">{res.name} <span className="text-xs font-bold text-ink-muted">({res.category})</span></p>
+                        <p className="text-xs text-ink-muted font-medium mt-0.5">{res.phone}</p>
                       </div>
                     </td>
                     <td className="px-8">
-                      <div className="flex items-center gap-2 text-primary font-bold text-[14px]">
-                        <Stethoscope size={14} /> {res.specialty}
-                      </div>
+                      <p className="text-primary font-bold text-[14px]">{res.specialty}</p>
                       <p className="text-xs text-ink-muted mt-1">{res.doctor} 병원장님</p>
                     </td>
                     <td className="px-8">

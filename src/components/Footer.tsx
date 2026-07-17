@@ -33,51 +33,6 @@ const FOOTER_FALLBACK_NOTICES: HomeNoticeItem[] = [
   },
 ];
 
-// 하단 SNS 아이콘 위치·간격 미세 조정값: 상단 메뉴바와 동일한 구성입니다.
-const FOOTER_SOCIAL_LAYOUT = {
-  socialOffsetX: '0px',
-  socialIconGap: '14px',
-} as const;
-
-const YouTubeMark = () => (
-  <svg width="27" height="20" viewBox="0 0 27 20" fill="none" aria-hidden="true">
-    <rect width="27" height="20" rx="5.5" fill="#FF0033" />
-    <path d="M11 6.2L18 10L11 13.8V6.2Z" fill="#FFFFFF" />
-  </svg>
-);
-
-const BlogMark = () => (
-  <span
-    aria-hidden="true"
-    className="relative flex h-[18px] w-[25px] items-center justify-center rounded-[3px] bg-[#03C75A] font-montserrat text-[8px] font-bold leading-none tracking-[-0.03em] text-white after:absolute after:-bottom-[3px] after:left-[6px] after:h-[4px] after:w-[6px] after:bg-[#03C75A] after:[clip-path:polygon(0_0,100%_0,0_100%)]"
-  >
-    blog
-  </span>
-);
-
-const InstagramMark = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-    <defs>
-      <linearGradient id="footer-instagram-gradient" x1="2" y1="18" x2="18" y2="2" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#FFB600" />
-        <stop offset="0.35" stopColor="#FF3A63" />
-        <stop offset="0.68" stopColor="#D629A2" />
-        <stop offset="1" stopColor="#6A45E6" />
-      </linearGradient>
-    </defs>
-    <rect x="1.7" y="1.7" width="16.6" height="16.6" rx="5.2" stroke="url(#footer-instagram-gradient)" strokeWidth="2.1" />
-    <circle cx="10" cy="10" r="3.75" stroke="url(#footer-instagram-gradient)" strokeWidth="2.1" />
-    <circle cx="15" cy="5" r="1.15" fill="url(#footer-instagram-gradient)" />
-  </svg>
-);
-
-// 채널 주소가 확정되면 각 href만 교체하면 바로 링크로 동작합니다.
-const SOCIAL_LINKS = [
-  { name: '유튜브', href: '', icon: <YouTubeMark /> },
-  { name: '네이버 블로그', href: '', icon: <BlogMark /> },
-  { name: '인스타그램', href: '', icon: <InstagramMark /> },
-];
-
 const POLICY_LINKS = [
   { label: '개인정보처리방침', href: '/privacy' },
   { label: '이용약관', href: '/terms' },
@@ -276,43 +231,6 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-col gap-6 md:gap-8 lg:items-end">
-            <nav
-              aria-label="소셜 미디어"
-              style={{
-                columnGap: FOOTER_SOCIAL_LAYOUT.socialIconGap,
-                transform: `translateX(${FOOTER_SOCIAL_LAYOUT.socialOffsetX})`,
-              }}
-              className="flex h-9 items-center"
-            >
-              {SOCIAL_LINKS.map((social) => {
-                const mark = (
-                  <span className="flex h-8 w-8 items-center justify-center transition-transform duration-200 hover:scale-105">
-                    {social.icon}
-                  </span>
-                );
-
-                return social.href ? (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.name}
-                  >
-                    {mark}
-                  </a>
-                ) : (
-                  <span
-                    key={social.name}
-                    role="img"
-                    aria-label={`${social.name} 링크 준비 중`}
-                  >
-                    {mark}
-                  </span>
-                );
-              })}
-            </nav>
-
             <nav className="flex flex-wrap gap-x-4 gap-y-2 text-[13px] font-bold leading-relaxed text-ink md:gap-x-6 md:text-[14px]">
               {POLICY_LINKS.map((link) => (
                 <Link key={link.label} href={link.href} className="transition-colors hover:text-primary">

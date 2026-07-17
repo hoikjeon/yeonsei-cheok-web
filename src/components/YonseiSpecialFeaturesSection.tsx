@@ -68,7 +68,7 @@ export default function YonseiSpecialFeaturesSection() {
                 />
 
                 <div className="relative z-10 mt-auto w-full p-4 sm:p-7 md:p-10">
-                  <h3 className="break-keep text-[1.05rem] font-bold leading-snug text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.25)] sm:text-xl md:text-3xl">
+                  <h3 className="break-keep text-h4 leading-snug text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.25)]">
                     {item.title}
                   </h3>
                   <p className="mt-2 max-w-[27rem] break-keep text-[13px] font-semibold leading-[1.55] text-white/90 sm:mt-3 sm:text-[15px] sm:leading-[1.65] md:mt-4 md:text-[17px] md:leading-relaxed md:text-white/86">

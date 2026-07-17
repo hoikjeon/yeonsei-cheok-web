@@ -88,7 +88,7 @@ export default function NeckDiscPage() {
               </nav>
 
               <div className="space-y-3">
-                <h1 className="break-keep text-[1.75rem] font-bold leading-[1.18] tracking-tight text-navy-900 sm:text-4xl md:text-[3.25rem]">
+                <h1 className="break-keep text-display tracking-tight text-navy-900">
                   목디스크
                 </h1>
                 <p className="max-w-xl break-keep text-[14px] font-medium leading-[1.65] text-slate-600 sm:text-base md:text-[17px] md:text-slate-500">
@@ -202,7 +202,7 @@ export default function NeckDiscPage() {
               {causeItems.map((item, index) => (
                 <ScrollReveal key={item} delay={index * 0.07} amount={0.18}>
                   <div className="flex min-h-[76px] items-center gap-3 rounded-[1rem] bg-slate-50 px-4 ring-1 ring-slate-200/70 transition duration-300 hover:bg-primary-light/70 hover:ring-primary/20 sm:min-h-[92px] sm:gap-4 sm:rounded-[1.25rem] sm:px-6">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white shadow-[0_10px_22px_-12px_rgba(40,74,165,0.9)]">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-400 text-navy-950 shadow-[0_10px_22px_-12px_rgba(245,179,0,0.9)]">
                       <Check size={21} strokeWidth={3.4} />
                     </span>
                     <span className="break-keep text-[0.98rem] font-extrabold leading-snug tracking-tight text-ink sm:text-[1.05rem] md:text-[1.22rem]">

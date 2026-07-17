@@ -73,8 +73,8 @@ export async function createNews(formData: FormData) {
       throw insertError;
     }
 
-    // 3. 페이지 캐시 갱신
-    revalidatePath(`/news/${type}`);
+    // 3. 페이지 캐시 갱신 (notice_pinned도 공지사항 목록 경로로 갱신)
+    revalidatePath(`/news/${type.startsWith('notice') ? 'notice' : type}`);
     
     return { success: true, data };
   } catch (error: any) {

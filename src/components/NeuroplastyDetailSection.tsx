@@ -309,7 +309,7 @@ export default function NeuroplastyDetailSection() {
                 className="h-full"
               >
                 <article className="flex h-full items-start gap-4 rounded-[1rem] border border-slate-200 bg-white p-5 shadow-[0_20px_60px_-50px_rgba(15,29,54,0.65)] sm:rounded-[1.25rem] sm:p-6">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-white">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-amber-400 text-navy-950 shadow-[0_10px_22px_-12px_rgba(245,179,0,0.9)]">
                     <Check size={20} strokeWidth={3} />
                   </span>
                   <p className="break-keep pt-1 text-[15px] font-extrabold leading-[1.7] text-ink sm:text-[17px]">

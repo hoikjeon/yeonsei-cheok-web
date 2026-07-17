@@ -99,7 +99,7 @@ export default function ConsultationPage() {
 
             <form onSubmit={handleSubmit} className="space-y-7 sm:space-y-8 md:space-y-10">
               <div className="space-y-6 rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:p-6 md:space-y-8 md:p-8">
-                <h3 className="text-lg font-bold text-ink border-b border-slate-200 pb-3">상담 정보</h3>
+                <h3 className="text-h4 text-ink border-b border-slate-200 pb-3">상담 정보</h3>
 
                 <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8">
                   <div className="space-y-3">
@@ -132,7 +132,7 @@ export default function ConsultationPage() {
               
               {/* === 기본 정보 입력 === */}
               <div className="space-y-6 rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:p-6 md:space-y-8 md:p-8">
-                <h3 className="text-lg font-bold text-ink border-b border-slate-200 pb-3">환자 기본 정보</h3>
+                <h3 className="text-h4 text-ink border-b border-slate-200 pb-3">환자 기본 정보</h3>
                 
                 <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8">
                   {/* 이름 & 연락처 */}

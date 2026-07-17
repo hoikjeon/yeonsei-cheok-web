@@ -2,7 +2,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import Link from 'next/link';
-import { Calendar, MessageSquare, Settings, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { AnalyticsSummary, AnalyticsGraphs } from '@/components/admin/AnalyticsCharts';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -82,10 +82,7 @@ export default async function AdminDashboardPage() {
           {/* 온라인 예약 리스트 (미확인) */}
           <section className="bg-white rounded-[1.5rem] shadow-sm border border-slate-200 overflow-hidden flex flex-col max-h-[600px]">
             <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-blue-100 text-blue-600 rounded-lg animate-pulse shadow-sm shadow-blue-500/20"><Calendar size={20} /></div>
-                <h3 className="text-[17px] font-black text-ink">미확인 온라인 예약</h3>
-              </div>
+              <h3 className="text-[17px] font-black text-ink">미확인 온라인 예약</h3>
               <Link href="/admin/reservations" className="text-xs font-bold text-primary bg-primary/5 px-3 py-1.5 rounded-lg hover:bg-primary/10 transition-all flex items-center gap-1">전체보기 <ArrowRight size={12} /></Link>
             </div>
             <div className="overflow-auto flex-1 p-2">
@@ -106,7 +103,7 @@ export default async function AdminDashboardPage() {
                     reservations.map((res) => (
                       <tr key={res.id} className="hover:bg-slate-50 border-b border-slate-50 transition-colors group">
                         <td className="py-4 px-6 font-bold text-ink">
-                          <span className="text-[11px] bg-blue-100 text-blue-600 px-2.5 py-1.5 rounded-lg animate-pulse font-black shadow-sm shadow-blue-200">
+                          <span className="text-[11px] bg-blue-50 text-blue-600 px-2.5 py-1.5 rounded-lg font-black">
                             {new Date(res.created_at).toLocaleDateString('ko-KR', { month: 'numeric', day: 'numeric' })}
                           </span>
                         </td>
@@ -129,10 +126,7 @@ export default async function AdminDashboardPage() {
           {/* 온라인 상담 리스트 (미확인) */}
           <section className="bg-white rounded-[1.5rem] shadow-sm border border-slate-200 overflow-hidden flex flex-col max-h-[600px]">
             <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-emerald-100 text-emerald-600 rounded-lg animate-pulse shadow-sm shadow-emerald-500/20"><MessageSquare size={20} /></div>
-                <h3 className="text-[17px] font-black text-ink">미확인 온라인 상담</h3>
-              </div>
+              <h3 className="text-[17px] font-black text-ink">미확인 온라인 상담</h3>
               <Link href="/admin/consultations" className="text-xs font-bold text-primary bg-primary/5 px-3 py-1.5 rounded-lg hover:bg-primary/10 transition-all flex items-center gap-1">전체보기 <ArrowRight size={12} /></Link>
             </div>
             <div className="overflow-auto flex-1 p-2">
@@ -153,7 +147,7 @@ export default async function AdminDashboardPage() {
                     consultations.map((cons) => (
                       <tr key={cons.id} className="hover:bg-slate-50 border-b border-slate-50 transition-colors group">
                         <td className="py-4 px-6">
-                          <span className="text-[11px] bg-emerald-100 text-emerald-600 px-2.5 py-1.5 rounded-lg animate-pulse font-black shadow-sm shadow-emerald-200">
+                          <span className="text-[11px] bg-emerald-50 text-emerald-600 px-2.5 py-1.5 rounded-lg font-black">
                             {new Date(cons.created_at).toLocaleDateString('ko-KR', { month: 'numeric', day: 'numeric' })}
                           </span>
                         </td>
@@ -183,10 +177,7 @@ export default async function AdminDashboardPage() {
         {/* 3. 팝업 설정 현황 요약 */}
         <section className="bg-white rounded-[1.5rem] shadow-sm border border-slate-200 overflow-hidden">
           <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-purple-100 text-purple-600 rounded-lg"><Settings size={20} /></div>
-              <h3 className="text-[17px] font-black text-ink">공지 팝업창 현황</h3>
-            </div>
+            <h3 className="text-[17px] font-black text-ink">공지 팝업창 현황</h3>
             <Link href="/admin/popups" className="text-sm font-bold text-primary hover:text-ink transition-colors">
                전체 관리 바로가기 &rarr;
             </Link>
@@ -210,7 +201,7 @@ export default async function AdminDashboardPage() {
                               {p.title.replace(/\\n/g, '\n')}
                             </p>
                             <div className="flex items-center gap-2 mt-1.5">
-                              <span className={`w-2 h-2 rounded-full ${p.is_active ? 'bg-primary animate-pulse' : 'bg-slate-300'}`}></span>
+                              <span className={`w-2 h-2 rounded-full ${p.is_active ? 'bg-primary' : 'bg-slate-300'}`}></span>
                               <p className="text-[11px] text-ink-muted font-bold">{p.is_active ? '사이트 노출 중' : '비활성 상태'}</p>
                             </div>
                          </div>

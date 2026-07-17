@@ -235,7 +235,7 @@ const TreatmentStepGraph = () => {
                 <p className="font-montserrat text-[10px] font-extrabold uppercase tracking-[0.22em] text-primary/70">
                   {step.stage}
                 </p>
-                <h4 className="mt-1 text-xl font-bold leading-tight tracking-tight text-ink">
+                <h4 className="mt-1 text-h4 leading-tight tracking-tight text-ink">
                   {step.title}
                 </h4>
                 <p className="mt-2 text-[15px] font-medium leading-relaxed text-ink-sub">

@@ -375,7 +375,7 @@ export default function WristAnkleJointTabs() {
               <ul className="mt-7 grid gap-4 md:grid-cols-2">
                 {active.urgent.map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-white">
+                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-400 text-navy-950 shadow-[0_10px_22px_-12px_rgba(245,179,0,0.9)]">
                       <Check size={15} strokeWidth={3} />
                     </span>
                     <p className="break-keep text-body font-semibold text-white/90">

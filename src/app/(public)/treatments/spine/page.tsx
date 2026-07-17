@@ -93,7 +93,7 @@ export default function SpineCenterPage() {
                     {service.icon}
                   </div>
                   <div className="space-y-3">
-                    <h3 className="text-2xl font-bold text-ink group-hover:text-primary transition-colors">{service.title}</h3>
+                    <h3 className="text-h4 text-ink group-hover:text-primary transition-colors">{service.title}</h3>
                     <p className="break-keep text-[15px] font-medium leading-relaxed text-ink-sub">{service.desc}</p>
                   </div>
                   <div className="flex flex-wrap gap-2">
@@ -117,7 +117,7 @@ export default function SpineCenterPage() {
       <section className="bg-navy-950 px-5 py-14 sm:px-6 md:py-24">
         <div className="mx-auto max-w-4xl space-y-6 text-center md:space-y-8">
           <span className="text-primary text-[10px] font-bold tracking-[0.3em] font-montserrat uppercase">Our Philosophy</span>
-          <h2 className="break-keep text-[1.75rem] font-bold leading-tight text-white md:text-3xl">&ldquo;비수술 우선, 정직한 진료&rdquo;</h2>
+          <h2 className="break-keep text-h3 leading-tight text-white">&ldquo;비수술 우선, 정직한 진료&rdquo;</h2>
           <p className="break-keep text-base leading-[1.75] text-white/75 md:text-lg">
             연세척병원은 무조건적인 수술보다 정밀한 진단을 통해<br className="hidden md:block" />
             환자에게 가장 안전하고 효과적인 비수술적 치료법을 먼저 고민합니다.

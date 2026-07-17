@@ -116,7 +116,7 @@ export default function ReservationPage() {
               
               {/* === 기본 정보 입력 === */}
               <div className="space-y-6 rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:p-6 md:space-y-8 md:p-8">
-                <h3 className="text-lg font-bold text-ink border-b border-slate-200 pb-3">기본 정보</h3>
+                <h3 className="text-h4 text-ink border-b border-slate-200 pb-3">기본 정보</h3>
                 
                 <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8">
                   {/* 방문 분류 */}
@@ -169,7 +169,7 @@ export default function ReservationPage() {
 
               {/* === 진료 정보 입력 === */}
               <div className="space-y-6 rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:p-6 md:space-y-8 md:p-8">
-                <h3 className="text-lg font-bold text-ink border-b border-slate-200 pb-3">진료 예약 정보</h3>
+                <h3 className="text-h4 text-ink border-b border-slate-200 pb-3">진료 예약 정보</h3>
 
                 <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8">
                   {/* 진료과목 & 의료진 */}

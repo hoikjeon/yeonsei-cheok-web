@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { togglePopupActive, uploadPopup, deletePopup, updatePopup } from './actions';
-import { Settings, Image as ImageIcon, CheckCircle2, XCircle, Trash2, Edit3, Plus } from 'lucide-react';
+import { Image as ImageIcon, Trash2, Edit3 } from 'lucide-react';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 
 function PopupsAdminContent() {
@@ -101,9 +101,7 @@ function PopupsAdminContent() {
   return (
     <>
       <header className="bg-white border-b border-slate-200 px-10 py-6 sticky top-0 z-[50] shadow-sm">
-        <h1 className="text-2xl font-black text-ink tracking-tight flex items-center gap-3">
-           <Settings className="text-purple-600" /> 공지 팝업 관리
-        </h1>
+        <h1 className="text-2xl font-black text-ink tracking-tight">공지 팝업 관리</h1>
         <p className="text-ink-muted text-sm font-medium mt-0.5">메인 홈페이지에 노출되는 팝업을 등록하고 관리합니다.</p>
       </header>
 
@@ -136,11 +134,10 @@ function PopupsAdminContent() {
                     <div className="flex sm:flex-col items-center justify-center gap-3 shrink-0 pt-4 sm:pt-0 sm:pl-4 sm:border-l border-slate-100">
                        <button
                          onClick={() => handleToggle(popup.id, popup.is_active)}
-                         className={`flex flex-col items-center justify-center w-20 h-20 rounded-xl font-bold transition-all ${
-                           popup.is_active ? 'bg-primary text-white hover:bg-primary-dark shadow-blue-glow' : 'bg-slate-100 text-ink-muted hover:bg-slate-200'
+                         className={`flex items-center justify-center px-5 py-3 rounded-xl font-bold text-sm transition-all ${
+                           popup.is_active ? 'bg-primary text-white hover:bg-primary-dark' : 'bg-slate-100 text-ink-muted hover:bg-slate-200'
                          }`}
                        >
-                         {popup.is_active ? <CheckCircle2 size={24} className="mb-1 text-white" /> : <XCircle size={24} className="mb-1 text-ink-muted" />}
                          {popup.is_active ? '노출 중' : '비노출'}
                        </button>
                        <div className="flex gap-2">
@@ -160,8 +157,7 @@ function PopupsAdminContent() {
 
           <div className="bg-white rounded-[2rem] p-8 shadow-premium border border-slate-200 sticky top-28">
             <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
-              <h2 className="text-xl font-bold text-ink flex items-center gap-2">
-                {editingPopup ? <Edit3 size={20} className="text-primary" /> : <Plus size={20} className="text-primary" />}
+              <h2 className="text-xl font-bold text-ink">
                 {editingPopup ? '팝업 수정하기' : '신규 팝업 등록'}
               </h2>
               {editingPopup && (
@@ -216,7 +212,7 @@ function PopupsAdminContent() {
 
 export default function PopupsAdminPage() {
   return (
-    <Suspense fallback={<div className="p-20 text-center font-bold text-ink-muted font-montserrat uppercase tracking-widest">Loading...</div>}>
+    <Suspense fallback={<div className="p-20 text-center font-bold text-ink-muted">불러오는 중...</div>}>
       <PopupsAdminContent />
     </Suspense>
   );

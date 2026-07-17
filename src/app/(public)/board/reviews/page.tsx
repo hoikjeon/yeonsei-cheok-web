@@ -45,7 +45,7 @@ export default async function ReviewsPage() {
           <div className="mb-10 sm:mb-16">
             <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
               <span className="flex break-keep text-[14px] font-bold leading-[1.7] tracking-tight text-ink-muted sm:items-center sm:gap-1.5 sm:text-[15px]">
-                <strong className="text-ink text-[16px]">※</strong> 의료법 규정에 따라 자세한 내용은 로그인 후 확인할 수 있습니다.
+                <strong className="text-ink text-[16px] font-bold">※</strong> 의료법 규정에 따라 자세한 내용은 로그인 후 확인할 수 있습니다.
               </span>
               <Link 
                 href="/login"
@@ -105,7 +105,7 @@ export default async function ReviewsPage() {
                         </span>
                         <span className="text-[14px] font-bold text-ink-muted">#{review.id.slice(0, 8)}</span>
                       </div>
-                      <h3 className="block line-clamp-2 break-keep text-[19px] font-bold leading-[1.45] tracking-tight text-ink transition-colors group-hover:text-primary sm:text-[22px]">
+                      <h3 className="block line-clamp-2 break-keep text-h4 tracking-tight text-ink transition-colors group-hover:text-primary">
                         {review.title}
                       </h3>
                       <p className="break-keep text-[14px] font-medium leading-[1.7] tracking-tight text-ink-muted sm:text-[15px]">
