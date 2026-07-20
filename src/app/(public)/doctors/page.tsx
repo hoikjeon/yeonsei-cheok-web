@@ -5,6 +5,9 @@ import DoctorsHeroLineup from '@/components/DoctorsHeroLineup';
 import ScrollReveal from '@/components/ScrollReveal';
 import SubHero from '@/components/SubHero';
 
+const doctorsMarqueeText =
+  'YONSEI CHEOK DOCTORS · SPINE AND JOINT SPECIALISTS · UNIVERSITY HOSPITAL TRAINED ·';
+
 const doctorList: DoctorProfile[] = [
   {
     id: 'kim-dong-han',
@@ -439,6 +442,16 @@ export default function DoctorsPage() {
 
       <main className="w-full">
         <DoctorsHeroLineup />
+
+        <div
+          aria-hidden="true"
+          className="marquee-fade pointer-events-none relative -mt-6 mb-2 overflow-hidden py-4 md:-mt-16 md:mb-0 md:py-6"
+        >
+          <div className="marquee-track flex w-max select-none font-montserrat text-[clamp(3rem,7.2vw,6.6rem)] font-semibold uppercase leading-none tracking-[0.01em] text-navy-900/[0.055]">
+            <span className="shrink-0 pr-12 md:pr-20">{doctorsMarqueeText}</span>
+            <span className="shrink-0 pr-12 md:pr-20">{doctorsMarqueeText}</span>
+          </div>
+        </div>
 
         <DoctorsDirectory doctors={doctorList} />
 

@@ -4,9 +4,55 @@ import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
-import { togglePopupActive, uploadPopup, deletePopup, updatePopup } from './actions';
+import { togglePopupActive, uploadPopup, deletePopup, updatePopup, assignPopupSlot } from './actions';
 import { Image as ImageIcon, Trash2, Edit3 } from 'lucide-react';
 import AdminSidebar from '@/components/admin/AdminSidebar';
+
+type PopupStatus = {
+  label: string;
+  dotClass: string;
+  textClass: string;
+  isLiveNow: boolean;
+};
+
+// 저장된 ISO 시각 → datetime-local 입력값(한국 시간 기준 "YYYY-MM-DDTHH:mm")
+const toKstInputValue = (iso?: string | null) => {
+  if (!iso) return '';
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return '';
+  const kst = new Date(date.getTime() + 9 * 60 * 60 * 1000);
+  return kst.toISOString().slice(0, 16);
+};
+
+const formatKstLabel = (iso?: string | null) => {
+  if (!iso) return null;
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return null;
+  return date.toLocaleString('ko-KR', {
+    timeZone: 'Asia/Seoul',
+    month: 'numeric',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+};
+
+const getPopupStatus = (popup: any): PopupStatus => {
+  if (!popup.is_active) {
+    return { label: '비활성', dotClass: 'bg-slate-300', textClass: 'text-ink-muted', isLiveNow: false };
+  }
+  if (popup.display_slot == null) {
+    return { label: '자리 미지정', dotClass: 'bg-slate-300', textClass: 'text-ink-muted', isLiveNow: false };
+  }
+  const now = Date.now();
+  if (popup.starts_at && now < new Date(popup.starts_at).getTime()) {
+    return { label: '노출 예약됨', dotClass: 'bg-amber-400', textClass: 'text-amber-600', isLiveNow: false };
+  }
+  if (popup.ends_at && now > new Date(popup.ends_at).getTime()) {
+    return { label: '기간 종료', dotClass: 'bg-rose-400', textClass: 'text-rose-500', isLiveNow: false };
+  }
+  return { label: '지금 노출 중', dotClass: 'bg-emerald-500', textClass: 'text-emerald-600', isLiveNow: true };
+};
 
 function PopupsAdminContent() {
   const [popups, setPopups] = useState<any[]>([]);
@@ -51,6 +97,20 @@ function PopupsAdminContent() {
     if (!confirm('정말로 이 팝업을 삭제하시겠습니까?')) return;
     setPopups(prev => prev.filter(p => p.id !== id));
     await deletePopup(id);
+  };
+
+  const handleSlotChange = async (id: string, value: string) => {
+    const slot = value ? parseInt(value, 10) : null;
+    setPopups(prev => prev.map(p => {
+      if (p.id === id) return { ...p, display_slot: slot };
+      if (slot !== null && p.display_slot === slot) return { ...p, display_slot: null };
+      return p;
+    }));
+    const { error } = await assignPopupSlot(id, slot);
+    if (error) {
+      alert(`노출 자리 변경 중 오류: ${error}`);
+      fetchPopups();
+    }
   };
 
   const handleEditClick = (popup: any) => {
@@ -106,6 +166,70 @@ function PopupsAdminContent() {
       </header>
 
       <div className="p-10 space-y-10 max-w-[1400px] w-full mx-auto">
+
+        {/* 메인 화면 미리보기 */}
+        <section className="rounded-[2rem] bg-navy-950 p-8">
+          <div className="mb-6 flex flex-col gap-1 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h2 className="text-xl font-bold text-white">메인 화면 미리보기</h2>
+              <p className="mt-1 text-sm font-medium text-slate-400">
+                1 · 2 · 3번 자리에 지정된 팝업이 방문자에게 나란히 보입니다. 기간이 지나거나 시작 전인 팝업은 흐리게 표시됩니다.
+              </p>
+            </div>
+            <p className="text-xs font-bold text-slate-500">
+              현재 노출 중: {popups.filter(p => getPopupStatus(p).isLiveNow).length}개
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {[1, 2, 3].map((slot) => {
+              const popup = popups.find(p => p.display_slot === slot);
+              if (!popup) {
+                return (
+                  <div key={slot} className="flex min-h-[220px] flex-col items-center justify-center rounded-2xl border-2 border-dashed border-white/15 text-slate-500">
+                    <p className="text-2xl font-black">{slot}</p>
+                    <p className="mt-1 text-sm font-bold">빈 자리</p>
+                  </div>
+                );
+              }
+
+              const status = getPopupStatus(popup);
+              const startsLabel = formatKstLabel(popup.starts_at);
+              const endsLabel = formatKstLabel(popup.ends_at);
+
+              return (
+                <div key={slot} className={`overflow-hidden rounded-2xl bg-white shadow-lg transition-opacity ${status.isLiveNow ? '' : 'opacity-50'}`}>
+                  <div className="flex items-center justify-between border-b border-slate-100 px-3 py-2">
+                    <span className="text-[11px] font-bold text-ink-muted">오늘 하루 보지 않기</span>
+                    <span className="text-[11px] font-bold text-ink">닫기</span>
+                  </div>
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img src={popup.image_url || '/ube_training.jpg'} alt="" className="absolute inset-0 h-full w-full object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-950/10 to-transparent" />
+                    <p className="absolute bottom-3 left-3 right-3 whitespace-pre-line text-[13px] font-black leading-tight text-white">
+                      {popup.title.replace(/\\n/g, '\n')}
+                    </p>
+                    <span className="absolute left-3 top-3 rounded-full bg-navy-950/80 px-2.5 py-1 text-[11px] font-black text-white">
+                      {slot}번
+                    </span>
+                  </div>
+                  <div className="space-y-1 px-3 py-2.5">
+                    <p className={`flex items-center gap-1.5 text-[12px] font-black ${status.textClass}`}>
+                      <span className={`h-2 w-2 rounded-full ${status.dotClass}`} />
+                      {status.label}
+                    </p>
+                    {(startsLabel || endsLabel) && (
+                      <p className="text-[11px] font-bold text-ink-muted">
+                        {startsLabel ? `${startsLabel}부터` : ''}{startsLabel && endsLabel ? ' ' : ''}{endsLabel ? `${endsLabel}까지` : ''}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
           
           <div className="lg:col-span-2 bg-white rounded-[2rem] p-8 shadow-sm border border-slate-200">
@@ -129,9 +253,37 @@ function PopupsAdminContent() {
                          {popup.title.replace(/\\n/g, '\n')}
                        </h3>
                        <p className="text-sm font-medium text-ink-muted line-clamp-2 leading-relaxed">{popup.content}</p>
+                       {(() => {
+                         const status = getPopupStatus(popup);
+                         const startsLabel = formatKstLabel(popup.starts_at);
+                         const endsLabel = formatKstLabel(popup.ends_at);
+                         return (
+                           <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-bold">
+                             <span className={`flex items-center gap-1.5 ${status.textClass}`}>
+                               <span className={`h-2 w-2 rounded-full ${status.dotClass}`} />
+                               {status.label}
+                             </span>
+                             {(startsLabel || endsLabel) && (
+                               <span className="text-ink-muted">
+                                 {startsLabel ? `${startsLabel}부터` : ''}{startsLabel && endsLabel ? ' ' : ''}{endsLabel ? `${endsLabel}까지` : ''}
+                               </span>
+                             )}
+                           </p>
+                         );
+                       })()}
                        <p className="text-xs text-ink-muted">등록일: {new Date(popup.created_at).toLocaleDateString()}</p>
                     </div>
                     <div className="flex sm:flex-col items-center justify-center gap-3 shrink-0 pt-4 sm:pt-0 sm:pl-4 sm:border-l border-slate-100">
+                       <select
+                         value={popup.display_slot ?? ''}
+                         onChange={(e) => handleSlotChange(popup.id, e.target.value)}
+                         className="w-full rounded-lg border border-slate-200 bg-white px-2 py-2 text-[13px] font-bold text-ink focus:border-primary focus:outline-none"
+                       >
+                         <option value="">노출 안 함</option>
+                         <option value="1">1번 자리</option>
+                         <option value="2">2번 자리</option>
+                         <option value="3">3번 자리</option>
+                       </select>
                        <button
                          onClick={() => handleToggle(popup.id, popup.is_active)}
                          className={`flex items-center justify-center px-5 py-3 rounded-xl font-bold text-sm transition-all ${
@@ -192,6 +344,46 @@ function PopupsAdminContent() {
               <div className="space-y-2">
                 <label className="text-xs font-bold text-ink-muted font-montserrat uppercase">서브 내용</label>
                 <textarea required name="content" rows={3} key={editingPopup?.id} defaultValue={editingPopup?.content || ""} placeholder="설명 입력..." className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-medium resize-y leading-relaxed text-ink-sub" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-ink-muted font-montserrat uppercase">노출 자리</label>
+                <select
+                  name="display_slot"
+                  key={`slot-${editingPopup?.id}`}
+                  defaultValue={editingPopup?.display_slot ?? ''}
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-bold text-ink"
+                >
+                  <option value="">노출 안 함 (자리 미지정)</option>
+                  <option value="1">1번 자리 (왼쪽)</option>
+                  <option value="2">2번 자리 (가운데)</option>
+                  <option value="3">3번 자리 (오른쪽)</option>
+                </select>
+                <p className="text-[11px] font-medium text-ink-muted">이미 사용 중인 자리를 선택하면 기존 팝업의 자리가 자동 해제됩니다.</p>
+              </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-ink-muted font-montserrat uppercase">노출 시작일시</label>
+                  <input
+                    type="datetime-local"
+                    name="starts_at"
+                    key={`starts-${editingPopup?.id}`}
+                    defaultValue={toKstInputValue(editingPopup?.starts_at)}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-bold text-ink"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-ink-muted font-montserrat uppercase">노출 종료일시</label>
+                  <input
+                    type="datetime-local"
+                    name="ends_at"
+                    key={`ends-${editingPopup?.id}`}
+                    defaultValue={toKstInputValue(editingPopup?.ends_at)}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-bold text-ink"
+                  />
+                </div>
+                <p className="sm:col-span-2 text-[11px] font-medium text-ink-muted -mt-1">
+                  비워두면 제한 없이 노출됩니다. 시작일만 넣으면 그때부터, 종료일만 넣으면 그때까지 노출됩니다. (한국 시간 기준)
+                </p>
               </div>
               <label className="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100 cursor-pointer hover:bg-slate-100">
                 <input type="checkbox" name="is_active" key={editingPopup?.id} className="w-5 h-5 rounded text-primary focus:ring-primary border-slate-300" defaultChecked={editingPopup ? editingPopup.is_active : true} />

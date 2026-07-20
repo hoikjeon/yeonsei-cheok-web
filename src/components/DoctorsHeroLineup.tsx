@@ -136,7 +136,8 @@ const doctorHitZones: DoctorHitZone[] = [
   },
 ];
 
-const HEADER_OFFSET = 96;
+// 클릭 스크롤 도착 여백: 스크롤 시 헤더가 사라지므로 헤더 높이(96) 대신 살짝만 띄웁니다
+const HEADER_OFFSET = 32;
 
 const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
@@ -178,16 +179,22 @@ export default function DoctorsHeroLineup() {
         <div className="relative isolate h-[340px] w-full overflow-hidden bg-white sm:h-auto sm:aspect-[16/10] sm:min-h-[360px] md:aspect-[16/8.45] md:min-h-[560px] lg:min-h-[660px] xl:min-h-[700px]">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_26%,rgba(40,74,165,0.055),rgba(255,255,255,0)_42%),linear-gradient(90deg,#ffffff_0%,rgba(248,250,252,0.72)_38%,rgba(248,250,252,0.72)_62%,#ffffff_100%)]" />
 
-          <div className="pointer-events-none absolute right-[3.5%] top-[8%] z-[60] hidden max-w-[34%] text-right md:block">
-            <p className="text-[2rem] font-bold leading-[1.25] tracking-tight text-ink lg:text-[2.5rem] xl:text-[3rem]">
-              정직한 진단과
-              <br />
-              꼭 필요한 치료
+          <div className="pointer-events-none absolute left-[48%] top-[62%] z-[5] w-[240px] -translate-x-1/2 -translate-y-1/2 md:top-[66%] md:w-[400px] lg:w-[480px] xl:w-[540px]">
+            <Image
+              src="/ys-logo-bg.png"
+              alt=""
+              width={540}
+              height={539}
+              className="h-auto w-full opacity-[0.06] grayscale"
+            />
+          </div>
+
+          <div className="pointer-events-none absolute inset-x-0 top-[13%] z-[60] hidden text-center md:block">
+            <p className="bg-gradient-to-b from-[#3157B2] via-primary via-40% to-navy-900 bg-clip-text text-[2rem] font-bold leading-[1.25] tracking-tight text-transparent lg:text-[2.5rem] xl:text-[3rem]">
+              정직한 진단과 꼭 필요한 치료
             </p>
-            <p className="mt-4 text-[15px] font-semibold leading-[1.7] text-ink-sub lg:text-[17px] xl:text-lg">
-              대학병원 출신 전문의가
-              <br />
-              환자 곁에서 함께합니다
+            <p className="mt-3 text-[15px] font-semibold leading-[1.7] text-ink-sub lg:text-[17px] xl:text-lg">
+              대학병원 출신 전문의가 환자 곁에서 함께합니다
             </p>
           </div>
 
@@ -243,7 +250,9 @@ export default function DoctorsHeroLineup() {
             {backDoctorNameLabels.map((label) => (
               <span
                 key={label.id}
-                className={`absolute -translate-x-1/2 whitespace-nowrap drop-shadow-[0_2px_8px_rgba(255,255,255,0.92)] ${label.className}`}
+                className={`absolute -translate-x-1/2 whitespace-nowrap drop-shadow-[0_2px_8px_rgba(255,255,255,0.92)] transition-transform duration-300 ease-out ${
+                  activeDoctorId === label.id.replace('-label', '') ? 'scale-[1.07]' : ''
+                } ${label.className}`}
               >
                 {label.text}
               </span>
@@ -257,7 +266,9 @@ export default function DoctorsHeroLineup() {
             {frontDoctorNameLabels.map((label) => (
               <span
                 key={label.id}
-                className={`absolute -translate-x-1/2 whitespace-nowrap drop-shadow-[0_2px_8px_rgba(255,255,255,0.92)] ${label.className}`}
+                className={`absolute -translate-x-1/2 whitespace-nowrap drop-shadow-[0_2px_8px_rgba(255,255,255,0.92)] transition-transform duration-300 ease-out ${
+                  activeDoctorId === label.id.replace('-label', '') ? 'scale-[1.07]' : ''
+                } ${label.className}`}
               >
                 {label.text}
               </span>

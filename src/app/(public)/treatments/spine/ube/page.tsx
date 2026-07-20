@@ -7,6 +7,7 @@ import UbeParallaxBackground from '@/components/UbeParallaxBackground';
 import UbeDecompressionScene from '@/components/UbeDecompressionScene';
 import UbeIndicationMap from '@/components/UbeIndicationMap';
 import YonseiSpecialFeaturesSection from '@/components/YonseiSpecialFeaturesSection';
+import UbeTextbookFeatureSection from '@/components/UbeTextbookFeatureSection';
 
 const overviewBenefits = [
   {
@@ -492,6 +493,8 @@ export default function UbePage() {
             </div>
           </div>
         </section>
+
+        <UbeTextbookFeatureSection />
 
         <section className="mx-auto max-w-7xl px-5 py-16 sm:px-6 md:py-28">
           <ScrollReveal className="mx-auto max-w-3xl text-center">

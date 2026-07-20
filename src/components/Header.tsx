@@ -447,16 +447,22 @@ const Header = () => {
           className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-4 lg:flex xl:gap-7 2xl:gap-10"
         >
           {MENU_DATA.map((menu) => (
-            <Link
+            <button
               key={menu.id}
-              href={menu.href}
+              type="button"
               onMouseEnter={() => openMegaMenu(menu.id)}
               onFocus={() => openMegaMenuImmediately(menu.id)}
-              onClick={closeMegaMenuImmediately}
+              onClick={() => {
+                if (activeMenu === menu.id) {
+                  closeMegaMenuImmediately();
+                } else {
+                  openMegaMenuImmediately(menu.id);
+                }
+              }}
               aria-haspopup="true"
               aria-expanded={activeMenu === menu.id}
               aria-controls={activeMenu === menu.id ? 'site-mega-menu' : undefined}
-              className="relative px-1 py-2 group"
+              className="relative px-1 py-2 group cursor-pointer"
             >
               {activeMenu === menu.id && (
                 <motion.span
@@ -479,7 +485,7 @@ const Header = () => {
                   className="absolute -bottom-5 left-0 right-0 h-0.5 rounded-full bg-primary"
                 />
               )}
-            </Link>
+            </button>
           ))}
         </nav>
 
