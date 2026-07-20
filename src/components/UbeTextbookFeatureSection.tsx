@@ -223,7 +223,7 @@ const UbeTextbookFeatureSection = () => {
               양방향 척추내시경 교과서 집필진
             </p>
             <p className="mt-1 break-keep text-lg font-extrabold tracking-[-0.03em] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] sm:text-2xl">
-              이남 · 김동한 병원장
+              김동한 · 이남 병원장
             </p>
           </div>
         </div>
@@ -252,7 +252,7 @@ const UbeTextbookFeatureSection = () => {
               <p className="mt-6 break-keep text-sm font-semibold leading-[1.8] text-white/60 sm:text-base">
                 <span className="text-white/85">Springer 출판</span>
                 <span className="mx-3 text-[#e9c66d]/55">/</span>
-                <span className="text-white/85">이남·김동한 병원장 집필 참여</span>
+                <span className="text-white/85">김동한·이남 병원장 집필 참여</span>
               </p>
             </div>
 
@@ -262,7 +262,7 @@ const UbeTextbookFeatureSection = () => {
                 세계적인 의학 교과서에 담았습니다.
               </p>
               <p className="break-keep">
-                이남·김동한 병원장은 양방향 척추내시경 수술 교과서 집필에 지속적으로
+                김동한·이남 병원장은 양방향 척추내시경 수술 교과서 집필에 지속적으로
                 참여하며, 연세척병원의 술기와 치료 프로토콜을 세계 의료진과 공유하고
                 있습니다.
               </p>

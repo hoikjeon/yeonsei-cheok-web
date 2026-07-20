@@ -18,7 +18,7 @@ const doctors: HomeDoctor[] = [
     image: '/generated/doctors-lineup/trimmed/kim-beom-jun.png',
     alt: '김범준 원장',
     className:
-      'left-[11%] z-20 h-[60%] w-[29%] md:left-[18%] md:h-[82%] md:w-[21%] lg:left-[18%] lg:h-[86%] lg:w-[21%]',
+      'left-[11%] z-20 h-[60%] w-[29%] md:left-[18%] md:h-[82%] md:w-[24%] lg:left-[18%] lg:h-[86%] lg:w-[24%]',
     imageClassName: 'scale-x-[-1]',
   },
   {
@@ -26,28 +26,22 @@ const doctors: HomeDoctor[] = [
     image: '/generated/doctors-lineup/trimmed/kim-dong-han.png',
     alt: '김동한 병원장',
     className:
-      'left-[30.5%] z-30 h-[60%] w-[29%] md:left-[34%] md:h-[82%] md:w-[21%] lg:left-[34%] lg:h-[86%] lg:w-[21%]',
+      'left-[37%] z-30 h-[60%] w-[29%] md:left-[39.33%] md:h-[82%] md:w-[24%] lg:left-[39.33%] lg:h-[86%] lg:w-[24%]',
   },
   {
     id: 'lee-nam',
     image: '/generated/doctors-lineup/trimmed/lee-nam.png',
     alt: '이남 병원장',
     className:
-      'left-[50%] z-40 h-[60%] w-[29%] md:left-[50%] md:h-[82%] md:w-[21%] lg:left-[50%] lg:h-[86%] lg:w-[21%]',
+      'left-[63%] z-30 h-[60%] w-[29%] md:left-[60.67%] md:h-[82%] md:w-[24%] lg:left-[60.67%] lg:h-[86%] lg:w-[24%]',
+    imageClassName: 'scale-x-[-1]',
   },
   {
     id: 'choi-ho',
     image: '/generated/doctors-lineup/trimmed/choi-ho.png',
     alt: '최호 원장',
     className:
-      'left-[69.5%] z-30 h-[60%] w-[29%] md:left-[66%] md:h-[82%] md:w-[21%] lg:left-[66%] lg:h-[86%] lg:w-[21%]',
-  },
-  {
-    id: 'jang-hwi-yeol',
-    image: '/generated/doctors-lineup/trimmed/jang-hwi-yeol.png',
-    alt: '장휘열 원장',
-    className:
-      'left-[89%] z-20 h-[60%] w-[29%] md:left-[82%] md:h-[82%] md:w-[21%] lg:left-[82%] lg:h-[86%] lg:w-[21%]',
+      'left-[89%] z-20 h-[60%] w-[29%] md:left-[82%] md:h-[82%] md:w-[24%] lg:left-[82%] lg:h-[86%] lg:w-[24%]',
   },
 ];
 

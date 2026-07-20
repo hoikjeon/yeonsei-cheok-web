@@ -225,7 +225,7 @@ const Footer = () => {
                 <strong className="font-bold text-ink">사업자등록번호</strong> 605-92-44375
               </span>
               <span>
-                <strong className="font-bold text-ink">병원장</strong> 이남, 김동한
+                <strong className="font-bold text-ink">병원장</strong> 김동한, 이남
               </span>
             </address>
           </div>
