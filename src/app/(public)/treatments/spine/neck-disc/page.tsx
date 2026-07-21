@@ -5,6 +5,7 @@ import { Check, ChevronDown, Home } from 'lucide-react';
 import NeckDiseaseSection from '@/components/NeckDiseaseSection';
 import ScrollReveal from '@/components/ScrollReveal';
 import SpineCenterStrengthSection from '@/components/SpineCenterStrengthSection';
+import UbeTextbookFeatureSection from '@/components/UbeTextbookFeatureSection';
 import YonseiSpecialFeaturesSection from '@/components/YonseiSpecialFeaturesSection';
 
 export const metadata: Metadata = {
@@ -218,6 +219,7 @@ export default function NeckDiscPage() {
 
       <NeckDiseaseSection />
 
+      <UbeTextbookFeatureSection />
       <YonseiSpecialFeaturesSection />
       <SpineCenterStrengthSection />
     </main>

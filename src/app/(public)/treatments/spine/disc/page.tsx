@@ -5,6 +5,7 @@ import { Check, ChevronDown, Home } from 'lucide-react';
 import LumbarDiseaseSection from '@/components/LumbarDiseaseSection';
 import ScrollReveal from '@/components/ScrollReveal';
 import SpineCenterStrengthSection from '@/components/SpineCenterStrengthSection';
+import UbeTextbookFeatureSection from '@/components/UbeTextbookFeatureSection';
 import YonseiSpecialFeaturesSection from '@/components/YonseiSpecialFeaturesSection';
 
 export const metadata: Metadata = {
@@ -245,6 +246,8 @@ export default function DiscPage() {
       </section>
 
       <LumbarDiseaseSection />
+
+      <UbeTextbookFeatureSection />
 
       <section className="bg-white px-5 py-16 sm:px-6 md:py-32">
         <div className="mx-auto max-w-7xl">

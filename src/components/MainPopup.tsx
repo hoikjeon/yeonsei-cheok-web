@@ -15,8 +15,15 @@ type PopupItem = {
   ends_at?: string | null;
 };
 
+// 닫기를 누르면 오늘 자정까지 해당 팝업을 숨깁니다
 const HIDE_KEY_PREFIX = 'hidePopup_';
-const HIDE_DURATION_MS = 24 * 60 * 60 * 1000;
+
+// 다음 자정(오늘 끝나는 시각)의 타임스탬프
+const getTodayEndTimestamp = () => {
+  const midnight = new Date();
+  midnight.setHours(24, 0, 0, 0);
+  return midnight.getTime();
+};
 
 const isWithinSchedule = (popup: PopupItem, now: number) => {
   if (popup.starts_at && now < new Date(popup.starts_at).getTime()) return false;
@@ -28,7 +35,8 @@ const isHiddenByUser = (id: PopupItem['id']) => {
   try {
     const raw = localStorage.getItem(`${HIDE_KEY_PREFIX}${id}`);
     if (!raw) return false;
-    if (Date.now() > parseInt(raw, 10)) {
+    // 자정이 지났으면 숨김 해제
+    if (Date.now() >= parseInt(raw, 10)) {
       localStorage.removeItem(`${HIDE_KEY_PREFIX}${id}`);
       return false;
     }
@@ -41,7 +49,6 @@ const isHiddenByUser = (id: PopupItem['id']) => {
 const MainPopup = () => {
   const pathname = usePathname();
   const [visiblePopups, setVisiblePopups] = useState<PopupItem[]>([]);
-  const [todayChecked, setTodayChecked] = useState<Record<string, boolean>>({});
   const [isReady, setIsReady] = useState(false);
 
   const supabase = useMemo(() => createClient(), []);
@@ -72,12 +79,10 @@ const MainPopup = () => {
   if (!isReady || visiblePopups.length === 0) return null;
 
   const closePopup = (id: PopupItem['id']) => {
-    if (todayChecked[String(id)]) {
-      try {
-        localStorage.setItem(`${HIDE_KEY_PREFIX}${id}`, String(Date.now() + HIDE_DURATION_MS));
-      } catch {
-        // localStorage 사용 불가 환경에서는 세션 내 닫기만 적용
-      }
+    try {
+      localStorage.setItem(`${HIDE_KEY_PREFIX}${id}`, String(getTodayEndTimestamp()));
+    } catch {
+      // localStorage 사용 불가 환경에서는 화면에서만 닫습니다
     }
     setVisiblePopups((prev) => prev.filter((popup) => popup.id !== id));
   };
@@ -100,7 +105,7 @@ const MainPopup = () => {
             onClick={closeAllPopups}
             className="pointer-events-auto rounded-xl bg-white px-6 py-3 text-[15px] font-black tracking-tight text-ink shadow-[0_10px_30px_rgba(0,0,0,0.35)] transition-transform hover:-translate-y-0.5 sm:px-7 sm:text-[16px]"
           >
-            모든 팝업 닫기
+            오늘 하루 보지 않기
           </button>
         </div>
 
@@ -114,46 +119,12 @@ const MainPopup = () => {
               transition={{ type: 'spring', damping: 26, stiffness: 320, delay: 0.08 * index }}
               className="w-full max-w-[380px] overflow-hidden rounded-2xl bg-white shadow-[0_24px_60px_rgba(0,0,0,0.35)]"
             >
-              {/* 상단 컨트롤 바 */}
-              <div className="flex items-center justify-between border-b border-slate-100 bg-white px-4 py-3">
-                <label className="flex cursor-pointer items-center gap-2 text-[13px] font-bold text-ink-sub">
-                  <input
-                    type="checkbox"
-                    checked={!!todayChecked[String(popup.id)]}
-                    onChange={(event) =>
-                      setTodayChecked((prev) => ({ ...prev, [String(popup.id)]: event.target.checked }))
-                    }
-                    className="h-4 w-4 rounded border-slate-300 text-primary focus:ring-primary"
-                  />
-                  오늘 하루 보지 않기
-                </label>
-                <button
-                  onClick={() => closePopup(popup.id)}
-                  className="text-[14px] font-bold text-ink transition-colors hover:text-primary"
-                >
-                  닫기
-                </button>
-              </div>
-
-              {/* 이미지 + 문구 */}
-              <div className="relative aspect-[4/5] overflow-hidden">
-                <img
-                  src={popup.image_url || '/ube_training.jpg'}
-                  alt={popup.title}
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-950/10 to-transparent" />
-                <div className="absolute bottom-5 left-5 right-5 text-white">
-                  <h3 className="mb-2 whitespace-pre-line break-keep text-h4 tracking-tight text-white">
-                    {popup.title.replace(/\\n/g, '\n')}
-                  </h3>
-                  {popup.content && (
-                    <p className="line-clamp-2 text-[13px] font-medium leading-relaxed text-slate-200">
-                      {popup.content}
-                    </p>
-                  )}
-                </div>
-              </div>
+              {/* 팝업 이미지 (760 x 950 권장 비율로 고정) */}
+              <img
+                src={popup.image_url || '/ube_training.jpg'}
+                alt={popup.title}
+                className="block aspect-[4/5] w-full object-cover"
+              />
             </motion.div>
           ))}
         </div>

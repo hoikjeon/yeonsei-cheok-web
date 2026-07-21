@@ -199,16 +199,8 @@ function PopupsAdminContent() {
 
               return (
                 <div key={slot} className={`overflow-hidden rounded-2xl bg-white shadow-lg transition-opacity ${status.isLiveNow ? '' : 'opacity-50'}`}>
-                  <div className="flex items-center justify-between border-b border-slate-100 px-3 py-2">
-                    <span className="text-[11px] font-bold text-ink-muted">오늘 하루 보지 않기</span>
-                    <span className="text-[11px] font-bold text-ink">닫기</span>
-                  </div>
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <img src={popup.image_url || '/ube_training.jpg'} alt="" className="absolute inset-0 h-full w-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-950/10 to-transparent" />
-                    <p className="absolute bottom-3 left-3 right-3 whitespace-pre-line text-[13px] font-black leading-tight text-white">
-                      {popup.title.replace(/\\n/g, '\n')}
-                    </p>
+                  <div className="relative">
+                    <img src={popup.image_url || '/ube_training.jpg'} alt="" className="block aspect-[4/5] w-full object-cover" />
                     <span className="absolute left-3 top-3 rounded-full bg-navy-950/80 px-2.5 py-1 text-[11px] font-black text-white">
                       {slot}번
                     </span>

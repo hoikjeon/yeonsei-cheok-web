@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ChevronDown, Home } from 'lucide-react';
+import { ArrowRight, Check, ChevronDown, Home } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
 import WristAnkleDiseaseSection from '@/components/WristAnkleDiseaseSection';
 import WristAnkleFaqAccordion from '@/components/WristAnkleFaqAccordion';
@@ -158,7 +158,7 @@ export default function WristAnkleJointPage() {
           </h2>
         </ScrollReveal>
 
-        <ScrollReveal variant="image" amount={0.16} className="mt-8 sm:mt-12">
+        <ScrollReveal variant="image" amount={0.16} className="mx-auto mt-8 max-w-5xl sm:mt-12">
           <div className="relative overflow-hidden rounded-[1.25rem] bg-[#edf5fb] shadow-[0_30px_80px_-48px_rgba(15,29,54,0.55)] ring-1 ring-slate-100 sm:rounded-[1.75rem]">
             <Image
               src={`${ASSET_ROOT}/wrist-ankle-intro.webp`}
@@ -231,7 +231,10 @@ export default function WristAnkleJointPage() {
             <div className="grid gap-3 sm:grid-cols-2 sm:gap-5">
               {causes.map((item, index) => (
                 <ScrollReveal key={item} delay={index * 0.05} amount={0.15}>
-                  <div className="flex min-h-[76px] items-center rounded-[1rem] bg-slate-50 px-5 ring-1 ring-slate-200/70 transition duration-300 hover:bg-primary-light/70 hover:ring-primary/20 sm:min-h-[92px] sm:rounded-[1.25rem] sm:px-6">
+                  <div className="flex min-h-[76px] items-center gap-3 rounded-[1rem] bg-slate-50 px-4 ring-1 ring-slate-200/70 transition duration-300 hover:bg-primary-light/70 hover:ring-primary/20 sm:min-h-[92px] sm:gap-4 sm:rounded-[1.25rem] sm:px-6">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-400 text-navy-950 shadow-[0_10px_22px_-12px_rgba(245,179,0,0.9)]">
+                      <Check size={20} strokeWidth={3.4} />
+                    </span>
                     <span className="text-[0.95rem] font-extrabold leading-snug tracking-tight text-ink sm:text-[1.05rem] md:text-[1.18rem]">{item}</span>
                   </div>
                 </ScrollReveal>
@@ -239,9 +242,6 @@ export default function WristAnkleJointPage() {
             </div>
           </div>
 
-          <p className="mt-8 rounded-2xl bg-amber-50 px-4 py-4 text-[13px] font-bold leading-[1.75] text-amber-950 ring-1 ring-amber-200/70 sm:mt-10 sm:px-6 sm:text-[15px]">
-            갑작스러운 감각·근력 저하, 관절 변형, 심한 외상, 피부색 변화 또는 발열을 동반한 붓기가 있으면 지체하지 말고 의료기관에서 평가받으세요.
-          </p>
         </div>
       </section>
 

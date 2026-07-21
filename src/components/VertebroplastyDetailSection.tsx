@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Check, ShieldCheck, TriangleAlert } from "lucide-react";
+import { Check } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const ASSET_ROOT = "/images/treatments/non-surgical/vertebroplasty";
@@ -300,7 +300,7 @@ export default function VertebroplastyDetailSection() {
                     />
                   </div>
                   <div className="p-5 sm:p-7 md:p-8">
-                    <span className="inline-flex rounded-full bg-primary/10 px-3 py-1.5 text-[11px] font-bold text-primary sm:text-xs">
+                    <span className="inline-flex rounded-full bg-primary/10 px-3 py-1.5 text-[12px] font-bold text-primary">
                       {item.label}
                     </span>
                     <h4 className="mt-4 break-keep text-h4 leading-tight text-ink">
@@ -389,7 +389,7 @@ export default function VertebroplastyDetailSection() {
                     />
                   </div>
                   <div className="p-5 sm:p-6">
-                    <span className="font-montserrat text-[12px] font-bold tracking-[0.16em] text-primary">
+                    <span className="font-montserrat text-[13px] font-bold tracking-[0.16em] text-primary">
                       {item.number}
                     </span>
                     <h4 className="mt-2 break-keep text-h4 leading-snug text-ink">
@@ -488,10 +488,7 @@ export default function VertebroplastyDetailSection() {
         >
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
             <div>
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-cyan-200">
-                <ShieldCheck size={23} aria-hidden />
-              </span>
-              <h3 className="mt-5 break-keep text-h3">
+              <h3 className="break-keep text-h3">
                 이런 경우에는 다른 평가가 먼저 필요할 수 있습니다
               </h3>
               <ul className="mt-7 space-y-4">
@@ -507,10 +504,7 @@ export default function VertebroplastyDetailSection() {
             </div>
 
             <div className="rounded-[1.25rem] border border-amber-300/20 bg-amber-300/[0.08] p-5 sm:p-7">
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-amber-300/15 text-amber-200">
-                <TriangleAlert size={22} aria-hidden />
-              </span>
-              <h3 className="mt-5 break-keep text-h3">
+              <h3 className="break-keep text-h3">
                 다음 증상은 상담을 기다리지 말고 즉시 평가받으세요
               </h3>
               <ul className="mt-6 space-y-4">
@@ -549,10 +543,7 @@ export default function VertebroplastyDetailSection() {
                 className="h-full"
               >
                 <article className="h-full rounded-[1.15rem] border border-slate-200 bg-white p-5 shadow-[0_20px_60px_-50px_rgba(15,29,54,0.65)] sm:rounded-[1.4rem] sm:p-7">
-                  <span className="font-montserrat text-[13px] font-bold tracking-[0.16em] text-primary">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <h4 className="mt-4 break-keep text-h4 leading-snug text-ink">
+                  <h4 className="break-keep text-h4 leading-snug text-ink">
                     {item.title}
                   </h4>
                   <p className="mt-2.5 break-keep text-body text-ink-sub">

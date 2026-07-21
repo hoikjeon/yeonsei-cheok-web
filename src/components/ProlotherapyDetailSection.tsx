@@ -257,9 +257,6 @@ export default function ProlotherapyDetailSection() {
           <div className="relative md:min-h-[560px] xl:min-h-[620px]">
             <div className="relative z-10 pb-7 md:absolute md:inset-y-0 md:left-0 md:flex md:w-[58%] md:items-center md:px-10 md:pb-0 lg:px-14 xl:px-16">
               <div className="max-w-[680px]">
-                <p className="mb-4 break-words font-montserrat text-[10px] font-bold uppercase tracking-[0.14em] text-primary sm:text-[11px] sm:tracking-[0.18em] md:text-white/80">
-                  Dextrose Prolotherapy
-                </p>
                 <h2 className="break-keep text-h2 tracking-tight text-ink sm:text-4xl md:text-[2.7rem] md:leading-[1.18] md:text-white lg:text-[3.25rem]">
                   통증 부위를 세밀하게 확인해,
                   <br className="hidden md:block" /> 필요한 조직 가까이에
@@ -306,10 +303,7 @@ export default function ProlotherapyDetailSection() {
             <div className="grid lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
               <div className="flex items-center bg-navy-950 p-5 text-white sm:p-8 md:p-10 lg:p-12">
                 <div>
-                  <span className="inline-flex rounded-full bg-white/10 px-3 py-1.5 text-[12px] font-bold text-white/80">
-                    핵심 원리
-                  </span>
-                  <h4 className="mt-5 break-keep text-h3 md:text-[2rem]">
+                  <h4 className="break-keep text-h3 md:text-[2rem]">
                     목표 조직 가까이에 주입하고
                     <br /> 반응을 세심하게 확인합니다
                   </h4>
@@ -371,7 +365,7 @@ export default function ProlotherapyDetailSection() {
                 key={item.number}
                 className="rounded-[1rem] border border-slate-200 bg-white p-5 sm:p-6"
               >
-                <span className="font-montserrat text-[12px] font-bold tracking-[0.16em] text-primary">
+                <span className="font-montserrat text-[13px] font-bold tracking-[0.16em] text-primary">
                   {item.number}
                 </span>
                 <h4 className="mt-3 break-keep text-h4 leading-snug text-ink">

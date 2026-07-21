@@ -106,9 +106,6 @@ export default function BalloonNeuroplastyDetailSection() {
           <div className="relative md:min-h-[560px] xl:min-h-[620px]">
             <div className="relative z-10 pb-7 md:absolute md:inset-y-0 md:left-0 md:flex md:w-[58%] md:items-center md:px-10 md:pb-0 lg:px-14 xl:px-16">
               <div className="max-w-[670px]">
-                <p className="mb-4 font-montserrat text-[11px] font-bold uppercase tracking-[0.2em] text-primary md:text-white/80">
-                  Epidural Balloon Neuroplasty
-                </p>
                 <h2 className="break-keep text-h2 tracking-tight text-ink sm:text-4xl md:text-[2.7rem] md:leading-[1.18] md:text-white lg:text-[3.25rem]">
                   좁아진 신경 주변에,
                   <br className="hidden md:block" /> 작은 풍선으로 정밀하게
@@ -157,10 +154,7 @@ export default function BalloonNeuroplastyDetailSection() {
           <div className="mt-9 grid overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-premium sm:mt-12 sm:rounded-[2rem] lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
             <div className="flex items-center bg-navy-950 p-5 text-white sm:p-8 md:p-10 lg:p-12">
               <div>
-                <span className="inline-flex rounded-full bg-white/10 px-3 py-1.5 text-[12px] font-bold text-white/80">
-                  쉽게 이해하기
-                </span>
-                <h4 className="mt-5 break-keep text-h3 md:text-[2rem]">
+                <h4 className="break-keep text-h3 md:text-[2rem]">
                   통로를 확인하고,
                   <br /> 필요한 만큼 확장을 돕습니다
                 </h4>
@@ -210,10 +204,7 @@ export default function BalloonNeuroplastyDetailSection() {
               className="h-full"
             >
               <article className="h-full rounded-[1.15rem] border border-slate-200 bg-white p-5 shadow-[0_20px_60px_-50px_rgba(15,29,54,0.65)] sm:rounded-[1.4rem] sm:p-7">
-                <span className="font-montserrat text-[13px] font-bold tracking-[0.16em] text-primary">
-                  {item.number}
-                </span>
-                <h4 className="mt-4 break-keep text-h4 leading-snug text-ink">
+                <h4 className="break-keep text-h4 leading-snug text-ink">
                   {item.title}
                 </h4>
                 <p className="mt-2.5 break-keep text-body text-ink-sub">
@@ -333,7 +324,7 @@ export default function BalloonNeuroplastyDetailSection() {
                   />
                 </div>
                 <div className="p-3 sm:p-4">
-                  <span className="font-montserrat text-[11px] font-bold tracking-[0.14em] text-primary sm:text-xs">
+                  <span className="font-montserrat text-[11px] font-bold tracking-[0.14em] text-primary">
                     {item.number}
                   </span>
                   <h4 className="break-keep text-[15px] font-bold leading-snug text-ink sm:text-base">

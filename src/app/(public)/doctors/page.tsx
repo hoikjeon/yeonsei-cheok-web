@@ -441,11 +441,14 @@ export default function DoctorsPage() {
       />
 
       <main className="w-full">
-        <DoctorsHeroLineup />
+        {/* 5인 라인업은 좁은 화면에서 눌려 보여 모바일에서는 숨깁니다 */}
+        <div className="hidden md:block">
+          <DoctorsHeroLineup />
+        </div>
 
         <div
           aria-hidden="true"
-          className="marquee-fade pointer-events-none relative -mt-6 mb-2 overflow-hidden py-4 md:-mt-16 md:mb-0 md:py-6"
+          className="marquee-fade pointer-events-none relative mt-8 mb-2 overflow-hidden py-2 md:-mt-16 md:mb-0 md:py-6"
         >
           <div className="marquee-track flex w-max select-none font-montserrat text-[clamp(3rem,7.2vw,6.6rem)] font-semibold uppercase leading-none tracking-[0.01em] text-navy-900/[0.055]">
             <span className="shrink-0 pr-12 md:pr-20">{doctorsMarqueeText}</span>

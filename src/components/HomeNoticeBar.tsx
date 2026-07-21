@@ -16,9 +16,10 @@ import {
 const isExternalHref = (href: string) =>
   href.startsWith('http://') || href.startsWith('https://') || href.startsWith('tel:') || href.startsWith('mailto:');
 
-function NoticeLink({ notice }: { notice: HomeNoticeItem }) {
-  const className =
-    'line-clamp-2 block min-w-0 break-keep text-body font-medium tracking-tight text-white md:truncate md:leading-normal';
+function NoticeLink({ notice, compact = false }: { notice: HomeNoticeItem; compact?: boolean }) {
+  const className = compact
+    ? 'block min-w-0 truncate text-[13px] font-semibold tracking-tight text-white/95'
+    : 'line-clamp-2 block min-w-0 break-keep text-body font-medium tracking-tight text-white md:truncate md:leading-normal';
 
   if (isExternalHref(notice.href)) {
     return (
@@ -89,7 +90,34 @@ export default function HomeNoticeBar() {
 
   return (
     <section className="relative z-30 bg-gradient-to-r from-[#17326F] via-[#284AA5] to-[#3C63C4] shadow-[0_22px_60px_-34px_rgba(10,20,40,0.45)]">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-0 px-5 py-4 text-white sm:px-6 md:h-24 md:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] md:items-center md:gap-8 md:py-0">
+      <div className="mx-auto h-[var(--mobile-home-notice-height)] max-w-7xl text-white md:hidden">
+        <div className="grid h-1/2 min-w-0 grid-cols-[60px_minmax(0,1fr)] items-center gap-3 px-5 sm:px-7">
+          <span className="text-[13px] font-extrabold tracking-tight">공지사항</span>
+          <div className="relative min-w-0 overflow-hidden" aria-live="polite">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={`mobile-${safeActiveIndex}-${currentNotice.title}`}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
+              >
+                <NoticeLink notice={currentNotice} compact />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+
+        <div className="grid h-1/2 min-w-0 grid-cols-[60px_minmax(0,1fr)] items-center gap-3 border-t border-white/20 px-5 sm:px-7">
+          <span className="text-[13px] font-extrabold tracking-tight">휴진일</span>
+          <div className="flex min-w-0 items-center gap-2 text-[13px] tracking-tight">
+            <span className="shrink-0 font-bold text-white">{settings.closed_month}</span>
+            <span className="min-w-0 truncate font-medium text-white/85">{settings.closed_message}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto hidden max-w-7xl grid-cols-1 gap-0 px-5 py-4 text-white sm:px-6 md:grid md:h-24 md:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] md:items-center md:gap-8 md:py-0">
         <div className="grid min-w-0 grid-cols-[72px_minmax(0,1fr)] items-start gap-3 md:grid-cols-[108px_minmax(0,1fr)_42px] md:items-center md:gap-5">
           <div className="flex items-center">
             <span className="pt-0.5 text-body-lg font-bold tracking-tight md:pt-0">공지사항</span>

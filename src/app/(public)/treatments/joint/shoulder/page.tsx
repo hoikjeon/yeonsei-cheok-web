@@ -176,7 +176,7 @@ export default function ShoulderJointPage() {
           </h2>
         </ScrollReveal>
 
-        <ScrollReveal variant="image" amount={0.16} className="mt-8 sm:mt-12">
+        <ScrollReveal variant="image" amount={0.16} className="mx-auto mt-8 max-w-5xl sm:mt-12">
           <div className="relative overflow-hidden rounded-[1.25rem] bg-[#edf5fb] shadow-[0_30px_80px_-48px_rgba(15,29,54,0.55)] ring-1 ring-slate-100 sm:rounded-[1.75rem]">
             <Image
               src={`${ASSET_ROOT}/shoulder-intro-anatomy.webp`}

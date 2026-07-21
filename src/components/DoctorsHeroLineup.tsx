@@ -2,7 +2,45 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, type CSSProperties, type MouseEvent } from 'react';
+import styles from './DoctorsHeroLineup.module.css';
+
+type BoxPosition = {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+};
+
+type DoctorPosition = BoxPosition & {
+  zIndex: number;
+};
+
+type ResponsiveDoctorPosition = {
+  mobile: DoctorPosition;
+  desktop: DoctorPosition;
+};
+
+type ResponsiveHitZone = {
+  mobile: BoxPosition;
+  desktop: BoxPosition;
+};
+
+type LabelPosition = {
+  left: number;
+  top?: number;
+  bottom?: number;
+  fontSize: number;
+};
+
+type ResponsiveLabelPosition = {
+  mobile: LabelPosition;
+  smallFontSize: number;
+  desktop: LabelPosition;
+  wideFontSize: number;
+};
+
+type CSSVariableStyle = CSSProperties & Record<`--${string}`, string | number>;
 
 type DoctorLineupItem = {
   id: string;
@@ -10,22 +48,22 @@ type DoctorLineupItem = {
   title: string;
   image: string;
   alt: string;
-  className: string;
+  position: ResponsiveDoctorPosition;
+  hitZone: ResponsiveHitZone;
   isFlipped?: boolean;
 };
 
 type DoctorNameLabel = {
   id: string;
   text: string;
-  className: string;
+  position: ResponsiveLabelPosition;
 };
 
-type DoctorHitZone = {
-  id: string;
-  label: string;
-  className: string;
-};
-
+// ── 인물 개별 조정 영역 ─────────────────────────────────────────────
+// mobile: 767px 이하 / desktop: 768px 이상
+// left·top은 위치(%), width·height는 인물 영역 크기(%), zIndex는 앞뒤 순서입니다.
+// 숫자가 클수록 left는 오른쪽, top은 아래, width·height는 크게 보입니다.
+// 인물을 옮긴 뒤에는 같은 인물의 hitZone 숫자도 함께 맞춰주세요.
 const doctorLineup: DoctorLineupItem[] = [
   {
     id: 'kim-beom-jun',
@@ -33,32 +71,15 @@ const doctorLineup: DoctorLineupItem[] = [
     title: '원장',
     image: '/generated/doctors-lineup/kim-beom-jun.png',
     alt: '김범준 원장',
-    className: 'left-[40%] top-[4%] z-20 h-[72%] w-[28%] md:left-[38.5%] md:top-[10%] md:h-[90%] md:w-[25.5%]',
+    position: {
+      mobile: { left: 24, top: 10, width: 27, height: 66, zIndex: 20 },
+      desktop: { left: 31, top: 17, width: 24, height: 84, zIndex: 20 },
+    },
+    hitZone: {
+      mobile: { left: 24, top: 20, width: 19, height: 34 },
+      desktop: { left: 31, top: 27, width: 16, height: 40 },
+    },
     isFlipped: true,
-  },
-  {
-    id: 'jang-hwi-yeol',
-    name: '장휘열',
-    title: '원장',
-    image: '/generated/doctors-lineup/jang-hwi-yeol.png',
-    alt: '장휘열 원장',
-    className: 'left-[62%] top-[18%] z-20 h-[50%] w-[18%] md:left-[56%] md:top-[30%] md:h-[66%] md:w-[17%]',
-  },
-  {
-    id: 'kim-dong-han',
-    name: '김동한',
-    title: '병원장',
-    image: '/generated/doctors-lineup/kim-dong-han.png',
-    alt: '김동한 병원장',
-    className: 'left-[20%] top-[33%] z-40 h-[72%] w-[30%] md:left-[31%] md:top-[24%] md:h-[92%] md:w-[26%]',
-  },
-  {
-    id: 'lee-nam',
-    name: '이남',
-    title: '병원장',
-    image: '/generated/doctors-lineup/lee-nam.png',
-    alt: '이남 병원장',
-    className: 'left-[50%] top-[31%] z-50 h-[76%] w-[31%] md:left-[48%] md:top-[23%] md:h-[94%] md:w-[26%]',
   },
   {
     id: 'choi-ho',
@@ -66,27 +87,96 @@ const doctorLineup: DoctorLineupItem[] = [
     title: '원장',
     image: '/generated/doctors-lineup/choi-ho.png',
     alt: '최호 원장',
-    className: 'left-[80%] top-[33%] z-40 h-[72%] w-[30%] md:left-[64%] md:top-[26%] md:h-[90%] md:w-[26%]',
+    position: {
+      mobile: { left: 50, top: 11, width: 25, height: 62, zIndex: 30 },
+      desktop: { left: 50, top: 18, width: 22, height: 78, zIndex: 30 },
+    },
+    hitZone: {
+      mobile: { left: 50, top: 20, width: 17, height: 30 },
+      desktop: { left: 50, top: 27, width: 15, height: 38 },
+    },
+  },
+  {
+    id: 'jang-hwi-yeol',
+    name: '장휘열',
+    title: '원장',
+    image: '/generated/doctors-lineup/jang-hwi-yeol.png',
+    alt: '장휘열 원장',
+    position: {
+      mobile: { left: 76, top: 23, width: 18, height: 50, zIndex: 20 },
+      desktop: { left: 69, top: 33, width: 17, height: 66, zIndex: 20 },
+    },
+    hitZone: {
+      mobile: { left: 76, top: 23, width: 15, height: 28 },
+      desktop: { left: 69, top: 33, width: 13, height: 34 },
+    },
+  },
+  {
+    id: 'kim-dong-han',
+    name: '김동한',
+    title: '병원장',
+    image: '/generated/doctors-lineup/kim-dong-han.png',
+    alt: '김동한 병원장',
+    position: {
+      mobile: { left: 39, top: 29, width: 31, height: 74, zIndex: 40 },
+      desktop: { left: 41, top: 22, width: 27, height: 94, zIndex: 40 },
+    },
+    hitZone: {
+      mobile: { left: 39, top: 42, width: 22, height: 48 },
+      desktop: { left: 41, top: 39, width: 17, height: 51 },
+    },
+  },
+  {
+    id: 'lee-nam',
+    name: '이남',
+    title: '병원장',
+    image: '/generated/doctors-lineup/lee-nam.png',
+    alt: '이남 병원장',
+    position: {
+      mobile: { left: 61, top: 31, width: 30, height: 73, zIndex: 50 },
+      desktop: { left: 59, top: 23, width: 26, height: 94, zIndex: 50 },
+    },
+    hitZone: {
+      mobile: { left: 61, top: 45, width: 22, height: 45 },
+      desktop: { left: 59, top: 42, width: 17, height: 48 },
+    },
+    isFlipped: true,
   },
 ];
 
-// ── 장휘열 원장 이름표 위치 (여기 숫자만 바꾸면 위치가 조정됩니다) ──────────────
-//   left-[숫자%] : 값이 클수록 오른쪽으로 이동
-//   top-[숫자%]  : 값이 클수록 아래로 이동
-//   기본값(모바일)과 md:값(PC)을 각각 지정합니다. 예) 'left-[60%] top-[40%] md:left-[62%] md:top-[42%]'
-const JANG_HWI_YEOL_LABEL_POSITION = 'left-[70%] top-[34%] md:left-[68%] md:top-[44%]';
-
+// ── 이름표 개별 조정 영역 ───────────────────────────────────────────
+// left·top·bottom은 위치(%), fontSize·smallFontSize·wideFontSize는 글자 크기(px)입니다.
+// 위쪽 이름은 top, 아래쪽 이름은 bottom 숫자를 조절하면 됩니다.
 const backDoctorNameLabels: DoctorNameLabel[] = [
   {
     id: 'kim-beom-jun-label',
     text: '김범준 원장',
-    className: 'left-[26%] top-[34%] text-[15px] sm:text-[17px] md:left-[24%] md:top-[44%] md:text-[30px] lg:text-[33px]',
+    position: {
+      mobile: { left: 13, top: 34, fontSize: 15 },
+      smallFontSize: 17,
+      desktop: { left: 19, top: 45, fontSize: 30 },
+      wideFontSize: 33,
+    },
+  },
+  {
+    id: 'choi-ho-label',
+    text: '최호 원장',
+    position: {
+      mobile: { left: 37, top: 32, fontSize: 15 },
+      smallFontSize: 17,
+      desktop: { left: 41, top: 39, fontSize: 30 },
+      wideFontSize: 33,
+    },
   },
   {
     id: 'jang-hwi-yeol-label',
     text: '장휘열 원장',
-    // 위치는 위의 JANG_HWI_YEOL_LABEL_POSITION 에서 조정하세요. (아래는 글자 크기만)
-    className: `${JANG_HWI_YEOL_LABEL_POSITION} text-[15px] sm:text-[17px] md:text-[30px] lg:text-[33px]`,
+    position: {
+      mobile: { left: 87, top: 34, fontSize: 15 },
+      smallFontSize: 17,
+      desktop: { left: 81, top: 45, fontSize: 30 },
+      wideFontSize: 33,
+    },
   },
 ];
 
@@ -94,47 +184,63 @@ const frontDoctorNameLabels: DoctorNameLabel[] = [
   {
     id: 'kim-dong-han-label',
     text: '김동한 병원장',
-    className: 'left-[20%] bottom-[8%] text-[15px] sm:text-[17px] md:left-[31%] md:bottom-[10%] md:text-[31px] lg:text-[34px]',
+    position: {
+      mobile: { left: 36, bottom: 8, fontSize: 15 },
+      smallFontSize: 17,
+      desktop: { left: 41, bottom: 10, fontSize: 31 },
+      wideFontSize: 34,
+    },
   },
   {
     id: 'lee-nam-label',
     text: '이남 병원장',
-    className: 'left-[50%] bottom-[8%] text-[15px] sm:text-[17px] md:left-[48%] md:bottom-[10%] md:text-[31px] lg:text-[34px]',
-  },
-  {
-    id: 'choi-ho-label',
-    text: '최호 원장',
-    className: 'left-[80%] bottom-[8%] text-[15px] sm:text-[17px] md:left-[65%] md:bottom-[10%] md:text-[31px] lg:text-[34px]',
+    position: {
+      mobile: { left: 64, bottom: 8, fontSize: 15 },
+      smallFontSize: 17,
+      desktop: { left: 59, bottom: 10, fontSize: 31 },
+      wideFontSize: 34,
+    },
   },
 ];
 
-const doctorHitZones: DoctorHitZone[] = [
-  {
-    id: 'kim-beom-jun',
-    label: '김범준 원장 상세 프로필로 이동',
-    className: 'left-[40%] top-[13%] h-[32%] w-[16%] md:left-[39%] md:top-[10%] md:h-[36%] md:w-[15%]',
-  },
-  {
-    id: 'jang-hwi-yeol',
-    label: '장휘열 원장 상세 프로필로 이동',
-    className: 'left-[62%] top-[17%] h-[28%] w-[15%] md:left-[61%] md:top-[16%] md:h-[35%] md:w-[14%]',
-  },
-  {
-    id: 'kim-dong-han',
-    label: '김동한 병원장 상세 프로필로 이동',
-    className: 'left-[20%] top-[48%] h-[42%] w-[20%] md:left-[31%] md:top-[42%] md:h-[46%] md:w-[15%]',
-  },
-  {
-    id: 'lee-nam',
-    label: '이남 병원장 상세 프로필로 이동',
-    className: 'left-[50%] top-[46%] h-[44%] w-[20%] md:left-[48%] md:top-[40%] md:h-[48%] md:w-[15%]',
-  },
-  {
-    id: 'choi-ho',
-    label: '최호 원장 상세 프로필로 이동',
-    className: 'left-[80%] top-[48%] h-[42%] w-[20%] md:left-[65%] md:top-[42%] md:h-[46%] md:w-[15%]',
-  },
-];
+const percent = (value: number) => `${value}%`;
+
+const getDoctorPositionStyle = (position: ResponsiveDoctorPosition): CSSVariableStyle => ({
+  '--doctor-left-mobile': percent(position.mobile.left),
+  '--doctor-top-mobile': percent(position.mobile.top),
+  '--doctor-width-mobile': percent(position.mobile.width),
+  '--doctor-height-mobile': percent(position.mobile.height),
+  '--doctor-z-mobile': position.mobile.zIndex,
+  '--doctor-left-desktop': percent(position.desktop.left),
+  '--doctor-top-desktop': percent(position.desktop.top),
+  '--doctor-width-desktop': percent(position.desktop.width),
+  '--doctor-height-desktop': percent(position.desktop.height),
+  '--doctor-z-desktop': position.desktop.zIndex,
+});
+
+const getHitZoneStyle = (position: ResponsiveHitZone): CSSVariableStyle => ({
+  '--hit-left-mobile': percent(position.mobile.left),
+  '--hit-top-mobile': percent(position.mobile.top),
+  '--hit-width-mobile': percent(position.mobile.width),
+  '--hit-height-mobile': percent(position.mobile.height),
+  '--hit-left-desktop': percent(position.desktop.left),
+  '--hit-top-desktop': percent(position.desktop.top),
+  '--hit-width-desktop': percent(position.desktop.width),
+  '--hit-height-desktop': percent(position.desktop.height),
+});
+
+const getLabelPositionStyle = (position: ResponsiveLabelPosition): CSSVariableStyle => ({
+  '--label-left-mobile': percent(position.mobile.left),
+  '--label-top-mobile': position.mobile.top === undefined ? 'auto' : percent(position.mobile.top),
+  '--label-bottom-mobile': position.mobile.bottom === undefined ? 'auto' : percent(position.mobile.bottom),
+  '--label-font-mobile': `${position.mobile.fontSize}px`,
+  '--label-font-small': `${position.smallFontSize}px`,
+  '--label-left-desktop': percent(position.desktop.left),
+  '--label-top-desktop': position.desktop.top === undefined ? 'auto' : percent(position.desktop.top),
+  '--label-bottom-desktop': position.desktop.bottom === undefined ? 'auto' : percent(position.desktop.bottom),
+  '--label-font-desktop': `${position.desktop.fontSize}px`,
+  '--label-font-wide': `${position.wideFontSize}px`,
+});
 
 // 클릭 스크롤 도착 여백: 스크롤 시 헤더가 사라지므로 헤더 높이(96) 대신 살짝만 띄웁니다
 const HEADER_OFFSET = 32;
@@ -165,7 +271,7 @@ const smoothScrollToId = (id: string, duration = 900) => {
 export default function DoctorsHeroLineup() {
   const [activeDoctorId, setActiveDoctorId] = useState<string | null>(null);
 
-  const handleDoctorSelect = (event: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+  const handleDoctorSelect = (event: MouseEvent<HTMLAnchorElement>, id: string) => {
     event.preventDefault();
     smoothScrollToId(id);
     if (window.history.replaceState) {
@@ -205,8 +311,9 @@ export default function DoctorsHeroLineup() {
               return (
                 <div
                   key={doctor.id}
-                  className={`absolute block -translate-x-1/2 overflow-visible transition-transform duration-300 ease-out ${isActive ? '-translate-y-2' : ''
-                    } ${doctor.className}`}
+                  style={getDoctorPositionStyle(doctor.position)}
+                  className={`absolute block -translate-x-1/2 overflow-visible transition-transform duration-300 ease-out ${styles.doctorPosition} ${isActive ? '-translate-y-2' : ''
+                    }`}
                 >
                   <span
                     aria-hidden="true"
@@ -231,17 +338,18 @@ export default function DoctorsHeroLineup() {
           </div>
 
           <div className="absolute inset-0 z-[130]">
-            {doctorHitZones.map((zone) => (
+            {doctorLineup.map((doctor) => (
               <Link
-                key={zone.id}
-                href={`#${zone.id}`}
-                aria-label={zone.label}
-                onClick={(event) => handleDoctorSelect(event, zone.id)}
-                onMouseEnter={() => setActiveDoctorId(zone.id)}
+                key={doctor.id}
+                href={`#${doctor.id}`}
+                aria-label={`${doctor.name} ${doctor.title} 상세 프로필로 이동`}
+                style={getHitZoneStyle(doctor.hitZone)}
+                onClick={(event) => handleDoctorSelect(event, doctor.id)}
+                onMouseEnter={() => setActiveDoctorId(doctor.id)}
                 onMouseLeave={() => setActiveDoctorId(null)}
-                onFocus={() => setActiveDoctorId(zone.id)}
+                onFocus={() => setActiveDoctorId(doctor.id)}
                 onBlur={() => setActiveDoctorId(null)}
-                className={`absolute -translate-x-1/2 cursor-pointer rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-primary/55 ${zone.className}`}
+                className={`absolute -translate-x-1/2 cursor-pointer rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-primary/55 ${styles.hitZonePosition}`}
               />
             ))}
           </div>
@@ -250,9 +358,10 @@ export default function DoctorsHeroLineup() {
             {backDoctorNameLabels.map((label) => (
               <span
                 key={label.id}
+                style={getLabelPositionStyle(label.position)}
                 className={`absolute -translate-x-1/2 whitespace-nowrap drop-shadow-[0_2px_8px_rgba(255,255,255,0.92)] transition-transform duration-300 ease-out ${
                   activeDoctorId === label.id.replace('-label', '') ? 'scale-[1.07]' : ''
-                } ${label.className}`}
+                } ${styles.nameLabelPosition}`}
               >
                 {label.text}
               </span>
@@ -266,9 +375,10 @@ export default function DoctorsHeroLineup() {
             {frontDoctorNameLabels.map((label) => (
               <span
                 key={label.id}
+                style={getLabelPositionStyle(label.position)}
                 className={`absolute -translate-x-1/2 whitespace-nowrap drop-shadow-[0_2px_8px_rgba(255,255,255,0.92)] transition-transform duration-300 ease-out ${
                   activeDoctorId === label.id.replace('-label', '') ? 'scale-[1.07]' : ''
-                } ${label.className}`}
+                } ${styles.nameLabelPosition}`}
               >
                 {label.text}
               </span>

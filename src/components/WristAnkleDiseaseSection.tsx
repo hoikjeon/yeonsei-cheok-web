@@ -134,21 +134,96 @@ const diseases: WristAnkleDisease[] = [
   },
 ];
 
-const markers = [
-  { id: 'ankle-sprain', left: '20%', top: '52%', align: 'right' },
-  { id: 'achilles', left: '9%', top: '57%', align: 'right' },
-  { id: 'plantar', left: '17%', top: '72%', align: 'right' },
-  { id: 'dequervain', left: '86%', top: '70%', align: 'left' },
-  { id: 'carpal-tunnel', left: '74%', top: '77%', align: 'left' },
+const diseaseMarkers = [
+  {
+    diseaseId: 'ankle-sprain',
+    point: { left: '28%', top: '61%' },
+    line: { left: '19%', top: '61%', width: '9%' },
+    button: { left: '7%', top: '61%' },
+  },
+  {
+    diseaseId: 'achilles',
+    point: { left: '23%', top: '71%' },
+    line: { left: '18%', top: '71%', width: '5%' },
+    button: { left: '7%', top: '71%' },
+  },
+  {
+    diseaseId: 'plantar',
+    point: { left: '31%', top: '81%' },
+    line: { left: '18%', top: '81%', width: '13%' },
+    button: { left: '6%', top: '81%' },
+  },
+  {
+    diseaseId: 'dequervain',
+    point: { left: '68%', top: '68%' },
+    line: { left: '68%', top: '68%', width: '11%' },
+    button: { left: '79%', top: '68%' },
+  },
+  {
+    diseaseId: 'carpal-tunnel',
+    point: { left: '73%', top: '78%' },
+    line: { left: '73%', top: '78%', width: '6%' },
+    button: { left: '79%', top: '78%' },
+  },
 ] as const satisfies ReadonlyArray<{
-  id: WristAnkleDiseaseId;
-  left: string;
-  top: string;
-  align: 'left' | 'right';
+  diseaseId: WristAnkleDiseaseId;
+  point: { left: string; top: string };
+  line: { left: string; top: string; width: string };
+  button: { left: string; top: string };
 }>;
 
 const findDisease = (id: WristAnkleDiseaseId) =>
   diseases.find((disease) => disease.id === id) ?? diseases[0];
+
+function WristAnkleMarker({
+  marker,
+  onSelect,
+}: {
+  marker: (typeof diseaseMarkers)[number];
+  onSelect: (id: WristAnkleDiseaseId) => void;
+}) {
+  const disease = findDisease(marker.diseaseId);
+
+  return (
+    <>
+      <span
+        aria-hidden
+        className="absolute z-20 hidden border-t-2 border-dashed border-primary/75 lg:block"
+        style={marker.line}
+      />
+
+      <span
+        aria-hidden
+        className="pointer-events-none absolute z-30 hidden h-12 w-12 -translate-x-1/2 -translate-y-1/2 lg:block motion-reduce:hidden"
+        style={marker.point}
+      >
+        <span className="animate-ripple absolute inset-0 rounded-full bg-primary/30" />
+        <span className="animate-ripple-delayed absolute inset-0 rounded-full bg-primary/30" />
+      </span>
+
+      <button
+        type="button"
+        onClick={() => onSelect(marker.diseaseId)}
+        aria-label={`${disease.title} 자세히 보기`}
+        className="absolute z-40 hidden h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-white shadow-[0_12px_28px_rgba(38,84,190,0.24)] transition duration-300 hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-primary/20 lg:flex motion-reduce:transition-none"
+        style={marker.point}
+      >
+        <span aria-hidden className="text-[19px] font-bold leading-none">
+          !
+        </span>
+      </button>
+
+      <button
+        type="button"
+        onClick={() => onSelect(marker.diseaseId)}
+        className="absolute z-50 hidden -translate-y-1/2 items-center rounded-full bg-primary px-5 py-2.5 text-[17px] font-bold tracking-tight text-white shadow-[0_14px_34px_rgba(38,84,190,0.2)] transition duration-300 hover:-translate-y-[calc(50%+2px)] hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-primary/20 lg:flex motion-reduce:transition-none"
+        style={marker.button}
+      >
+        {disease.title}
+      </button>
+    </>
+  );
+}
 
 function DetailList({ title, items }: { title: string; items: string[] }) {
   return (
@@ -323,45 +398,30 @@ export default function WristAnkleDiseaseSection() {
         </ScrollReveal>
 
         <ScrollReveal variant="image" amount={0.18} className="mt-12 md:mt-20">
-          <div className="relative overflow-hidden rounded-[1.25rem] bg-[#edf5fb] shadow-[0_34px_90px_-56px_rgba(10,30,72,0.45)] ring-1 ring-navy-900/5 sm:rounded-[2rem]">
-            <div className="relative aspect-video w-full overflow-hidden bg-[#edf5fb]">
+          <div className="relative overflow-hidden rounded-[1.25rem] border border-slate-100 bg-white px-5 py-6 shadow-[0_24px_70px_rgba(15,29,54,0.07)] sm:px-7 sm:py-8 lg:min-h-[620px] lg:rounded-[28px] lg:px-14 lg:py-14">
+            <h3 className="relative z-10 text-h3 tracking-tight text-ink">
+              손·발 통증 주요 질환
+            </h3>
+
+            <div className="absolute inset-x-[4%] bottom-0 top-[12%] hidden lg:block">
               <Image
-                src={`${ASSET_ROOT}/wrist-ankle-disease-map.webp`}
-                alt="발목의 인대와 아킬레스건, 족저근막 및 손목의 힘줄과 수근관 구조를 보여주는 의료 일러스트"
+                src={`${ASSET_ROOT}/wrist-ankle-disease-map-v3.png`}
+                alt=""
                 fill
                 sizes="(min-width: 1280px) 1216px, 100vw"
-                className="object-cover object-center"
+                className="object-contain object-center opacity-90"
               />
-
-              {markers.map((marker) => {
-                const disease = findDisease(marker.id);
-                return (
-                  <button
-                    key={marker.id}
-                    type="button"
-                    onClick={() => setActiveDiseaseId(marker.id)}
-                    style={{ left: marker.left, top: marker.top }}
-                    className={`group absolute z-20 hidden -translate-y-1/2 items-center gap-2 rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/25 lg:flex ${
-                      marker.align === 'left' ? '-translate-x-full flex-row-reverse' : ''
-                    }`}
-                    aria-label={`${disease.title} 자세히 보기`}
-                  >
-                    <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-white shadow-[0_14px_30px_-15px_rgba(40,74,165,0.9)]">
-                      <span aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 h-12 w-12 -translate-x-1/2 -translate-y-1/2 motion-reduce:hidden">
-                        <span className="animate-ripple absolute inset-0 rounded-full bg-primary/30" />
-                        <span className="animate-ripple-delayed absolute inset-0 rounded-full bg-primary/30" />
-                      </span>
-                      <span aria-hidden className="relative h-2 w-2 rounded-full bg-white" />
-                    </span>
-                    <span className="whitespace-nowrap rounded-full bg-primary px-4 py-2.5 text-[15px] font-bold text-white shadow-[0_16px_32px_-18px_rgba(40,74,165,0.75)] transition group-hover:bg-primary-dark motion-reduce:transition-none">
-                      {disease.title}
-                    </span>
-                  </button>
-                );
-              })}
             </div>
 
-            <div className="grid grid-cols-2 gap-2.5 bg-[#edf5fb] p-3 sm:p-5 lg:hidden">
+            {diseaseMarkers.map((marker) => (
+              <WristAnkleMarker
+                key={marker.diseaseId}
+                marker={marker}
+                onSelect={setActiveDiseaseId}
+              />
+            ))}
+
+            <div className="relative z-10 mt-8 grid grid-cols-2 gap-2.5 lg:hidden">
               {diseases.map((disease) => (
                 <button
                   key={disease.id}

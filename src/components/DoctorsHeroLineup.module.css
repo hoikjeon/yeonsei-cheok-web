@@ -1,0 +1,57 @@
+.doctorPosition {
+  left: var(--doctor-left-mobile);
+  top: var(--doctor-top-mobile);
+  width: var(--doctor-width-mobile);
+  height: var(--doctor-height-mobile);
+  z-index: var(--doctor-z-mobile);
+}
+
+.hitZonePosition {
+  left: var(--hit-left-mobile);
+  top: var(--hit-top-mobile);
+  width: var(--hit-width-mobile);
+  height: var(--hit-height-mobile);
+}
+
+.nameLabelPosition {
+  left: var(--label-left-mobile);
+  top: var(--label-top-mobile);
+  bottom: var(--label-bottom-mobile);
+  font-size: var(--label-font-mobile);
+}
+
+@media (min-width: 640px) {
+  .nameLabelPosition {
+    font-size: var(--label-font-small);
+  }
+}
+
+@media (min-width: 768px) {
+  .doctorPosition {
+    left: var(--doctor-left-desktop);
+    top: var(--doctor-top-desktop);
+    width: var(--doctor-width-desktop);
+    height: var(--doctor-height-desktop);
+    z-index: var(--doctor-z-desktop);
+  }
+
+  .hitZonePosition {
+    left: var(--hit-left-desktop);
+    top: var(--hit-top-desktop);
+    width: var(--hit-width-desktop);
+    height: var(--hit-height-desktop);
+  }
+
+  .nameLabelPosition {
+    left: var(--label-left-desktop);
+    top: var(--label-top-desktop);
+    bottom: var(--label-bottom-desktop);
+    font-size: var(--label-font-desktop);
+  }
+}
+
+@media (min-width: 1024px) {
+  .nameLabelPosition {
+    font-size: var(--label-font-wide);
+  }
+}

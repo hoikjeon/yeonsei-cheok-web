@@ -90,19 +90,84 @@ const diseases: KneeDisease[] = [
   },
 ];
 
-const markers = [
-  { id: 'osteoarthritis', left: '46%', top: '64%', align: 'left' },
-  { id: 'chondromalacia', left: '50%', top: '38%', align: 'left' },
-  { id: 'joint-injury', left: '54%', top: '58%', align: 'right' },
+const diseaseMarkers = [
+  {
+    diseaseId: 'osteoarthritis',
+    point: { left: '38%', top: '54%' },
+    line: { left: '26%', top: '54%', width: '12%' },
+    button: { left: '14%', top: '54%' },
+  },
+  {
+    diseaseId: 'chondromalacia',
+    point: { left: '38%', top: '62%' },
+    line: { left: '26%', top: '62%', width: '12%' },
+    button: { left: '15%', top: '62%' },
+  },
+  {
+    diseaseId: 'joint-injury',
+    point: { left: '62%', top: '58%' },
+    line: { left: '62%', top: '58%', width: '11%' },
+    button: { left: '73%', top: '58%' },
+  },
 ] as const satisfies ReadonlyArray<{
-  id: KneeDiseaseId;
-  left: string;
-  top: string;
-  align: 'left' | 'right';
+  diseaseId: KneeDiseaseId;
+  point: { left: string; top: string };
+  line: { left: string; top: string; width: string };
+  button: { left: string; top: string };
 }>;
 
 const findDisease = (id: KneeDiseaseId) =>
   diseases.find((disease) => disease.id === id) ?? diseases[0];
+
+function KneeMarker({
+  marker,
+  onSelect,
+}: {
+  marker: (typeof diseaseMarkers)[number];
+  onSelect: (id: KneeDiseaseId) => void;
+}) {
+  const disease = findDisease(marker.diseaseId);
+
+  return (
+    <>
+      <span
+        aria-hidden
+        className="absolute z-20 hidden border-t-2 border-dashed border-primary/75 lg:block"
+        style={marker.line}
+      />
+
+      <span
+        aria-hidden
+        className="pointer-events-none absolute z-30 hidden h-12 w-12 -translate-x-1/2 -translate-y-1/2 lg:block"
+        style={marker.point}
+      >
+        <span className="animate-ripple absolute inset-0 rounded-full bg-primary/30" />
+        <span className="animate-ripple-delayed absolute inset-0 rounded-full bg-primary/30" />
+      </span>
+
+      <button
+        type="button"
+        onClick={() => onSelect(marker.diseaseId)}
+        aria-label={`${disease.title} 자세히 보기`}
+        className="absolute z-40 hidden h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-primary text-white shadow-[0_12px_28px_rgba(38,84,190,0.24)] transition duration-300 hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-primary/20 lg:flex"
+        style={marker.point}
+      >
+        <span aria-hidden className="text-[19px] font-bold leading-none">
+          !
+        </span>
+      </button>
+
+      <button
+        type="button"
+        onClick={() => onSelect(marker.diseaseId)}
+        className="absolute z-50 hidden -translate-y-1/2 items-center rounded-full bg-primary px-5 py-2.5 text-[17px] font-bold tracking-tight text-white shadow-[0_14px_34px_rgba(38,84,190,0.2)] transition duration-300 hover:-translate-y-[calc(50%+2px)] hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-primary/20 lg:flex"
+        style={marker.button}
+      >
+        {disease.title}
+      </button>
+    </>
+  );
+}
 
 function DetailList({ title, items }: { title: string; items: string[] }) {
   return (
@@ -257,45 +322,30 @@ export default function KneeDiseaseSection() {
         </ScrollReveal>
 
         <ScrollReveal amount={0.18} className="mt-12 md:mt-24">
-          <div className="relative overflow-hidden rounded-[1.25rem] bg-[#edf5fb] shadow-[0_34px_90px_-56px_rgba(10,30,72,0.45)] ring-1 ring-navy-900/5 sm:rounded-[2rem]">
-            <div className="relative aspect-video w-full overflow-hidden bg-[#edf5fb]">
+          <div className="relative overflow-hidden rounded-[1.25rem] border border-slate-100 bg-white px-5 py-6 shadow-[0_24px_70px_rgba(15,29,54,0.07)] sm:px-7 sm:py-8 lg:min-h-[620px] lg:rounded-[28px] lg:px-14 lg:py-14">
+            <h3 className="relative z-10 text-h3 tracking-tight text-ink">
+              무릎 통증 주요 질환
+            </h3>
+
+            <div className="absolute inset-x-[4%] bottom-0 top-[12%] hidden lg:block">
               <Image
-                src={`${ASSET_ROOT}/knee-disease-map-single.webp`}
-                alt="정면 무릎 관절의 주요 구조를 보여주는 의료 일러스트"
+                src={`${ASSET_ROOT}/knee-disease-map-v3.png`}
+                alt=""
                 fill
                 sizes="(min-width: 1280px) 1216px, 100vw"
-                className="object-contain object-center"
+                className="object-contain object-center opacity-90"
               />
-
-              {markers.map((marker) => {
-                const disease = findDisease(marker.id);
-                return (
-                  <button
-                    key={marker.id}
-                    type="button"
-                    onClick={() => setActiveDiseaseId(marker.id)}
-                    style={{ left: marker.left, top: marker.top }}
-                    className={`group absolute z-20 hidden -translate-y-1/2 items-center gap-2 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20 lg:flex ${
-                      marker.align === 'left' ? '-translate-x-full flex-row-reverse' : ''
-                    }`}
-                    aria-label={`${disease.title} 자세히 보기`}
-                  >
-                    <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-white shadow-[0_14px_30px_-15px_rgba(40,74,165,0.9)]">
-                      <span aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 h-12 w-12 -translate-x-1/2 -translate-y-1/2">
-                        <span className="animate-ripple absolute inset-0 rounded-full bg-primary/30" />
-                        <span className="animate-ripple-delayed absolute inset-0 rounded-full bg-primary/30" />
-                      </span>
-                      <span aria-hidden className="relative h-2 w-2 rounded-full bg-white" />
-                    </span>
-                    <span className="whitespace-nowrap rounded-full bg-primary px-4 py-2.5 text-[15px] font-bold text-white shadow-[0_16px_32px_-18px_rgba(40,74,165,0.75)] transition group-hover:bg-primary-dark">
-                      {disease.title}
-                    </span>
-                  </button>
-                );
-              })}
             </div>
 
-            <div className="grid gap-2.5 p-3 min-[360px]:grid-cols-2 sm:p-5 lg:hidden">
+            {diseaseMarkers.map((marker) => (
+              <KneeMarker
+                key={marker.diseaseId}
+                marker={marker}
+                onSelect={setActiveDiseaseId}
+              />
+            ))}
+
+            <div className="relative z-10 mt-8 grid gap-2.5 min-[360px]:grid-cols-2 lg:hidden">
               {diseases.map((disease) => (
                 <button
                   key={disease.id}

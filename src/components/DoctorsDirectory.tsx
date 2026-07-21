@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { Plus, X } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
 
 type ScheduleMode = 'consultation' | 'surgery';
@@ -137,50 +138,48 @@ const ScheduleTable = ({ doctor }: { doctor: DoctorProfile }) => {
   const timetable = doctor.timetable.consultation;
 
   return (
-    <div className="space-y-5">
-      <h4 className="text-h4 tracking-tight text-ink">진료시간표</h4>
+    <div className="space-y-3 md:space-y-5">
+      <h4 className="hidden text-h4 tracking-tight text-ink md:block">진료시간표</h4>
 
-      <div className="grid gap-2 md:hidden">
-        {timetable.map((item) => {
-          const morning = normalizeScheduleValue(item.morning);
-          const afternoon = normalizeScheduleValue(item.afternoon);
+      {/* 모바일: 요일을 가로로 둔 단일 표 */}
+      <div className="rounded-xl border border-slate-200 bg-white px-2 py-1 md:hidden">
+        <table className="w-full table-fixed border-collapse text-center">
+          <thead>
+            <tr>
+              <th className="w-[42px] py-3" />
+              {timetable.map((item) => (
+                <th key={`m-head-${item.day}`} className="py-3 text-[15px] font-bold text-ink">
+                  {item.day}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { label: '오전', key: 'morning' as const },
+              { label: '오후', key: 'afternoon' as const },
+            ].map((row) => (
+              <tr key={`m-${row.label}`} className="border-t border-slate-200">
+                <th className="py-3.5 text-[14px] font-bold text-ink">{row.label}</th>
+                {timetable.map((item) => {
+                  const value = normalizeScheduleValue(item[row.key]);
+                  const isOpen = value === '진료' || value === '순환진료';
 
-          return (
-            <div
-              key={`mobile-${item.day}`}
-              className="grid grid-cols-[44px_minmax(0,1fr)_minmax(0,1fr)] items-stretch overflow-hidden rounded-lg border border-[#d7d7d7] bg-white"
-            >
-              <div className="flex items-center justify-center bg-[#d0d0d0] text-[15px] font-bold text-ink">
-                {item.day}
-              </div>
-              {[
-                { label: '오전', value: morning },
-                { label: '오후', value: afternoon },
-              ].map((period) => {
-                const isOpen = period.value === '진료' || period.value === '순환진료';
-
-                return (
-                  <div key={period.label} className="flex min-w-0 flex-col items-center justify-center gap-1.5 border-l border-[#e1e1e1] px-2 py-3">
-                    <span className="text-[11px] font-bold text-ink-muted">{period.label}</span>
-                    {period.value ? (
-                      <span
-                        className={`inline-flex min-h-8 max-w-full items-center justify-center break-keep rounded-full px-2.5 text-center text-[12px] font-bold leading-tight ${
-                          isOpen
-                            ? 'bg-primary text-white'
-                            : 'bg-[#d5d5d5] text-[#777777]'
-                        }`}
-                      >
-                        {period.value}
-                      </span>
-                    ) : (
-                      <span aria-hidden="true" className="inline-block min-h-8" />
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
+                  return (
+                    <td
+                      key={`m-${item.day}-${row.key}`}
+                      className={`break-keep px-0.5 py-3.5 text-[13px] font-bold leading-tight ${
+                        isOpen ? 'text-primary' : 'text-ink-muted'
+                      }`}
+                    >
+                      {value || ''}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       <div className="hidden overflow-x-auto rounded-lg border border-[#d7d7d7] bg-white md:block">
@@ -232,8 +231,8 @@ const ScheduleTable = ({ doctor }: { doctor: DoctorProfile }) => {
         </table>
       </div>
 
-      <div className="space-y-2 break-keep text-body text-ink-sub sm:leading-relaxed">
-        <p>* 토요일 진료는 의료진별 일정에 따라 변경될 수 있습니다.</p>
+      <div className="space-y-1.5 break-keep text-[13px] leading-[1.6] text-ink-muted md:space-y-2 md:text-body md:text-ink-sub md:leading-relaxed">
+        <p>※ 토요일 진료는 의료진별 일정에 따라 변경될 수 있습니다.</p>
         <p>※ 진료시간표는 상황에 따라 변경될 수 있으니, 내원 전 병원에 문의해주시길 바랍니다.</p>
       </div>
     </div>
@@ -398,16 +397,25 @@ const CredentialDetails = ({ doctor }: { doctor: DoctorProfile }) => {
   );
 };
 
-const DoctorProfileBlock = ({ doctor, index }: { doctor: DoctorProfile; index: number }) => {
+const DoctorProfileBlock = ({
+  doctor,
+  index,
+  onOpenDetail,
+}: {
+  doctor: DoctorProfile;
+  index: number;
+  onOpenDetail: (doctor: DoctorProfile) => void;
+}) => {
   return (
     <ScrollReveal delay={index * 0.08} amount={0.14}>
       <article
         id={doctor.id}
-        className="grid scroll-mt-24 grid-cols-1 gap-8 border-b border-slate-100 py-14 last:border-b-0 sm:scroll-mt-28 sm:gap-10 sm:py-16 md:gap-12 md:py-20 lg:grid-cols-[minmax(360px,0.42fr)_minmax(0,1fr)] lg:gap-16"
+        className="grid scroll-mt-24 grid-cols-1 gap-6 border-b border-slate-100 py-10 last:border-b-0 sm:scroll-mt-28 sm:gap-10 sm:py-16 md:gap-12 md:py-20 lg:grid-cols-[minmax(360px,0.42fr)_minmax(0,1fr)] lg:gap-16"
       >
         <div className="lg:pt-32 xl:pt-36">
           <div className="relative mx-auto max-w-[360px] overflow-hidden rounded-2xl bg-[#d5dbe8] sm:rounded-[28px] lg:max-w-none">
-            <div className="relative aspect-[3/4]">
+            {/* 모바일은 정사각에 가깝게, 태블릿 이상은 기존 3:4 비율 */}
+            <div className="relative aspect-square sm:aspect-[3/4]">
               <Image
                 src={doctor.image}
                 alt={doctor.imageAlt}
@@ -420,9 +428,9 @@ const DoctorProfileBlock = ({ doctor, index }: { doctor: DoctorProfile; index: n
           </div>
         </div>
 
-        <div className="space-y-8 sm:space-y-10 lg:pt-5">
-          <div className="space-y-5">
-            <p className="break-keep text-base font-bold leading-[1.55] tracking-tight text-primary sm:text-lg md:text-xl">
+        <div className="space-y-6 sm:space-y-10 lg:pt-5">
+          <div className="space-y-3 sm:space-y-5">
+            <p className="break-keep text-[15px] font-bold leading-[1.55] tracking-tight text-primary sm:text-lg md:text-xl">
               {doctor.center} · {doctor.specialty}
             </p>
             <h3 className="break-keep text-h2 tracking-tight text-ink">
@@ -431,18 +439,122 @@ const DoctorProfileBlock = ({ doctor, index }: { doctor: DoctorProfile; index: n
             <p className="max-w-3xl break-keep text-body text-ink-sub sm:text-[17px] sm:leading-relaxed">
               {doctor.summary}
             </p>
-            <FocusAreaChips areas={doctor.focusAreas} />
+
+            {/* 모바일: 상세 정보는 팝업으로 / 태블릿 이상: 기존처럼 펼쳐서 노출 */}
+            <button
+              type="button"
+              onClick={() => onOpenDetail(doctor)}
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[15px] font-bold text-white transition-colors hover:bg-primary-dark sm:hidden"
+            >
+              더보기
+              <Plus size={16} strokeWidth={3} />
+            </button>
+
+            <div className="hidden sm:block">
+              <FocusAreaChips areas={doctor.focusAreas} />
+            </div>
           </div>
 
           <ScheduleTable doctor={doctor} />
-          <CredentialDetails doctor={doctor} />
+
+          <div className="hidden sm:block">
+            <CredentialDetails doctor={doctor} />
+          </div>
         </div>
       </article>
     </ScrollReveal>
   );
 };
 
+// 모바일 전용 의료진 상세 팝업
+const DoctorDetailModal = ({
+  doctor,
+  onClose,
+}: {
+  doctor: DoctorProfile;
+  onClose: () => void;
+}) => {
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[2100] flex items-center justify-center bg-black/60 p-4 sm:hidden"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${doctor.name} ${doctor.title} 상세 정보`}
+    >
+      <div
+        className="flex max-h-[88vh] w-full max-w-[440px] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl"
+        onClick={(event) => event.stopPropagation()}
+      >
+        {/* 헤더 */}
+        <div className="flex shrink-0 items-center justify-between bg-primary px-5 py-4">
+          <p className="text-[19px] font-black tracking-tight text-white">
+            {doctor.name} <span className="text-[16px] font-bold">{doctor.title}</span>
+          </p>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="닫기"
+            className="text-white transition-opacity hover:opacity-70"
+          >
+            <X size={24} />
+          </button>
+        </div>
+
+        {/* 본문 */}
+        <div className="flex-1 overflow-y-auto">
+          <div className="relative aspect-square bg-[#d5dbe8]">
+            <Image
+              src={doctor.image}
+              alt={doctor.imageAlt}
+              fill
+              sizes="440px"
+              className={`object-cover object-top ${doctor.name === '최호' || doctor.name === '김범준' ? '-scale-x-110 scale-y-110' : 'scale-110'}`}
+            />
+          </div>
+
+          <div className="space-y-7 px-5 pb-6 pt-8">
+            <div className="space-y-3">
+              <p className="break-keep text-[22px] font-black tracking-tight text-ink">
+                {doctor.name} {doctor.title}{' '}
+                <span className="text-[15px] font-bold text-primary">{doctor.specialty}</span>
+              </p>
+              <p className="break-keep text-body text-ink-sub">{doctor.summary}</p>
+            </div>
+
+            <ScheduleTable doctor={doctor} />
+
+            <div className="space-y-2.5">
+              <h4 className="text-[18px] font-bold tracking-tight text-ink">진료분야</h4>
+              <p className="break-keep text-body leading-[1.75] text-ink-sub">
+                {doctor.focusAreas.join(', ')}
+              </p>
+            </div>
+
+            <CredentialDetails doctor={doctor} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const DoctorsDirectory = ({ doctors }: DoctorsDirectoryProps) => {
+  const [detailDoctor, setDetailDoctor] = useState<DoctorProfile | null>(null);
+
   const orderedDoctors = [...doctors].sort((a, b) => (
     DOCTOR_ORDER.indexOf(a.name) - DOCTOR_ORDER.indexOf(b.name)
   ));
@@ -451,9 +563,18 @@ const DoctorsDirectory = ({ doctors }: DoctorsDirectoryProps) => {
     <section id="doctor-schedule" className="scroll-mt-24 bg-white px-4 pb-4 pt-2 sm:scroll-mt-28 sm:px-6 sm:pb-8 sm:pt-4 md:pb-20 md:pt-8">
       <div className="mx-auto max-w-7xl">
         {orderedDoctors.map((doctor, index) => (
-          <DoctorProfileBlock key={doctor.id} doctor={doctor} index={index} />
+          <DoctorProfileBlock
+            key={doctor.id}
+            doctor={doctor}
+            index={index}
+            onOpenDetail={setDetailDoctor}
+          />
         ))}
       </div>
+
+      {detailDoctor && (
+        <DoctorDetailModal doctor={detailDoctor} onClose={() => setDetailDoctor(null)} />
+      )}
     </section>
   );
 };

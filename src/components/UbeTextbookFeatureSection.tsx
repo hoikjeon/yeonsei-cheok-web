@@ -150,8 +150,8 @@ const UbeTextbookFeatureSection = () => {
           >
             <div className="absolute bottom-0 left-[2%] h-full w-[66%]">
               <Image
-                src="/generated/doctors-lineup/trimmed/lee-nam.png"
-                alt="양방향 척추내시경 교과서 집필진 이남 병원장"
+                src="/generated/doctors-lineup/trimmed/kim-dong-han.png"
+                alt="양방향 척추내시경 교과서 집필진 김동한 병원장"
                 fill
                 sizes="(max-width: 1023px) 58vw, 38vw"
                 quality={90}
@@ -161,8 +161,8 @@ const UbeTextbookFeatureSection = () => {
 
             <div className="absolute bottom-0 right-[1%] z-10 h-[99%] w-[66%]">
               <Image
-                src="/generated/doctors-lineup/trimmed/kim-dong-han.png"
-                alt="양방향 척추내시경 교과서 집필진 김동한 병원장"
+                src="/generated/doctors-lineup/trimmed/lee-nam.png"
+                alt="양방향 척추내시경 교과서 집필진 이남 병원장"
                 fill
                 sizes="(max-width: 1023px) 58vw, 38vw"
                 quality={90}

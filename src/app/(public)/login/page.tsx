@@ -4,21 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Script from 'next/script';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  ChevronLeft, 
-  ShieldCheck, 
-  Mail, 
-  Lock, 
-  User, 
-  ArrowRight,
-  Loader2,
-  CheckCircle2,
-  AlertCircle,
-  Calendar,
-  Phone,
-  MapPin,
-  Search
-} from 'lucide-react';
+import { ChevronLeft, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import { signInWithSocial, signInWithEmail, signUp, requestPasswordReset } from './actions';
 import { TERMS_AND_CONDITIONS, PRIVACY_POLICY } from './terms';
 
@@ -141,10 +127,7 @@ export default function LoginPage() {
 
         <div className="bg-white rounded-[2.5rem] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] border border-white/50 overflow-hidden">
           {/* Header Section */}
-          <div className="p-10 pb-6 text-center">
-            <div className="inline-flex items-center justify-center w-14 h-14 bg-primary/10 rounded-2xl text-primary mb-6">
-              <ShieldCheck size={28} strokeWidth={2.5} />
-            </div>
+          <div className="px-10 pt-10 pb-7 text-center">
             <h1 className="text-h3 text-ink tracking-tight mb-2">
               {mode === 'signin' && '반갑습니다!'}
               {mode === 'signup' && '환영합니다!'}
@@ -202,19 +185,18 @@ export default function LoginPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {/* ... existing signup fields ... */}
                       <div className="space-y-4 md:col-span-2">
-                        <h3 className="text-[17px] font-bold text-ink flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 bg-primary rounded-full" /> 기본 정보 입력
+                        <h3 className="text-[17px] font-bold text-ink">
+                          기본 정보 입력
                         </h3>
                       </div>
 
                       <div className="relative group">
-                        <User className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="text" 
                           name="fullName"
                           placeholder="성함"
                           required
-                          className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
+                          className="w-full px-5 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
                         />
                       </div>
 
@@ -230,47 +212,44 @@ export default function LoginPage() {
                       </div>
 
                       <div className="relative group">
-                        <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="text" 
                           name="birthDate"
                           placeholder="생년월일 (예: 19900101)"
                           maxLength={8}
                           required
-                          className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
+                          className="w-full px-5 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
                         />
                       </div>
 
                       <div className="relative group">
-                        <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="tel" 
                           name="phone"
                           placeholder="휴대폰 번호 (010-0000-0000)"
                           required
-                          className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
+                          className="w-full px-5 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
                         />
                       </div>
 
                       <div className="md:col-span-2 space-y-4">
                         <div className="flex gap-2">
                           <div className="relative flex-1 group">
-                            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
-                            <input 
-                              type="text" 
+                            <input
+                              type="text"
                               value={postcode}
                               placeholder="우편번호"
                               readOnly
                               required
-                              className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-transparent rounded-2xl outline-none font-medium text-[15px]"
+                              className="w-full px-5 py-4 bg-slate-50 border-2 border-transparent rounded-2xl outline-none font-medium text-[15px]"
                             />
                           </div>
                           <button 
                             type="button"
                             onClick={openPostcode}
-                            className="px-6 bg-navy-950 text-white rounded-2xl font-bold flex items-center gap-2 hover:bg-navy-900 transition-colors"
+                            className="shrink-0 px-6 bg-navy-950 text-white rounded-2xl font-bold text-[15px] hover:bg-navy-900 transition-colors"
                           >
-                            <Search size={18} /> 주소찾기
+                            주소찾기
                           </button>
                         </div>
                         <input 
@@ -289,47 +268,44 @@ export default function LoginPage() {
                       </div>
 
                       <div className="md:col-span-2 space-y-4">
-                        <h3 className="text-[17px] font-bold text-ink flex items-center gap-2 border-t pt-8 mt-2">
-                          <span className="w-1.5 h-1.5 bg-primary rounded-full" /> 계정 정보 설정
+                        <h3 className="text-[17px] font-bold text-ink border-t pt-8 mt-2">
+                          계정 정보 설정
                         </h3>
                       </div>
 
                       <div className="relative group md:col-span-2">
-                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="email" 
                           name="email"
                           placeholder="이메일 주소 (예: yonsei@email.com)"
                           required
-                          className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
+                          className="w-full px-5 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
                         />
                       </div>
 
                       <div className="relative group">
-                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="password" 
                           name="password"
                           placeholder="비밀번호"
                           required
-                          className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
+                          className="w-full px-5 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
                         />
                       </div>
 
                       <div className="relative group">
-                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="password" 
                           placeholder="비밀번호 확인"
                           required
-                          className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
+                          className="w-full px-5 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
                         />
                       </div>
 
                       {/* TERMS SECTION */}
                       <div className="md:col-span-2 space-y-4 pt-10 border-t mt-4 text-left">
-                         <h3 className="text-[17px] font-bold text-ink flex items-center gap-2">
-                           <span className="w-1.5 h-1.5 bg-primary rounded-full" /> 약관 동의
+                         <h3 className="text-[17px] font-bold text-ink">
+                           약관 동의
                          </h3>
                          
                          {/* Terms Scroll Box 1 */}
@@ -382,13 +358,12 @@ export default function LoginPage() {
                     /* RESET FORM */
                     <div className="space-y-4">
                       <div className="relative group">
-                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="email" 
                           name="email"
                           placeholder="가입하신 이메일 주소를 입력하세요"
                           required
-                          className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
+                          className="w-full px-5 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
                         />
                       </div>
                       <p className="text-[13px] text-ink-muted font-medium px-2">
@@ -399,24 +374,22 @@ export default function LoginPage() {
                     /* SIGNIN FORM */
                     <div className="space-y-4">
                       <div className="relative group">
-                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="email" 
                           name="email"
                           placeholder="이메일 주소"
                           required
-                          className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
+                          className="w-full px-5 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
                         />
                       </div>
 
                       <div className="relative group">
-                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted group-focus-within:text-primary transition-colors" size={18} />
                         <input 
                           type="password" 
                           name="password"
                           placeholder="비밀번호"
                           required
-                          className="w-full pl-12 pr-4 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
+                          className="w-full px-5 py-4 bg-slate-50 border-2 border-transparent focus:border-primary/20 focus:bg-white rounded-2xl outline-none transition-all font-medium text-[15px]"
                         />
                       </div>
                     </div>
@@ -438,7 +411,7 @@ export default function LoginPage() {
               <button 
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-5 bg-navy-950 hover:bg-navy-900 text-white rounded-2xl font-bold text-[17px] transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-navy-950/20 disabled:opacity-70 disabled:cursor-not-allowed group"
+                className="w-full py-4 bg-navy-950 hover:bg-navy-900 text-white rounded-2xl font-bold text-[16px] transition-all active:scale-[0.98] flex items-center justify-center shadow-lg shadow-navy-950/20 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <Loader2 size={20} className="animate-spin" />
@@ -447,7 +420,6 @@ export default function LoginPage() {
                     {mode === 'signin' && '로그인하기'}
                     {mode === 'signup' && '연세척병원 가입하기'}
                     {mode === 'reset' && '인증 메일 보내기'}
-                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                   </>
                 )}
               </button>
@@ -461,7 +433,7 @@ export default function LoginPage() {
                     <div className="w-full border-t border-slate-100"></div>
                   </div>
                   <div className="relative flex justify-center text-[13px] font-bold">
-                    <span className="bg-white px-4 text-slate-300 font-montserrat uppercase tracking-widest">또는 소셜 계정으로 로그인</span>
+                    <span className="bg-white px-4 font-bold text-ink-muted">또는 소셜 계정으로 로그인</span>
                   </div>
                 </div>
 
