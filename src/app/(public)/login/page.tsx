@@ -34,6 +34,15 @@ export default function LoginPage() {
         errorMsg = '인증에 실패했습니다. 메일 링크가 만료되었는지 확인해 주세요.';
       }
       setMessage({ type: 'error', text: decodeURIComponent(errorMsg) });
+      return;
+    }
+
+    // 회원 전용 페이지 접근으로 이동해 온 경우 사유 안내
+    if (params.get('reason') === 'members-only') {
+      setMessage({
+        type: 'error',
+        text: '의료법에 따라 치료 경험담은 로그인하신 회원에게만 제공됩니다. 로그인 후 이용해 주세요.',
+      });
     }
   }, []);
 

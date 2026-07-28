@@ -86,6 +86,29 @@ body {
   overflow-x: clip;
 }
 
+@keyframes knee-arthroscopy-procedure-glow {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1.35);
+  }
+}
+
+.knee-arthroscopy-procedure-glow {
+  animation: knee-arthroscopy-procedure-glow 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .knee-arthroscopy-procedure-glow {
+    animation: none;
+    transform: translate(-50%, -50%);
+  }
+}
+
 .home-hero {
   height: calc(100svh - 9.8125rem - env(safe-area-inset-bottom));
   min-height: 500px;

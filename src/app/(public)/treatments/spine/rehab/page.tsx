@@ -1,5 +1,24 @@
 import Image from 'next/image';
 import type { Metadata } from 'next';
+import { Activity, HeartPulse, RefreshCw, ShieldCheck } from 'lucide-react';
+
+const postoperativeRehabTargets = [
+  '관절·인대 수술 후 통증이나 부종이 이어지는 분',
+  '어깨 수술 후 팔을 들거나 움직이기 불편한 분',
+  '무릎 수술 후 보행이나 계단 이용이 어려운 분',
+  '골절 고정 수술 후 관절 움직임이 제한된 분',
+  '척추 수술 후 일상 동작과 복귀에 어려움을 느끼는 분',
+  '수술 후 근력 저하나 보행 불균형이 생긴 분',
+  '수술 전부터 만성 통증이나 관절 기능 저하가 있었던 분',
+  '직장·운동 등 단계적인 일상 복귀를 준비하는 분',
+];
+
+const postoperativeRehabGoals = [
+  { title: '수술 부위\n기능 회복', icon: RefreshCw },
+  { title: '통증 완화 및\n부종 감소', icon: HeartPulse },
+  { title: '관절 가동범위와\n근력 회복', icon: Activity },
+  { title: '일상생활 복귀 및\n재손상 방지', icon: ShieldCheck },
+];
 
 export const metadata: Metadata = {
   title: '도수·재활 클리닉 | 연세척병원',
@@ -42,6 +61,188 @@ export default function RehabPage() {
             연세척병원은 치료 후 상태에 맞춰 도수치료와 물리치료, 운동 재활을 단계적으로
             연결해 기능 회복과 일상 복귀를 돕습니다.
           </p>
+        </div>
+      </section>
+
+      <section
+        aria-label="도수·운동 재활치료 안내"
+        className="border-t border-slate-100 bg-[#FBFCFF] px-5 py-20 sm:px-8 sm:py-28 lg:py-36"
+      >
+        <div className="mx-auto max-w-[1210px] space-y-20 sm:space-y-28 lg:space-y-40">
+          <article className="grid items-center gap-9 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16 xl:gap-24">
+            <div className="order-2 overflow-hidden rounded-[1.25rem] bg-slate-100 shadow-[0_28px_70px_-48px_rgba(15,29,54,0.5)] ring-1 ring-slate-200/70 lg:order-1">
+              <Image
+                src="/generated/ys-rehab-manual-therapy-balance.png"
+                alt="재활치료사가 환자의 어깨와 팔의 움직임을 조심스럽게 확인하는 모습"
+                width={1536}
+                height={1024}
+                sizes="(max-width: 1023px) calc(100vw - 40px), 55vw"
+                className="aspect-[3/2] w-full object-cover"
+              />
+            </div>
+
+            <div className="order-1 lg:order-2">
+              <h2 className="break-keep text-[1.75rem] font-bold leading-[1.35] tracking-[-0.025em] text-ink sm:text-[2.15rem] lg:text-[2.65rem]">
+                <span className="text-primary">정확한 평가와 섬세한 도수치료로</span>
+                <br />
+                흐트러진 움직임의 균형을
+                <br className="hidden xl:block" /> 바로잡습니다.
+              </h2>
+
+              <p className="mt-7 break-keep text-[15px] font-medium leading-[1.85] text-ink-sub sm:mt-9 sm:text-[17px]">
+                통증이 느껴지는 부위만 보지 않고 관절의 가동 범위, 근육의 긴장도,
+                자세와 움직임 습관을 함께 살핍니다. 치료사가 손으로 관절과
+                연부조직의 움직임을 조절해 불편을 덜고, 자연스러운 움직임을
+                되찾도록 돕습니다.
+              </p>
+            </div>
+          </article>
+
+          <article className="grid items-center gap-9 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16 xl:gap-24">
+            <div>
+              <h3 className="break-keep text-[1.75rem] font-bold leading-[1.35] tracking-[-0.025em] text-ink sm:text-[2.15rem] lg:text-[2.65rem]">
+                치료로 되찾은 움직임이
+                <br />
+                일상까지 이어지도록
+                <br />
+                <span className="text-primary">1:1 운동재활로 회복의 힘을 키웁니다.</span>
+              </h3>
+
+              <p className="mt-7 break-keep text-[15px] font-medium leading-[1.85] text-ink-sub sm:mt-9 sm:text-[17px]">
+                현재의 체력과 회복 단계에 맞춰 유연성, 근력, 균형, 동작 훈련을
+                순차적으로 진행합니다. 올바른 자세와 움직임을 스스로 관리할 수
+                있도록 도와 안정적인 일상 복귀를 준비합니다.
+              </p>
+
+              <p className="mt-7 break-keep border-l-[3px] border-primary pl-5 text-[15px] font-bold leading-[1.75] text-ink sm:mt-9 sm:text-[17px]">
+                연세척병원은 진단부터 도수치료, 운동재활까지
+                <br className="hidden xl:block" /> 하나의 회복 과정으로 연결합니다.
+              </p>
+            </div>
+
+            <div className="overflow-hidden rounded-[1.25rem] bg-slate-100 shadow-[0_28px_70px_-48px_rgba(15,29,54,0.5)] ring-1 ring-slate-200/70">
+              <Image
+                src="/generated/ys-rehab-functional-exercise.png"
+                alt="재활치료사의 지도에 따라 탄력 밴드로 하체 근력과 균형을 훈련하는 모습"
+                width={1536}
+                height={1024}
+                sizes="(max-width: 1023px) calc(100vw - 40px), 55vw"
+                className="aspect-[3/2] w-full object-cover"
+              />
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="postoperative-rehab-title"
+        className="border-t border-slate-100 bg-white px-5 py-20 sm:px-8 sm:py-28 lg:py-36"
+      >
+        <div className="mx-auto grid max-w-[1210px] gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20 xl:gap-28">
+          <div className="lg:pt-3">
+            <p className="font-montserrat text-[12px] font-bold uppercase tracking-[0.18em] text-primary sm:text-[13px]">
+              Postoperative rehabilitation
+            </p>
+
+            <h2
+              id="postoperative-rehab-title"
+              className="mt-4 break-keep text-[1.8rem] font-bold leading-[1.35] tracking-[-0.025em] text-ink sm:mt-5 sm:text-[2.25rem] lg:text-[2.7rem]"
+            >
+              수술 후 재활에 대해
+              <br />
+              <span className="text-primary">전문 치료와 관리가 필요한 분</span>
+            </h2>
+
+            <p className="mt-6 break-keep text-[15px] font-medium leading-[1.85] text-ink-sub sm:mt-8 sm:text-[17px]">
+              수술 부위와 회복 속도는 사람마다 다릅니다. 다음과 같은 경우에는
+              의료진의 진단을 바탕으로 현재 상태에 맞는 단계별 재활 계획이
+              필요합니다.
+            </p>
+
+            <p className="mt-7 break-keep border-l-[3px] border-primary pl-5 text-[14px] font-semibold leading-[1.75] text-ink-muted sm:mt-9 sm:text-[15px]">
+              재활 시작 시점과 운동 강도는 수술 종류와
+              <br className="hidden xl:block" /> 의료진의 소견에 따라 달라질 수 있습니다.
+            </p>
+          </div>
+
+          <ul className="grid gap-3 sm:gap-4">
+            {postoperativeRehabTargets.map((target) => (
+              <li
+                key={target}
+                className="flex min-h-[76px] items-center gap-4 rounded-[1.15rem] border border-primary/10 bg-slate-50 px-5 py-5 shadow-[0_18px_42px_-36px_rgba(15,29,54,0.45)] sm:min-h-[88px] sm:gap-5 sm:px-7"
+              >
+                <span
+                  aria-hidden="true"
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-white shadow-[0_10px_24px_-12px_rgba(40,74,165,0.9)]"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-3.5 w-3.5"
+                  >
+                    <path d="m5 12 4 4L19 6" />
+                  </svg>
+                </span>
+                <span className="break-keep text-[15px] font-bold leading-[1.6] tracking-[-0.01em] text-ink sm:text-[17px]">
+                  {target}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="postoperative-rehab-goals-title"
+        className="border-t border-slate-100 bg-[#F7F9FD] px-5 py-20 sm:px-8 sm:py-28 lg:py-36"
+      >
+        <div className="mx-auto max-w-[1210px]">
+          <div className="max-w-2xl">
+            <p className="font-montserrat text-[12px] font-bold uppercase tracking-[0.18em] text-primary sm:text-[13px]">
+              Recovery goals
+            </p>
+            <h2
+              id="postoperative-rehab-goals-title"
+              className="mt-4 break-keep text-[1.8rem] font-bold leading-[1.35] tracking-[-0.025em] text-ink sm:mt-5 sm:text-[2.25rem] lg:text-[2.7rem]"
+            >
+              수술 후 재활 <span className="text-primary">치료 목표</span>
+            </h2>
+          </div>
+
+          <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-14 sm:gap-5 lg:mt-16 lg:grid-cols-4 lg:gap-6">
+            {postoperativeRehabGoals.map((goal) => {
+              const Icon = goal.icon;
+
+              return (
+                <article
+                  key={goal.title}
+                  className="group relative flex min-h-[190px] flex-col overflow-hidden rounded-[1.15rem] border border-slate-200 bg-white p-4 shadow-[0_20px_55px_-48px_rgba(15,29,54,0.5)] transition-all duration-500 ease-out hover:-translate-y-2 hover:border-primary/35 hover:shadow-[0_30px_70px_-34px_rgba(40,74,165,0.45)] motion-reduce:transform-none motion-reduce:transition-none sm:min-h-[230px] sm:rounded-[1.4rem] sm:p-7 lg:min-h-[280px] lg:p-8"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white via-white to-primary-light opacity-0 transition-opacity duration-500 group-hover:opacity-100 motion-reduce:transition-none"
+                  />
+
+                  <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-light text-primary transition-all duration-500 group-hover:scale-110 group-hover:bg-primary group-hover:text-white motion-reduce:transform-none motion-reduce:transition-none sm:h-14 sm:w-14">
+                    <Icon aria-hidden="true" className="h-6 w-6 sm:h-7 sm:w-7" strokeWidth={1.8} />
+                  </div>
+
+                  <h3 className="relative mt-6 whitespace-pre-line break-keep text-[17px] font-bold leading-[1.5] tracking-[-0.02em] text-ink transition-colors duration-500 group-hover:text-primary-dark sm:mt-8 sm:text-[20px] lg:text-[22px]">
+                    {goal.title}
+                  </h3>
+
+                  <span
+                    aria-hidden="true"
+                    className="relative mt-auto h-px w-full bg-slate-200 transition-colors duration-500 group-hover:bg-primary/70 motion-reduce:transition-none"
+                  />
+                </article>
+              );
+            })}
+          </div>
         </div>
       </section>
     </main>

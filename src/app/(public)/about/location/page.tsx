@@ -4,20 +4,20 @@ import { motion } from 'framer-motion';
 import { MapPin, Train, Bus, Car, Phone, Navigation } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
-// 클라이언트 사이드 렌더링을 위해 NaverMap을 다이나믹 임포트합니다.
-const NaverMap = dynamic(() => import('@/components/NaverMap'), {
+// 클라이언트 사이드 렌더링을 위해 KakaoMap을 다이나믹 임포트합니다.
+const KakaoMap = dynamic(() => import('@/components/KakaoMap'), {
   ssr: false,
   loading: () => (
     <div className="w-full h-full min-h-[400px] bg-slate-50 flex items-center justify-center rounded-[2rem] animate-pulse">
-      <p className="text-ink-muted font-bold text-sm tracking-widest font-montserrat uppercase">네이버 지도 로딩 중...</p>
+      <p className="text-ink-muted font-bold text-sm">지도를 불러오는 중입니다...</p>
     </div>
   ),
 });
 
 export default function LocationPage() {
-  // 연세척병원 주소 및 좌표 정보 (부산광역시 부산진구 가야대로 715)
-  // 휴병원(713) 바로 우측 위너스빌딩 정위치 좌표 보정
-  const HOSPITAL_COORDS = { lat: 35.15845, lng: 129.04370 };
+  // 연세척병원 주소 및 좌표 정보 (부산광역시 부산진구 가야대로 715, 부암역 6번 출구 앞)
+  // 병원 공식 홈페이지 카카오맵 등록 좌표(장소 ID 25770098) 기준
+  const HOSPITAL_COORDS = { lat: 35.157605, lng: 129.04986 };
   const HOSPITAL_NAME = "연세척병원";
 
   const handleCopyAddress = () => {
@@ -52,7 +52,7 @@ export default function LocationPage() {
             transition={{ delay: 0.2 }}
             className="mx-auto max-w-2xl break-keep text-[15px] font-medium leading-[1.75] text-ink-muted sm:text-[17px] lg:text-xl"
           >
-            대학병원급 의료 시스템을 더 가까이에서 만나보세요. <br className="hidden md:block" />
+            지하철 2호선 부암역 바로 앞, 부담 없이 들르실 수 있습니다. <br className="hidden md:block" />
             찾아오시는 길을 상세히 안내해 드립니다.
           </motion.p>
         </div>
@@ -98,8 +98,8 @@ export default function LocationPage() {
 
           {/* Middle: Map Container */}
           <div className="h-[400px] w-full overflow-hidden rounded-2xl border border-slate-100 bg-slate-50 p-2 shadow-premium sm:h-[460px] sm:p-3 md:h-[500px] lg:h-[600px] lg:rounded-[3rem] lg:p-4">
-             {/* 네이버 지도 컴포넌트 렌더링 */}
-             <NaverMap lat={HOSPITAL_COORDS.lat} lng={HOSPITAL_COORDS.lng} placeName={HOSPITAL_NAME} />
+             {/* 카카오 지도 컴포넌트 렌더링 */}
+             <KakaoMap lat={HOSPITAL_COORDS.lat} lng={HOSPITAL_COORDS.lng} placeName={HOSPITAL_NAME} />
           </div>
 
           {/* Bottom: Public Transport */}

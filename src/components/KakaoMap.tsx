@@ -1,13 +1,50 @@
 'use client';
 
 import Script from 'next/script';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import { useState } from 'react';
+import { CustomOverlayMap, Map, ZoomControl, useMap } from 'react-kakao-maps-sdk';
+import { useEffect, useState } from 'react';
 import { MapPin } from 'lucide-react';
 
 const KAKAO_API_KEY = process.env.NEXT_PUBLIC_KAKAO_MAP_API_KEY;
 
-export default function KakaoMap({ lat, lng, placeName }: { lat: number, lng: number, placeName: string }) {
+// 지도에 담길 기본 반경(m). 이 값만 바꾸면 처음 보이는 범위가 달라집니다.
+const DEFAULT_VIEW_RADIUS_M = 30;
+
+/**
+ * 중심에서 지정한 반경(m)이 담기도록 확대 수준을 맞춥니다.
+ * level 숫자 대신 실제 거리로 지정할 수 있습니다.
+ */
+function FitToRadius({ lat, lng, radius }: { lat: number; lng: number; radius: number }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!map) return;
+
+    const latDelta = radius / 111320;
+    const lngDelta = radius / (111320 * Math.cos((lat * Math.PI) / 180));
+
+    const bounds = new window.kakao.maps.LatLngBounds(
+      new window.kakao.maps.LatLng(lat - latDelta, lng - lngDelta),
+      new window.kakao.maps.LatLng(lat + latDelta, lng + lngDelta),
+    );
+
+    map.setBounds(bounds);
+  }, [map, lat, lng, radius]);
+
+  return null;
+}
+
+export default function KakaoMap({
+  lat,
+  lng,
+  placeName,
+  viewRadius = DEFAULT_VIEW_RADIUS_M,
+}: {
+  lat: number;
+  lng: number;
+  placeName: string;
+  viewRadius?: number;
+}) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   // API 키가 없는 경우 표시할 MockUI (개발자 안내용)
@@ -42,24 +79,37 @@ export default function KakaoMap({ lat, lng, placeName }: { lat: number, lng: nu
         <Map
           center={{ lat, lng }}
           style={{ width: '100%', height: '100%', borderRadius: '2rem' }}
-          level={3} // 확대 수준
+          level={3}
         >
-          <MapMarker 
-            position={{ lat, lng }}
-            image={{
-              src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png", // 마커 이미지 URL (임의의 별 마커, 또는 커스텀 이미지)
-              size: { width: 24, height: 35 }
-            }}
-          >
-             {/* 마커 위에 표시할 인포윈도우 */}
-             <div className="p-2 w-max rounded-lg font-bold text-ink text-sm whitespace-nowrap shadow-sm">
-                🏥 {placeName}
-             </div>
-          </MapMarker>
+          {/* 처음 보이는 범위를 거리(m) 기준으로 맞춤 */}
+          <FitToRadius lat={lat} lng={lng} radius={viewRadius} />
+
+          {/* 확대/축소 버튼 */}
+          <ZoomControl position="RIGHT" />
+
+          {/* 병원 로고 마커 */}
+          <CustomOverlayMap position={{ lat, lng }} yAnchor={1.08}>
+            <div className="flex flex-col items-center">
+              <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1.5 pl-1.5 pr-4 shadow-[0_8px_24px_rgba(15,29,54,0.22)]">
+                <img
+                  src="/ys-logo-bg.png"
+                  alt=""
+                  className="h-8 w-8 shrink-0 rounded-full"
+                />
+                <span className="whitespace-nowrap text-[15px] font-bold tracking-tight text-ink">
+                  {placeName}
+                </span>
+              </div>
+              <span
+                aria-hidden
+                className="-mt-px h-0 w-0 border-x-[7px] border-t-[9px] border-x-transparent border-t-white drop-shadow-[0_2px_1px_rgba(15,29,54,0.18)]"
+              />
+            </div>
+          </CustomOverlayMap>
         </Map>
       ) : (
         <div className="w-full h-full min-h-[400px] bg-slate-50 flex items-center justify-center rounded-[2rem] animate-pulse">
-          <p className="text-ink-muted font-bold text-sm tracking-widest font-montserrat uppercase">Loading Map...</p>
+          <p className="text-ink-muted font-bold text-sm">지도를 불러오는 중입니다...</p>
         </div>
       )}
     </>

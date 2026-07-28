@@ -30,6 +30,8 @@ type MenuData = {
   href: string;
   subTitle: string;
   items: MenuItem[];
+  /** true 이면 대메뉴 클릭 시 href 페이지로 이동합니다. (기본: 메가메뉴만 열림) */
+  navigateOnClick?: boolean;
 };
 
 const MENU_DATA: MenuData[] = [
@@ -37,6 +39,7 @@ const MENU_DATA: MenuData[] = [
     id: 'about',
     name: '병원소개',
     href: '/about',
+    navigateOnClick: true,
     subTitle: '연세척병원의 진심을 전합니다',
     items: [
       { name: '연세척병원 소개', desc: '환자 중심의 정직한 진료 원칙', href: '/about' },
@@ -49,6 +52,7 @@ const MENU_DATA: MenuData[] = [
     id: 'ube',
     name: '양방향 척추내시경',
     href: '/treatments/spine/ube',
+    navigateOnClick: true,
     subTitle: '절개를 최소화한 정밀 척추 치료',
     items: [
       { name: 'UBE 소개', desc: '두 개의 작은 통로로 접근하는 척추내시경 치료', href: '/treatments/spine/ube' },
@@ -179,9 +183,9 @@ const InstagramMark = ({ isLight }: { isLight: boolean }) => (
 
 // 채널 주소가 확정되면 각 href만 교체하면 바로 링크로 동작합니다.
 const HEADER_SOCIAL_LINKS = [
-  { name: '유튜브', href: '', icon: YouTubeMark },
-  { name: '네이버 블로그', href: '', icon: BlogMark },
-  { name: '인스타그램', href: '', icon: InstagramMark },
+  { name: '유튜브', href: 'https://www.youtube.com/@BusanYS-tv', icon: YouTubeMark },
+  { name: '네이버 블로그', href: 'https://blog.naver.com/sebarun_bsbs', icon: BlogMark },
+  { name: '인스타그램', href: 'https://www.instagram.com/ys_cheok', icon: InstagramMark },
 ];
 
 const HeaderSocialLinks = ({ isLight }: { isLight: boolean }) => (
@@ -446,47 +450,73 @@ const Header = () => {
           style={{ marginLeft: HEADER_DESKTOP_LAYOUT.navigationOffsetX }}
           className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-4 lg:flex xl:gap-7 2xl:gap-10"
         >
-          {MENU_DATA.map((menu) => (
-            <button
-              key={menu.id}
-              type="button"
-              onMouseEnter={() => openMegaMenu(menu.id)}
-              onFocus={() => openMegaMenuImmediately(menu.id)}
-              onClick={() => {
-                if (activeMenu === menu.id) {
-                  closeMegaMenuImmediately();
-                } else {
-                  openMegaMenuImmediately(menu.id);
-                }
-              }}
-              aria-haspopup="true"
-              aria-expanded={activeMenu === menu.id}
-              aria-controls={activeMenu === menu.id ? 'site-mega-menu' : undefined}
-              className="relative px-1 py-2 group cursor-pointer"
-            >
-              {activeMenu === menu.id && (
-                <motion.span
-                  layoutId="nav-active-pill"
-                  transition={{ type: 'spring', stiffness: 420, damping: 36 }}
-                  className="absolute inset-x-[-14px] inset-y-[-9px] rounded-full bg-primary/8"
-                />
-              )}
-              <span
+          {MENU_DATA.map((menu) => {
+            const sharedProps = {
+              onMouseEnter: () => openMegaMenu(menu.id),
+              onFocus: () => openMegaMenuImmediately(menu.id),
+              'aria-haspopup': true as const,
+              'aria-expanded': activeMenu === menu.id,
+              'aria-controls': activeMenu === menu.id ? 'site-mega-menu' : undefined,
+              className: 'relative px-1 py-2 group cursor-pointer',
+            };
+
+            const label = (
+              <>
+                {activeMenu === menu.id && (
+                  <motion.span
+                    layoutId="nav-active-pill"
+                    transition={{ type: 'spring', stiffness: 420, damping: 36 }}
+                    className="absolute inset-x-[-14px] inset-y-[-9px] rounded-full bg-primary/8"
+                  />
+                )}
+                <span
                   className={`relative z-10 text-[14px] xl:text-[15px] 2xl:text-[16px] font-bold tracking-tight transition-colors duration-200 block whitespace-nowrap ${
-                  activeMenu === menu.id ? 'text-primary' : isLightHeader ? 'text-ink' : 'text-white/92'
-                }`}
+                    activeMenu === menu.id ? 'text-primary' : isLightHeader ? 'text-ink' : 'text-white/92'
+                  }`}
+                >
+                  {menu.name}
+                </span>
+                {activeMenu === menu.id && (
+                  <motion.span
+                    layoutId="nav-active-line"
+                    transition={{ type: 'spring', stiffness: 420, damping: 36 }}
+                    className="absolute -bottom-5 left-0 right-0 h-0.5 rounded-full bg-primary"
+                  />
+                )}
+              </>
+            );
+
+            // 지정된 대메뉴는 클릭 시 해당 페이지로 이동 (호버 시 메가메뉴는 그대로 열림)
+            if (menu.navigateOnClick) {
+              return (
+                <Link
+                  key={menu.id}
+                  href={menu.href}
+                  onClick={closeMegaMenuImmediately}
+                  {...sharedProps}
+                >
+                  {label}
+                </Link>
+              );
+            }
+
+            return (
+              <button
+                key={menu.id}
+                type="button"
+                onClick={() => {
+                  if (activeMenu === menu.id) {
+                    closeMegaMenuImmediately();
+                  } else {
+                    openMegaMenuImmediately(menu.id);
+                  }
+                }}
+                {...sharedProps}
               >
-                {menu.name}
-              </span>
-              {activeMenu === menu.id && (
-                <motion.span
-                  layoutId="nav-active-line"
-                  transition={{ type: 'spring', stiffness: 420, damping: 36 }}
-                  className="absolute -bottom-5 left-0 right-0 h-0.5 rounded-full bg-primary"
-                />
-              )}
-            </button>
-          ))}
+                {label}
+              </button>
+            );
+          })}
         </nav>
 
         <div

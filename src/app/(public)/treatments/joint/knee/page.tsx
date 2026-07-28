@@ -127,7 +127,7 @@ const careStrengths = [
   },
   {
     title: '일상 복귀까지 이어지는 관리',
-    description: '시술이나 수술 이후에도 보행과 근력, 생활 습관 회복 계획을 함께 세웁니다.',
+    description: '수술 이후에도 보행과 근력, 생활 습관 회복 계획을 함께 세웁니다.',
   },
 ];
 
@@ -307,11 +307,11 @@ export default function KneeJointPage() {
             <ScrollReveal variant="soft-rise" className="flex flex-col justify-center rounded-[1.25rem] bg-navy-950 p-5 text-white sm:rounded-[1.75rem] sm:p-8 lg:p-10">
               <h3 className="break-keep text-h3">눈으로 직접 확인하고 필요한 부위만 치료합니다</h3>
               <p className="mt-5 text-body-lg text-white/85">
-                MRI와 진찰로도 판단이 어려운 관절 안의 상태를 실시간 화면으로 살피고, 확인된 병변 가운데 증상과 관련된 부위를 치료합니다.
+                증상과 진찰, 영상검사를 종합해 수술 필요성을 먼저 평가하고, 수술이 필요하다고 판단된 경우 관절 내부를 직접 확인하며 계획된 치료를 시행합니다.
               </p>
               <div className="mt-7 space-y-3 border-t border-white/12 pt-6 text-[14px] font-bold leading-[1.65] text-white/86 sm:text-[16px]">
                 <p className="flex gap-3"><Check className="mt-0.5 shrink-0 text-cyan-300" size={19} />작은 절개를 통한 관절 내부 확인</p>
-                <p className="flex gap-3"><Check className="mt-0.5 shrink-0 text-cyan-300" size={19} />병변을 보면서 진단과 치료를 함께 진행</p>
+                <p className="flex gap-3"><Check className="mt-0.5 shrink-0 text-cyan-300" size={19} />수술 중 병변을 직접 확인하며 계획된 치료를 시행</p>
                 <p className="flex gap-3"><Check className="mt-0.5 shrink-0 text-cyan-300" size={19} />정상 반월상연골과 연골의 보존을 우선</p>
               </div>
             </ScrollReveal>
@@ -384,6 +384,16 @@ export default function KneeJointPage() {
               무릎 골관절염 자체만을 씻거나 거친 연골을 정리하려는 목적의 관절내시경은 일반적으로 권고되지 않습니다. 반월상연골 파열이나 유리체 등 별도의 기계적 병변이 함께 있을 때 증상과의 연관성을 확인해 개별적으로 판단합니다.
             </p>
           </ScrollReveal>
+
+          <ScrollReveal className="mt-8 flex justify-start sm:mt-10">
+            <Link
+              href="/treatments/joint/knee-arthroscopy"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-6 text-[15px] font-bold text-navy-950 transition hover:bg-cyan-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-300/30"
+            >
+              무릎관절내시경 자세히 보기
+              <ArrowRight size={18} />
+            </Link>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -435,7 +445,7 @@ export default function KneeJointPage() {
           <ScrollReveal className="relative z-10 order-2 md:order-1">
             <p className="text-[14px] font-bold text-cyan-300 sm:text-base">관절센터 · 정형외과 전문의</p>
             <h2 className="mt-4 break-keep text-h2 tracking-tight">
-              정확한 진단과 충분한 설명으로
+              정밀한 평가와 충분한 설명으로
               <br />
               무릎 치료의 기준을 세웁니다
             </h2>

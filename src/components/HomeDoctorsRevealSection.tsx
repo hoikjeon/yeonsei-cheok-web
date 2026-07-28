@@ -76,10 +76,10 @@ const HomeDoctorsRevealSection = () => {
   return (
     <section
       ref={ref}
-      className="relative isolate -mt-8 h-[68svh] min-h-[470px] max-h-[520px] overflow-clip bg-white md:-mt-28 md:h-[95vh] md:min-h-[820px] md:max-h-none"
+      className="relative isolate -mt-8 h-[68svh] min-h-[470px] max-h-[520px] overflow-clip bg-white md:-mt-28 md:h-[95vh] md:min-h-[820px] md:max-h-[900px]"
       aria-label="연세척병원 척추 관절 의료진"
     >
-      <motion.div className="relative flex h-full min-h-0 items-end overflow-hidden md:sticky md:top-0 md:h-screen md:min-h-[640px]">
+      <motion.div className="relative flex h-full min-h-0 items-end overflow-hidden md:sticky md:top-0 md:h-screen md:max-h-[900px] md:min-h-[640px]">
         <div className="pointer-events-none absolute inset-x-0 top-0 z-0 h-40 bg-gradient-to-b from-[#f4f9ff] via-white to-transparent" />
         <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_54%,rgba(40,74,165,0.08),rgba(255,255,255,0)_42%)]" />
 
@@ -100,7 +100,7 @@ const HomeDoctorsRevealSection = () => {
         </div>
 
         <motion.div
-          className="relative z-20 mx-auto h-[70%] min-h-0 w-full max-w-7xl md:h-[64vh] md:min-h-[560px]"
+          className="relative z-20 mx-auto h-[70%] min-h-0 w-full max-w-7xl md:h-[64vh] md:max-h-[600px] md:min-h-[560px]"
           style={{
             opacity: shouldReduceMotion || isMobile ? 1 : rawDoctorsOpacity,
             y: shouldReduceMotion || isMobile ? 0 : doctorsY,
