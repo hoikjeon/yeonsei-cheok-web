@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { MapPin, Train, Bus, Car, Phone, Navigation } from 'lucide-react';
 import dynamic from 'next/dynamic';
+import NavigationAppLinks from '@/components/NavigationAppLinks';
 
 // 클라이언트 사이드 렌더링을 위해 KakaoMap을 다이나믹 임포트합니다.
 const KakaoMap = dynamic(() => import('@/components/KakaoMap'), {
@@ -19,6 +20,7 @@ export default function LocationPage() {
   // 병원 공식 홈페이지 카카오맵 등록 좌표(장소 ID 25770098) 기준
   const HOSPITAL_COORDS = { lat: 35.157605, lng: 129.04986 };
   const HOSPITAL_NAME = "연세척병원";
+  const HOSPITAL_ADDRESS = "부산광역시 부산진구 가야대로 715";
 
   const handleCopyAddress = () => {
     navigator.clipboard.writeText("부산광역시 부산진구 가야대로 715 (당감동 974, 위너스빌딩 1,2,3,4층)");
@@ -84,15 +86,22 @@ export default function LocationPage() {
              </div>
 
              <div className="relative flex flex-col items-start justify-center gap-3 overflow-hidden rounded-2xl bg-primary p-5 text-white shadow-blue-glow sm:p-6 lg:rounded-[2rem] lg:p-8">
-               <div className="relative z-10 space-y-3">
+               <div className="relative z-10 w-full space-y-3">
                   <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-white backdrop-blur-md mb-2"><Navigation size={24} /></div>
                   <h3 className="text-sm font-bold text-white/70 font-montserrat uppercase tracking-widest">Navigation</h3>
                   <p className="text-lg font-bold sm:text-xl">내비게이션 검색</p>
                   <p className="mt-2 break-keep text-sm font-medium leading-relaxed text-white/80">
-                     '연세척병원' 또는 '가야대로 715' 명칭 검색
+                     아래 지도 앱을 누르면 연세척병원 길찾기가 바로 열립니다.
                   </p>
+                  <NavigationAppLinks
+                    name={HOSPITAL_NAME}
+                    address={HOSPITAL_ADDRESS}
+                    lat={HOSPITAL_COORDS.lat}
+                    lng={HOSPITAL_COORDS.lng}
+                    kakaoPlaceId="25770098"
+                  />
                </div>
-               <div className="absolute right-[-10%] bottom-[-20%] text-white/5"><Navigation size={180} /></div>
+               <div className="pointer-events-none absolute right-[-10%] bottom-[-20%] text-white/5"><Navigation size={180} /></div>
              </div>
           </div>
 

@@ -1,11 +1,12 @@
 'use client';
 
 import SubHero from '@/components/SubHero';
+import ConsultationDatePicker from '@/components/ConsultationDatePicker';
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 
 const DOCTORS_BY_SPECIALTY = {
-  '척추외과(신경외과)': ['이남', '김동한'],
+  '척추외과(신경외과)': ['김동한', '이남'],
   '정형외과': ['최호']
 };
 
@@ -15,13 +16,12 @@ export default function ReservationPage() {
     name: '',
     phone: '',
     specialty: '척추외과(신경외과)',
-    doctor: '이남',
+    doctor: '김동한',
     reservation_date: '',
     reservation_time: ''
   });
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [isAgreed, setIsAgreed] = useState(false);
 
   // Update doctor when specialty changes
@@ -30,7 +30,7 @@ export default function ReservationPage() {
     if (doctors && doctors.length > 0 && !doctors.includes(formData.doctor)) {
       setFormData(prev => ({ ...prev, doctor: doctors[0] }));
     }
-  }, [formData.specialty]);
+  }, [formData.doctor, formData.specialty]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,20 +67,20 @@ export default function ReservationPage() {
         throw error;
       }
 
-      setIsSuccess(true);
       setFormData({ 
         category: '초진', 
         name: '', 
         phone: '', 
-        specialty: '척추외과(신경외과)', 
-        doctor: '이남',
+        specialty: '척추외과(신경외과)',
+        doctor: '김동한',
         reservation_date: '',
         reservation_time: ''
       });
       setIsAgreed(false);
       alert('예약 신청이 완료되었습니다. 확인 후 빠른 시일 내에 연락드리겠습니다.');
-    } catch (error: any) {
-      console.error('Error submitting reservation:', error.message);
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : '알 수 없는 오류';
+      console.error('Error submitting reservation:', message);
       alert('신청 중 오류가 발생했습니다. 다시 시도해 주시거나 전화 상담을 이용해 주세요.');
     } finally {
       setIsSubmitting(false);
@@ -197,7 +197,7 @@ export default function ReservationPage() {
                     >
                       {DOCTORS_BY_SPECIALTY[formData.specialty as keyof typeof DOCTORS_BY_SPECIALTY].map((doc) => (
                         <option key={doc} value={doc}>
-                          {doc} {(['이남', '김동한', '김훈'].includes(doc)) ? '병원장님' : '원장님'}
+                          {doc} {(['김동한', '이남', '김훈'].includes(doc)) ? '병원장님' : '원장님'}
                         </option>
                       ))}
                     </select>
@@ -206,14 +206,17 @@ export default function ReservationPage() {
                   {/* 예약 가능 날짜 및 시간 */}
                   <div className="space-y-3">
                     <label className="text-sm font-bold text-ink-sub">희망 진료일자 <span className="text-red-500">*</span></label>
-                    <input 
-                      type="date"
-                      name="reservation_date"
+                    <ConsultationDatePicker
                       value={formData.reservation_date}
-                      onChange={handleInputChange}
-                      min={new Date().toISOString().split('T')[0]}
-                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-medium text-ink transition-all focus:border-primary focus:outline-none sm:px-5 sm:py-4"
-                      required
+                      onChange={(value) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          reservation_date: value,
+                        }))
+                      }
+                      placeholder="진료 희망일을 선택해 주세요"
+                      ariaLabel="진료 희망일 선택"
+                      variant="light"
                     />
                   </div>
                   <div className="space-y-3">

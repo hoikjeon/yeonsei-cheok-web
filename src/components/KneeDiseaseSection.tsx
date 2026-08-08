@@ -329,7 +329,7 @@ export default function KneeDiseaseSection() {
 
             <div className="absolute inset-x-[4%] bottom-0 top-[12%] hidden lg:block">
               <Image
-                src={`${ASSET_ROOT}/knee-disease-map-v3.png`}
+                src={`${ASSET_ROOT}/knee-disease-map-white.png`}
                 alt=""
                 fill
                 sizes="(min-width: 1280px) 1216px, 100vw"

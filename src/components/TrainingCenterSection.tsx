@@ -201,7 +201,7 @@ export default function TrainingCenterSection() {
               {loopCards.map((card, i) => (
                 <div
                   key={`${card.id}-${i}`}
-                  className="w-[80%] shrink-0 sm:w-[46%] md:w-[34%] lg:w-[calc((100%_-_4.5rem)/4)]"
+                  className="w-full shrink-0 sm:w-[46%] md:w-[34%] lg:w-[calc((100%_-_4.5rem)/4)]"
                 >
                   <Link href={card.href} className="group block">
                     <motion.div

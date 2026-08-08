@@ -123,12 +123,14 @@ const specializedPrograms = [
     desc: '두 개의 작은 통로로 병변을 정밀하게 확인하고 치료하는 척추 특화 비수술·최소침습 솔루션입니다.',
     image: '/generated/specialty-spine-endoscopy.png',
     mobileImagePosition: 'object-[68%_center]',
+    href: '/treatments/spine/ube',
   },
   {
     title: '무릎관절 내시경',
     desc: '관절 내부를 직접 확인하며 손상 부위를 섬세하게 치료해 회복 부담을 낮추는 관절 특화 치료입니다.',
     image: '/generated/specialty-knee-arthroscopy.png',
     mobileImagePosition: 'object-[70%_center]',
+    href: '/treatments/joint/knee-arthroscopy',
   },
 ];
 
@@ -285,6 +287,8 @@ export default function Home() {
           <div className="absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(10,20,40,0.08)_0%,rgba(10,20,40,0.18)_42%,rgba(10,20,40,0.82)_72%,rgba(10,20,40,0.98)_100%)] md:bg-[linear-gradient(90deg,rgba(10,20,40,0.96)_0%,rgba(10,20,40,0.84)_32%,rgba(10,20,40,0.44)_66%,rgba(10,20,40,0.36)_100%)]" />
           <div className="absolute inset-0 z-10 hidden bg-gradient-to-b from-navy-950/50 via-transparent to-navy-950 md:block" />
           <div className="absolute inset-x-0 bottom-0 z-10 h-48 bg-gradient-to-t from-navy-950 to-transparent md:h-40" />
+          {/* 투명 헤더 위 로고·메뉴 가독성을 위한 상단 그라데이션 (사진은 그대로 보임) */}
+          <div className="absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-navy-950/55 to-transparent md:hidden" />
         </div>
         
         <div className="relative z-20 mx-auto w-full max-w-7xl px-5 sm:px-7 md:pt-12 xl:px-10">
@@ -547,9 +551,10 @@ export default function Home() {
 
           <div className="grid grid-cols-1 gap-3 md:gap-5">
             {specializedPrograms.map((program) => (
-              <article
+              <Link
                 key={program.title}
-                className="group grid min-h-[168px] overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_28px_80px_-56px_rgba(15,29,54,0.5)] transition-all duration-500 hover:-translate-y-1 hover:border-primary/25 hover:bg-primary md:min-h-[218px]"
+                href={program.href}
+                className="group grid min-h-[168px] overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_28px_80px_-56px_rgba(15,29,54,0.5)] transition-all duration-500 hover:-translate-y-1 hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary md:min-h-[218px]"
               >
                 <div className="grid grid-cols-[minmax(0,1fr)_clamp(132px,36vw,144px)] md:grid-cols-[minmax(0,1.1fr)_minmax(220px,0.9fr)]">
                   <div className="flex min-h-0 flex-col justify-center p-4 md:min-h-[230px] md:p-9">
@@ -574,7 +579,7 @@ export default function Home() {
                     <div className="absolute inset-0 bg-gradient-to-r from-white/35 via-transparent to-primary/10 opacity-80 transition-opacity duration-500 group-hover:opacity-30" />
                   </div>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </div>

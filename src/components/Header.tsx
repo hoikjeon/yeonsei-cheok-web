@@ -234,15 +234,19 @@ const Header = () => {
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isHeaderHovered, setIsHeaderHovered] = useState(false);
-  const [isHeaderHidden, setIsHeaderHidden] = useState(false);
+  // 페이지 최상단 여부 (히어로 배너 위에서는 헤더를 투명하게 두기 위해 사용)
+  const [isAtPageTop, setIsAtPageTop] = useState(true);
   const isMenuOpen = activeMenu !== null;
   const activeMenuData = MENU_DATA.find((menu) => menu.id === activeMenu);
   const isHomePage = pathname === '/';
-  const isLightHeader = !isHomePage || isHeaderHovered || isMenuOpen || isMobileMenuOpen;
+  // 홈 최상단(히어로 배너 위)에서만 흰 배경을 쓰지 않고, 스크롤하면 흰 헤더로 전환합니다.
+  const isLightHeader =
+    !isHomePage || !isAtPageTop || isHeaderHovered || isMenuOpen || isMobileMenuOpen;
+  // 히어로 배너 최상단에서는 배경을 투명하게 두어 사진이 헤더에 가려지지 않도록 합니다.
+  const isTransparentHeader = isHomePage && isAtPageTop && !isLightHeader;
   
 
   const headerRef = useRef<HTMLDivElement>(null);
-  const lastScrollY = useRef(0);
   const supabase = createClient();
   
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -346,28 +350,16 @@ const Header = () => {
     };
   }, [supabase]);
 
-  // 스크롤 방향에 따라 헤더 숨김/표시 (아래로 내리면 숨김, 위로 올리면 표시)
+  // 헤더는 항상 고정 표시하고, 최상단 여부만 확인해 배경(투명/불투명)을 전환합니다.
   useEffect(() => {
     const handleScroll = () => {
-      const currentY = window.scrollY;
-
-      // 메뉴 상호작용 중이거나 상단 근처에서는 항상 표시
-      if (isMenuOpen || isMobileMenuOpen || isHeaderHovered || currentY < 100) {
-        setIsHeaderHidden(false);
-        lastScrollY.current = currentY;
-        return;
-      }
-
-      const delta = currentY - lastScrollY.current;
-      if (Math.abs(delta) < 6) return; // 미세한 흔들림 무시
-
-      setIsHeaderHidden(delta > 0);
-      lastScrollY.current = currentY;
+      setIsAtPageTop(window.scrollY < 8);
     };
 
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isMenuOpen, isMobileMenuOpen, isHeaderHovered]);
+  }, []);
 
   useEffect(() => {
     if (!isMobileMenuOpen) return;
@@ -412,6 +404,8 @@ const Header = () => {
     <header 
       ref={headerRef} 
       onMouseEnter={() => {
+        // 터치 기기에서는 탭만으로 hover 상태가 되어 헤더가 흰색으로 바뀌므로 제외합니다.
+        if (!window.matchMedia('(hover: hover)').matches) return;
         setIsHeaderHovered(true);
         keepMegaMenuOpen();
       }}
@@ -421,12 +415,12 @@ const Header = () => {
       }}
       onBlur={handleHeaderBlur}
       onKeyDown={handleHeaderKeyDown}
-      className={`fixed top-0 w-full z-[100] backdrop-blur-xl transition-all duration-300 ${
-        isHeaderHidden ? '-translate-y-full' : 'translate-y-0'
-      } ${
+      className={`fixed top-0 w-full z-[100] transition-all duration-300 ${
         isLightHeader
-          ? 'border-b border-slate-100 bg-white/95 shadow-sm'
-          : 'border-b border-white/10 bg-navy-950/75 shadow-none'
+          ? 'border-b border-slate-100 bg-white/70 shadow-sm backdrop-blur-xl lg:bg-white lg:backdrop-blur-none'
+          : isTransparentHeader
+            ? 'border-b border-transparent bg-transparent shadow-none'
+            : 'border-b border-white/10 bg-navy-950/75 shadow-none backdrop-blur-xl'
       } ${
         isMenuOpen ? 'shadow-[0_32px_70px_-32px_rgba(15,29,54,0.32)]' : ''
       }`}
@@ -451,39 +445,42 @@ const Header = () => {
           className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-4 lg:flex xl:gap-7 2xl:gap-10"
         >
           {MENU_DATA.map((menu) => {
+            const isActive = activeMenu === menu.id;
             const sharedProps = {
               onMouseEnter: () => openMegaMenu(menu.id),
               onFocus: () => openMegaMenuImmediately(menu.id),
               'aria-haspopup': true as const,
-              'aria-expanded': activeMenu === menu.id,
-              'aria-controls': activeMenu === menu.id ? 'site-mega-menu' : undefined,
+              'aria-expanded': isActive,
+              'aria-controls': isActive ? 'site-mega-menu' : undefined,
               className: 'relative px-1 py-2 group cursor-pointer',
             };
 
             const label = (
-              <>
-                {activeMenu === menu.id && (
-                  <motion.span
-                    layoutId="nav-active-pill"
-                    transition={{ type: 'spring', stiffness: 420, damping: 36 }}
-                    className="absolute inset-x-[-14px] inset-y-[-9px] rounded-full bg-primary/8"
-                  />
-                )}
+              <span
+                className={`relative z-10 block whitespace-nowrap text-[14px] font-bold transition-[letter-spacing] duration-500 ease-in-out motion-reduce:transition-none xl:text-[15px] 2xl:text-[16px] ${
+                  isActive
+                    ? 'tracking-[-0.012em]'
+                    : 'tracking-tight group-hover:tracking-[-0.012em] group-focus-visible:tracking-[-0.012em]'
+                }`}
+              >
                 <span
-                  className={`relative z-10 text-[14px] xl:text-[15px] 2xl:text-[16px] font-bold tracking-tight transition-colors duration-200 block whitespace-nowrap ${
-                    activeMenu === menu.id ? 'text-primary' : isLightHeader ? 'text-ink' : 'text-white/92'
+                  className={`block ${
+                    isLightHeader ? 'text-ink' : 'text-white/92'
                   }`}
                 >
                   {menu.name}
                 </span>
-                {activeMenu === menu.id && (
-                  <motion.span
-                    layoutId="nav-active-line"
-                    transition={{ type: 'spring', stiffness: 420, damping: 36 }}
-                    className="absolute -bottom-5 left-0 right-0 h-0.5 rounded-full bg-primary"
-                  />
-                )}
-              </>
+                <span
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute inset-0 block text-primary transition-[clip-path] duration-700 ease-in-out [will-change:clip-path] motion-reduce:transition-none ${
+                    isActive
+                      ? '[clip-path:inset(0_0_0_0)]'
+                      : '[clip-path:inset(0_100%_0_0)] group-hover:[clip-path:inset(0_0_0_0)] group-focus-visible:[clip-path:inset(0_0_0_0)]'
+                  }`}
+                >
+                  {menu.name}
+                </span>
+              </span>
             );
 
             // 지정된 대메뉴는 클릭 시 해당 페이지로 이동 (호버 시 메가메뉴는 그대로 열림)

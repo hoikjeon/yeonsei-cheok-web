@@ -137,36 +137,42 @@ const diseases: WristAnkleDisease[] = [
 const diseaseMarkers = [
   {
     diseaseId: 'ankle-sprain',
+    side: 'left',
     point: { left: '28%', top: '61%' },
-    line: { left: '19%', top: '61%', width: '9%' },
-    button: { left: '7%', top: '61%' },
+    line: { left: '18%', top: '61%', width: '10%' },
+    button: { left: '17%', top: '61%' },
   },
   {
     diseaseId: 'achilles',
+    side: 'left',
     point: { left: '23%', top: '71%' },
     line: { left: '18%', top: '71%', width: '5%' },
-    button: { left: '7%', top: '71%' },
+    button: { left: '17%', top: '71%' },
   },
   {
     diseaseId: 'plantar',
+    side: 'left',
     point: { left: '31%', top: '81%' },
     line: { left: '18%', top: '81%', width: '13%' },
-    button: { left: '6%', top: '81%' },
+    button: { left: '17%', top: '81%' },
   },
   {
     diseaseId: 'dequervain',
+    side: 'right',
     point: { left: '68%', top: '68%' },
     line: { left: '68%', top: '68%', width: '11%' },
     button: { left: '79%', top: '68%' },
   },
   {
     diseaseId: 'carpal-tunnel',
+    side: 'right',
     point: { left: '73%', top: '78%' },
     line: { left: '73%', top: '78%', width: '6%' },
     button: { left: '79%', top: '78%' },
   },
 ] as const satisfies ReadonlyArray<{
   diseaseId: WristAnkleDiseaseId;
+  side: 'left' | 'right';
   point: { left: string; top: string };
   line: { left: string; top: string; width: string };
   button: { left: string; top: string };
@@ -216,7 +222,9 @@ function WristAnkleMarker({
       <button
         type="button"
         onClick={() => onSelect(marker.diseaseId)}
-        className="absolute z-50 hidden -translate-y-1/2 items-center rounded-full bg-primary px-5 py-2.5 text-[17px] font-bold tracking-tight text-white shadow-[0_14px_34px_rgba(38,84,190,0.2)] transition duration-300 hover:-translate-y-[calc(50%+2px)] hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-primary/20 lg:flex motion-reduce:transition-none"
+        className={`absolute z-50 hidden -translate-y-1/2 items-center rounded-full bg-primary px-5 py-2.5 text-[17px] font-bold tracking-tight text-white shadow-[0_14px_34px_rgba(38,84,190,0.2)] transition duration-300 hover:-translate-y-[calc(50%+2px)] hover:bg-primary-dark focus:outline-none focus:ring-4 focus:ring-primary/20 lg:flex motion-reduce:transition-none ${
+          marker.side === 'left' ? '-translate-x-full' : ''
+        }`}
         style={marker.button}
       >
         {disease.title}
@@ -405,7 +413,7 @@ export default function WristAnkleDiseaseSection() {
 
             <div className="absolute inset-x-[4%] bottom-0 top-[12%] hidden lg:block">
               <Image
-                src={`${ASSET_ROOT}/wrist-ankle-disease-map-v3.png`}
+                src={`${ASSET_ROOT}/wrist-ankle-disease-map-white.png`}
                 alt=""
                 fill
                 sizes="(min-width: 1280px) 1216px, 100vw"

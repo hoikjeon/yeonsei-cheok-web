@@ -1,9 +1,13 @@
 'use client';
 
-import Image from 'next/image';
+import Image, { getImageProps } from 'next/image';
 import { X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
+
+// 팝업 안의 이미지가 쓰는 크기 지정입니다.
+// 미리 받아둘 때도 같은 값을 써야 팝업이 열릴 때 재사용됩니다.
+const MODAL_IMAGE_SIZES = '(min-width: 768px) 560px, calc(100vw - 56px)';
 
 type DiseaseId = 'scoliosis' | 'lumbar-disc' | 'compression-fracture' | 'spinal-stenosis';
 
@@ -245,7 +249,7 @@ const DiseaseModal = ({
             src={disease.image}
             alt={disease.imageAlt}
             fill
-            sizes="(min-width: 768px) 560px, calc(100vw - 56px)"
+            sizes={MODAL_IMAGE_SIZES}
             className="object-cover"
           />
         </div>
@@ -268,6 +272,69 @@ const DiseaseModal = ({
 const LumbarDiseaseSection = () => {
   const [activeDiseaseId, setActiveDiseaseId] = useState<DiseaseId | null>(null);
   const activeDisease = activeDiseaseId ? findDisease(activeDiseaseId) : null;
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  // 질환 카드를 누른 뒤에야 팝업 이미지를 내려받으면 잠시 빈 화면이 보입니다.
+  // 섹션이 화면에 들어오면 한가한 시점에 4장을 미리 받아두어 팝업이 곧바로 뜨게 합니다.
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) {
+      return;
+    }
+
+    let cancelled = false;
+
+    const prefetchModalImages = () => {
+      if (cancelled) {
+        return;
+      }
+
+      diseases.forEach((disease) => {
+        const { props } = getImageProps({
+          src: disease.image,
+          alt: '',
+          fill: true,
+          sizes: MODAL_IMAGE_SIZES,
+        });
+
+        // 팝업의 <Image>와 같은 후보 목록을 넘겨, 브라우저가 화면 크기에 맞는
+        // 딱 그 한 장만 골라 받도록 합니다.
+        const preloader = new window.Image();
+        preloader.sizes = props.sizes ?? MODAL_IMAGE_SIZES;
+        if (props.srcSet) {
+          preloader.srcset = props.srcSet;
+        }
+        if (props.src) {
+          preloader.src = props.src;
+        }
+      });
+    };
+
+    const scheduleIdle = () => {
+      if (typeof window.requestIdleCallback === 'function') {
+        window.requestIdleCallback(prefetchModalImages, { timeout: 2500 });
+        return;
+      }
+      window.setTimeout(prefetchModalImages, 300);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          observer.disconnect();
+          scheduleIdle();
+        }
+      },
+      { rootMargin: '300px' },
+    );
+
+    observer.observe(section);
+
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     if (!activeDiseaseId) {
@@ -291,7 +358,7 @@ const LumbarDiseaseSection = () => {
   }, [activeDiseaseId]);
 
   return (
-    <section className="bg-[#F5F7FA] px-5 py-16 sm:px-6 md:py-32">
+    <section ref={sectionRef} className="bg-[#F5F7FA] px-5 py-16 sm:px-6 md:py-32">
       <div className="mx-auto max-w-7xl">
         <ScrollReveal amount={0.24}>
           <div className="text-center">

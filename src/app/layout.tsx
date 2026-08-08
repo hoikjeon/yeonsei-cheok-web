@@ -1,5 +1,15 @@
 import type { Metadata, Viewport } from "next";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
+
+// 외부 CDN 요청 없이 빌드 시점에 내려받아 자체 호스팅합니다.
+// 한글 폰트(Pretendard·Nanum Brush Script)는 next/font에 한글 서브셋이 없어
+// app/pretendard.css, app/nanum-brush.css 에서 직접 자체 호스팅합니다.
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-montserrat-loaded",
+});
 
 export const metadata: Metadata = {
   title: "연세척병원 | 실력을 세우다, 원칙을 지키다",
@@ -22,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={montserrat.variable}>
       <body className="min-h-screen flex flex-col antialiased">
         {children}
       </body>

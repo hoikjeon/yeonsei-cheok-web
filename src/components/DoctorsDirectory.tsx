@@ -49,7 +49,7 @@ interface DoctorsDirectoryProps {
   doctors: DoctorProfile[];
 }
 
-const DOCTOR_ORDER = ['이남', '김동한', '최호', '김범준', '장휘열'];
+const DOCTOR_ORDER = ['김동한', '이남', '최호', '김범준', '장휘열'];
 
 const DOCTOR_CAREERS: Record<string, string[]> = {
   이남: [

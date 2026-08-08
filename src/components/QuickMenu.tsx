@@ -70,11 +70,17 @@ const SCROLL_REVEAL_OFFSET = 300;
 
 const QuickMenu = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     const toggleVisibility = () => {
-      setIsVisible(window.scrollY > SCROLL_REVEAL_OFFSET);
+      const shouldShow = window.scrollY > SCROLL_REVEAL_OFFSET;
+      setIsVisible(shouldShow);
+
+      if (!shouldShow) {
+        setIsDesktopMenuOpen(false);
+      }
     };
 
     toggleVisibility();
@@ -138,35 +144,66 @@ const QuickMenu = () => {
               className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white/[0.94] shadow-[0_20px_60px_-38px_rgba(15,29,54,0.52)] backdrop-blur-xl"
             >
               <div className="flex w-[92px] flex-col">
-                {QUICK_ITEMS.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    target={item.external ? '_blank' : undefined}
-                    rel={item.external ? 'noopener noreferrer' : undefined}
-                    className={`group flex min-h-[82px] flex-col items-center justify-center gap-2.5 border-b border-slate-100 px-2 text-center transition-all ${
-                      item.primary
-                        ? 'bg-primary text-white hover:bg-primary-dark'
-                        : 'bg-white/90 text-ink hover:bg-primary-light hover:text-primary'
-                    }`}
-                  >
-                    <span className="flex h-7 w-7 items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                      {item.icon}
-                    </span>
-                    <span className="text-[13px] font-bold leading-none tracking-tight">
-                      {item.name}
-                    </span>
-                  </Link>
-                ))}
+                <AnimatePresence initial={false}>
+                  {isDesktopMenuOpen ? (
+                    <motion.div
+                      id="desktop-quick-menu-items"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      {QUICK_ITEMS.map((item) => (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          target={item.external ? '_blank' : undefined}
+                          rel={item.external ? 'noopener noreferrer' : undefined}
+                          onClick={() => setIsDesktopMenuOpen(false)}
+                          className={`group flex min-h-[82px] flex-col items-center justify-center gap-2.5 border-b border-slate-100 px-2 text-center transition-all ${
+                            item.primary
+                              ? 'bg-primary text-white hover:bg-primary-dark'
+                              : 'bg-white/90 text-ink hover:bg-primary-light hover:text-primary'
+                          }`}
+                        >
+                          <span className="flex h-7 w-7 items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                            {item.icon}
+                          </span>
+                          <span className="text-[13px] font-bold leading-none tracking-tight">
+                            {item.name}
+                          </span>
+                        </Link>
+                      ))}
+
+                      <button
+                        type="button"
+                        onClick={scrollToTop}
+                        className="group flex min-h-[70px] w-full flex-col items-center justify-center gap-2 bg-white/90 px-2 text-center text-ink transition-all hover:bg-navy-950 hover:text-white"
+                        aria-label="맨 위로 이동"
+                      >
+                        <ArrowUp size={22} />
+                        <span className="text-[12px] font-bold leading-none tracking-tight">위로</span>
+                      </button>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
 
                 <button
                   type="button"
-                  onClick={scrollToTop}
-                  className="group flex min-h-[70px] flex-col items-center justify-center gap-2 bg-white/90 px-2 text-center text-ink transition-all hover:bg-navy-950 hover:text-white"
-                  aria-label="맨 위로 이동"
+                  onClick={() => setIsDesktopMenuOpen((current) => !current)}
+                  aria-expanded={isDesktopMenuOpen}
+                  aria-controls="desktop-quick-menu-items"
+                  aria-label={isDesktopMenuOpen ? '빠른 메뉴 닫기' : '빠른 메뉴 열기'}
+                  className={`group flex min-h-[60px] flex-col items-center justify-center px-2 text-center text-white transition-all ${
+                    isDesktopMenuOpen
+                      ? 'bg-primary-dark hover:bg-navy-900'
+                      : 'bg-primary hover:bg-primary-dark'
+                  }`}
                 >
-                  <ArrowUp size={22} />
-                  <span className="text-[12px] font-bold leading-none tracking-tight">위로</span>
+                  <span className="text-[15px] font-bold leading-none tracking-tight">
+                    {isDesktopMenuOpen ? '닫기' : '퀵메뉴'}
+                  </span>
                 </button>
               </div>
             </nav>

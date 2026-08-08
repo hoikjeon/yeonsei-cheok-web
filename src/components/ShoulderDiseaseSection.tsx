@@ -333,7 +333,7 @@ export default function ShoulderDiseaseSection() {
 
             <div className="absolute inset-x-[4%] bottom-0 top-[12%] hidden lg:block">
               <Image
-                src={`${ASSET_ROOT}/shoulder-disease-map-v4.png`}
+                src={`${ASSET_ROOT}/shoulder-disease-map-white.png`}
                 alt=""
                 fill
                 sizes="(min-width: 1280px) 1216px, 100vw"

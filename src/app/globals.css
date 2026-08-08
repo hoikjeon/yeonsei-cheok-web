@@ -1,6 +1,8 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap");
+/* 본문 한글 폰트(Pretendard)는 자체 호스팅합니다.
+   로컬 파일 @import는 빌드 시 이 파일 안으로 합쳐지므로 추가 요청이 생기지 않습니다.
+   Montserrat·Nanum Brush Script는 app/layout.tsx의 next/font가 자체 호스팅합니다. */
+@import "./pretendard.css";
+@import "./nanum-brush.css";
 
 @import "tailwindcss";
 
@@ -54,7 +56,8 @@
   --color-ink-muted: #6B7280;  /* 보조 그레이 (캡션·라벨, 흰 배경 대비 확보) */
 
   --font-sans: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --font-montserrat: "Montserrat", "Pretendard Variable", "Pretendard", sans-serif;
+  /* --font-montserrat-loaded는 layout.tsx의 next/font가 주입하는 폰트명입니다. */
+  --font-montserrat: var(--font-montserrat-loaded), "Montserrat", "Pretendard Variable", "Pretendard", sans-serif;
   --font-handwriting: "Nanum Brush Script", "Nanum Pen Script", "Apple SD Gothic Neo", cursive;
   
   --radius-2xl: 1.5rem;

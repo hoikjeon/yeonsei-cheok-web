@@ -1,0 +1,16 @@
+# 배포 업로드에서 제외할 항목
+# 런타임에 쓰이지 않는 파일들이라 빌드 결과에는 영향이 없습니다.
+
+# 3D 실험용으로 만들었던 별도 Next 프로젝트 (본 사이트와 무관)
+glass-sphere-3d/
+
+# DB 세팅용 SQL (Supabase에서 직접 실행하는 파일)
+*.sql
+
+# 문서·작업기록
+*.md
+
+# 로컬 산출물
+tsconfig.tsbuildinfo
+.DS_Store
+**/.DS_Store

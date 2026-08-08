@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Form from 'next/form';
 import { Search, PenSquare, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
+import { unstable_cache } from 'next/cache';
 import SubHero from '@/components/SubHero';
 
 // 서버 사이드 Supabase 클라이언트
@@ -33,6 +34,36 @@ function pageHref(page: number, q: string) {
   return qs ? `/news/notice?${qs}` : '/news/notice';
 }
 
+// 이 페이지는 검색어·페이지 번호를 받기 때문에 정적으로 만들 수 없습니다.
+// 대신 조회 결과 자체를 캐시에 담아, 같은 검색·같은 페이지 요청은 DB를 다시 타지 않게 합니다.
+// 관리자에서 글을 올리면 최대 60초 안에 반영됩니다.
+const getNotices = unstable_cache(
+  async (keyword: string, page: number) => {
+    // 공지(상단고정: notice_pinned)가 먼저, 이후 최신순
+    let query = supabase
+      .from('hospital_news')
+      .select('id, type, title, created_at', { count: 'exact' })
+      .in('type', ['notice', 'notice_pinned']);
+
+    if (keyword) {
+      query = query.ilike('title', `%${keyword}%`);
+    }
+
+    const { data, count, error } = await query
+      .order('type', { ascending: false })
+      .order('created_at', { ascending: false })
+      .range((page - 1) * PAGE_SIZE, page * PAGE_SIZE - 1);
+
+    if (error) {
+      console.error('Error fetching notices:', error);
+    }
+
+    return { notices: data, count };
+  },
+  ['news-notice-list'],
+  { tags: ['news-notice'], revalidate: 60 },
+);
+
 export default async function NoticePage({
   searchParams,
 }: {
@@ -41,24 +72,7 @@ export default async function NoticePage({
   const { q = '', page: pageParam } = await searchParams;
   const currentPage = Math.max(1, parseInt(pageParam || '1', 10) || 1);
 
-  // 공지(상단고정: notice_pinned)가 먼저, 이후 최신순
-  let query = supabase
-    .from('hospital_news')
-    .select('id, type, title, created_at', { count: 'exact' })
-    .in('type', ['notice', 'notice_pinned']);
-
-  if (q) {
-    query = query.ilike('title', `%${q}%`);
-  }
-
-  const { data: notices, count, error } = await query
-    .order('type', { ascending: false })
-    .order('created_at', { ascending: false })
-    .range((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE - 1);
-
-  if (error) {
-    console.error('Error fetching notices:', error);
-  }
+  const { notices, count } = await getNotices(q, currentPage);
 
   const totalCount = count || 0;
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));

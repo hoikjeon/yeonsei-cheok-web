@@ -26,20 +26,6 @@ type ResponsiveHitZone = {
   desktop: BoxPosition;
 };
 
-type LabelPosition = {
-  left: number;
-  top?: number;
-  bottom?: number;
-  fontSize: number;
-};
-
-type ResponsiveLabelPosition = {
-  mobile: LabelPosition;
-  smallFontSize: number;
-  desktop: LabelPosition;
-  wideFontSize: number;
-};
-
 type CSSVariableStyle = CSSProperties & Record<`--${string}`, string | number>;
 
 type DoctorLineupItem = {
@@ -51,12 +37,6 @@ type DoctorLineupItem = {
   position: ResponsiveDoctorPosition;
   hitZone: ResponsiveHitZone;
   isFlipped?: boolean;
-};
-
-type DoctorNameLabel = {
-  id: string;
-  text: string;
-  position: ResponsiveLabelPosition;
 };
 
 // ── 인물 개별 조정 영역 ─────────────────────────────────────────────
@@ -88,12 +68,12 @@ const doctorLineup: DoctorLineupItem[] = [
     image: '/generated/doctors-lineup/choi-ho.png',
     alt: '최호 원장',
     position: {
-      mobile: { left: 50, top: 11, width: 25, height: 62, zIndex: 30 },
-      desktop: { left: 50, top: 18, width: 22, height: 78, zIndex: 30 },
+      mobile: { left: 50, top: 9, width: 25, height: 62, zIndex: 30 },
+      desktop: { left: 50, top: 16, width: 22, height: 78, zIndex: 30 },
     },
     hitZone: {
-      mobile: { left: 50, top: 20, width: 17, height: 30 },
-      desktop: { left: 50, top: 27, width: 15, height: 38 },
+      mobile: { left: 50, top: 18, width: 17, height: 30 },
+      desktop: { left: 50, top: 25, width: 15, height: 38 },
     },
   },
   {
@@ -144,65 +124,6 @@ const doctorLineup: DoctorLineupItem[] = [
   },
 ];
 
-// ── 이름표 개별 조정 영역 ───────────────────────────────────────────
-// left·top·bottom은 위치(%), fontSize·smallFontSize·wideFontSize는 글자 크기(px)입니다.
-// 위쪽 이름은 top, 아래쪽 이름은 bottom 숫자를 조절하면 됩니다.
-const backDoctorNameLabels: DoctorNameLabel[] = [
-  {
-    id: 'kim-beom-jun-label',
-    text: '김범준 원장',
-    position: {
-      mobile: { left: 13, top: 34, fontSize: 15 },
-      smallFontSize: 17,
-      desktop: { left: 19, top: 45, fontSize: 30 },
-      wideFontSize: 33,
-    },
-  },
-  {
-    id: 'choi-ho-label',
-    text: '최호 원장',
-    position: {
-      mobile: { left: 37, top: 32, fontSize: 15 },
-      smallFontSize: 17,
-      desktop: { left: 41, top: 39, fontSize: 30 },
-      wideFontSize: 33,
-    },
-  },
-  {
-    id: 'jang-hwi-yeol-label',
-    text: '장휘열 원장',
-    position: {
-      mobile: { left: 87, top: 34, fontSize: 15 },
-      smallFontSize: 17,
-      desktop: { left: 81, top: 45, fontSize: 30 },
-      wideFontSize: 33,
-    },
-  },
-];
-
-const frontDoctorNameLabels: DoctorNameLabel[] = [
-  {
-    id: 'kim-dong-han-label',
-    text: '김동한 병원장',
-    position: {
-      mobile: { left: 36, bottom: 8, fontSize: 15 },
-      smallFontSize: 17,
-      desktop: { left: 41, bottom: 10, fontSize: 31 },
-      wideFontSize: 34,
-    },
-  },
-  {
-    id: 'lee-nam-label',
-    text: '이남 병원장',
-    position: {
-      mobile: { left: 64, bottom: 8, fontSize: 15 },
-      smallFontSize: 17,
-      desktop: { left: 59, bottom: 10, fontSize: 31 },
-      wideFontSize: 34,
-    },
-  },
-];
-
 const percent = (value: number) => `${value}%`;
 
 const getDoctorPositionStyle = (position: ResponsiveDoctorPosition): CSSVariableStyle => ({
@@ -227,19 +148,6 @@ const getHitZoneStyle = (position: ResponsiveHitZone): CSSVariableStyle => ({
   '--hit-top-desktop': percent(position.desktop.top),
   '--hit-width-desktop': percent(position.desktop.width),
   '--hit-height-desktop': percent(position.desktop.height),
-});
-
-const getLabelPositionStyle = (position: ResponsiveLabelPosition): CSSVariableStyle => ({
-  '--label-left-mobile': percent(position.mobile.left),
-  '--label-top-mobile': position.mobile.top === undefined ? 'auto' : percent(position.mobile.top),
-  '--label-bottom-mobile': position.mobile.bottom === undefined ? 'auto' : percent(position.mobile.bottom),
-  '--label-font-mobile': `${position.mobile.fontSize}px`,
-  '--label-font-small': `${position.smallFontSize}px`,
-  '--label-left-desktop': percent(position.desktop.left),
-  '--label-top-desktop': position.desktop.top === undefined ? 'auto' : percent(position.desktop.top),
-  '--label-bottom-desktop': position.desktop.bottom === undefined ? 'auto' : percent(position.desktop.bottom),
-  '--label-font-desktop': `${position.desktop.fontSize}px`,
-  '--label-font-wide': `${position.wideFontSize}px`,
 });
 
 // 클릭 스크롤 도착 여백: 스크롤 시 헤더가 사라지므로 헤더 높이(96) 대신 살짝만 띄웁니다
@@ -354,36 +262,8 @@ export default function DoctorsHeroLineup() {
             ))}
           </div>
 
-          <div className="pointer-events-none absolute inset-0 z-[45] font-handwriting font-normal tracking-normal text-navy-900/90">
-            {backDoctorNameLabels.map((label) => (
-              <span
-                key={label.id}
-                style={getLabelPositionStyle(label.position)}
-                className={`absolute -translate-x-1/2 whitespace-nowrap drop-shadow-[0_2px_8px_rgba(255,255,255,0.92)] transition-transform duration-300 ease-out ${
-                  activeDoctorId === label.id.replace('-label', '') ? 'scale-[1.07]' : ''
-                } ${styles.nameLabelPosition}`}
-              >
-                {label.text}
-              </span>
-            ))}
-          </div>
-
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[90] h-[17%] bg-[linear-gradient(180deg,rgba(255,255,255,0)_0%,rgba(255,255,255,0.84)_62%,#ffffff_100%)]" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[95] h-6 bg-white" />
-
-          <div className="pointer-events-none absolute inset-0 z-[100] font-handwriting font-normal tracking-normal text-navy-900/90">
-            {frontDoctorNameLabels.map((label) => (
-              <span
-                key={label.id}
-                style={getLabelPositionStyle(label.position)}
-                className={`absolute -translate-x-1/2 whitespace-nowrap drop-shadow-[0_2px_8px_rgba(255,255,255,0.92)] transition-transform duration-300 ease-out ${
-                  activeDoctorId === label.id.replace('-label', '') ? 'scale-[1.07]' : ''
-                } ${styles.nameLabelPosition}`}
-              >
-                {label.text}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
     </section>

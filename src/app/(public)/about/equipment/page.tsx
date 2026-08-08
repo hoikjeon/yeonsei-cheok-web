@@ -163,15 +163,11 @@ function EquipmentCard({ item, index }: { item: Equipment; index: number }) {
             fill
             sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1536px) 50vw, 680px"
             quality={90}
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+            className="scale-[1.02] object-cover"
           />
-          <span className="absolute right-4 top-4 rounded-full border border-white/70 bg-white/90 px-3.5 py-2 text-[11px] font-bold tracking-[-0.02em] text-primary shadow-sm backdrop-blur sm:right-5 sm:top-5 sm:text-xs">
-            {item.category}
-          </span>
         </div>
 
         <div className="flex flex-1 flex-col px-5 py-6 sm:px-7 sm:py-8 lg:px-10 lg:py-10">
-          <div className="mb-4 h-1 w-9 rounded-full bg-primary/85" />
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <h2 className="break-keep text-h3 tracking-[-0.035em] text-primary">
               {item.name}
@@ -204,17 +200,21 @@ export default function EquipmentPage() {
       />
 
       <main>
-        <section className="px-4 py-16 sm:px-6 sm:py-20 md:py-28 lg:py-36">
-          <ScrollReveal className="mx-auto max-w-5xl">
+        <section className="overflow-hidden px-4 py-16 sm:px-6 sm:py-20 md:py-28 lg:py-36">
+          <div className="mx-auto max-w-5xl">
             <div className="space-y-2 text-[clamp(1.8rem,4.2vw,3.2rem)] font-medium leading-[1.3] tracking-[-0.045em] text-ink-sub">
-              <p className="break-keep">
-                정확한 진단과 <strong className="font-extrabold text-ink">안전한 치료</strong>를 돕는
-              </p>
-              <p className="break-keep text-left sm:text-right">
-                <strong className="font-extrabold text-primary">첨단 의료 장비</strong>를 운영합니다.
-              </p>
+              <ScrollReveal variant="slide-from-left" amount={0.45}>
+                <p className="break-keep">
+                  정확한 진단과 <strong className="font-extrabold text-ink">안전한 치료</strong>를 돕는
+                </p>
+              </ScrollReveal>
+              <ScrollReveal variant="slide-from-right" amount={0.45} delay={0.12}>
+                <p className="break-keep text-left sm:text-right">
+                  <strong className="font-extrabold text-primary">첨단 의료 장비</strong>를 운영합니다.
+                </p>
+              </ScrollReveal>
             </div>
-          </ScrollReveal>
+          </div>
         </section>
 
         <section className="relative overflow-hidden bg-[#17377f] px-4 pb-36 pt-16 text-center sm:px-6 sm:pb-44 sm:pt-20 md:pb-52 md:pt-24">

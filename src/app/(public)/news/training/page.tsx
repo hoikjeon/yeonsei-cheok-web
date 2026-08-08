@@ -7,6 +7,10 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+// 관리자에서 글을 올리면 최대 60초 안에 목록에 반영됩니다.
+// 이 값이 없으면 빌드 시점 데이터로 굳어 재배포 전까지 새 글이 보이지 않습니다.
+export const revalidate = 60;
+
 interface HospitalNews {
   id: string;
   title: string;

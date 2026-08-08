@@ -1,5 +1,11 @@
 import Image from 'next/image';
-import { HeartPulse, Stethoscope, UserCheck, Zap } from 'lucide-react';
+import {
+  HeartPulse,
+  Stethoscope,
+  UserRoundCheck,
+  Workflow,
+  type LucideIcon,
+} from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
 import SubHero from '@/components/SubHero';
 import TreatmentStepGraph from '@/components/TreatmentStepGraph';
@@ -27,17 +33,17 @@ const INTRO_SECTIONS: IntroSection[] = [
     title: '병원장 인사말',
     directors: [
       {
-        name: '이남 병원장',
-        image: '/generated/doctors-lineup/lee-nam.png',
-        alt: '이남 병원장',
-        figureClassName: 'left-[35%] top-[1%] z-20 h-[145%] w-[64%]',
-        labelClassName: 'left-[35%]',
-      },
-      {
         name: '김동한 병원장',
         image: '/generated/doctors-lineup/kim-dong-han.png',
         alt: '김동한 병원장',
-        figureClassName: 'left-[65%] top-[-2%] z-10 h-[156%] w-[68%]',
+        figureClassName: 'left-[35%] top-[-2%] z-10 h-[156%] w-[68%]',
+        labelClassName: 'left-[35%]',
+      },
+      {
+        name: '이남 병원장',
+        image: '/generated/doctors-lineup/lee-nam.png',
+        alt: '이남 병원장',
+        figureClassName: 'left-[65%] top-[1%] z-20 h-[145%] w-[64%]',
         labelClassName: 'left-[65%]',
         imageClassName: 'scale-x-[-1]',
       },
@@ -73,26 +79,30 @@ function renderRichText(text: string) {
   );
 }
 
-const VALUE_ITEMS = [
+const VALUE_ITEMS: Array<{
+  title: string;
+  desc: string;
+  icon: LucideIcon;
+}> = [
   {
     title: '시술부터 수술까지!',
     desc: '대학병원 출신 신경외과·정형외과 전문의의 넓은 치료영역',
-    icon: <Stethoscope size={26} />,
+    icon: Stethoscope,
   },
   {
     title: '일대일 맞춤 치료',
     desc: '분야별 숙련의가 맞춤 치료 제안',
-    icon: <UserCheck size={26} />,
+    icon: UserRoundCheck,
   },
   {
     title: '올바른 사후관리',
     desc: '재활치료센터 운영, 생활습관 지도 등 치료의 처음과 끝까지!',
-    icon: <HeartPulse size={26} />,
+    icon: HeartPulse,
   },
   {
     title: '원스톱 진료시스템',
     desc: '내원 당일 검사, 시술까지 가능한 One stop care system',
-    icon: <Zap size={26} />,
+    icon: Workflow,
   },
 ];
 
@@ -221,16 +231,16 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               {VALUE_ITEMS.map((item, index) => (
                 <ScrollReveal key={item.title} delay={index * 0.1} amount={0.2}>
-                  <article className="group relative h-full overflow-hidden rounded-2xl border border-slate-100 bg-white p-5 shadow-[0_24px_70px_-56px_rgba(15,29,54,0.5)] transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/25 hover:shadow-[0_42px_90px_-52px_rgba(40,74,165,0.55)] sm:p-7 md:p-9">
-                    <span className="pointer-events-none absolute -right-2 -top-3 font-montserrat text-[82px] font-bold leading-none text-primary/[0.05] transition-colors duration-500 group-hover:text-primary/[0.09] sm:-top-5 sm:text-[102px] md:text-[112px]">
-                      0{index + 1}
+                  <article className="group relative flex min-h-[180px] h-full flex-col justify-end overflow-hidden rounded-2xl border border-slate-100 bg-white p-5 shadow-[0_24px_70px_-56px_rgba(15,29,54,0.5)] transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/25 hover:shadow-[0_42px_90px_-52px_rgba(40,74,165,0.55)] sm:min-h-[210px] sm:p-7 md:min-h-[230px] md:p-9">
+                    <span className="pointer-events-none absolute right-4 top-3 h-[92px] w-[92px] text-primary/[0.055] transition-all duration-500 group-hover:scale-105 group-hover:text-primary/[0.1] sm:right-6 sm:top-4 sm:h-28 sm:w-28 md:right-8 md:top-5 md:h-32 md:w-32">
+                      <item.icon
+                        aria-hidden="true"
+                        className="h-full w-full"
+                        strokeWidth={1.15}
+                      />
                     </span>
 
-                    <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-light text-primary transition-all duration-500 group-hover:scale-110 group-hover:bg-primary group-hover:text-white">
-                      {item.icon}
-                    </div>
-
-                    <h3 className="relative mt-6 break-keep text-xl font-bold tracking-tight text-ink sm:mt-7 sm:text-2xl md:text-[1.7rem]">
+                    <h3 className="relative break-keep text-xl font-bold tracking-tight text-ink sm:text-2xl md:text-[1.7rem]">
                       {item.title}
                     </h3>
                     <p className="relative mt-3 break-keep text-body text-ink-sub sm:mt-3.5">

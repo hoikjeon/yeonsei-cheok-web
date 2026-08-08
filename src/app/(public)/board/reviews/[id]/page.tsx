@@ -37,7 +37,7 @@ export default async function ReviewDetailPage({ params }: { params: { id: strin
     <main className="min-h-screen bg-white pt-0 md:pt-[96px]">
       {/* 🔹 Breadcrumb Section */}
       <section className="bg-slate-50 border-b border-slate-100">
-        <div className="mx-auto flex max-w-[1200px] items-center gap-1.5 overflow-hidden px-4 py-4 text-[12px] font-bold tracking-tight text-ink-muted sm:gap-2 sm:px-6 sm:py-6 sm:text-[13px]">
+        <div className="mx-auto flex max-w-7xl items-center gap-1.5 overflow-hidden px-4 py-4 text-[12px] font-bold tracking-tight text-ink-muted sm:gap-2 sm:px-7 sm:py-6 sm:text-[13px] xl:px-10">
           <Link href="/" className="hover:text-primary transition-colors">
             <Home size={14} strokeWidth={2.5} />
           </Link>
