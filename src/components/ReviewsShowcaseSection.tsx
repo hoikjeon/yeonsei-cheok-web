@@ -221,7 +221,7 @@ export default function ReviewsShowcaseSection() {
       >
         <div
           ref={trackRef}
-          className="ml-5 flex h-[252px] w-max items-start gap-2.5 sm:ml-7 sm:h-[400px] sm:gap-7 md:-ml-44 md:h-[420px]"
+          className="ml-4 flex h-[252px] w-max items-start gap-2 sm:ml-7 sm:h-[400px] sm:gap-7 md:-ml-44 md:h-[420px]"
           style={{
             transform: `translateX(${-step * slotWidth}px)`,
             transition,
@@ -235,18 +235,18 @@ export default function ReviewsShowcaseSection() {
               <article
                 key={`${review.title}-${index}`}
                 aria-hidden={index >= total}
-                className={`flex h-[210px] w-[224px] shrink-0 flex-col rounded-[18px] px-3.5 py-4 sm:h-[342px] sm:w-[286px] sm:rounded-[28px] sm:px-7 sm:py-8 md:w-[320px] ${isLower ? 'translate-y-9 md:translate-y-[58px]' : 'translate-y-0'} ${tone.card}`}
+                className={`flex h-[210px] w-[164px] shrink-0 flex-col rounded-[18px] px-3 py-3.5 sm:h-[342px] sm:w-[286px] sm:rounded-[28px] sm:px-7 sm:py-8 md:w-[320px] ${isLower ? 'translate-y-9 md:translate-y-[58px]' : 'translate-y-0'} ${tone.card}`}
                 style={{
                   transition,
                 }}
               >
-                <span className={`inline-flex w-fit rounded-full px-3 py-1.5 text-[11px] font-bold leading-none sm:px-5 sm:py-3 sm:text-caption ${tone.chip}`}>
+                <span className={`inline-flex w-fit rounded-full px-2.5 py-1 text-[10px] font-bold leading-none sm:px-5 sm:py-3 sm:text-caption ${tone.chip}`}>
                   {review.category}
                 </span>
-                <p className={`mt-3 line-clamp-4 break-keep text-[15px] font-bold leading-[1.45] tracking-normal sm:mt-6 sm:text-h4 sm:leading-[1.55] ${tone.body}`}>
+                <p className={`mt-2.5 line-clamp-4 break-keep text-[13px] font-bold leading-[1.4] tracking-normal sm:mt-6 sm:text-h4 sm:leading-[1.55] ${tone.body}`}>
                   {review.title}
                 </p>
-                <div className={`mt-auto flex items-center justify-between gap-2 pt-3.5 text-[13px] font-medium tracking-normal sm:gap-4 sm:pt-10 sm:text-body ${tone.meta}`}>
+                <div className={`mt-auto flex items-center justify-between gap-1.5 pt-3 text-[11px] font-medium tracking-normal sm:gap-4 sm:pt-10 sm:text-body ${tone.meta}`}>
                   <span>{review.author}</span>
                   <time dateTime={review.date.replaceAll('.', '-')}>{review.date}</time>
                 </div>

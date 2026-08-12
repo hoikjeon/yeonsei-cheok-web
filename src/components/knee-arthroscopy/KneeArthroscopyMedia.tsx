@@ -140,13 +140,10 @@ export default function KneeArthroscopyMedia() {
               </div>
               <figcaption
                 id="knee-arthroscopy-video-caption"
-                className="flex flex-col gap-1 px-3 pb-2 pt-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-4 sm:pb-3 sm:pt-5"
+                className="px-3 pb-2 pt-4 sm:px-4 sm:pb-3 sm:pt-5"
               >
                 <p className="shrink-0 text-sm font-bold text-white sm:text-base">
                   실제 무릎 관절내시경 화면
-                </p>
-                <p className="break-keep text-[13px] font-medium leading-relaxed text-white/58 sm:text-right sm:text-sm">
-                  관절경 카메라로 관절 내부를 살펴보며 수술을 진행하는 모습입니다.
                 </p>
               </figcaption>
             </figure>
@@ -155,10 +152,7 @@ export default function KneeArthroscopyMedia() {
           <ScrollReveal delay={0.08} className="h-full">
             <div className="flex h-full flex-col rounded-2xl border border-white/15 bg-white/[0.07] p-5 backdrop-blur-sm sm:p-7 lg:p-8">
               <div>
-                <p className="text-[12px] font-bold tracking-[0.12em] text-cyan-300">
-                  ARTHROSCOPY PROCESS
-                </p>
-                <h3 className="mt-2 break-keep text-h3 tracking-tight text-white">
+                <h3 className="break-keep text-h3 tracking-tight text-white">
                   화면으로 확인하는
                   <br className="hidden sm:block" /> 치료의 흐름
                 </h3>

@@ -115,7 +115,10 @@ const MENU_DATA: MenuData[] = [
 ];
 
 const REPRESENTATIVE_PHONE = '051-935-1004';
-const NAVER_RESERVATION_URL = 'https://m.booking.naver.com/booking/13/search?query=%EC%97%B0%EC%84%B8%EC%B2%99%EB%B3%91%EC%9B%90';
+// 연세척병원 네이버 플레이스(장소 ID 35643868).
+// PC는 이 주소로 바로 열리고, 모바일은 네이버가 알아서 앱/모바일 페이지로 넘겨주므로
+// 별도의 모바일 전용 주소가 필요 없습니다.
+const NAVER_RESERVATION_URL = 'https://map.naver.com/p/entry/place/35643868';
 
 const CLINIC_HOURS = [
   { label: '평일', time: '09:00 - 17:30', tone: 'text-primary' },

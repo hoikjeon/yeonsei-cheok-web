@@ -3,6 +3,8 @@
 import Image, { getImageProps } from 'next/image';
 import { X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import MobileDiseaseMap, { type MobileDiseaseMapMarker } from '@/components/MobileDiseaseMap';
 import ScrollReveal from '@/components/ScrollReveal';
 
 // 팝업 안의 이미지가 쓰는 크기 지정입니다.
@@ -143,6 +145,29 @@ const diseaseMarkers = [
   button: { left: string; top: string };
 }>;
 
+const mobileDiseaseMarkers = [
+  {
+    id: 'compression-fracture',
+    title: '척추압박골절',
+    point: { left: '50%', top: '34%' },
+  },
+  {
+    id: 'scoliosis',
+    title: '척추측만증',
+    point: { left: '50%', top: '47%' },
+  },
+  {
+    id: 'spinal-stenosis',
+    title: '척추관협착증',
+    point: { left: '50%', top: '58%' },
+  },
+  {
+    id: 'lumbar-disc',
+    title: '허리디스크',
+    point: { left: '50%', top: '69%' },
+  },
+] as const satisfies ReadonlyArray<MobileDiseaseMapMarker<DiseaseId>>;
+
 const Marker = ({
   marker,
   onSelect,
@@ -216,7 +241,7 @@ const DiseaseModal = ({
   onClose: () => void;
 }) => (
   <div
-    className="fixed inset-0 z-[999] flex items-center justify-center bg-black/68 px-3 py-4 backdrop-blur-[2px] sm:px-4 sm:py-6"
+    className="fixed inset-0 z-[3000] flex items-center justify-center overscroll-contain bg-black/68 px-3 py-4 backdrop-blur-[2px] sm:px-4 sm:py-6"
     onMouseDown={(event) => {
       if (event.target === event.currentTarget) {
         onClose();
@@ -398,24 +423,22 @@ const LumbarDiseaseSection = () => {
               <Marker key={marker.diseaseId} marker={marker} onSelect={setActiveDiseaseId} />
             ))}
 
-            <div className="relative z-10 mt-8 grid gap-2.5 lg:hidden">
-              {diseases.map((disease) => (
-                <button
-                  key={disease.id}
-                  type="button"
-                  onClick={() => setActiveDiseaseId(disease.id)}
-                  className="flex min-h-14 items-center justify-between gap-3 rounded-xl bg-primary px-4 py-3 text-left text-[1rem] font-bold text-white shadow-[0_16px_34px_-24px_rgba(40,74,165,0.8)] sm:rounded-2xl sm:px-5 sm:py-4 sm:text-[1.1rem]"
-                >
-                  <span>{disease.title}</span>
-                  <span aria-hidden="true" className="shrink-0 text-[12px] font-bold text-white/75 sm:text-sm">자세히</span>
-                </button>
-              ))}
-            </div>
+            <MobileDiseaseMap
+              imageSrc="/generated/lumbar-disc/lumbar-disease-map-illustration.png"
+              imageAlt="척추측만증, 허리디스크, 척추압박골절, 척추관협착증 부위를 선택할 수 있는 허리 질환 의료 일러스트"
+              markers={mobileDiseaseMarkers}
+              onSelect={setActiveDiseaseId}
+            />
           </div>
         </ScrollReveal>
       </div>
 
-      {activeDisease && <DiseaseModal disease={activeDisease} onClose={() => setActiveDiseaseId(null)} />}
+      {activeDisease
+        ? createPortal(
+            <DiseaseModal disease={activeDisease} onClose={() => setActiveDiseaseId(null)} />,
+            document.body,
+          )
+        : null}
     </section>
   );
 };

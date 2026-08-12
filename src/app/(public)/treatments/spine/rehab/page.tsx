@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { Activity, HeartPulse, RefreshCw, ShieldCheck } from 'lucide-react';
+import { Bandage, BicepsFlexed, Bone, Footprints } from 'lucide-react';
 
 const postoperativeRehabTargets = [
   '관절·인대 수술 후 통증이나 부종이 이어지는 분',
@@ -14,10 +14,10 @@ const postoperativeRehabTargets = [
 ];
 
 const postoperativeRehabGoals = [
-  { title: '수술 부위\n기능 회복', icon: RefreshCw },
-  { title: '통증 완화 및\n부종 감소', icon: HeartPulse },
-  { title: '관절 가동범위와\n근력 회복', icon: Activity },
-  { title: '일상생활 복귀 및\n재손상 방지', icon: ShieldCheck },
+  { title: '수술 부위\n기능 회복', icon: Bone },
+  { title: '통증 완화 및\n부종 감소', icon: Bandage },
+  { title: '관절 가동범위와\n근력 회복', icon: BicepsFlexed },
+  { title: '일상생활 복귀 및\n재손상 방지', icon: Footprints },
 ];
 
 export const metadata: Metadata = {
@@ -113,11 +113,6 @@ export default function RehabPage() {
                 순차적으로 진행합니다. 올바른 자세와 움직임을 스스로 관리할 수
                 있도록 도와 안정적인 일상 복귀를 준비합니다.
               </p>
-
-              <p className="mt-7 break-keep border-l-[3px] border-primary pl-5 text-[15px] font-bold leading-[1.75] text-ink sm:mt-9 sm:text-[17px]">
-                연세척병원은 진단부터 도수치료, 운동재활까지
-                <br className="hidden xl:block" /> 하나의 회복 과정으로 연결합니다.
-              </p>
             </div>
 
             <div className="overflow-hidden rounded-[1.25rem] bg-slate-100 shadow-[0_28px_70px_-48px_rgba(15,29,54,0.5)] ring-1 ring-slate-200/70">
@@ -139,14 +134,10 @@ export default function RehabPage() {
         className="border-t border-slate-100 bg-white px-5 py-20 sm:px-8 sm:py-28 lg:py-36"
       >
         <div className="mx-auto grid max-w-[1210px] gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20 xl:gap-28">
-          <div className="lg:pt-3">
-            <p className="font-montserrat text-[12px] font-bold uppercase tracking-[0.18em] text-primary sm:text-[13px]">
-              Postoperative rehabilitation
-            </p>
-
+          <div className="lg:pt-1">
             <h2
               id="postoperative-rehab-title"
-              className="mt-4 break-keep text-[1.8rem] font-bold leading-[1.35] tracking-[-0.025em] text-ink sm:mt-5 sm:text-[2.25rem] lg:text-[2.7rem]"
+              className="break-keep text-[1.8rem] font-bold leading-[1.35] tracking-[-0.025em] text-ink sm:text-[2.25rem] lg:text-[2.7rem]"
             >
               수술 후 재활에 대해
               <br />
@@ -157,11 +148,6 @@ export default function RehabPage() {
               수술 부위와 회복 속도는 사람마다 다릅니다. 다음과 같은 경우에는
               의료진의 진단을 바탕으로 현재 상태에 맞는 단계별 재활 계획이
               필요합니다.
-            </p>
-
-            <p className="mt-7 break-keep border-l-[3px] border-primary pl-5 text-[14px] font-semibold leading-[1.75] text-ink-muted sm:mt-9 sm:text-[15px]">
-              재활 시작 시점과 운동 강도는 수술 종류와
-              <br className="hidden xl:block" /> 의료진의 소견에 따라 달라질 수 있습니다.
             </p>
           </div>
 
@@ -202,12 +188,9 @@ export default function RehabPage() {
       >
         <div className="mx-auto max-w-[1210px]">
           <div className="max-w-2xl">
-            <p className="font-montserrat text-[12px] font-bold uppercase tracking-[0.18em] text-primary sm:text-[13px]">
-              Recovery goals
-            </p>
             <h2
               id="postoperative-rehab-goals-title"
-              className="mt-4 break-keep text-[1.8rem] font-bold leading-[1.35] tracking-[-0.025em] text-ink sm:mt-5 sm:text-[2.25rem] lg:text-[2.7rem]"
+              className="break-keep text-[1.8rem] font-bold leading-[1.35] tracking-[-0.025em] text-ink sm:text-[2.25rem] lg:text-[2.7rem]"
             >
               수술 후 재활 <span className="text-primary">치료 목표</span>
             </h2>
@@ -220,24 +203,21 @@ export default function RehabPage() {
               return (
                 <article
                   key={goal.title}
-                  className="group relative flex min-h-[190px] flex-col overflow-hidden rounded-[1.15rem] border border-slate-200 bg-white p-4 shadow-[0_20px_55px_-48px_rgba(15,29,54,0.5)] transition-all duration-500 ease-out hover:-translate-y-2 hover:border-primary/35 hover:shadow-[0_30px_70px_-34px_rgba(40,74,165,0.45)] motion-reduce:transform-none motion-reduce:transition-none sm:min-h-[230px] sm:rounded-[1.4rem] sm:p-7 lg:min-h-[280px] lg:p-8"
+                  className="group relative flex min-h-[148px] flex-col justify-end overflow-hidden rounded-[1.15rem] border border-slate-100 bg-white p-5 shadow-[0_24px_70px_-56px_rgba(15,29,54,0.5)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-primary/25 hover:shadow-[0_42px_90px_-52px_rgba(40,74,165,0.55)] motion-reduce:transform-none motion-reduce:transition-none sm:min-h-[175px] sm:rounded-[1.4rem] sm:p-6 lg:min-h-[195px] lg:p-7"
                 >
-                  <span
+                  <Icon
                     aria-hidden="true"
-                    className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white via-white to-primary-light opacity-0 transition-opacity duration-500 group-hover:opacity-100 motion-reduce:transition-none"
+                    className="pointer-events-none absolute right-3 top-3 h-[68px] w-[68px] text-primary/[0.09] transition-all duration-500 group-hover:scale-105 group-hover:text-primary/[0.17] motion-reduce:transform-none motion-reduce:transition-none sm:right-4 sm:top-4 sm:h-20 sm:w-20 lg:h-24 lg:w-24"
+                    strokeWidth={1.15}
                   />
 
-                  <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-light text-primary transition-all duration-500 group-hover:scale-110 group-hover:bg-primary group-hover:text-white motion-reduce:transform-none motion-reduce:transition-none sm:h-14 sm:w-14">
-                    <Icon aria-hidden="true" className="h-6 w-6 sm:h-7 sm:w-7" strokeWidth={1.8} />
-                  </div>
-
-                  <h3 className="relative mt-6 whitespace-pre-line break-keep text-[17px] font-bold leading-[1.5] tracking-[-0.02em] text-ink transition-colors duration-500 group-hover:text-primary-dark sm:mt-8 sm:text-[20px] lg:text-[22px]">
+                  <h3 className="relative whitespace-pre-line break-keep text-[17px] font-bold leading-[1.5] tracking-[-0.02em] text-ink transition-colors duration-500 group-hover:text-primary-dark sm:text-[20px] lg:text-[22px]">
                     {goal.title}
                   </h3>
 
                   <span
                     aria-hidden="true"
-                    className="relative mt-auto h-px w-full bg-slate-200 transition-colors duration-500 group-hover:bg-primary/70 motion-reduce:transition-none"
+                    className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-primary transition-transform duration-500 group-hover:scale-x-100 motion-reduce:transition-none"
                   />
                 </article>
               );

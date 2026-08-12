@@ -20,26 +20,26 @@ const symptomCards = [
   {
     title: '통증과 압통',
     description: '어깨 앞쪽이나 바깥쪽이 아프고 누를 때 불편할 수 있습니다.',
-    image: `${ASSET_ROOT}/shoulder-symptom-tenderness.webp`,
-    alt: '어깨 앞쪽 통증 부위를 손으로 짚는 모습',
+    image: `${ASSET_ROOT}/shoulder-symptom-tenderness-woman-60s.jpg`,
+    alt: '60대 여성이 어깨 앞쪽 통증 부위를 손으로 짚는 모습',
   },
   {
     title: '밤에 심해지는 통증',
     description: '아픈 쪽으로 누울 때 통증이 심해져 잠에서 깰 수 있습니다.',
-    image: `${ASSET_ROOT}/shoulder-symptom-night-pain.webp`,
-    alt: '밤에 어깨 통증으로 잠을 이루기 어려운 모습',
+    image: `${ASSET_ROOT}/shoulder-symptom-night-pain-woman-60s.jpg`,
+    alt: '60대 여성이 밤에 어깨 통증으로 잠을 이루기 어려워하는 모습',
   },
   {
     title: '팔을 들거나 돌릴 때 통증',
     description: '옷을 입거나 머리 위로 팔을 올리는 동작이 불편할 수 있습니다.',
-    image: `${ASSET_ROOT}/shoulder-symptom-rotation-pain.webp`,
-    alt: '팔을 들어 올리며 어깨 통증을 느끼는 모습',
+    image: `${ASSET_ROOT}/shoulder-symptom-rotation-pain-woman-60s.jpg`,
+    alt: '60대 여성이 팔을 들어 올리며 어깨 통증을 느끼는 모습',
   },
   {
     title: '운동 범위와 근력 감소',
     description: '등 뒤로 손을 돌리기 어렵거나 팔에 힘이 빠질 수 있습니다.',
-    image: `${ASSET_ROOT}/shoulder-symptom-range-limited.webp`,
-    alt: '의료진이 어깨 운동 범위를 확인하는 모습',
+    image: `${ASSET_ROOT}/shoulder-symptom-range-limited-woman-60s.jpg`,
+    alt: '여성 의료진이 60대 여성의 어깨 운동 범위를 확인하는 모습',
   },
 ];
 
@@ -265,10 +265,6 @@ export default function ShoulderJointPage() {
               ))}
             </div>
           </div>
-
-          <p className="mt-8 rounded-2xl bg-amber-50 px-4 py-4 text-[13px] font-bold leading-[1.7] text-amber-950 ring-1 ring-amber-200/70 sm:mt-10 sm:px-6 sm:text-[15px]">
-            어깨 통증의 원인은 한 가지 증상만으로 구분하기 어렵습니다. 외상 뒤 팔을 들 수 없거나 심한 붓기·감각 저하·발열이 동반되면 빠른 진료가 필요합니다.
-          </p>
         </div>
       </section>
 

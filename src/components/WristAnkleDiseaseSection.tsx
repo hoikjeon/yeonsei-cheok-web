@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { X } from 'lucide-react';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import MobileDiseaseMap, { type MobileDiseaseMapMarker } from '@/components/MobileDiseaseMap';
 import ScrollReveal from '@/components/ScrollReveal';
 
 const ASSET_ROOT = '/images/treatments/joint/wrist-ankle';
@@ -177,6 +178,34 @@ const diseaseMarkers = [
   line: { left: string; top: string; width: string };
   button: { left: string; top: string };
 }>;
+
+const mobileDiseaseMarkers = [
+  {
+    id: 'ankle-sprain',
+    title: '발목 인대 염좌',
+    point: { left: '17%', top: '61%' },
+  },
+  {
+    id: 'achilles',
+    title: '아킬레스건염',
+    point: { left: '9%', top: '71%' },
+  },
+  {
+    id: 'plantar',
+    title: '족저근막염',
+    point: { left: '21%', top: '81%' },
+  },
+  {
+    id: 'dequervain',
+    title: '드퀘르벵 건초염',
+    point: { left: '77%', top: '68%' },
+  },
+  {
+    id: 'carpal-tunnel',
+    title: '수근관증후군',
+    point: { left: '85%', top: '78%' },
+  },
+] as const satisfies ReadonlyArray<MobileDiseaseMapMarker<WristAnkleDiseaseId>>;
 
 const findDisease = (id: WristAnkleDiseaseId) =>
   diseases.find((disease) => disease.id === id) ?? diseases[0];
@@ -429,19 +458,13 @@ export default function WristAnkleDiseaseSection() {
               />
             ))}
 
-            <div className="relative z-10 mt-8 grid grid-cols-2 gap-2.5 lg:hidden">
-              {diseases.map((disease) => (
-                <button
-                  key={disease.id}
-                  type="button"
-                  onClick={() => setActiveDiseaseId(disease.id)}
-                  className="flex min-h-16 items-center justify-center rounded-xl bg-primary px-3 py-3 text-center text-[0.86rem] font-bold leading-snug text-white shadow-[0_16px_34px_-24px_rgba(40,74,165,0.8)] transition hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20 motion-reduce:transition-none min-[420px]:text-[0.95rem] sm:min-h-16 sm:rounded-2xl sm:text-[1.05rem]"
-                  aria-label={`${disease.title} 자세히 보기`}
-                >
-                  <span className="break-keep">{disease.title}</span>
-                </button>
-              ))}
-            </div>
+            <MobileDiseaseMap
+              imageSrc={`${ASSET_ROOT}/wrist-ankle-disease-map-white.png`}
+              imageAlt="발목 인대 염좌, 아킬레스건염, 족저근막염, 드퀘르벵 건초염, 수근관증후군 부위를 선택할 수 있는 손과 발 질환 의료 일러스트"
+              markers={mobileDiseaseMarkers}
+              onSelect={setActiveDiseaseId}
+              aspectRatio="3 / 2"
+            />
           </div>
         </ScrollReveal>
       </div>

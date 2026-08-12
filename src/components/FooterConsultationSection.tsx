@@ -15,8 +15,10 @@ import { submitConsultation } from '@/lib/submitConsultation';
 
 type PolicyType = 'privacy' | 'marketing';
 
-const NAVER_TALK_URL = '#';
-const KAKAO_TALK_URL = '#';
+// 연세척병원 네이버 톡톡. 비로그인 상태면 네이버 로그인을 거친 뒤 대화창으로 이어집니다.
+const NAVER_TALK_URL = 'https://talk.naver.com/ct/w4ay0q';
+// 연세척병원 카카오톡 채널. /chat을 붙이면 채널 홈이 아니라 1:1 채팅으로 바로 들어갑니다.
+const KAKAO_TALK_URL = 'https://pf.kakao.com/_FGNLM/chat';
 
 const CONTACT_CHANNELS = [
   {
@@ -28,11 +30,13 @@ const CONTACT_CHANNELS = [
     label: '카카오톡 상담',
     href: KAKAO_TALK_URL,
     icon: <MessageCircle size={27} strokeWidth={1.8} />,
+    external: true,
   },
   {
     label: '네이버톡톡 상담',
     href: NAVER_TALK_URL,
     icon: <MessageSquare size={27} strokeWidth={1.8} />,
+    external: true,
   },
 ];
 
@@ -290,6 +294,8 @@ export default function FooterConsultationSection() {
               <Link
                 key={channel.label}
                 href={channel.href}
+                target={channel.external ? '_blank' : undefined}
+                rel={channel.external ? 'noopener noreferrer' : undefined}
                 className="group flex min-w-0 flex-col items-center gap-3 text-white sm:gap-5"
               >
                 <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/12 transition-all duration-300 group-hover:scale-105 group-hover:bg-white/20 sm:h-16 sm:w-16 md:h-[74px] md:w-[74px]">

@@ -2,18 +2,8 @@
 
 import { motion } from 'framer-motion';
 import { MapPin, Train, Bus, Car, Phone, Navigation } from 'lucide-react';
-import dynamic from 'next/dynamic';
+import KakaoMap from '@/components/KakaoMap';
 import NavigationAppLinks from '@/components/NavigationAppLinks';
-
-// 클라이언트 사이드 렌더링을 위해 KakaoMap을 다이나믹 임포트합니다.
-const KakaoMap = dynamic(() => import('@/components/KakaoMap'), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full min-h-[400px] bg-slate-50 flex items-center justify-center rounded-[2rem] animate-pulse">
-      <p className="text-ink-muted font-bold text-sm">지도를 불러오는 중입니다...</p>
-    </div>
-  ),
-});
 
 export default function LocationPage() {
   // 연세척병원 주소 및 좌표 정보 (부산광역시 부산진구 가야대로 715, 부암역 6번 출구 앞)

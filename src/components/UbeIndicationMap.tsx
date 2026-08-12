@@ -1,8 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { X } from 'lucide-react';
+import { CircleAlert, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 type RegionTargetId = 'cervical' | 'thoracic' | 'lumbar';
 type ConditionId =
@@ -25,6 +26,7 @@ interface RegionTarget {
   point: { left: string; top: string };
   button: { left: string; top: string };
   line: { left: string; top: string; width: string };
+  mobileSide: 'left' | 'right';
   title: string;
   image: string;
   imageAlt: string;
@@ -297,6 +299,7 @@ const regionTargets = [
     point: { left: '50%', top: '27%' },
     button: { left: '68%', top: '27%' },
     line: { left: '50%', top: '27%', width: '18%' },
+    mobileSide: 'right',
     title: '경추 적용대상',
     image: '/generated/ube/ube-condition-cervical-summary.png',
     imageAlt: '경추 부위 신경 압박을 보여주는 의료 이미지',
@@ -320,6 +323,7 @@ const regionTargets = [
     point: { left: '50%', top: '46%' },
     button: { left: '29%', top: '46%' },
     line: { left: '29%', top: '46%', width: '21%' },
+    mobileSide: 'left',
     title: '흉추 적용대상',
     image: '/generated/ube/ube-condition-thoracic-summary.png',
     imageAlt: '흉추 부위 신경 압박을 보여주는 의료 이미지',
@@ -343,6 +347,7 @@ const regionTargets = [
     point: { left: '50%', top: '65%' },
     button: { left: '29%', top: '65%' },
     line: { left: '29%', top: '65%', width: '21%' },
+    mobileSide: 'right',
     title: '요추 적용대상',
     image: '/generated/ube/ube-condition-lumbar-summary.png',
     imageAlt: '요추 부위 신경 압박을 보여주는 의료 이미지',
@@ -416,7 +421,7 @@ const DetailBlock = ({ number, title, items }: { number: number; title: string; 
 
 const DetailModal = ({ content, onClose }: { content: ModalContent; onClose: () => void }) => (
   <div
-    className="fixed inset-0 z-[999] flex items-center justify-center bg-black/68 px-3 py-4 backdrop-blur-[2px] sm:px-4 sm:py-6"
+    className="fixed inset-0 z-[3000] flex items-center justify-center overscroll-contain bg-black/68 px-3 py-4 backdrop-blur-[2px] sm:px-4 sm:py-6"
     onMouseDown={(event) => {
       if (event.target === event.currentTarget) {
         onClose();
@@ -520,39 +525,79 @@ const UbeIndicationMap = () => {
   return (
     <>
       <div className="relative mt-8 rounded-[1.25rem] border border-slate-100 bg-white px-4 py-5 shadow-[0_24px_70px_rgba(15,29,54,0.07)] sm:mt-12 sm:rounded-[28px] sm:py-8 md:px-10 md:py-10">
-        <div className="grid gap-2.5 md:hidden">
-          {regionTargets.map((target) => {
-            const isActive = target.id === activeId;
+        <div className="md:hidden">
+          <p className="flex items-center justify-center gap-1.5 break-keep text-center text-[13px] font-semibold leading-relaxed text-primary">
+            <CircleAlert aria-hidden="true" className="h-4 w-4 shrink-0" />
+            궁금한 척추 부위를 눌러 자세한 내용을 확인해 보세요.
+          </p>
 
-            return (
-              <button
-                key={target.id}
-                type="button"
-                aria-pressed={isActive}
-                onClick={() => selectTarget(target.id)}
-                className={`flex min-h-16 w-full items-center justify-between gap-4 rounded-xl border px-4 py-3 text-left transition-colors focus:outline-none focus:ring-4 focus:ring-primary/15 ${
-                  isActive
-                    ? 'border-primary/25 bg-primary-light/65 text-primary'
-                    : 'border-slate-200 bg-slate-50 text-ink'
-                }`}
-              >
-                <span className="flex items-center gap-3">
+          <div className="relative mt-4 aspect-[4/5] w-full overflow-hidden rounded-xl bg-[#F8FAFD] ring-1 ring-slate-100">
+            <Image
+              src="/generated/ube/ube-indication-spine-map.png"
+              alt="경추, 흉추, 요추 적용 부위를 선택할 수 있는 인체 척추 이미지"
+              fill
+              sizes="calc(100vw - 72px)"
+              className="object-cover object-center"
+            />
+
+            {regionTargets.map((target) => {
+              const isActive = target.id === activeId;
+              const isLeft = target.mobileSide === 'left';
+
+              return (
+                <div key={target.id}>
                   <span
                     aria-hidden="true"
-                    className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-sm font-bold ${
-                      isActive ? 'bg-primary text-white' : 'bg-white text-primary ring-1 ring-primary/15'
+                    className={`absolute z-10 w-[14%] -translate-y-1/2 border-t-2 border-dashed transition-colors duration-300 ${
+                      isActive ? 'border-primary' : 'border-primary/50'
+                    } ${isLeft ? 'right-1/2' : 'left-1/2'}`}
+                    style={{ top: target.point.top }}
+                  />
+
+                  <span
+                    aria-hidden="true"
+                    className={`absolute left-1/2 z-20 h-11 w-11 -translate-x-1/2 -translate-y-1/2 rounded-full transition duration-300 ${
+                      isActive ? 'bg-primary/18' : 'bg-primary/10'
                     }`}
+                    style={{ top: target.point.top }}
+                  />
+
+                  <button
+                    type="button"
+                    aria-label={`${target.label} 적용대상 자세히 보기`}
+                    aria-pressed={isActive}
+                    onClick={() => selectTarget(target.id)}
+                    className="absolute left-1/2 z-30 grid h-11 w-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full outline-none transition duration-300 active:scale-95 focus-visible:ring-4 focus-visible:ring-primary/25"
+                    style={{ top: target.point.top }}
                   >
-                    {target.label.slice(0, 1)}
-                  </span>
-                  <span className="text-[1rem] font-bold">{target.title}</span>
-                </span>
-                <span className="shrink-0 text-[12px] font-bold text-ink-sub">
-                  {target.conditionIds.length}개 질환
-                </span>
-              </button>
-            );
-          })}
+                    <span
+                      aria-hidden="true"
+                      className={`grid h-8 w-8 place-items-center rounded-full text-white shadow-[0_8px_20px_rgba(38,84,190,0.3)] ring-7 ${
+                        isActive ? 'bg-primary ring-primary/20' : 'bg-primary/85 ring-primary/10'
+                      }`}
+                    >
+                      <CircleAlert className="h-4 w-4" />
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    aria-pressed={isActive}
+                    onClick={() => selectTarget(target.id)}
+                    className={`absolute z-30 flex min-h-11 -translate-y-1/2 items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-bold shadow-[0_10px_24px_rgba(38,84,190,0.2)] outline-none transition duration-300 active:scale-95 focus-visible:ring-4 focus-visible:ring-primary/20 ${
+                      isActive
+                        ? 'bg-primary text-white'
+                        : 'bg-white text-primary ring-1 ring-primary/18'
+                    } ${isLeft ? 'right-[64%]' : 'left-[64%]'}`}
+                    style={{ top: target.point.top }}
+                  >
+                    <CircleAlert aria-hidden="true" className="h-3.5 w-3.5" />
+                    {target.label}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         <div className="relative mx-auto hidden aspect-[16/9] w-full max-w-6xl overflow-hidden md:block">
@@ -634,7 +679,12 @@ const UbeIndicationMap = () => {
         </div>
       </div>
 
-      {modalContent ? <DetailModal content={modalContent} onClose={() => setModal(null)} /> : null}
+      {modalContent
+        ? createPortal(
+            <DetailModal content={modalContent} onClose={() => setModal(null)} />,
+            document.body,
+          )
+        : null}
     </>
   );
 };

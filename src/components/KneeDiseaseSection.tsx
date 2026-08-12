@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { X } from 'lucide-react';
 import { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import MobileDiseaseMap, { type MobileDiseaseMapMarker } from '@/components/MobileDiseaseMap';
 import ScrollReveal from '@/components/ScrollReveal';
 
 const ASSET_ROOT = '/images/treatments/joint/knee';
@@ -115,6 +116,24 @@ const diseaseMarkers = [
   line: { left: string; top: string; width: string };
   button: { left: string; top: string };
 }>;
+
+const mobileDiseaseMarkers = [
+  {
+    id: 'osteoarthritis',
+    title: '퇴행성관절염',
+    point: { left: '34%', top: '54%' },
+  },
+  {
+    id: 'chondromalacia',
+    title: '연골연화증',
+    point: { left: '34%', top: '62%' },
+  },
+  {
+    id: 'joint-injury',
+    title: '반월상연골·인대 손상',
+    point: { left: '66%', top: '58%' },
+  },
+] as const satisfies ReadonlyArray<MobileDiseaseMapMarker<KneeDiseaseId>>;
 
 const findDisease = (id: KneeDiseaseId) =>
   diseases.find((disease) => disease.id === id) ?? diseases[0];
@@ -345,19 +364,12 @@ export default function KneeDiseaseSection() {
               />
             ))}
 
-            <div className="relative z-10 mt-8 grid gap-2.5 min-[360px]:grid-cols-2 lg:hidden">
-              {diseases.map((disease) => (
-                <button
-                  key={disease.id}
-                  type="button"
-                  onClick={() => setActiveDiseaseId(disease.id)}
-                  className="flex min-h-14 items-center justify-between gap-2 rounded-xl bg-primary px-4 py-3 text-left text-[0.95rem] font-bold leading-snug text-white shadow-[0_16px_34px_-24px_rgba(40,74,165,0.8)] transition hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20 sm:min-h-16 sm:rounded-2xl sm:text-[1.05rem]"
-                >
-                  <span>{disease.title}</span>
-                  <span aria-hidden className="shrink-0 text-xs font-bold text-white/75">자세히</span>
-                </button>
-              ))}
-            </div>
+            <MobileDiseaseMap
+              imageSrc={`${ASSET_ROOT}/knee-disease-map-white.png`}
+              imageAlt="퇴행성관절염, 연골연화증, 반월상연골과 인대 손상 부위를 선택할 수 있는 무릎 질환 의료 일러스트"
+              markers={mobileDiseaseMarkers}
+              onSelect={setActiveDiseaseId}
+            />
           </div>
         </ScrollReveal>
       </div>

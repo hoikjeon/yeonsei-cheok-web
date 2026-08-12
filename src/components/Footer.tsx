@@ -18,8 +18,12 @@ import {
 } from '@/lib/homeNoticeSettings';
 
 const REPRESENTATIVE_PHONE = '051-935-1004';
-const NAVER_RESERVATION_URL = 'https://m.booking.naver.com/booking/13/search?query=%EC%97%B0%EC%84%B8%EC%B2%99%EB%B3%91%EC%9B%90';
-const KAKAO_CONSULT_URL = '#';
+// 연세척병원 네이버 플레이스(장소 ID 35643868).
+// PC는 이 주소로 바로 열리고, 모바일은 네이버가 알아서 앱/모바일 페이지로 넘겨주므로
+// 별도의 모바일 전용 주소가 필요 없습니다.
+const NAVER_RESERVATION_URL = 'https://map.naver.com/p/entry/place/35643868';
+// 연세척병원 카카오톡 채널. /chat을 붙이면 채널 홈이 아니라 1:1 채팅으로 바로 들어갑니다.
+const KAKAO_CONSULT_URL = 'https://pf.kakao.com/_FGNLM/chat';
 
 const FOOTER_FALLBACK_NOTICES: HomeNoticeItem[] = [
   ...DEFAULT_HOME_NOTICE_SETTINGS.notices,
@@ -186,6 +190,8 @@ const Footer = () => {
 
               <a
                 href={KAKAO_CONSULT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group relative min-h-[96px] overflow-hidden rounded-lg bg-[radial-gradient(circle_at_84%_70%,rgba(255,255,255,0.35),transparent_24%),linear-gradient(135deg,#FFC915_0%,#FFAE13_100%)] p-4 text-white shadow-[0_22px_54px_-38px_rgba(255,174,19,0.9)] transition-transform duration-300 hover:scale-[1.035] md:min-h-[116px] md:p-6"
               >
                 <span className="relative z-10 flex items-center gap-1.5 break-keep text-[14px] font-bold leading-snug tracking-tight sm:gap-2 sm:text-[15px] md:gap-3 md:text-[17px]">
