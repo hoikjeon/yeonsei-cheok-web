@@ -109,6 +109,7 @@ const MENU_DATA: MenuData[] = [
       { name: '치료체험후기', desc: '완치의 기쁨을 누리는 환자분들의 생생한 수기', href: '/board/reviews' },
       { name: '온라인 상담', desc: '증상에 대한 궁금증을 전문 상담사가 직접 상담해 드립니다', href: '/consultation' },
       { name: '온라인 예약', desc: '원하시는 스케줄에 맞춰 신속하고 간편한 진료 예약', href: '/reservation' },
+      { name: '증명서 발급', desc: '제증명 발급 절차와 구비서류, 양식 다운로드 안내', href: '/board/certificates' },
       { name: '자주하는 질문', desc: '진료, 입원, 서류 발급 등 잦은 문의 안내', href: '/board/faq' },
     ]
   },
@@ -765,7 +766,7 @@ const Header = () => {
                     <ChevronRight size={18} className="text-slate-300 group-hover:text-primary transition-colors" />
                   </Link>
                   <div className="grid grid-cols-1 gap-0.5 pl-3 sm:gap-1 sm:pl-4">
-                    {(menu.id === 'spine' ? menu.items : menu.items.slice(0, 4)).map((item) => (
+                    {(menu.id === 'spine' || menu.id === 'community' ? menu.items : menu.items.slice(0, 4)).map((item) => (
                       <Link
                         key={item.name}
                         href={item.href}

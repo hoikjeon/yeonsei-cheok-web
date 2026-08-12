@@ -213,7 +213,7 @@ const quickAccessItems = [
   },
   {
     title: '증명서 발급',
-    href: '/consultation',
+    href: '/board/certificates',
     icon: <FileText size={58} strokeWidth={1.65} />,
   },
   {
