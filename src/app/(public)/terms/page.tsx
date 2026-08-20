@@ -1,10 +1,12 @@
 import React from 'react';
 import { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: '이용약관 | 연세척병원',
   description: '연세척병원의 이용약관입니다.',
-};
+  path: '/terms',
+});
 
 export default function TermsOfServicePage() {
   return (

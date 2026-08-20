@@ -2,6 +2,14 @@ import Link from 'next/link';
 import { Search, PenSquare } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import SubHero from '@/components/SubHero';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: '치료체험후기',
+  description: '회원 전용으로 제공되는 연세척병원 치료체험후기 페이지입니다.',
+  path: '/board/reviews',
+  noIndex: true,
+});
 
 // 서버 사이드에서 데이터 페칭을 위해 클라이언트 생성
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;

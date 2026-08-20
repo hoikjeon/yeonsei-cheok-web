@@ -1,4 +1,12 @@
 import SubHero from '@/components/SubHero';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: '척추 수술치료 안내',
+  description: '연세척병원에서 진단 결과에 따라 검토하는 척추 수술치료의 방법과 진료 흐름을 안내합니다.',
+  path: '/treatments/spine/ube/innovative',
+  noIndex: true,
+});
 
 export default function InnovativeSurgeryPage() {
   return (

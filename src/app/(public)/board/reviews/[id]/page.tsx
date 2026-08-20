@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { cache } from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Home, ChevronRight, ArrowLeft, Calendar, User, Tag } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
+import { createPageMetadata, summarizeForMetadata } from '@/lib/seo';
 
 // 서버 사이드 Supabase 클라이언트 설정
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -18,15 +20,48 @@ interface Review {
   created_at: string;
 }
 
-export default async function ReviewDetailPage({ params }: { params: { id: string } }) {
-  const { id } = await params;
+type DetailPageProps = { params: Promise<{ id: string }> };
 
-  // 1. 단일 후기 데이터 가져오기
+const getReview = cache(async (id: string) => {
   const { data: review, error } = await supabase
     .from('reviews')
     .select('*')
     .eq('id', id)
     .single();
+
+  return { review: review as Review | null, error };
+});
+
+export async function generateMetadata({ params }: DetailPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const { review } = await getReview(id);
+
+  if (!review) {
+    return createPageMetadata({
+      title: '치료체험후기를 찾을 수 없습니다',
+      description: '요청하신 치료체험후기를 찾을 수 없습니다.',
+      path: `/board/reviews/${id}`,
+      noIndex: true,
+    });
+  }
+
+  return createPageMetadata({
+    title: review.title,
+    description: summarizeForMetadata(
+      review.content,
+      '연세척병원 이용자가 직접 작성한 치료체험후기입니다.',
+    ),
+    path: `/board/reviews/${id}`,
+    image: review.image_urls?.[0],
+    noIndex: true,
+  });
+}
+
+export default async function ReviewDetailPage({ params }: DetailPageProps) {
+  const { id } = await params;
+
+  // 1. 단일 후기 데이터 가져오기
+  const { review, error } = await getReview(id);
 
   if (error || !review) {
     console.error('Error fetching review:', error);

@@ -40,7 +40,7 @@ const FOOTER_FALLBACK_NOTICES: HomeNoticeItem[] = [
 const POLICY_LINKS = [
   { label: '개인정보처리방침', href: '/privacy' },
   { label: '이용약관', href: '/terms' },
-  { label: '환자의권리와장전', href: '/rights' },
+  { label: '환자의 권리와 의무', href: '/rights' },
   { label: '비급여안내', href: '/non-covered' },
   { label: '오시는 길', href: '/about/location' },
 ];

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: '개인정보처리방침 | 연세척병원',
   description: '연세척병원의 개인정보처리방침입니다.',
-};
+  path: '/privacy',
+});
 
 export default function PrivacyPolicyPage() {
   return (

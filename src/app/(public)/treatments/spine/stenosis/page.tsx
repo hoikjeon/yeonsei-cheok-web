@@ -1,5 +1,13 @@
 import SubHero from '@/components/SubHero';
 import Link from 'next/link';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: '척추관협착증 증상·진단·치료',
+  description:
+    '보행 시 다리 통증과 저림을 일으킬 수 있는 척추관협착증의 증상, 진단과 단계별 치료 방향을 안내합니다.',
+  path: '/treatments/spine/stenosis',
+});
 
 const stenosisTypes = [
   {

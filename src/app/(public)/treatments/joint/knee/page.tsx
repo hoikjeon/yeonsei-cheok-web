@@ -11,12 +11,15 @@ import {
 import KneeDiseaseSection from '@/components/KneeDiseaseSection';
 import KneeFaqAccordion from '@/components/KneeFaqAccordion';
 import ScrollReveal from '@/components/ScrollReveal';
+import { createPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: '무릎 관절 | 연세척병원 관절센터',
   description:
     '무릎 통증, 붓기, 잠김과 불안정감의 원인을 살피고 비수술 치료부터 관절내시경까지 필요한 치료를 안내하는 연세척병원 관절센터 페이지입니다.',
-};
+  path: '/treatments/joint/knee',
+  image: '/images/treatments/joint/knee/knee-symptom-locking.webp',
+});
 
 const ASSET_ROOT = '/images/treatments/joint/knee';
 const marqueeText =

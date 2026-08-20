@@ -1,10 +1,12 @@
 import React from 'react';
 import { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: '영상정보처리기기 운영방침 | 연세척병원',
   description: '연세척병원의 영상정보처리기기 운영방침입니다.',
-};
+  path: '/cctv',
+});
 
 export default function CctvPolicyPage() {
   return (

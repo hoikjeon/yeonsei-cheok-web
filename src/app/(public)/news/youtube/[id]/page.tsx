@@ -1,12 +1,12 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Home, ChevronRight, ArrowLeft, Calendar, Play, Video } from 'lucide-react';
-import { createClient } from '@supabase/supabase-js';
+import { getHospitalNewsItem } from '@/lib/hospitalNews';
+import { createPageMetadata, summarizeForMetadata } from '@/lib/seo';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+type DetailPageProps = { params: Promise<{ id: string }> };
 
 function getYoutubeId(url: string) {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -14,14 +14,37 @@ function getYoutubeId(url: string) {
   return (match && match[2].length === 11) ? match[2] : null;
 }
 
-export default async function YoutubeDetailPage({ params }: { params: { id: string } }) {
+export async function generateMetadata({ params }: DetailPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const { item } = await getHospitalNewsItem(id, 'youtube');
+
+  if (!item) {
+    return createPageMetadata({
+      title: '유튜브 의학소식을 찾을 수 없습니다',
+      description: '요청하신 유튜브 의학소식을 찾을 수 없습니다.',
+      path: `/news/youtube/${id}`,
+      noIndex: true,
+    });
+  }
+
+  const youtubeId = item.video_url ? getYoutubeId(item.video_url) : null;
+
+  return createPageMetadata({
+    title: item.title,
+    description: summarizeForMetadata(
+      item.content,
+      '연세척병원 의료진이 영상으로 전하는 척추·관절 건강 정보입니다.',
+    ),
+    path: `/news/youtube/${id}`,
+    image: item.image_urls?.[0] || (youtubeId ? `https://i.ytimg.com/vi/${youtubeId}/maxresdefault.jpg` : undefined),
+    type: 'article',
+  });
+}
+
+export default async function YoutubeDetailPage({ params }: DetailPageProps) {
   const { id } = await params;
 
-  const { data: item, error } = await supabase
-    .from('hospital_news')
-    .select('*')
-    .eq('id', id)
-    .single();
+  const { item, error } = await getHospitalNewsItem(id, 'youtube');
 
   if (error || !item) return notFound();
 

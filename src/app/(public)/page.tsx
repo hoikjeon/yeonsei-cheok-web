@@ -292,6 +292,7 @@ export default function Home() {
         </div>
         
         <div className="relative z-20 mx-auto w-full max-w-7xl px-5 sm:px-7 md:pt-12 xl:px-10">
+          <h1 className="sr-only">부산 척추·관절 진료 연세척병원</h1>
           <motion.div
             key={activeSlide.id}
             initial={{ opacity: 0.7 }}
@@ -300,7 +301,7 @@ export default function Home() {
             className="max-w-[880px] space-y-5 md:space-y-7"
           >
             <div className="space-y-4 md:space-y-6">
-              <h1 className="break-keep text-display tracking-normal text-white">
+              <p className="break-keep text-display tracking-normal text-white">
                 <span className="md:hidden">
                   {activeSlide.mobileTitleLines.map((line, index) => (
                     <span
@@ -321,7 +322,7 @@ export default function Home() {
                     </span>
                   ))}
                 </span>
-              </h1>
+              </p>
               <p className="max-w-xl break-keep text-body-lg text-slate-200/90">
                 {activeSlide.desc}
               </p>

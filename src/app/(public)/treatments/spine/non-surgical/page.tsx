@@ -2,6 +2,14 @@ import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 import SubHero from "@/components/SubHero";
 import NonSurgicalTreatmentTabs from "@/components/NonSurgicalTreatmentTabs";
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "척추 비수술 치료 안내",
+  description:
+    "증상과 진단 결과에 따라 검토할 수 있는 주사·시술·재활 등 연세척병원의 척추 비수술 치료를 안내합니다.",
+  path: "/treatments/spine/non-surgical",
+});
 
 export default function NonSurgicalPage() {
   return (

@@ -1,5 +1,13 @@
 import SubHero from '@/components/SubHero';
 import Link from 'next/link';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: '척추·관절 진료과목',
+  description:
+    '목디스크, 허리디스크, 척추관협착증과 무릎·어깨·손목·발목 질환의 진단과 치료 정보를 안내합니다.',
+  path: '/treatments',
+});
 
 const treatmentCategories = [
   {

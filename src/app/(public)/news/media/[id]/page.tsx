@@ -1,21 +1,42 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Home, ChevronRight, ArrowLeft, Calendar, Newspaper, Globe, ExternalLink } from 'lucide-react';
-import { createClient } from '@supabase/supabase-js';
+import { getHospitalNewsItem } from '@/lib/hospitalNews';
+import { createPageMetadata, summarizeForMetadata } from '@/lib/seo';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+type DetailPageProps = { params: Promise<{ id: string }> };
 
-export default async function MediaDetailPage({ params }: { params: { id: string } }) {
+export async function generateMetadata({ params }: DetailPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const { item } = await getHospitalNewsItem(id, 'media');
+
+  if (!item) {
+    return createPageMetadata({
+      title: '언론보도를 찾을 수 없습니다',
+      description: '요청하신 방송·언론보도를 찾을 수 없습니다.',
+      path: `/news/media/${id}`,
+      noIndex: true,
+    });
+  }
+
+  return createPageMetadata({
+    title: item.title,
+    description: summarizeForMetadata(
+      item.content,
+      '연세척병원의 방송 출연과 언론보도 소식입니다.',
+    ),
+    path: `/news/media/${id}`,
+    image: item.image_urls?.[0],
+    type: 'article',
+  });
+}
+
+export default async function MediaDetailPage({ params }: DetailPageProps) {
   const { id } = await params;
 
-  const { data: item, error } = await supabase
-    .from('hospital_news')
-    .select('*')
-    .eq('id', id)
-    .single();
+  const { item, error } = await getHospitalNewsItem(id, 'media');
 
   if (error || !item) {
     console.error('Error fetching media news:', error);

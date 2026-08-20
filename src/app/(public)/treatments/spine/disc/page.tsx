@@ -7,12 +7,15 @@ import ScrollReveal from '@/components/ScrollReveal';
 import SpineCenterStrengthSection from '@/components/SpineCenterStrengthSection';
 import UbeTextbookFeatureSection from '@/components/UbeTextbookFeatureSection';
 import YonseiSpecialFeaturesSection from '@/components/YonseiSpecialFeaturesSection';
+import { createPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: '허리디스크 | 연세척병원',
   description:
     '허리 통증과 다리 저림, 당김 증상의 원인을 정밀하게 진단하고 비수술 치료부터 최소침습 치료까지 제안하는 연세척병원 허리디스크 안내 페이지입니다.',
-};
+  path: '/treatments/spine/disc',
+  image: '/generated/lumbar-disc/lumbar-disc-symptom-back-pain.png',
+});
 
 const marqueeText = 'YONSEI CHEOK HOSPITAL · LUMBAR DISC CLINIC · LOW BACK PAIN CENTER ·';
 
@@ -131,11 +134,11 @@ export default function DiscPage() {
 
       <section className="mx-auto flex w-full max-w-7xl flex-col items-start px-5 py-14 text-left sm:px-6 md:items-center md:py-28 md:text-center">
         <div className="mx-auto max-w-5xl">
-          <h1 className="break-keep text-h2 tracking-normal text-ink">
+          <h2 className="break-keep text-h2 tracking-normal text-ink">
             쑤시고 당기는 허리 통증,
             <br className="hidden md:block" />
             척추 불균형은 허리 건강의 경고 신호입니다.
-          </h1>
+          </h2>
         </div>
 
         <div className="relative mt-8 w-full max-w-5xl overflow-hidden rounded-[1.25rem] border border-slate-100 bg-slate-50 shadow-[0_30px_80px_-48px_rgba(15,29,54,0.55)] sm:mt-12 sm:rounded-[1.75rem]">

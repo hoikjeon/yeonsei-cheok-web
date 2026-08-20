@@ -5,12 +5,15 @@ import { ArrowRight, Check, ChevronDown, Home } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
 import ShoulderDiseaseSection from '@/components/ShoulderDiseaseSection';
 import ShoulderFaqAccordion from '@/components/ShoulderFaqAccordion';
+import { createPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: '어깨 관절 | 연세척병원 관절센터',
   description:
     '어깨 통증, 야간 통증, 운동 범위 감소의 원인을 살피고 회전근개 파열·오십견·석회성건염과 관절내시경 회전근개 봉합술을 안내합니다.',
-};
+  path: '/treatments/joint/shoulder',
+  image: '/images/treatments/joint/shoulder/shoulder-symptom-tenderness-woman-60s.jpg',
+});
 
 const ASSET_ROOT = '/images/treatments/joint/shoulder';
 const marqueeText =

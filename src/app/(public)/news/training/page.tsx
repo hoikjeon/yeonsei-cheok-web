@@ -2,6 +2,15 @@ import Link from 'next/link';
 import { ChevronRight, Search, PenSquare, Globe2, GraduationCap } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import SubHero from '@/components/SubHero';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: '국제 척추내시경 트레이닝 센터',
+  description:
+    '연세척병원의 국내외 의료진 대상 척추내시경 교육, 술기 교류와 트레이닝 소식을 전합니다.',
+  path: '/news/training',
+  image: '/generated/hero-medical-conference.png',
+});
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;

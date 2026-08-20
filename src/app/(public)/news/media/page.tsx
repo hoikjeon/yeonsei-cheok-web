@@ -2,6 +2,13 @@ import Link from 'next/link';
 import { ChevronRight, Search, PenSquare, PlayCircle, Newspaper } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import SubHero from '@/components/SubHero';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: '방송보도·언론기사',
+  description: '연세척병원의 방송 출연, 언론 보도와 주요 의료 활동 소식을 확인하세요.',
+  path: '/news/media',
+});
 
 // 서버 사이드 Supabase 클라이언트
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;

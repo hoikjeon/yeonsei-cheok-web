@@ -2,6 +2,13 @@ import Link from 'next/link';
 import { Search, PenSquare, Play, Video } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import SubHero from '@/components/SubHero';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: '연세척TV 의학소식',
+  description: '연세척병원 의료진이 영상으로 알려드리는 척추·관절 질환과 치료 정보입니다.',
+  path: '/news/youtube',
+});
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;

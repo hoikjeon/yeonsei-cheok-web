@@ -19,12 +19,14 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import SubHero from '@/components/SubHero';
+import { createPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: '증명서 발급 안내 | 연세척병원',
   description:
     '연세척병원 제증명·진료기록 사본 발급 절차, 신청자별 구비서류, 양식 다운로드 정보를 확인하세요.',
-};
+  path: '/board/certificates',
+});
 
 type DownloadForm = {
   icon: LucideIcon;

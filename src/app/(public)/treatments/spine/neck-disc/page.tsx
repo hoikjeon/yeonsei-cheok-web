@@ -7,12 +7,15 @@ import ScrollReveal from '@/components/ScrollReveal';
 import SpineCenterStrengthSection from '@/components/SpineCenterStrengthSection';
 import UbeTextbookFeatureSection from '@/components/UbeTextbookFeatureSection';
 import YonseiSpecialFeaturesSection from '@/components/YonseiSpecialFeaturesSection';
+import { createPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: '목디스크 | 연세척병원',
   description:
     '목 통증과 팔 저림의 원인을 정밀하게 진단하고 비수술 치료로 회복을 돕는 연세척병원 목디스크 안내 페이지입니다.',
-};
+  path: '/treatments/spine/neck-disc',
+  image: '/generated/neck-disc-symptom-arm-numbness.png',
+});
 
 const marqueeText = 'YONSEI CHEOK HOSPITAL · NECK DISC CLINIC · CERVICAL DISC CENTER ·';
 
@@ -103,11 +106,11 @@ export default function NeckDiscPage() {
 
       <section className="mx-auto flex w-full max-w-7xl flex-col items-start px-5 py-14 text-left sm:px-6 md:items-center md:py-28 md:text-center">
         <div className="mx-auto max-w-5xl">
-          <h1 className="break-keep text-h2 tracking-tight text-ink">
+          <h2 className="break-keep text-h2 tracking-tight text-ink">
             목이 뻐근하고 움직임이 둔하다면
             <br className="hidden md:block" />
             목디스크가 진행 중일 수 있습니다.
-          </h1>
+          </h2>
         </div>
 
         <div className="relative mt-8 w-full max-w-5xl overflow-hidden rounded-[1.25rem] border border-slate-100 bg-slate-50 shadow-[0_30px_80px_-48px_rgba(15,29,54,0.55)] sm:mt-12 sm:rounded-[1.75rem]">

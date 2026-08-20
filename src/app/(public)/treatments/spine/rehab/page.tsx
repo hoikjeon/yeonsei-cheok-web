@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import { Bandage, BicepsFlexed, Bone, Footprints } from 'lucide-react';
+import { createPageMetadata } from '@/lib/seo';
 
 const postoperativeRehabTargets = [
   '관절·인대 수술 후 통증이나 부종이 이어지는 분',
@@ -20,11 +21,13 @@ const postoperativeRehabGoals = [
   { title: '일상생활 복귀 및\n재손상 방지', icon: Footprints },
 ];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: '도수·재활 클리닉 | 연세척병원',
   description:
     '손상 이전의 움직임과 기능 회복을 돕는 연세척병원 도수·재활 클리닉 안내입니다.',
-};
+  path: '/treatments/spine/rehab',
+  image: '/generated/ys-rehab-manual-therapy-intro.png',
+});
 
 export default function RehabPage() {
   return (

@@ -9,6 +9,15 @@ import {
 import ScrollReveal from '@/components/ScrollReveal';
 import SubHero from '@/components/SubHero';
 import TreatmentStepGraph from '@/components/TreatmentStepGraph';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: '병원 소개 | 부산 척추·관절 진료',
+  description:
+    '부산 부산진구 연세척병원의 진료 원칙과 척추·관절 진료 시스템, 비수술 우선 치료 방향을 안내합니다.',
+  path: '/about',
+  image: '/generated/hero-hospital-exterior.png',
+});
 
 interface DirectorCutout {
   name: string;

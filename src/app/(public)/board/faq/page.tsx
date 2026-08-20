@@ -2,12 +2,14 @@ import type { Metadata } from 'next';
 import FaqBoard from '@/components/FaqBoard';
 import SubHero from '@/components/SubHero';
 import { FAQ_ITEMS } from './data';
+import { createPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: '자주하는 질문 | 연세척병원',
   description:
     '연세척병원의 예약, 진료, 검사, 입원, 편의시설, 서류발급 및 진료비 관련 자주하는 질문을 확인하세요.',
-};
+  path: '/board/faq',
+});
 
 export default function FaqPage() {
   const faqStructuredData = {

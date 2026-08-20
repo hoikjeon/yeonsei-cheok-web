@@ -4,6 +4,15 @@ import DoctorsDirectory, { type DoctorProfile } from '@/components/DoctorsDirect
 import DoctorsHeroLineup from '@/components/DoctorsHeroLineup';
 import ScrollReveal from '@/components/ScrollReveal';
 import SubHero from '@/components/SubHero';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: '척추·관절 의료진 소개',
+  description:
+    '연세척병원 신경외과·정형외과 의료진의 주요 진료 분야, 경력, 학술 활동과 진료 일정을 확인하세요.',
+  path: '/doctors',
+  image: '/generated/hero-university-doctors.png',
+});
 
 const doctorsMarqueeText =
   'YONSEI CHEOK DOCTORS · SPINE AND JOINT SPECIALISTS · UNIVERSITY HOSPITAL TRAINED ·';

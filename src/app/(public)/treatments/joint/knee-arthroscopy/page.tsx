@@ -10,12 +10,15 @@ import {
 import KneeArthroscopyHero from '@/components/knee-arthroscopy/KneeArthroscopyHero';
 import KneeDoctorFeature from '@/components/knee-arthroscopy/KneeDoctorFeature';
 import KneeParallaxBackground from '@/components/knee-arthroscopy/KneeParallaxBackground';
+import { createPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: '무릎관절내시경 | 연세척병원 관절센터',
   description:
     '무릎관절내시경의 원리와 주요 적용 질환, 실제 관절경 화면, 연골 치료 과정과 진료 흐름을 안내합니다.',
-};
+  path: '/treatments/joint/knee-arthroscopy',
+  image: '/images/treatments/joint/knee-arthroscopy/knee-arthroscopy-consultation.jpg',
+});
 
 const KNEE_ASSET_ROOT = '/images/treatments/joint/knee';
 const ARTHROSCOPY_ASSET_ROOT = '/images/treatments/joint/knee-arthroscopy';

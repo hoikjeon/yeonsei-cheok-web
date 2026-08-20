@@ -5,12 +5,15 @@ import { ArrowRight, Check, ChevronDown, Home } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
 import WristAnkleDiseaseSection from '@/components/WristAnkleDiseaseSection';
 import WristAnkleFaqAccordion from '@/components/WristAnkleFaqAccordion';
+import { createPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: '손목·발목 관절 | 연세척병원 관절센터',
   description:
     '손목 저림과 건초염, 발목 염좌와 아킬레스건염·족저근막염의 원인을 구분하고 진단부터 비수술 치료, 재활까지 안내합니다.',
-};
+  path: '/treatments/joint/wrist-ankle',
+  image: '/images/treatments/joint/wrist-ankle/wrist-ankle-symptom-ache.webp',
+});
 
 const ASSET_ROOT = '/images/treatments/joint/wrist-ankle';
 const SHOULDER_ASSET_ROOT = '/images/treatments/joint/shoulder';

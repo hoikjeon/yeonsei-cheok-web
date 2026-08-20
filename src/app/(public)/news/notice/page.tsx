@@ -4,6 +4,13 @@ import { Search, PenSquare, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRig
 import { createClient } from '@supabase/supabase-js';
 import { unstable_cache } from 'next/cache';
 import SubHero from '@/components/SubHero';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: '공지사항',
+  description: '연세척병원의 진료 일정, 휴진, 병원 이용과 관련된 주요 공지사항을 안내합니다.',
+  path: '/news/notice',
+});
 
 // 서버 사이드 Supabase 클라이언트
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;

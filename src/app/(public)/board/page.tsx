@@ -1,4 +1,12 @@
 import SubHero from '@/components/SubHero';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: '커뮤니티 준비 중',
+  description: '연세척병원 커뮤니티 페이지는 현재 준비 중입니다.',
+  path: '/board',
+  noIndex: true,
+});
 
 export default function BoardPage() {
   return (

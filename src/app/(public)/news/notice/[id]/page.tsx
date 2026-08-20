@@ -1,22 +1,42 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Home, ChevronRight, ArrowLeft, Calendar, Megaphone } from 'lucide-react';
-import { createClient } from '@supabase/supabase-js';
+import { getHospitalNewsItem } from '@/lib/hospitalNews';
+import { createPageMetadata, summarizeForMetadata } from '@/lib/seo';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
+type DetailPageProps = { params: Promise<{ id: string }> };
 
-export default async function NoticeDetailPage({ params }: { params: Promise<{ id: string }> }) {
+export async function generateMetadata({ params }: DetailPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const { item } = await getHospitalNewsItem(id, 'notice,notice_pinned');
+
+  if (!item) {
+    return createPageMetadata({
+      title: '공지사항을 찾을 수 없습니다',
+      description: '요청하신 공지사항을 찾을 수 없습니다.',
+      path: `/news/notice/${id}`,
+      noIndex: true,
+    });
+  }
+
+  return createPageMetadata({
+    title: item.title,
+    description: summarizeForMetadata(
+      item.content,
+      '연세척병원의 진료 일정과 주요 안내를 전하는 공지사항입니다.',
+    ),
+    path: `/news/notice/${id}`,
+    image: item.image_urls?.[0],
+    type: 'article',
+  });
+}
+
+export default async function NoticeDetailPage({ params }: DetailPageProps) {
   const { id } = await params;
 
-  const { data: item, error } = await supabase
-    .from('hospital_news')
-    .select('*')
-    .eq('id', id)
-    .in('type', ['notice', 'notice_pinned'])
-    .single();
+  const { item, error } = await getHospitalNewsItem(id, 'notice,notice_pinned');
 
   if (error || !item) return notFound();
 

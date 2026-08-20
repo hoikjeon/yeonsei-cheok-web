@@ -1,6 +1,15 @@
 import SubHero from '@/components/SubHero';
 import Link from 'next/link';
 import { Activity, Stethoscope, Zap, Hand } from 'lucide-react';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: '척추센터 | 목·허리 통증 진료',
+  description:
+    '연세척병원 척추센터의 목디스크, 허리디스크, 척추관협착증 진단과 비수술·최소침습 치료 정보를 안내합니다.',
+  path: '/treatments/spine',
+  image: '/generated/hero-spine-endoscopy.png',
+});
 
 const spineServices = [
   {

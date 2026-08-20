@@ -1,11 +1,13 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { nonCoveredData } from './data';
+import { createPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: '비급여안내 | 연세척병원',
   description: '연세척병원의 비급여 항목 진료비를 안내합니다.',
-};
+  path: '/non-covered',
+});
 
 export default function NonCoveredPage() {
   return (

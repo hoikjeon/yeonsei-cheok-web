@@ -2,6 +2,13 @@ import Link from 'next/link';
 import { ChevronRight, Search, PenSquare, GraduationCap, Microscope } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import SubHero from '@/components/SubHero';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: '학술의학 소식',
+  description: '연세척병원 의료진의 논문, 학술대회, 발표와 의학 연구 활동 소식을 전합니다.',
+  path: '/news/academic',
+});
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;

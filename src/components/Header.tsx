@@ -27,7 +27,8 @@ type MenuItem = {
 type MenuData = {
   id: string;
   name: string;
-  href: string;
+  /** 대메뉴 자체의 소개 페이지가 있을 때만 지정합니다. */
+  href?: string;
   subTitle: string;
   items: MenuItem[];
   /** true 이면 대메뉴 클릭 시 href 페이지로 이동합니다. (기본: 메가메뉴만 열림) */
@@ -78,7 +79,6 @@ const MENU_DATA: MenuData[] = [
   {
     id: 'joint',
     name: '관절센터',
-    href: '/treatments/joint',
     subTitle: '자유로운 움직임을 위한 정교한 치료',
     items: [
       { name: '무릎 관절', desc: '퇴행성 관절염·연골 손상 등 무릎 통증 진단', href: '/treatments/joint/knee' },
@@ -488,7 +488,7 @@ const Header = () => {
             );
 
             // 지정된 대메뉴는 클릭 시 해당 페이지로 이동 (호버 시 메가메뉴는 그대로 열림)
-            if (menu.navigateOnClick) {
+            if (menu.navigateOnClick && menu.href) {
               return (
                 <Link
                   key={menu.id}
@@ -757,14 +757,20 @@ const Header = () => {
             <div className="space-y-1 sm:space-y-2">
               {MENU_DATA.map((menu) => (
                 <div key={menu.id} className="space-y-1">
-                  <Link 
-                    href={menu.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="group flex items-center justify-between rounded-xl p-3.5 transition-colors hover:bg-slate-50 sm:rounded-2xl sm:p-4"
-                  >
-                    <span className="text-[17px] font-bold text-ink group-hover:text-primary sm:text-lg">{menu.name}</span>
-                    <ChevronRight size={18} className="text-slate-300 group-hover:text-primary transition-colors" />
-                  </Link>
+                  {menu.href ? (
+                    <Link
+                      href={menu.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="group flex items-center justify-between rounded-xl p-3.5 transition-colors hover:bg-slate-50 sm:rounded-2xl sm:p-4"
+                    >
+                      <span className="text-[17px] font-bold text-ink group-hover:text-primary sm:text-lg">{menu.name}</span>
+                      <ChevronRight size={18} className="text-slate-300 group-hover:text-primary transition-colors" />
+                    </Link>
+                  ) : (
+                    <div className="flex items-center rounded-xl p-3.5 sm:rounded-2xl sm:p-4">
+                      <span className="text-[17px] font-bold text-ink sm:text-lg">{menu.name}</span>
+                    </div>
+                  )}
                   <div className="grid grid-cols-1 gap-0.5 pl-3 sm:gap-1 sm:pl-4">
                     {(menu.id === 'spine' || menu.id === 'community' ? menu.items : menu.items.slice(0, 4)).map((item) => (
                       <Link

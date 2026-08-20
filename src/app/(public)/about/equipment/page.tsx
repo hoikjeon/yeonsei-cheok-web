@@ -2,12 +2,15 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import ScrollReveal from '@/components/ScrollReveal';
 import SubHero from '@/components/SubHero';
+import { createPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: '첨단 의료 장비 | 연세척병원',
   description:
     '정확한 진단과 안전한 치료를 돕는 연세척병원의 영상·검사·물리치료 장비를 소개합니다.',
-};
+  path: '/about/equipment',
+  image: '/generated/equipment/mri.webp',
+});
 
 type Equipment = {
   name: string;

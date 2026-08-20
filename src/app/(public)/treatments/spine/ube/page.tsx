@@ -8,6 +8,15 @@ import UbeDecompressionScene from '@/components/UbeDecompressionScene';
 import UbeIndicationMap from '@/components/UbeIndicationMap';
 import YonseiSpecialFeaturesSection from '@/components/YonseiSpecialFeaturesSection';
 import UbeTextbookFeatureSection from '@/components/UbeTextbookFeatureSection';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: '양방향 척추내시경(UBE) 안내',
+  description:
+    '두 개의 작은 통로를 이용하는 양방향 척추내시경(UBE)의 원리, 적용 대상, 치료 과정과 주의사항을 안내합니다.',
+  path: '/treatments/spine/ube',
+  image: '/generated/ube/ube-hero-operating-room.png',
+});
 
 const overviewBenefits = [
   {
