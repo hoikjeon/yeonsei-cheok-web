@@ -89,28 +89,24 @@ const reviews: ReviewItem[] = [
   },
 ];
 
-const toneStyles: Record<ReviewTone, { card: string; chip: string; body: string; meta: string }> = {
+const toneStyles: Record<ReviewTone, { card: string; body: string; meta: string }> = {
   navy: {
     card: 'bg-[#10346f] text-white shadow-[0_26px_60px_-34px_rgba(16,52,111,0.72)]',
-    chip: 'bg-white text-ink',
     body: 'text-white',
     meta: 'text-white/88',
   },
   mist: {
     card: 'bg-[#dfe6f5] text-ink shadow-[0_26px_60px_-42px_rgba(15,29,54,0.45)]',
-    chip: 'bg-white text-ink',
     body: 'text-ink',
     meta: 'text-ink/84',
   },
   amber: {
     card: 'bg-[#f6bd00] text-ink shadow-[0_26px_60px_-38px_rgba(159,111,0,0.5)]',
-    chip: 'bg-white text-ink',
     body: 'text-ink',
     meta: 'text-ink/84',
   },
   paper: {
     card: 'bg-[#e8eaee] text-ink shadow-[0_26px_60px_-42px_rgba(15,29,54,0.38)]',
-    chip: 'bg-white text-ink',
     body: 'text-ink',
     meta: 'text-ink/84',
   },
@@ -198,7 +194,7 @@ export default function ReviewsShowcaseSection() {
               수술 후 통증에서 벗어난 환자분들이 직접 남겨주신 생생한 회복 이야기를 만나보세요.
             </p>
             <p className="inline-flex max-w-full break-keep rounded-xl bg-[#dbe8ff] px-3.5 py-2 text-caption font-semibold leading-relaxed text-primary sm:rounded-full">
-              ※ 의료법 규정에 따라 자세한 내용은 로그인 후 확인할 수 있습니다.
+              ※ 자세한 내용은 로그인 후 확인할 수 있습니다.
             </p>
           </div>
 
@@ -240,10 +236,7 @@ export default function ReviewsShowcaseSection() {
                   transition,
                 }}
               >
-                <span className={`inline-flex w-fit rounded-full px-2.5 py-1 text-[10px] font-bold leading-none sm:px-5 sm:py-3 sm:text-caption ${tone.chip}`}>
-                  {review.category}
-                </span>
-                <p className={`mt-2.5 line-clamp-4 break-keep text-[13px] font-bold leading-[1.4] tracking-normal sm:mt-6 sm:text-h4 sm:leading-[1.55] ${tone.body}`}>
+                <p className={`line-clamp-4 break-keep text-[13px] font-bold leading-[1.4] tracking-normal sm:text-h4 sm:leading-[1.55] ${tone.body}`}>
                   {review.title}
                 </p>
                 <div className={`mt-auto flex items-center justify-between gap-1.5 pt-3 text-[11px] font-medium tracking-normal sm:gap-4 sm:pt-10 sm:text-body ${tone.meta}`}>

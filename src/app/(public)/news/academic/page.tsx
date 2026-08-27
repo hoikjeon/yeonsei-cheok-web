@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { ChevronRight, Search, GraduationCap, Microscope } from 'lucide-react';
-import { createClient } from '@supabase/supabase-js';
 import SubHero from '@/components/SubHero';
 import Pagination from '@/components/Pagination';
+import { getHospitalNewsList } from '@/lib/hospitalNews';
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata = createPageMetadata({
@@ -11,23 +11,8 @@ export const metadata = createPageMetadata({
   path: '/news/academic',
 });
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
 // 한 페이지 노출 수. 1/2/3열 그리드라 2와 3으로 나누어떨어지는 값이어야 마지막 줄이 비지 않습니다.
 const PAGE_SIZE = 12;
-
-// 관리자에서 글을 올리면 최대 60초 안에 목록에 반영됩니다.
-// 이 값이 없으면 빌드 시점 데이터로 굳어 재배포 전까지 새 글이 보이지 않습니다.
-export const revalidate = 60;
-
-interface HospitalNews {
-  id: string;
-  title: string;
-  image_urls?: string[];
-  created_at: string;
-}
 
 export default async function AcademicPage({
   searchParams,
@@ -37,15 +22,7 @@ export default async function AcademicPage({
   const { page: pageParam } = await searchParams;
   const currentPage = Math.max(1, parseInt(pageParam || '1', 10) || 1);
 
-  const { data: news, count, error } = await supabase
-    .from('hospital_news')
-    .select('*', { count: 'exact' })
-    .eq('type', 'academic')
-    .order('created_at', { ascending: false })
-    .range((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE - 1);
-
-  if (error) console.error('Error fetching academic news:', error);
-  const newsCount = count || 0;
+  const { news, count: newsCount } = await getHospitalNewsList('academic', currentPage, PAGE_SIZE);
   const totalPages = Math.max(1, Math.ceil(newsCount / PAGE_SIZE));
 
   return (
@@ -70,7 +47,7 @@ export default async function AcademicPage({
 
             {newsCount > 0 ? (
               <div className="grid grid-cols-1 gap-6 py-6 sm:gap-8 sm:py-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10 lg:py-10">
-                {news?.map((item: HospitalNews) => (
+                {news.map((item) => (
                   <Link href={`/news/academic/${item.id}`} key={item.id} className="group flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white transition-all duration-500 hover:border-primary/20 hover:shadow-2xl md:rounded-[2rem]">
                     <div className="aspect-square bg-slate-100 relative overflow-hidden">
                       {item.image_urls?.[0] ? <img src={item.image_urls[0]} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" /> : <div className="w-full h-full flex items-center justify-center text-slate-300"><Microscope size={60} strokeWidth={1} /></div>}

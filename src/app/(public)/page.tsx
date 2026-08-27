@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image, { getImageProps } from 'next/image';
-import { AnimatePresence, motion, type Variants } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion';
 import {
   ChevronRight,
   ArrowUpRight,
@@ -72,7 +72,7 @@ const heroSlides = [
   },
   {
     id: 'h',
-    desktopImage: '/banner/h1d.jpg',
+    desktopImage: '/banner/h1d.jpg?v=b4bc1be1',
     tabletImage: '/banner/h1t.jpg',
     mobileImage: '/banner/h1m.jpg',
     imageAlt: '세계 최초 양방향 척추내시경 유합술 전향적 연구에 참여하는 연세척병원',
@@ -81,7 +81,15 @@ const heroSlides = [
 
 type HeroSlide = (typeof heroSlides)[number];
 
-function ResponsiveHeroImage({ slide, isFirstSlide }: { slide: HeroSlide; isFirstSlide: boolean }) {
+function ResponsiveHeroImage({
+  slide,
+  isFirstSlide,
+  onLoad,
+}: {
+  slide: HeroSlide;
+  isFirstSlide: boolean;
+  onLoad?: () => void;
+}) {
   const common = {
     alt: slide.imageAlt,
     sizes: '100vw',
@@ -120,6 +128,7 @@ function ResponsiveHeroImage({ slide, isFirstSlide }: { slide: HeroSlide; isFirs
         {...mobileImageProps}
         alt={slide.imageAlt}
         fetchPriority={isFirstSlide ? 'high' : 'auto'}
+        onLoad={onLoad}
         className="h-full w-full object-contain"
       />
     </picture>
@@ -239,16 +248,32 @@ const quickAccessItems = [
 
 export default function Home() {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [incomingSlideIndex, setIncomingSlideIndex] = useState<number | null>(null);
+  const [isIncomingSlideReady, setIsIncomingSlideReady] = useState(false);
   const [activeCareIndex, setActiveCareIndex] = useState(1);
-  const activeSlide = heroSlides[activeSlideIndex];
+  const prefersReducedMotion = useReducedMotion();
+  const selectedSlideIndex = incomingSlideIndex ?? activeSlideIndex;
   const activeCareSlide = dailyCareSlides[activeCareIndex];
 
+  const showSlide = (index: number) => {
+    if (index === incomingSlideIndex) return;
+
+    if (index === activeSlideIndex) {
+      setIncomingSlideIndex(null);
+      setIsIncomingSlideReady(false);
+      return;
+    }
+
+    setIsIncomingSlideReady(false);
+    setIncomingSlideIndex(index);
+  };
+
   const showPreviousSlide = () => {
-    setActiveSlideIndex((current) => (current === 0 ? heroSlides.length - 1 : current - 1));
+    showSlide(selectedSlideIndex === 0 ? heroSlides.length - 1 : selectedSlideIndex - 1);
   };
 
   const showNextSlide = () => {
-    setActiveSlideIndex((current) => (current + 1) % heroSlides.length);
+    showSlide((selectedSlideIndex + 1) % heroSlides.length);
   };
 
   const showPreviousCareSlide = () => {
@@ -260,12 +285,15 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const timer = window.setInterval(() => {
-      setActiveSlideIndex((current) => (current + 1) % heroSlides.length);
+    const timer = window.setTimeout(() => {
+      const currentSlideIndex = incomingSlideIndex ?? activeSlideIndex;
+      const nextSlideIndex = (currentSlideIndex + 1) % heroSlides.length;
+      setIsIncomingSlideReady(false);
+      setIncomingSlideIndex(nextSlideIndex);
     }, 6000);
 
-    return () => window.clearInterval(timer);
-  }, []);
+    return () => window.clearTimeout(timer);
+  }, [activeSlideIndex, incomingSlideIndex]);
 
   // Daily Care 자동 넘김 — activeCareIndex가 바뀔 때마다(자동/클릭) 타이머 리셋
   useEffect(() => {
@@ -287,58 +315,62 @@ export default function Home() {
       >
         <h1 className="sr-only">부산 척추·관절 진료 연세척병원</h1>
         <div className="absolute inset-0">
-          <AnimatePresence mode="sync">
+          <div className="absolute inset-0 h-full w-full">
+            <ResponsiveHeroImage
+              slide={heroSlides[activeSlideIndex]}
+              isFirstSlide={activeSlideIndex === 0}
+            />
+          </div>
+
+          {incomingSlideIndex !== null && (
             <motion.div
-              key={activeSlide.id}
+              key={heroSlides[incomingSlideIndex].id}
+              aria-hidden="true"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute inset-0 h-full w-full"
+              animate={{ opacity: isIncomingSlideReady ? 1 : 0 }}
+              transition={{
+                duration: prefersReducedMotion ? 0 : 1.05,
+                ease: [0.4, 0, 0.2, 1],
+              }}
+              onAnimationComplete={() => {
+                if (!isIncomingSlideReady || incomingSlideIndex === null) return;
+
+                setActiveSlideIndex(incomingSlideIndex);
+                setIncomingSlideIndex(null);
+                setIsIncomingSlideReady(false);
+              }}
+              className="absolute inset-0 h-full w-full will-change-[opacity]"
             >
-              <ResponsiveHeroImage slide={activeSlide} isFirstSlide={activeSlideIndex === 0} />
+              <ResponsiveHeroImage
+                slide={heroSlides[incomingSlideIndex]}
+                isFirstSlide={false}
+                onLoad={() => setIsIncomingSlideReady(true)}
+              />
             </motion.div>
-          </AnimatePresence>
+          )}
         </div>
 
-        <button
-          type="button"
-          onClick={showPreviousSlide}
-          className="absolute left-5 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-navy-950/45 text-white/85 shadow-lg backdrop-blur-md transition-all hover:border-white/45 hover:bg-navy-950/65 hover:text-white md:flex xl:left-8 xl:h-14 xl:w-14"
-          aria-label="이전 배너 보기"
+        <nav
+          aria-label="메인 배너 이동"
+          className="absolute bottom-4 right-4 z-20 flex items-center gap-2 sm:bottom-5 sm:right-5 lg:right-8"
         >
-          <ChevronRight size={24} className="rotate-180" />
-        </button>
-        <button
-          type="button"
-          onClick={showNextSlide}
-          className="absolute right-5 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-navy-950/45 text-white/85 shadow-lg backdrop-blur-md transition-all hover:border-white/45 hover:bg-navy-950/65 hover:text-white md:flex xl:right-8 xl:h-14 xl:w-14"
-          aria-label="다음 배너 보기"
-        >
-          <ChevronRight size={24} />
-        </button>
-
-        <div className="absolute bottom-4 right-4 z-20 flex items-center overflow-hidden rounded-full border border-white/20 bg-navy-950/55 text-white shadow-lg backdrop-blur-md md:hidden">
           <button
             type="button"
             onClick={showPreviousSlide}
-            className="flex h-11 w-11 items-center justify-center text-white/80 active:bg-white/10"
             aria-label="이전 배너 보기"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/70 bg-white/10 text-white shadow-sm backdrop-blur-sm transition-colors hover:border-white hover:bg-white/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:h-10 sm:w-10"
           >
-            <ChevronRight size={19} className="rotate-180" />
+            <ChevronRight aria-hidden="true" size={20} className="rotate-180" />
           </button>
-          <span className="min-w-10 text-center font-montserrat text-[12px] font-bold tabular-nums text-white/75">
-            {activeSlideIndex + 1}/{heroSlides.length}
-          </span>
           <button
             type="button"
             onClick={showNextSlide}
-            className="flex h-11 w-11 items-center justify-center text-white/80 active:bg-white/10"
             aria-label="다음 배너 보기"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/70 bg-white/10 text-white shadow-sm backdrop-blur-sm transition-colors hover:border-white hover:bg-white/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:h-10 sm:w-10"
           >
-            <ChevronRight size={19} />
+            <ChevronRight aria-hidden="true" size={20} />
           </button>
-        </div>
+        </nav>
       </section>
 
       <HomeNoticeBar />

@@ -2,9 +2,10 @@
 
 import { randomUUID } from 'node:crypto';
 import { createClient } from '@supabase/supabase-js';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, updateTag } from 'next/cache';
 import { isAdminAuthenticated } from '@/lib/adminAuth';
 import { isAdminNewsType } from '@/lib/adminNews';
+import { HOSPITAL_NEWS_CACHE_TAG } from '@/lib/hospitalNews';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -133,6 +134,7 @@ export async function createAdminNews(formData: FormData): Promise<CreateAdminNe
       throw error;
     }
 
+    updateTag(HOSPITAL_NEWS_CACHE_TAG);
     revalidatePath(`/news/${requestedType}`);
     revalidatePath('/admin/news');
     revalidatePath('/');

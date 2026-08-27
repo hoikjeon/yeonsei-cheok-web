@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 import { unstable_cache } from 'next/cache';
 import SubHero from '@/components/SubHero';
 import Pagination from '@/components/Pagination';
+import { HOSPITAL_NEWS_CACHE_TAG } from '@/lib/hospitalNews';
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata = createPageMetadata({
@@ -61,7 +62,7 @@ const getNotices = unstable_cache(
     return { notices: data, count };
   },
   ['news-notice-list'],
-  { tags: ['news-notice'], revalidate: 60 },
+  { tags: ['news-notice', HOSPITAL_NEWS_CACHE_TAG], revalidate: 60 },
 );
 
 export default async function NoticePage({
