@@ -45,7 +45,7 @@ const doctors: HomeDoctor[] = [
   },
 ];
 
-const springConfig = { stiffness: 82, damping: 24, mass: 0.35 };
+const springConfig = { stiffness: 82, damping: 12, mass: 0.35 };
 
 const HomeDoctorsRevealSection = () => {
   const ref = useRef<HTMLElement>(null);
@@ -68,7 +68,7 @@ const HomeDoctorsRevealSection = () => {
 
   const rawBrandY = useTransform(scrollYProgress, [0, 0.28], [220, 0]);
   const rawDoctorsY = useTransform(scrollYProgress, [0, 0.18], [40, 0]);
-  const rawDoctorsOpacity = useTransform(scrollYProgress, [0, 0.1], [0.12, 1]);
+  const rawDoctorsOpacity = useTransform(scrollYProgress, [0, 0.04], [0.55, 1]);
 
   const brandY = useSpring(rawBrandY, springConfig);
   const doctorsY = useSpring(rawDoctorsY, springConfig);
@@ -120,7 +120,8 @@ const HomeDoctorsRevealSection = () => {
                   src={doctor.image}
                   alt={doctor.alt}
                   fill
-                  sizes="(min-width: 1280px) 22vw, (min-width: 768px) 24vw, 36vw"
+                  loading="eager"
+                  sizes="(min-width: 1280px) 260px, (min-width: 768px) 24vw, 36vw"
                   className={`origin-bottom object-contain object-bottom drop-shadow-[0_28px_34px_rgba(15,29,54,0.18)] ${
                     doctor.imageClassName ?? ''
                   }`}

@@ -307,8 +307,8 @@ export default function UbePage() {
             <ScrollReveal variant="image">
               <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-slate-200">
                 <Image
-                  src="/generated/ube/ube-specialist-monitor.png"
-                  alt="내시경 화면을 확인하며 수술하는 신경외과 전문의"
+                  src="/directors-surgery.jpg"
+                  alt="양방향 척추내시경 수술을 집도하는 연세척병원 병원장"
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover"

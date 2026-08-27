@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import { revalidatePath } from 'next/cache';
+import { createAdminSession, deleteAdminSession } from '@/lib/adminAuth';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -18,9 +19,13 @@ export async function adminLogin(formData: FormData) {
 
   // 간단한 하드코딩 인증 (나중에 DB 연동 가능)
   if (id === 'admin' && password === 'ys1004!') {
+    await createAdminSession();
     const cookieStore = await cookies();
     cookieStore.set('admin_auth', 'true', { 
-      maxAge: 60 * 60 * 24, // 1일
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24,
       path: '/',
     });
     redirect('/admin');
@@ -33,6 +38,7 @@ export async function adminLogin(formData: FormData) {
  * 관리자 로그아웃
  */
 export async function adminLogout() {
+  await deleteAdminSession();
   const cookieStore = await cookies();
   cookieStore.delete('admin_auth');
   redirect('/admin/login');

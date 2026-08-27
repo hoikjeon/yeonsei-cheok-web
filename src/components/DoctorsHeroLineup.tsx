@@ -197,8 +197,8 @@ export default function DoctorsHeroLineup() {
             <Image
               src="/ys-logo-bg.png"
               alt=""
-              width={540}
-              height={539}
+              width={421}
+              height={420}
               className="h-auto w-full opacity-[0.06] grayscale"
             />
           </div>

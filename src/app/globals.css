@@ -113,21 +113,19 @@ body {
 }
 
 .home-hero {
-  height: calc(100svh - 9.8125rem - env(safe-area-inset-bottom));
-  min-height: 500px;
-}
-
-@media (max-width: 767px) and (max-height: 655px) {
-  .home-hero {
-    min-height: 0;
-  }
+  aspect-ratio: 5 / 8;
+  height: auto;
 }
 
 @media (min-width: 768px) {
   .home-hero {
-    height: calc(100svh - 132px);
-    min-height: 620px;
-    max-height: 820px;
+    aspect-ratio: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-hero {
+    aspect-ratio: 96 / 41;
   }
 }
 
@@ -166,6 +164,22 @@ body {
   textarea {
     font-size: 16px;
   }
+}
+
+/* 한글 본문 양쪽 정렬(끝단 맞춤).
+   text-align: justify는 남는 공간을 '줄바꿈이 가능한 지점'에 나눠 넣는다.
+   word-break: keep-all이면 띄어쓰기에서만 줄바꿈되므로 분배할 지점이 한 줄에 5~7개뿐이라
+   어절 사이가 크게 벌어진다(강물 현상). 특히 폭이 좁은 모바일에서 심하다.
+   글자 사이로 분배하는 text-justify: inter-character는 Safari가 데스크톱·iOS 모두
+   미지원이라 브라우저마다 결과가 달라지므로 쓰지 않는다.
+   대신 양쪽 정렬 문단에 한해 글자 단위 줄바꿈을 허용해, 남는 공간이 항상
+   한 글자 폭 이내로 줄어들게 만든다. 한글 인쇄물의 표준 조판 방식이다.
+   레이어 밖에 두어야 위 @media 블록의 p { word-break: keep-all }을 이긴다. */
+.text-justify-ko {
+  text-align: justify;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  text-wrap: auto;
 }
 
 /* Premium Utilities */

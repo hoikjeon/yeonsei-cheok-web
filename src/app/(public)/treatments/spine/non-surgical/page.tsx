@@ -2,6 +2,7 @@ import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 import SubHero from "@/components/SubHero";
 import NonSurgicalTreatmentTabs from "@/components/NonSurgicalTreatmentTabs";
+import UbeTextbookFeatureSection from "@/components/UbeTextbookFeatureSection";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
@@ -29,6 +30,8 @@ export default function NonSurgicalPage() {
             <NonSurgicalTreatmentTabs />
           </div>
         </section>
+
+        <UbeTextbookFeatureSection />
 
         <section className="px-6 py-16 md:py-20">
           <ScrollReveal className="mx-auto grid max-w-7xl grid-cols-1 overflow-hidden rounded-lg border border-slate-200 bg-white lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">

@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { ChevronRight, Search, PenSquare, PlayCircle, Newspaper } from 'lucide-react';
+import { ChevronRight, Search, PlayCircle, Newspaper } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import SubHero from '@/components/SubHero';
+import Pagination from '@/components/Pagination';
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata = createPageMetadata({
@@ -14,6 +15,9 @@ export const metadata = createPageMetadata({
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+// 한 페이지 노출 수. 1/2/3열 그리드라 2와 3으로 나누어떨어지는 값이어야 마지막 줄이 비지 않습니다.
+const PAGE_SIZE = 12;
 
 // 관리자에서 글을 올리면 최대 60초 안에 목록에 반영됩니다.
 // 이 값이 없으면 빌드 시점 데이터로 굳어 재배포 전까지 새 글이 보이지 않습니다.
@@ -29,19 +33,28 @@ interface HospitalNews {
   created_at: string;
 }
 
-export default async function MediaPage() {
+export default async function MediaPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const { page: pageParam } = await searchParams;
+  const currentPage = Math.max(1, parseInt(pageParam || '1', 10) || 1);
+
   // 1. 'media' 타입의 뉴스 데이터 가져오기
-  const { data: news, error } = await supabase
+  const { data: news, count, error } = await supabase
     .from('hospital_news')
-    .select('*')
+    .select('*', { count: 'exact' })
     .eq('type', 'media')
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .range((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE - 1);
 
   if (error) {
     console.error('Error fetching media news:', error);
   }
 
-  const newsCount = news?.length || 0;
+  const newsCount = count || 0;
+  const totalPages = Math.max(1, Math.ceil(newsCount / PAGE_SIZE));
 
   return (
     <main className="min-h-screen bg-slate-50">
@@ -80,7 +93,7 @@ export default async function MediaPage() {
                   <Link 
                     href={`/news/media/${item.id}`} 
                     key={item.id}
-                    className="group flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white transition-all duration-500 hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/10 md:rounded-[2rem]"
+                    className="group flex flex-col overflow-hidden rounded-xl border border-slate-100 bg-white transition-all duration-500 hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/10 md:rounded-[1rem]"
                   >
                     {/* Thumbnail */}
                     <div className="aspect-[16/10] bg-slate-100 relative overflow-hidden shrink-0">
@@ -127,16 +140,8 @@ export default async function MediaPage() {
               </div>
             )}
 
-            {/* Admin Action */}
-            <div className="flex justify-center pt-10 border-t border-slate-100">
-              <Link 
-                href="/news/media/write"
-                className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-navy-950 px-5 py-4 text-[16px] font-bold tracking-tight text-white shadow-lg transition-all hover:bg-primary hover:shadow-blue-glow active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-12 sm:py-5 sm:text-[18px]"
-              >
-                <PenSquare size={20} strokeWidth={2.5} />
-                새로운 보도자료 등록
-              </Link>
-            </div>
+            <Pagination currentPage={currentPage} totalPages={totalPages} basePath="/news/media" />
+
           </div>
         </div>
       </section>

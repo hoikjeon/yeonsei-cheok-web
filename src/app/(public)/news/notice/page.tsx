@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import Form from 'next/form';
-import { Search, PenSquare, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import { unstable_cache } from 'next/cache';
 import SubHero from '@/components/SubHero';
+import Pagination from '@/components/Pagination';
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata = createPageMetadata({
@@ -31,14 +32,6 @@ function formatDate(dateStr: string) {
   const mm = String(d.getMonth() + 1).padStart(2, '0');
   const dd = String(d.getDate()).padStart(2, '0');
   return `${d.getFullYear()}. ${mm}. ${dd}`;
-}
-
-function pageHref(page: number, q: string) {
-  const params = new URLSearchParams();
-  if (page > 1) params.set('page', String(page));
-  if (q) params.set('q', q);
-  const qs = params.toString();
-  return qs ? `/news/notice?${qs}` : '/news/notice';
 }
 
 // 이 페이지는 검색어·페이지 번호를 받기 때문에 정적으로 만들 수 없습니다.
@@ -83,7 +76,6 @@ export default async function NoticePage({
 
   const totalCount = count || 0;
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
-  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
     <main className="min-h-screen bg-slate-50">
@@ -167,47 +159,8 @@ export default async function NoticePage({
               )}
             </div>
 
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-1 pt-8 sm:gap-2 sm:pt-10">
-                <Link href={pageHref(1, q)} aria-label="첫 페이지" className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-50 hover:text-primary">
-                  <ChevronsLeft size={18} />
-                </Link>
-                <Link href={pageHref(Math.max(1, currentPage - 1), q)} aria-label="이전 페이지" className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-50 hover:text-primary">
-                  <ChevronLeft size={18} />
-                </Link>
-                {pageNumbers.map((num) => (
-                  <Link
-                    key={num}
-                    href={pageHref(num, q)}
-                    className={`flex h-9 w-9 items-center justify-center rounded-lg text-[15px] font-bold transition-colors ${
-                      num === currentPage
-                        ? 'bg-navy-950 text-white'
-                        : 'text-ink-muted hover:bg-slate-50 hover:text-primary'
-                    }`}
-                  >
-                    {num}
-                  </Link>
-                ))}
-                <Link href={pageHref(Math.min(totalPages, currentPage + 1), q)} aria-label="다음 페이지" className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-50 hover:text-primary">
-                  <ChevronRight size={18} />
-                </Link>
-                <Link href={pageHref(totalPages, q)} aria-label="마지막 페이지" className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-50 hover:text-primary">
-                  <ChevronsRight size={18} />
-                </Link>
-              </div>
-            )}
+            <Pagination currentPage={currentPage} totalPages={totalPages} basePath="/news/notice" query={{ q }} />
 
-            {/* Admin Action */}
-            <div className="flex justify-end border-t border-slate-100 pt-8 sm:pt-12">
-              <Link
-                href="/news/notice/write"
-                className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-navy-950 px-5 py-4 text-[16px] font-bold tracking-tight text-white shadow-lg transition-all hover:bg-primary hover:shadow-blue-glow active:scale-95 sm:w-auto sm:rounded-[1.25rem] sm:px-8 sm:py-5 sm:text-[17px]"
-              >
-                <PenSquare size={20} strokeWidth={2.5} />
-                공지사항 등록하기
-              </Link>
-            </div>
           </div>
         </div>
       </section>

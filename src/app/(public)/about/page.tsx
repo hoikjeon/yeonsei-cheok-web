@@ -66,8 +66,8 @@ const INTRO_SECTIONS: IntroSection[] = [
   },
   {
     title: '병원 소개',
-    image: '/generated/specialty-spine-endoscopy.png',
-    imageAlt: '양방향척추내시경 장비와 척추 영상',
+    image: '/ch-hospital.jpg',
+    imageAlt: '연세척병원 건물 외관과 척추·관절 진료 안내 간판',
     paragraphs: [
       '연세척병원은 부산 부산진구 당감동에 자리한 **척추·관절 중점 병원**입니다. **신경외과와 정형외과 전문의**가 함께 진료하며, 허리디스크·목디스크·척추관협착증 등 척추 질환부터 무릎·어깨 등 관절 질환까지 폭넓게 살핍니다.',
       '저희는 통증의 원인을 정확히 찾는 **진단을 가장 먼저** 생각합니다. 도수치료·주사 치료 같은 **비수술적 방법을 우선** 검토하고, 수술이 필요한 경우에는 절개를 최소화하는 **양방향척추내시경(UBE)**을 비롯한 최소침습 치료를 지향합니다.',
@@ -133,17 +133,18 @@ export default function AboutPage() {
                 key={section.title}
                 className="grid grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1fr)] lg:items-center lg:gap-16"
               >
-                <ScrollReveal variant="image" className={`relative ${
-                  section.directors ? '' : 'overflow-hidden rounded-lg bg-slate-100 shadow-[0_28px_70px_-44px_rgba(15,29,54,0.45)]'
-                } ${section.title === '병원 소개' ? 'lg:order-2' : ''}`}>
-                  {section.directors ? (
+                {section.directors ? (
+                  <ScrollReveal
+                    variant="image"
+                    className={`relative ${section.title === '병원 소개' ? 'lg:order-2' : ''}`}
+                  >
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <Image
                         src="/ys-logo-bg.png"
                         alt=""
                         aria-hidden="true"
-                        width={1551}
-                        height={1545}
+                        width={421}
+                        height={420}
                         className="pointer-events-none absolute left-1/2 top-[6%] h-[78%] w-auto -translate-x-1/2 select-none object-contain opacity-[0.03] brightness-0"
                       />
 
@@ -156,7 +157,8 @@ export default function AboutPage() {
                             src={director.image}
                             alt={director.alt}
                             fill
-                            sizes="(min-width: 1024px) 24vw, 46vw"
+                            loading="eager"
+                            sizes="(min-width: 1280px) 400px, (min-width: 1024px) 24vw, 46vw"
                             className={`object-contain object-top drop-shadow-[0_22px_30px_rgba(15,29,54,0.16)] ${director.imageClassName ?? ''}`}
                           />
                         </div>
@@ -164,19 +166,27 @@ export default function AboutPage() {
 
                       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-[30%] bg-gradient-to-t from-white via-white/85 to-transparent" />
                     </div>
-                  ) : (
+                  </ScrollReveal>
+                ) : (
+                  /* 등장 연출 없이, 마우스를 올리면 줌인 */
+                  <div
+                    className={`group relative overflow-hidden rounded-lg bg-slate-100 shadow-[0_28px_70px_-44px_rgba(15,29,54,0.45)] ${
+                      section.title === '병원 소개' ? 'lg:order-2' : ''
+                    }`}
+                  >
                     <div className="relative aspect-[4/3]">
                       <Image
                         src={section.image ?? ''}
                         alt={section.imageAlt ?? section.title}
                         fill
+                        loading="eager"
                         sizes="(min-width: 1024px) 48vw, 100vw"
-                        className="object-cover"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none"
                       />
                       <div className="absolute inset-0 bg-gradient-to-tr from-navy-950/55 via-navy-950/12 to-transparent" />
                     </div>
-                  )}
-                </ScrollReveal>
+                  </div>
+                )}
 
                 <div className={`space-y-7 ${
                   section.title === '병원 소개' ? 'lg:order-1' : ''
@@ -190,7 +200,7 @@ export default function AboutPage() {
 
                   <ScrollReveal className="space-y-5 text-body-lg text-ink-sub sm:space-y-6 md:leading-[2]" delay={0.16}>
                     {section.paragraphs.map((paragraph) => (
-                      <p key={paragraph} className="break-keep">{renderRichText(paragraph)}</p>
+                      <p key={paragraph} className="text-justify-ko">{renderRichText(paragraph)}</p>
                     ))}
                   </ScrollReveal>
 

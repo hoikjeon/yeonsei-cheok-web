@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CalendarCheck, ChevronRight, ShieldCheck, Stethoscope, UsersRound } from 'lucide-react';
+import { CalendarCheck, ChevronRight } from 'lucide-react';
 import DoctorsDirectory, { type DoctorProfile } from '@/components/DoctorsDirectory';
 import DoctorsHeroLineup from '@/components/DoctorsHeroLineup';
 import ScrollReveal from '@/components/ScrollReveal';
@@ -421,23 +421,6 @@ const doctorList: DoctorProfile[] = [
   },
 ];
 
-const careSteps = [
-  {
-    icon: <Stethoscope size={24} />,
-    title: '정확한 진단',
-    desc: '영상 검사와 문진, 이학적 검사를 바탕으로 통증의 원인을 먼저 확인합니다.',
-  },
-  {
-    icon: <UsersRound size={24} />,
-    title: '센터별 협진',
-    desc: '척추센터와 관절센터가 환자의 증상에 맞춰 필요한 진료 방향을 함께 검토합니다.',
-  },
-  {
-    icon: <ShieldCheck size={24} />,
-    title: '필요한 치료',
-    desc: '비수술 치료를 우선 검토하고, 수술이 필요한 경우 최소침습 치료를 지향합니다.',
-  },
-];
 
 export default function DoctorsPage() {
   return (
@@ -466,22 +449,6 @@ export default function DoctorsPage() {
         </div>
 
         <DoctorsDirectory doctors={doctorList} />
-
-        <section className="border-y border-slate-100 bg-slate-50/70 px-4 py-14 sm:px-6 sm:py-16 md:py-28">
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 lg:grid-cols-3">
-            {careSteps.map((step, index) => (
-              <ScrollReveal key={step.title} delay={index * 0.08}>
-                <article className="h-full rounded-lg border border-slate-100 bg-white p-5 shadow-[0_24px_70px_-58px_rgba(15,29,54,0.45)] sm:p-6 md:p-8">
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-primary-light text-primary sm:mb-7">
-                    {step.icon}
-                  </div>
-                  <h3 className="break-keep text-h4 tracking-tight text-ink">{step.title}</h3>
-                  <p className="mt-3 break-keep text-body text-ink-sub sm:mt-4 sm:text-[17px] sm:leading-relaxed">{step.desc}</p>
-                </article>
-              </ScrollReveal>
-            ))}
-          </div>
-        </section>
 
         <section className="px-4 py-14 sm:px-6 sm:py-16 md:py-24">
           <ScrollReveal className="mx-auto grid max-w-7xl grid-cols-1 overflow-hidden rounded-lg bg-navy-950 text-white shadow-[0_30px_90px_-55px_rgba(10,20,40,0.7)] lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">

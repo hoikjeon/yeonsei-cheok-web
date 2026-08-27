@@ -2,7 +2,8 @@ import React, { cache } from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Home, ChevronRight, ArrowLeft, Calendar, User, Tag } from 'lucide-react';
+import Image from 'next/image';
+import { Home, ChevronRight, ArrowLeft, Calendar } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import { createPageMetadata, summarizeForMetadata } from '@/lib/seo';
 
@@ -88,10 +89,6 @@ export default async function ReviewDetailPage({ params }: DetailPageProps) {
       <div className="mx-auto max-w-[1000px] px-4 py-10 sm:px-6 sm:py-14 md:py-24">
         {/* 🔹 Detail Header */}
         <div className="mb-8 border-b border-slate-100 pb-8 sm:mb-12 sm:pb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/5 border border-primary/10 rounded-full text-primary text-[13px] font-bold tracking-tight mb-6">
-            <Tag size={12} />
-            {review.category}
-          </div>
           <h1 className="mb-6 break-keep text-h2 tracking-tight text-ink sm:mb-8">
             {review.title}
           </h1>
@@ -101,12 +98,6 @@ export default async function ReviewDetailPage({ params }: DetailPageProps) {
               <Calendar size={18} className="text-slate-300" />
               {new Date(review.created_at).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}
             </div>
-            <div className="flex items-center gap-2">
-              <User size={18} className="text-slate-300" />
-              익명 환자분
-            </div>
-            <div className="text-slate-200">|</div>
-            <div className="text-ink-muted">조회수 124</div>
           </div>
         </div>
 
@@ -114,20 +105,16 @@ export default async function ReviewDetailPage({ params }: DetailPageProps) {
         {review.image_urls && review.image_urls.length > 0 && (
           <div className="mb-12 flex flex-col items-center gap-6 sm:mb-20 sm:gap-10">
             {review.image_urls.map((url: string, index: number) => (
-              <div 
-                key={index} 
-                className="w-full max-w-[720px] rounded-[1.5rem] overflow-hidden border border-slate-100 shadow-xl bg-slate-50 group hover:shadow-2xl transition-shadow duration-500"
-              >
-                <img 
-                  src={url} 
-                  alt={`${review.title} 첨부 이미지 ${index + 1}`} 
-                  className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-700"
-                />
-                <div className="px-6 py-4 bg-white/80 backdrop-blur-md border-t border-slate-50 flex justify-between items-center">
-                  <span className="text-[13px] font-bold text-ink-muted italic">Photo {index + 1}</span>
-                  <span className="text-[12px] font-bold text-primary/40 tracking-widest font-montserrat uppercase">Yonsei Cheok</span>
-                </div>
-              </div>
+              <Image
+                key={index}
+                src={url}
+                alt={`${review.title} 첨부 이미지 ${index + 1}`}
+                width={1200}
+                height={900}
+                sizes="(min-width: 768px) 720px, 100vw"
+                priority={index === 0}
+                className="h-auto w-full max-w-[720px]"
+              />
             ))}
           </div>
         )}
@@ -136,14 +123,6 @@ export default async function ReviewDetailPage({ params }: DetailPageProps) {
         <div className="prose prose-slate mb-14 max-w-none sm:mb-20 md:mb-24">
           <p className="whitespace-pre-wrap break-keep text-[16px] font-medium leading-[1.8] tracking-tight text-ink-sub sm:text-[18px] sm:leading-[1.9] md:text-[20px]">
             {review.content}
-          </p>
-        </div>
-
-        {/* 🔹 Medical Law Notice (Floating style) */}
-        <div className="mb-14 rounded-2xl border border-slate-100 bg-slate-50 p-5 text-center sm:mb-20 sm:rounded-[1.5rem] sm:p-8">
-          <p className="break-keep text-[14px] font-bold leading-[1.7] tracking-tight text-ink-muted sm:text-[15px]">
-            <strong className="text-ink font-bold">※ 안내사항</strong><br className="md:hidden"/>
-            본 후기는 의료법 제56조 및 동법 시행령을 준수하여 환자가 직접 작성한 실제 사례입니다.
           </p>
         </div>
 

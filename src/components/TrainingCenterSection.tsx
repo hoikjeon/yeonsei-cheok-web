@@ -208,7 +208,7 @@ export default function TrainingCenterSection() {
                       whileHover={{ y: -12 }}
                       transition={{ type: 'spring', stiffness: 260, damping: 20 }}
                     >
-                      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-slate-100 shadow-[0_22px_55px_-30px_rgba(15,29,54,0.45)] ring-1 ring-slate-900/5 transition-shadow duration-500 group-hover:shadow-[0_40px_80px_-32px_rgba(40,74,165,0.55)] sm:aspect-[3/4] sm:rounded-[1.5rem]">
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100 shadow-[0_22px_55px_-30px_rgba(15,29,54,0.45)] ring-1 ring-slate-900/5 transition-shadow duration-500 group-hover:shadow-[0_40px_80px_-32px_rgba(40,74,165,0.55)] sm:aspect-[3/4]">
                         <img
                           src={card.image}
                           alt={card.title}

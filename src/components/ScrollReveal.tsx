@@ -40,10 +40,10 @@ const revealVariants: Record<RevealVariant, Variants> = {
   image: {
     hidden: {
       opacity: 0,
-      y: 24,
-      scale: 0.985,
-      clipPath: 'inset(10% 0 0 0 round 8px)',
-      filter: 'blur(8px)',
+      y: 16,
+      scale: 0.99,
+      clipPath: 'inset(6% 0 0 0 round 8px)',
+      filter: 'blur(4px)',
     },
     visible: {
       opacity: 1,
@@ -93,23 +93,25 @@ const ScrollReveal = ({
   className,
   delay = 0,
   variant = 'fade-up',
-  amount = 0.24,
+  amount,
 }: ScrollRevealProps) => {
   const shouldReduceMotion = useReducedMotion();
+  // 이미지는 덩치가 커서 24%가 보일 때까지 기다리면 등장이 늦게 느껴진다.
+  const viewportAmount = amount ?? (variant === 'image' ? 0.12 : 0.24);
 
   return (
     <motion.div
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount }}
+      viewport={{ once: true, amount: viewportAmount }}
       variants={shouldReduceMotion ? reducedVariants : revealVariants[variant]}
       transition={{
         duration:
           variant === 'soft-rise'
             ? 1.15
             : variant === 'image'
-              ? 0.9
+              ? 0.5
               : variant === 'slide-from-left' || variant === 'slide-from-right'
                 ? 0.88
                 : variant === 'metric'

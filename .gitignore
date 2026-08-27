@@ -45,3 +45,9 @@ next-env.d.ts
 
 # large media files
 public/shoulder.mov
+
+# 코드에서 참조하지 않는 대용량 원본 이미지 (배포 용량·git 이력 보호)
+# 사용 중인 최적화본은 추적합니다: ch-hospital.jpg, directors-surgery.jpg
+public/banner/
+public/병원장님들.jpg
+public/ch-hospital.png

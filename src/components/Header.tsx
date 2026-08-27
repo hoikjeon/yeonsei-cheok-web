@@ -243,11 +243,13 @@ const Header = () => {
   const isMenuOpen = activeMenu !== null;
   const activeMenuData = MENU_DATA.find((menu) => menu.id === activeMenu);
   const isHomePage = pathname === '/';
-  // 홈 최상단(히어로 배너 위)에서만 흰 배경을 쓰지 않고, 스크롤하면 흰 헤더로 전환합니다.
+  // 홈 최상단의 모바일·태블릿에서는 투명 헤더를 유지하고, 스크롤하면 흰 헤더로 전환합니다.
   const isLightHeader =
     !isHomePage || !isAtPageTop || isHeaderHovered || isMenuOpen || isMobileMenuOpen;
-  // 히어로 배너 최상단에서는 배경을 투명하게 두어 사진이 헤더에 가려지지 않도록 합니다.
+  // 홈 히어로 최상단에서만 반응형으로 다른 헤더 테마를 적용합니다.
   const isTransparentHeader = isHomePage && isAtPageTop && !isLightHeader;
+  // 데스크톱 네비게이션은 홈 최상단에서도 흰색 헤더 테마를 유지합니다.
+  const isDesktopLightHeader = isLightHeader || isTransparentHeader;
   
 
   const headerRef = useRef<HTMLDivElement>(null);
@@ -423,7 +425,7 @@ const Header = () => {
         isLightHeader
           ? 'border-b border-slate-100 bg-white/70 shadow-sm backdrop-blur-xl lg:bg-white lg:backdrop-blur-none'
           : isTransparentHeader
-            ? 'border-b border-transparent bg-transparent shadow-none'
+            ? 'border-b border-transparent bg-transparent shadow-none lg:border-slate-100 lg:bg-white lg:shadow-sm'
             : 'border-b border-white/10 bg-navy-950/75 shadow-none backdrop-blur-xl'
       } ${
         isMenuOpen ? 'shadow-[0_32px_70px_-32px_rgba(15,29,54,0.32)]' : ''
@@ -433,14 +435,35 @@ const Header = () => {
       <div className="relative z-10 mx-auto flex h-[72px] max-w-7xl items-center px-4 sm:px-7 xl:px-10">
         {/* Logo Section */}
         <Link href="/" className="flex items-center shrink-0 transition-transform hover:scale-[1.03] active:scale-95" onClick={() => setActiveMenu(null)}>
-          <Image
-            src={isLightHeader ? '/ch-logo-color.png' : '/ch-logo-white.png'}
-            alt="연세척병원"
-            width={517}
-            height={144}
-            priority
-            className="h-9 w-auto sm:h-10 lg:h-11"
-          />
+          {isLightHeader ? (
+            <Image
+              src="/ch-logo-color.png"
+              alt="연세척병원"
+              width={517}
+              height={144}
+              priority
+              className="h-9 w-auto sm:h-10 lg:h-11"
+            />
+          ) : (
+            <>
+              <Image
+                src="/ch-logo-white.png"
+                alt="연세척병원"
+                width={517}
+                height={144}
+                priority
+                className="h-9 w-auto sm:h-10 lg:hidden"
+              />
+              <Image
+                src="/ch-logo-color.png"
+                alt="연세척병원"
+                width={517}
+                height={144}
+                priority
+                className="hidden h-11 w-auto lg:block"
+              />
+            </>
+          )}
         </Link>
         
         {/* Main Navigation - Visible from 1100px */}
@@ -469,7 +492,7 @@ const Header = () => {
               >
                 <span
                   className={`block ${
-                    isLightHeader ? 'text-ink' : 'text-white/92'
+                    isDesktopLightHeader ? 'text-ink' : 'text-white/92'
                   }`}
                 >
                   {menu.name}
@@ -524,7 +547,7 @@ const Header = () => {
           className="ml-auto flex items-center"
           style={{ columnGap: HEADER_DESKTOP_LAYOUT.socialToAccountGap }}
         >
-          <HeaderSocialLinks isLight={isLightHeader} />
+          <HeaderSocialLinks isLight={isDesktopLightHeader} />
 
           {/* User Icon Side */}
           <div className="flex items-center gap-1 sm:gap-4">
@@ -532,7 +555,7 @@ const Header = () => {
             <div className="hidden items-center gap-2 lg:flex lg:gap-4">
               <div className="hidden md:flex flex-col items-end -space-y-1">
                 <span className={`text-[13px] font-bold transition-colors ${
-                  isLightHeader ? 'text-ink' : 'text-white'
+                  isDesktopLightHeader ? 'text-ink' : 'text-white'
                 }`}>{user.user_metadata?.full_name || '사용자'}님</span>
                 <span className="text-[10px] font-bold text-primary tracking-widest font-montserrat uppercase">Verified</span>
               </div>
@@ -546,7 +569,7 @@ const Header = () => {
                     <img src={user.user_metadata.avatar_url} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
                     <div className={`w-full h-full flex items-center justify-center transition-colors ${
-                      isLightHeader ? 'bg-slate-100 text-ink-muted' : 'bg-white/12 text-white'
+                      isDesktopLightHeader ? 'bg-slate-100 text-ink-muted' : 'bg-white/12 text-white'
                     }`}>
                       <User size={20} />
                     </div>
@@ -588,7 +611,7 @@ const Header = () => {
               href="/login" 
               aria-label="로그인"
                 className={`hidden h-11 w-11 items-center justify-center rounded-full transition-all active:scale-95 lg:flex ${
-                isLightHeader
+                isDesktopLightHeader
                   ? 'text-ink hover:bg-primary-light hover:text-primary'
                   : 'text-white/92 hover:bg-white/12 hover:text-white'
               }`}
@@ -691,8 +714,8 @@ const Header = () => {
                     src="/ys-logo-bg.png"
                     alt=""
                     aria-hidden="true"
-                    width={1551}
-                    height={1545}
+                    width={421}
+                    height={420}
                     className="pointer-events-none absolute -bottom-40 -right-72 h-[400px] w-auto select-none object-contain opacity-[0.03] brightness-0"
                   />
                   <div className="mb-4 flex items-end justify-between">

@@ -235,7 +235,7 @@ export default function ReviewsShowcaseSection() {
               <article
                 key={`${review.title}-${index}`}
                 aria-hidden={index >= total}
-                className={`flex h-[210px] w-[164px] shrink-0 flex-col rounded-[18px] px-3 py-3.5 sm:h-[342px] sm:w-[286px] sm:rounded-[28px] sm:px-7 sm:py-8 md:w-[320px] ${isLower ? 'translate-y-9 md:translate-y-[58px]' : 'translate-y-0'} ${tone.card}`}
+                className={`flex h-[210px] w-[164px] shrink-0 flex-col rounded-[9px] px-3 py-3.5 sm:h-[342px] sm:w-[286px] sm:rounded-[14px] sm:px-7 sm:py-8 md:w-[320px] ${isLower ? 'translate-y-9 md:translate-y-[58px]' : 'translate-y-0'} ${tone.card}`}
                 style={{
                   transition,
                 }}

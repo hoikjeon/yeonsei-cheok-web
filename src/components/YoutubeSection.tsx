@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Play, Plus } from 'lucide-react';
@@ -8,6 +9,8 @@ import { supabase } from '@/lib/supabase';
 
 type YoutubeCard = {
   id: string;
+  /** 유튜브 11자리 영상 ID. 없으면 인라인 재생 대신 상세 페이지로 이동합니다. */
+  videoId: string | null;
   title: string;
   tags: string[];
   date: string;
@@ -37,64 +40,7 @@ function formatDate(value: string) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
 
-// DB에 연세척TV 소식이 없을 때 노출되는 기본(더미) 카드
 const FALLBACK_IMG = '/generated/hero-university-doctors.png';
-const DUMMY_CARDS: YoutubeCard[] = [
-  {
-    id: 'yt-1',
-    title: '민원장에게 무엇이든 물어보닥 1부 | 이런 증상, 병원 가야 하나요?',
-    tags: ['척추질환', '통증진단', '연세척TV'],
-    date: '2026-06-18',
-    image: '/generated/hero-university-doctors.png',
-    imageFallback: FALLBACK_IMG,
-    href: '/news/youtube',
-  },
-  {
-    id: 'yt-2',
-    title: '척추와 관절의 경고, 무너진 몸의 신호 — 방치하면 안 되는 질환 TOP 6',
-    tags: ['신경외과', '정형외과', '척추센터'],
-    date: '2026-05-30',
-    image: '/generated/hero-spine-endoscopy.png',
-    imageFallback: FALLBACK_IMG,
-    href: '/news/youtube',
-  },
-  {
-    id: 'yt-3',
-    title: '통증 원인이 다른데 운동은 왜 똑같이 하세요? 맞춤 재활의 중요성',
-    tags: ['재활치료', '운동치료', '통증관리'],
-    date: '2026-05-12',
-    image: '/generated/hero-knee-oneday.png',
-    imageFallback: FALLBACK_IMG,
-    href: '/news/youtube',
-  },
-  {
-    id: 'yt-4',
-    title: '통증치료, 염증만 잡으면 끝일까요? 통증 치료 3단계 완벽 정리',
-    tags: ['신경차단술', '도수치료', '체외충격파'],
-    date: '2026-04-24',
-    image: '/generated/hero-medical-conference.png',
-    imageFallback: FALLBACK_IMG,
-    href: '/news/youtube',
-  },
-  {
-    id: 'yt-5',
-    title: '무릎에서 소리가 나요, 수술해야 하나요? 관절내시경 진단 이야기',
-    tags: ['무릎통증', '관절내시경', '연골손상'],
-    date: '2026-04-10',
-    image: '/generated/specialty-knee-arthroscopy.png',
-    imageFallback: FALLBACK_IMG,
-    href: '/news/youtube',
-  },
-  {
-    id: 'yt-6',
-    title: '양방향 척추내시경(UBE), 절개 부담을 낮추는 최소침습 치료란?',
-    tags: ['양방향내시경', '최소침습', '비수술치료'],
-    date: '2026-03-22',
-    image: '/generated/specialty-spine-endoscopy.png',
-    imageFallback: FALLBACK_IMG,
-    href: '/news/youtube',
-  },
-];
 
 // 썸네일 로드 실패 시 폴백 이미지로 1회 교체
 function handleImgError(fallback: string) {
@@ -107,8 +53,11 @@ function handleImgError(fallback: string) {
 }
 
 export default function YoutubeSection() {
-  const [cards, setCards] = useState<YoutubeCard[]>(DUMMY_CARDS);
+  const router = useRouter();
+  const [cards, setCards] = useState<YoutubeCard[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
+  // 재생 중인 카드 id. null이면 썸네일을 보여줍니다.
+  const [playingId, setPlayingId] = useState<string | null>(null);
   const active = cards.find((c) => c.id === activeId) ?? cards[0];
 
   // 병원소식 > 연세척TV(hospital_news, type='youtube') 데이터가 있으면 우선 사용
@@ -138,6 +87,7 @@ export default function YoutubeSection() {
 
         return {
           id: row.id,
+          videoId: ytId,
           title: row.title,
           tags: extractTags(row.content),
           date: formatDate(row.created_at),
@@ -154,6 +104,9 @@ export default function YoutubeSection() {
       alive = false;
     };
   }, []);
+
+  // 불러오기 전이거나 등록된 영상이 없으면 섹션을 감춥니다(가짜 카드를 띄우지 않음).
+  if (!active) return null;
 
   return (
     <section className="relative overflow-hidden bg-white py-16 md:py-32">
@@ -190,29 +143,48 @@ export default function YoutubeSection() {
         <div className="mt-10 grid grid-cols-1 gap-6 md:mt-16 lg:grid-cols-[1.72fr_1fr] lg:items-stretch lg:gap-8">
           {/* Featured (latest / selected) */}
           <div>
-            <Link href={active.href} className="group block">
-              <div className="relative aspect-video overflow-hidden rounded-2xl bg-slate-900 shadow-[0_28px_70px_-38px_rgba(15,29,54,0.55)] ring-1 ring-slate-900/5 md:rounded-[1.5rem]">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={active.id}
-                    src={active.image}
-                    alt={active.title}
-                    onError={handleImgError(active.imageFallback)}
-                    initial={{ opacity: 0, scale: 1.04 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                </AnimatePresence>
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/45 via-transparent to-transparent" />
+            <div className="relative aspect-video overflow-hidden rounded-2xl bg-slate-900 shadow-[0_28px_70px_-38px_rgba(15,29,54,0.55)] ring-1 ring-slate-900/5 md:rounded-[1.5rem]">
+              {playingId === active.id && active.videoId ? (
+                <iframe
+                  key={active.videoId}
+                  src={`https://www.youtube-nocookie.com/embed/${active.videoId}?autoplay=1&rel=0&modestbranding=1`}
+                  title={active.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="absolute inset-0 h-full w-full border-0"
+                />
+              ) : (
+                <button
+                  type="button"
+                  // 영상 ID를 못 읽은 경우에만 상세 페이지로 넘깁니다.
+                  onClick={() =>
+                    active.videoId ? setPlayingId(active.id) : router.push(active.href)
+                  }
+                  aria-label={`${active.title} 재생`}
+                  className="group absolute inset-0 block h-full w-full"
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={active.id}
+                      src={active.image}
+                      alt={active.title}
+                      onError={handleImgError(active.imageFallback)}
+                      initial={{ opacity: 0, scale: 1.04 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  </AnimatePresence>
+                  <span className="absolute inset-0 bg-gradient-to-t from-navy-950/45 via-transparent to-transparent" />
 
-                {/* 중앙 유튜브 재생 버튼 */}
-                <span className="absolute left-1/2 top-1/2 flex h-[54px] w-[76px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[16px] bg-[#FF0000] shadow-[0_10px_30px_-8px_rgba(255,0,0,0.6)] transition-transform duration-300 group-hover:scale-110 md:h-16 md:w-[92px]">
-                  <Play size={30} fill="#fff" strokeWidth={0} className="ml-0.5" />
-                </span>
-              </div>
-            </Link>
+                  {/* 중앙 유튜브 재생 버튼 */}
+                  <span className="absolute left-1/2 top-1/2 flex h-[54px] w-[76px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[16px] bg-[#FF0000] shadow-[0_10px_30px_-8px_rgba(255,0,0,0.6)] transition-transform duration-300 group-hover:scale-110 md:h-16 md:w-[92px]">
+                    <Play size={30} fill="#fff" strokeWidth={0} className="ml-0.5" />
+                  </span>
+                </button>
+              )}
+            </div>
 
             <div className="mt-6 space-y-3">
               {active.tags.length > 0 && (
@@ -241,7 +213,11 @@ export default function YoutubeSection() {
                   <button
                     key={card.id}
                     type="button"
-                    onClick={() => setActiveId(card.id)}
+                    onClick={() => {
+                      setActiveId(card.id);
+                      // 이미 재생 중이었다면 새 영상도 바로 이어서 재생합니다.
+                      setPlayingId(playingId && card.videoId ? card.id : null);
+                    }}
                     className={`group w-full items-center gap-3 rounded-xl border p-2 text-left transition-all duration-300 sm:gap-4 sm:rounded-2xl sm:p-2.5 ${
                       index >= 3 ? 'hidden lg:flex' : 'flex'
                     } ${

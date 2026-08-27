@@ -22,58 +22,60 @@ import YoutubeSection from '@/components/YoutubeSection';
 
 const heroSlides = [
   {
-    id: 'university-trained',
-    titleLines: ['대학병원 출신의', '정밀한 진료'],
-    desc: '대학병원 진료 경험을 갖춘 의료진이 정확한 진단과 환자 중심 치료로 회복의 기준을 높입니다.',
-    image: '/generated/hero-university-doctors.png',
-    mobileImage: '/generated/mobile/hero-university-doctors-mobile-v2.png',
-    mobileTitleLines: ['대학병원 출신의', '정밀한 진료'],
-    imageAlt: '대학병원 출신 의료진의 척추 상담 장면',
+    id: 'f',
+    desktopImage: '/banner/f1d.jpg',
+    tabletImage: '/banner/f1t.jpg',
+    mobileImage: '/banner/f1m.jpg',
+    imageAlt: '김동한·이남 병원장이 이끄는 연세척병원, 척추·관절치료 처음부터 끝까지 함께하겠습니다',
   },
   {
-    id: 'total-care',
-    titleLines: ['척추·관절 치료', '처음부터 끝까지'],
-    desc: '검사, 진단, 비수술 치료, 수술 후 재활까지 한 곳에서 이어지는 체계적인 치료 여정을 제공합니다.',
-    image: '/generated/hero-hospital-exterior.png',
-    mobileImage: '/generated/mobile/hero-hospital-exterior-mobile-v2.png',
-    mobileTitleLines: ['척추·관절 치료', '처음부터 끝까지'],
-    imageAlt: '프리미엄 척추 관절 병원 외관',
+    id: 'a',
+    desktopImage: '/banner/a1d.jpg',
+    tabletImage: '/banner/a1t.jpg',
+    mobileImage: '/banner/a1m.jpg',
+    imageAlt: '세계적 수준의 의료진이 집도하는 연세척병원 양방향 척추내시경 센터',
   },
   {
-    id: 'spine-endoscopy',
-    titleLines: ['양방향 척추내시경', '특화 센터'],
-    desc: '작은 통로로 병변을 정밀하게 확인하고 치료해 절개 부담을 낮추는 최소침습 척추 치료를 지향합니다.',
-    image: '/generated/hero-spine-endoscopy.png',
-    mobileImage: '/generated/mobile/hero-spine-endoscopy-mobile-v2.png',
-    mobileTitleLines: ['양방향 척추내시경', '특화 센터'],
-    imageAlt: '양방향 척추내시경 교육실',
+    id: 'b',
+    desktopImage: '/banner/b1d.jpg',
+    tabletImage: '/banner/b1t.jpg',
+    mobileImage: '/banner/b1m.jpg',
+    imageAlt: '해외 의료진을 가르치는 양방향 척추내시경 수술 권위자 김동한 병원장',
   },
   {
-    id: 'global-education',
-    titleLines: ['해외 의료진을 가르치는', '수술 노하우'],
-    desc: '임상 경험과 술기를 바탕으로 국내외 의료진 교육과 학술 활동을 이어가며 치료의 완성도를 높입니다.',
-    image: '/generated/hero-medical-conference.png',
-    mobileImage: '/generated/mobile/hero-medical-conference-mobile-v2.png',
-    mobileTitleLines: ['해외 의료진을 위한', '수술 노하우'],
-    imageAlt: '척추 관절 의료진 학술 강연 장면',
+    id: 'c',
+    desktopImage: '/banner/c1d.jpg',
+    tabletImage: '/banner/c1t.jpg',
+    mobileImage: '/banner/c1m.jpg',
+    imageAlt: '해외 의사를 가르치고 양방향 척추내시경을 리드하는 연세척병원',
   },
   {
-    id: 'one-day-knee',
-    titleLines: ['원데이 무릎 관절', '내시경 진단'],
-    desc: '입원 부담을 줄이고 당일 검사와 관절 상태 확인이 가능하도록 빠르고 정확한 진료 시스템을 운영합니다.',
-    image: '/generated/hero-knee-oneday.png',
-    mobileImage: '/generated/mobile/hero-knee-oneday-mobile-v2.png',
-    mobileTitleLines: ['원데이 무릎 관절', '내시경 진단'],
-    imageAlt: '원데이 무릎 관절 진단 클리닉',
+    id: 'd',
+    desktopImage: '/banner/d1d.jpg',
+    tabletImage: '/banner/d1t.jpg',
+    mobileImage: '/banner/d1m.jpg',
+    imageAlt: '비수술 치료부터 수술·재활까지 환자에게 꼭 필요한 치료에 집중하는 연세척병원',
   },
   {
-    id: 'research-network',
-    titleLines: ['국내 대학병원과 함께하는', '연구 네트워크'],
-    desc: '대학병원급 협진 관점과 연구 기반 데이터를 바탕으로 더 안전하고 효율적인 치료 방향을 고민합니다.',
-    image: '/generated/hero-research-network.png',
-    mobileImage: '/generated/mobile/hero-research-network-mobile-v2.png',
-    mobileTitleLines: ['대학병원과 함께하는', '연구 네트워크'],
-    imageAlt: '척추 관절 연구 네트워크 회의 장면',
+    id: 'e',
+    desktopImage: '/banner/e1d.jpg',
+    tabletImage: '/banner/e1t.jpg',
+    mobileImage: '/banner/e1m.jpg',
+    imageAlt: '세계 최초 경추 라이브 서저리를 시행한 양방향 척추내시경 권위자 이남 병원장',
+  },
+  {
+    id: 'g',
+    desktopImage: '/banner/g1d.jpg',
+    tabletImage: '/banner/g1t.jpg',
+    mobileImage: '/banner/g1m.jpg',
+    imageAlt: '입원 없이 당일 검사가 가능한 연세척병원 원데이 무릎 관절 내시경 진단',
+  },
+  {
+    id: 'h',
+    desktopImage: '/banner/h1d.jpg',
+    tabletImage: '/banner/h1t.jpg',
+    mobileImage: '/banner/h1m.jpg',
+    imageAlt: '세계 최초 양방향 척추내시경 유합술 전향적 연구에 참여하는 연세척병원',
   },
 ];
 
@@ -88,30 +90,37 @@ function ResponsiveHeroImage({ slide, isFirstSlide }: { slide: HeroSlide; isFirs
     props: { srcSet: desktopSrcSet },
   } = getImageProps({
     ...common,
-    src: slide.image,
-    width: 1919,
-    height: 820,
-    quality: 75,
+    src: slide.desktopImage,
+    width: 2880,
+    height: 1230,
+    quality: 90,
   });
   const {
-    props: { srcSet: mobileSrcSet, ...mobileImageProps },
+    props: { srcSet: tabletSrcSet },
   } = getImageProps({
     ...common,
+    src: slide.tabletImage,
+    width: 2048,
+    height: 2048,
+    quality: 90,
+  });
+  const { props: mobileImageProps } = getImageProps({
+    ...common,
     src: slide.mobileImage,
-    width: 992,
-    height: 1586,
-    quality: 75,
+    width: 1200,
+    height: 1920,
+    quality: 90,
   });
 
   return (
     <picture className="block h-full w-full">
-      <source media="(min-width: 768px)" srcSet={desktopSrcSet} />
-      <source media="(max-width: 767px)" srcSet={mobileSrcSet} />
+      <source media="(min-width: 1024px)" srcSet={desktopSrcSet} sizes="100vw" />
+      <source media="(min-width: 768px)" srcSet={tabletSrcSet} sizes="100vw" />
       <img
         {...mobileImageProps}
         alt={slide.imageAlt}
         fetchPriority={isFirstSlide ? 'high' : 'auto'}
-        className="h-full w-full object-cover object-center"
+        className="h-full w-full object-contain"
       />
     </picture>
   );
@@ -270,70 +279,32 @@ export default function Home() {
   return (
     <div className="flex flex-col space-y-0">
       {/* Hero Section */}
-      <section className="home-hero relative -mt-[72px] flex items-end overflow-hidden bg-navy-950 pb-[76px] pt-[72px] md:items-center md:pb-0">
-        <div className="absolute inset-0 z-0">
+      <section
+        className="home-hero relative -mt-[72px] overflow-hidden bg-navy-950 lg:mt-0"
+        role="region"
+        aria-label="연세척병원 주요 안내"
+        aria-roledescription="carousel"
+      >
+        <h1 className="sr-only">부산 척추·관절 진료 연세척병원</h1>
+        <div className="absolute inset-0">
           <AnimatePresence mode="sync">
             <motion.div
               key={activeSlide.id}
-              initial={{ opacity: 0, scale: 1.045 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.985 }}
-              transition={{ duration: 1.02, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
               className="absolute inset-0 h-full w-full"
             >
               <ResponsiveHeroImage slide={activeSlide} isFirstSlide={activeSlideIndex === 0} />
             </motion.div>
           </AnimatePresence>
-          <div className="absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(10,20,40,0.08)_0%,rgba(10,20,40,0.18)_42%,rgba(10,20,40,0.82)_72%,rgba(10,20,40,0.98)_100%)] md:bg-[linear-gradient(90deg,rgba(10,20,40,0.96)_0%,rgba(10,20,40,0.84)_32%,rgba(10,20,40,0.44)_66%,rgba(10,20,40,0.36)_100%)]" />
-          <div className="absolute inset-0 z-10 hidden bg-gradient-to-b from-navy-950/50 via-transparent to-navy-950 md:block" />
-          <div className="absolute inset-x-0 bottom-0 z-10 h-48 bg-gradient-to-t from-navy-950 to-transparent md:h-40" />
-          {/* 투명 헤더 위 로고·메뉴 가독성을 위한 상단 그라데이션 (사진은 그대로 보임) */}
-          <div className="absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-navy-950/55 to-transparent md:hidden" />
-        </div>
-        
-        <div className="relative z-20 mx-auto w-full max-w-7xl px-5 sm:px-7 md:pt-12 xl:px-10">
-          <h1 className="sr-only">부산 척추·관절 진료 연세척병원</h1>
-          <motion.div
-            key={activeSlide.id}
-            initial={{ opacity: 0.7 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-[880px] space-y-5 md:space-y-7"
-          >
-            <div className="space-y-4 md:space-y-6">
-              <p className="break-keep text-display tracking-normal text-white">
-                <span className="md:hidden">
-                  {activeSlide.mobileTitleLines.map((line, index) => (
-                    <span
-                      key={line}
-                      className={index === activeSlide.mobileTitleLines.length - 1 ? 'block text-white/[0.78]' : 'block'}
-                    >
-                      {line}
-                    </span>
-                  ))}
-                </span>
-                <span className="hidden md:inline">
-                  {activeSlide.titleLines.map((line, index) => (
-                    <span
-                      key={line}
-                      className={index === activeSlide.titleLines.length - 1 ? 'block text-white/[0.78]' : 'block'}
-                    >
-                      {line}
-                    </span>
-                  ))}
-                </span>
-              </p>
-              <p className="max-w-xl break-keep text-body-lg text-slate-200/90">
-                {activeSlide.desc}
-              </p>
-            </div>
-          </motion.div>
         </div>
 
         <button
           type="button"
           onClick={showPreviousSlide}
-          className="absolute left-8 top-1/2 z-30 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/[0.12] bg-navy-950/[0.35] text-white/[0.78] backdrop-blur-md transition-all hover:border-white/25 hover:bg-white/10 hover:text-white md:flex"
+          className="absolute left-5 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-navy-950/45 text-white/85 shadow-lg backdrop-blur-md transition-all hover:border-white/45 hover:bg-navy-950/65 hover:text-white md:flex xl:left-8 xl:h-14 xl:w-14"
           aria-label="이전 배너 보기"
         >
           <ChevronRight size={24} className="rotate-180" />
@@ -341,13 +312,13 @@ export default function Home() {
         <button
           type="button"
           onClick={showNextSlide}
-          className="absolute right-8 top-1/2 z-30 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full border border-white/[0.12] bg-navy-950/[0.35] text-white/[0.78] backdrop-blur-md transition-all hover:border-white/25 hover:bg-white/10 hover:text-white md:flex"
+          className="absolute right-5 top-1/2 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-navy-950/45 text-white/85 shadow-lg backdrop-blur-md transition-all hover:border-white/45 hover:bg-navy-950/65 hover:text-white md:flex xl:right-8 xl:h-14 xl:w-14"
           aria-label="다음 배너 보기"
         >
           <ChevronRight size={24} />
         </button>
 
-        <div className="absolute bottom-4 right-5 z-30 flex items-center overflow-hidden rounded-full border border-white/15 bg-navy-950/45 text-white backdrop-blur-md md:hidden">
+        <div className="absolute bottom-4 right-4 z-20 flex items-center overflow-hidden rounded-full border border-white/20 bg-navy-950/55 text-white shadow-lg backdrop-blur-md md:hidden">
           <button
             type="button"
             onClick={showPreviousSlide}
@@ -373,7 +344,7 @@ export default function Home() {
       <HomeNoticeBar />
 
       {/* Quick Access Section */}
-      <section className="relative overflow-hidden bg-white pb-0 pt-9 md:pt-20 md:pb-0">
+      <section className="relative overflow-hidden bg-white pb-0 pt-9 md:pt-20 md:pb-0 lg:pt-8">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#f4f9ff] to-transparent" />
 
@@ -438,12 +409,12 @@ export default function Home() {
         <div className="relative z-10 mx-auto mt-14 max-w-7xl px-5 sm:px-7 md:mt-28 xl:px-10">
           <div className="relative min-h-0 lg:min-h-[500px]">
             <div className="relative z-10 grid grid-cols-1 gap-7 lg:grid-cols-[minmax(0,1.32fr)_minmax(0,1fr)] lg:items-center lg:gap-[72px] xl:gap-[96px]">
-              <div className="relative aspect-[4/3] min-h-0 overflow-hidden rounded-[24px] md:aspect-[1.34/1] md:min-h-[420px] md:rounded-none lg:h-[462px]">
+              <div className="relative aspect-[4/3] min-h-0 overflow-hidden rounded-[12px] md:aspect-[1.34/1] md:min-h-[420px] md:rounded-none lg:h-[462px]">
                 <AnimatePresence>
                   <motion.div
                     key={activeCareIndex}
                     initial={{ opacity: 0.35, x: 96, scale: 0.94, borderRadius: 240 }}
-                    animate={{ opacity: 1, x: 0, scale: 1, borderRadius: 36 }}
+                    animate={{ opacity: 1, x: 0, scale: 1, borderRadius: 12 }}
                     exit={{ opacity: 0, x: -80, scale: 0.97, borderRadius: 140 }}
                     transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
                     className="absolute inset-0 overflow-hidden bg-slate-100 shadow-[0_44px_120px_-86px_rgba(15,29,54,0.65)]"
