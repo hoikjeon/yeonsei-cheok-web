@@ -120,10 +120,10 @@ export default function RehabPage() {
 
             <div className="overflow-hidden rounded-[1.25rem] bg-slate-100 shadow-[0_28px_70px_-48px_rgba(15,29,54,0.5)] ring-1 ring-slate-200/70">
               <Image
-                src="/generated/ys-rehab-functional-exercise.png"
-                alt="재활치료사의 지도에 따라 탄력 밴드로 하체 근력과 균형을 훈련하는 모습"
-                width={1536}
-                height={1024}
+                src="/images/treatments/spine/rehab-functional-exercise.webp"
+                alt="연세척병원 재활치료실에서 치료사의 지도에 따라 환자가 1:1 균형 및 기능 운동 훈련을 진행하는 모습"
+                width={1024}
+                height={682}
                 sizes="(max-width: 1023px) calc(100vw - 40px), 55vw"
                 className="aspect-[3/2] w-full object-cover"
               />
