@@ -26,7 +26,7 @@ export const metadata: Metadata = createPageMetadata({
   description:
     '손상 이전의 움직임과 기능 회복을 돕는 연세척병원 도수·재활 클리닉 안내입니다.',
   path: '/treatments/spine/rehab',
-  image: '/generated/ys-rehab-manual-therapy-intro.png',
+  image: '/images/treatments/spine/rehab-clinic-intro.webp',
 });
 
 export default function RehabPage() {
@@ -46,10 +46,10 @@ export default function RehabPage() {
 
         <div className="mx-auto mt-10 max-w-[1210px] overflow-hidden rounded-[1.1rem] bg-slate-100 shadow-[0_24px_70px_-54px_rgba(15,29,54,0.45)] ring-1 ring-slate-200/70 sm:mt-16 sm:rounded-[1.35rem] md:mt-24">
           <Image
-            src="/generated/ys-rehab-manual-therapy-intro.png"
-            alt="연세척병원 도수·재활 클리닉에서 의료진이 환자의 허리 움직임을 확인하는 모습"
-            width={1915}
-            height={821}
+            src="/images/treatments/spine/rehab-clinic-intro.webp"
+            alt="연세척병원 도수·재활 클리닉에서 의료진이 환자의 상지 재활 운동 치료를 돕는 모습"
+            width={1024}
+            height={681}
             priority
             className="h-[210px] w-full object-cover object-center sm:h-auto"
           />
@@ -75,12 +75,12 @@ export default function RehabPage() {
           <article className="grid items-center gap-9 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16 xl:gap-24">
             <div className="order-2 overflow-hidden rounded-[1.25rem] bg-slate-100 shadow-[0_28px_70px_-48px_rgba(15,29,54,0.5)] ring-1 ring-slate-200/70 lg:order-1">
               <Image
-                src="/generated/ys-rehab-manual-therapy-balance.png"
-                alt="재활치료사가 환자의 어깨와 팔의 움직임을 조심스럽게 확인하는 모습"
-                width={1536}
-                height={1024}
+                src="/images/treatments/spine/rehab-manual-therapy.webp"
+                alt="연세척병원 도수치료사가 환자의 허리와 등 부위 움직임을 섬세하게 교정 치료하는 모습"
+                width={1024}
+                height={682}
                 sizes="(max-width: 1023px) calc(100vw - 40px), 55vw"
-                className="aspect-[3/2] w-full object-cover"
+                className="h-[250px] w-full object-cover object-center sm:h-[360px] md:h-[440px] lg:h-[500px]"
               />
             </div>
 
