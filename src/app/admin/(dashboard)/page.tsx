@@ -123,11 +123,11 @@ export default async function AdminDashboardPage() {
             </div>
           </section>
 
-          {/* 온라인 상담 리스트 (미확인) */}
+          {/* 일반 문의 리스트 (미확인) */}
           <section className="bg-white rounded shadow-sm border border-slate-200 overflow-hidden flex flex-col max-h-[600px]">
             <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-              <h3 className="text-[17px] font-black text-ink">미확인 온라인 상담</h3>
-              <Link href="/admin/consultations" className="text-xs font-bold text-primary bg-primary/5 px-3 py-1.5 rounded hover:bg-primary/10 transition-all flex items-center gap-1">전체보기 <ArrowRight size={12} /></Link>
+              <h3 className="text-[17px] font-black text-ink">미확인 일반 문의</h3>
+              <Link href="/admin/consultations/general" className="text-xs font-bold text-primary bg-primary/5 px-3 py-1.5 rounded hover:bg-primary/10 transition-all flex items-center gap-1">전체보기 <ArrowRight size={12} /></Link>
             </div>
             <div className="overflow-auto flex-1 p-2">
               <table className="w-full text-left text-sm">
@@ -152,7 +152,7 @@ export default async function AdminDashboardPage() {
                           </span>
                         </td>
                         <td className="py-4 px-6 font-bold text-ink-sub">
-                          <Link href="/admin/consultations" className="hover:text-emerald-600 transition-colors underline underline-offset-4 decoration-slate-200">
+                          <Link href="/admin/consultations/general" className="hover:text-emerald-600 transition-colors underline underline-offset-4 decoration-slate-200">
                             {cons.name}
                           </Link>
                         </td>

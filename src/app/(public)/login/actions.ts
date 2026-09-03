@@ -23,6 +23,11 @@ function translateError(error: any) {
   return errorMessage;
 }
 
+function safeRedirectPath(value: FormDataEntryValue | string | null | undefined) {
+  const path = typeof value === 'string' ? value.trim() : '';
+  return path.startsWith('/') && !path.startsWith('//') ? path : '/';
+}
+
 // 이메일 기반 회원가입
 export async function signUp(formData: FormData) {
   const email = formData.get('email') as string;
@@ -62,6 +67,7 @@ export async function signUp(formData: FormData) {
 export async function signInWithEmail(formData: FormData) {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
+  const nextPath = safeRedirectPath(formData.get('next'));
   const supabase = await createClient();
 
   const { error } = await supabase.auth.signInWithPassword({
@@ -74,7 +80,7 @@ export async function signInWithEmail(formData: FormData) {
   }
 
   revalidatePath('/', 'layout');
-  redirect('/');
+  redirect(nextPath);
 }
 
 // 로그아웃
@@ -92,12 +98,12 @@ export async function signOut() {
 }
 
 // 소셜 로그인 (네이버 제거됨)
-export async function signInWithSocial(provider: 'google' | 'kakao') {
+export async function signInWithSocial(provider: 'google' | 'kakao', nextPath = '/') {
   const supabase = await createClient();
   
   // 서버 사이드에서 리다이렉트 경로 설정 (실제 도메인 또는 환경 변수 활용 권장)
   const host = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-  const redirectTo = `${host}/auth/callback?next=/`;
+  const redirectTo = `${host}/auth/callback?next=${encodeURIComponent(safeRedirectPath(nextPath))}`;
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: provider as Provider,

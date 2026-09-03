@@ -1,201 +1,141 @@
-'use client';
+import Link from 'next/link';
+import type { ReactNode } from 'react';
+import { ArrowRight, CheckCircle2, LockKeyhole, PhoneCall } from 'lucide-react';
+import { createClient } from '@supabase/supabase-js';
+import ConsultationAdminTabs from '@/components/admin/ConsultationAdminTabs';
+import { requireAdmin } from '@/lib/adminAuth';
 
-import { useState, useEffect, useMemo } from 'react';
-import { createClient } from '@/utils/supabase/client';
-import { Search, ChevronDown, ChevronUp } from 'lucide-react';
-import { toggleConsultationChecked } from '@/app/admin/actions';
+type SummaryCardProps = {
+  title: string;
+  label: string;
+  description: string;
+  pendingLabel: string;
+  pendingCount: number;
+  totalCount: number;
+  href: string;
+  icon: ReactNode;
+  accentClass: string;
+  items: string[];
+};
 
-interface ConsultationRecord {
-  id: string;
-  name: string;
-  phone: string;
-  message: string | null;
-  consultation_type?: string | null;
-  preferred_date?: string | null;
-  marketing_agreed?: boolean | null;
-  is_checked: boolean;
-  created_at: string;
+function SummaryCard({
+  title,
+  label,
+  description,
+  pendingLabel,
+  pendingCount,
+  totalCount,
+  href,
+  icon,
+  accentClass,
+  items,
+}: SummaryCardProps) {
+  return (
+    <article className="flex min-h-[390px] flex-col overflow-hidden rounded border border-slate-200 bg-white shadow-sm">
+      <div className="flex-1 p-6 md:p-8">
+        <div className={`flex h-12 w-12 items-center justify-center rounded ${accentClass}`}>{icon}</div>
+        <p className="mt-6 text-xs font-black uppercase tracking-[0.15em] text-ink-muted">{label}</p>
+        <h2 className="mt-2 text-2xl font-black tracking-tight text-ink">{title}</h2>
+        <p className="mt-3 break-keep text-sm font-medium leading-6 text-ink-muted">{description}</p>
+
+        <dl className="mt-7 grid grid-cols-2 gap-3">
+          <div className="rounded bg-slate-50 px-4 py-4">
+            <dt className="text-xs font-bold text-ink-muted">{pendingLabel}</dt>
+            <dd className="mt-1 text-3xl font-black text-primary">{pendingCount}<span className="ml-1 text-sm text-ink-muted">건</span></dd>
+          </div>
+          <div className="rounded bg-slate-50 px-4 py-4">
+            <dt className="text-xs font-bold text-ink-muted">전체 누적</dt>
+            <dd className="mt-1 text-3xl font-black text-ink">{totalCount}<span className="ml-1 text-sm text-ink-muted">건</span></dd>
+          </div>
+        </dl>
+
+        <ul className="mt-6 space-y-2.5">
+          {items.map((item) => (
+            <li key={item} className="flex items-start gap-2 text-sm font-medium leading-6 text-ink-sub">
+              <CheckCircle2 size={16} className="mt-1 shrink-0 text-primary" /> {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <Link href={href} className="flex min-h-14 items-center justify-between border-t border-slate-200 bg-slate-50 px-6 py-4 text-sm font-black text-ink transition-colors hover:bg-primary hover:text-white md:px-8">
+        {title} 관리 <ArrowRight size={18} />
+      </Link>
+    </article>
+  );
 }
 
-export default function AdminConsultationsPage() {
-  const [consultations, setConsultations] = useState<ConsultationRecord[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterStatus, setFilterStatus] = useState<'all' | 'pending' | 'checked'>('all');
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-  
-  const supabase = useMemo(() => createClient(), []);
+export default async function ConsultationsOverviewPage() {
+  await requireAdmin();
 
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchConsultations = async () => {
-      const { data } = await supabase
-        .from('consultations')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (!isMounted) return;
-
-      setConsultations((data || []) as ConsultationRecord[]);
-      setIsLoading(false);
-    };
-
-    fetchConsultations();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [supabase]);
-
-  const handleToggleCheck = async (id: string, currentStatus: boolean) => {
-    const actionText = currentStatus ? '미확인 상태로 변경' : '확인 완료 처리';
-    if (!confirm(`정말로 이 상담 신청을 ${actionText} 하시겠습니까?`)) return;
-
-    const { error } = await toggleConsultationChecked(id, currentStatus);
-    if (error) {
-      alert(`오류가 발생했습니다: ${error}`);
-    } else {
-      setConsultations(prev => prev.map(c => c.id === id ? { ...c, is_checked: !currentStatus } : c));
-    }
-  };
-
-  const filteredConsultations = consultations.filter(c => {
-    const searchableText = [
-      c.name,
-      c.phone,
-      c.message,
-      c.consultation_type,
-      c.preferred_date,
-    ].filter(Boolean).join(' ');
-    const matchesSearch = searchableText.includes(searchTerm);
-    if (filterStatus === 'pending') return matchesSearch && !c.is_checked;
-    if (filterStatus === 'checked') return matchesSearch && c.is_checked;
-    return matchesSearch;
-  });
-
-  const formatPreferredDate = (date?: string | null) => {
-    if (!date) return '미입력';
-    return new Date(`${date}T00:00:00`).toLocaleDateString('ko-KR', { dateStyle: 'medium' });
-  };
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    { auth: { autoRefreshToken: false, persistSession: false } },
+  );
+  const [generalTotal, generalPending, memberTotal, memberPending] = await Promise.all([
+    supabase.from('consultations').select('id', { count: 'exact', head: true }),
+    supabase.from('consultations').select('id', { count: 'exact', head: true }).eq('is_checked', false),
+    supabase.from('consultation_posts').select('id', { count: 'exact', head: true }),
+    supabase.from('consultation_posts').select('id', { count: 'exact', head: true }).eq('status', 'received'),
+  ]);
+  const hasError = [generalTotal, generalPending, memberTotal, memberPending].some((result) => result.error);
 
   return (
     <>
-      <header className="bg-white border-b border-slate-200 px-10 py-6 sticky top-0 z-[50] shadow-sm flex justify-between items-center">
-        <div>
-          <h1 className="text-2xl font-black text-ink tracking-tight">온라인 상담 관리</h1>
-          <p className="text-ink-muted text-sm font-medium mt-0.5">환자들이 남긴 1:1 상담 신청 내역입니다.</p>
-        </div>
+      <header className="sticky top-0 z-50 border-b border-slate-200 bg-white px-5 py-5 shadow-sm md:px-10 md:py-6">
+        <h1 className="text-xl font-black tracking-tight text-ink md:text-2xl">상담 관리</h1>
+        <p className="mt-1 text-sm font-medium text-ink-muted">일반 문의와 로그인 회원의 1:1 문의를 구분해 관리합니다.</p>
       </header>
+      <ConsultationAdminTabs />
 
-      <div className="p-10 space-y-8 max-w-[1400px] w-full mx-auto">
-        
-        {/* Controls */}
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-6 rounded border border-slate-100 shadow-sm">
-          <div className="relative w-full md:w-96">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted" size={18} />
-            <input 
-              type="text" 
-              placeholder="이름 또는 상담 내용으로 검색..." 
-              className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded focus:outline-none focus:border-primary text-sm font-medium"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+      <div className="mx-auto w-full max-w-6xl p-5 md:p-10">
+        {hasError && (
+          <div className="mb-6 rounded border border-amber-200 bg-amber-50 px-5 py-4 text-sm font-bold text-amber-800">
+            일부 상담 현황을 불러오지 못했습니다. 목록 페이지에서 데이터베이스 연결을 확인해 주세요.
           </div>
-          
-          <div className="flex bg-slate-100 p-1.5 rounded w-full md:w-auto">
-            {(['all', 'pending', 'checked'] as const).map((status) => (
-              <button
-                key={status}
-                onClick={() => setFilterStatus(status)}
-                className={`flex-1 md:flex-none px-6 py-2.5 rounded text-sm font-bold transition-all ${
-                  filterStatus === status ? 'bg-white text-ink shadow-md' : 'text-ink-muted hover:text-ink-sub'
-                }`}
-              >
-                {status === 'all' ? '전체' : status === 'pending' ? '미확인' : '확인완료'}
-              </button>
-            ))}
+        )}
+
+        <div className="mb-7 rounded bg-navy-950 px-6 py-6 text-white shadow-lg md:px-8 md:py-7">
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-300">Consultation Center</p>
+          <div className="mt-3 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h2 className="text-2xl font-black tracking-tight md:text-3xl">문의 유형에 맞게 처리해 주세요.</h2>
+              <p className="mt-2 break-keep text-sm font-medium leading-6 text-slate-300">일반 문의는 연락 후 확인 처리하고, 회원 1:1 문의는 관리자 화면에서 답변을 등록합니다.</p>
+            </div>
           </div>
         </div>
 
-        {/* List Cards */}
-        <div className="space-y-4">
-          {isLoading ? (
-            <div className="py-20 text-center font-bold text-slate-300 bg-white rounded border border-slate-100 shadow-sm">데이터를 불러오고 있습니다...</div>
-          ) : filteredConsultations.length === 0 ? (
-            <div className="py-20 text-center font-medium text-ink-muted bg-white rounded border border-slate-100 shadow-sm">내역이 존재하지 않습니다.</div>
-          ) : (
-              filteredConsultations.map((cons) => (
-              <div key={cons.id} className={`bg-white border rounded overflow-hidden transition-all shadow-sm ${cons.is_checked ? 'border-slate-100 opacity-80' : 'border-emerald-100 ring-2 ring-emerald-50 shadow-emerald-950/5 shadow-xl'}`}>
-                <div className="p-8 flex flex-col md:flex-row gap-6 md:items-center">
-                  {/* Status & Name */}
-                  <div className="md:w-60 border-r border-slate-100 pr-6">
-                    <span className={`inline-block px-3 py-1 rounded-sm text-[12px] font-black mb-2 ${cons.is_checked ? 'bg-slate-100 text-ink-muted' : 'bg-emerald-100 text-emerald-700'}`}>
-                      {cons.is_checked ? '상담확인' : '신규신청'}
-                    </span>
-                    <p className="text-xl font-black text-ink">{cons.name}</p>
-                  </div>
-
-                  {/* Contact Info */}
-                  <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                     <div>
-                        <p className="text-xs text-ink-muted font-bold">연락처</p>
-                        <p className="text-[15px] font-bold text-ink-sub mt-0.5">{cons.phone}</p>
-                     </div>
-                     <div>
-                        <p className="text-xs text-ink-muted font-bold">상담 항목</p>
-                        <p className="text-[15px] font-bold text-ink-sub mt-0.5">{cons.consultation_type || '미입력'}</p>
-                     </div>
-                     <div>
-                        <p className="text-xs text-ink-muted font-bold">희망 날짜</p>
-                        <p className="text-[15px] font-bold text-ink-sub mt-0.5">{formatPreferredDate(cons.preferred_date)}</p>
-                     </div>
-                     <div>
-                        <p className="text-xs text-ink-muted font-bold">마케팅 수신</p>
-                        <p className="text-[15px] font-bold text-ink-sub mt-0.5">{cons.marketing_agreed ? '동의' : '미동의'}</p>
-                     </div>
-                  </div>
-
-                  {/* Action */}
-                  <div className="md:border-l border-slate-100 md:pl-8 flex items-center gap-3">
-                     <button
-                       onClick={() => setExpandedId(expandedId === cons.id ? null : cons.id)}
-                       className="flex items-center gap-2 px-5 py-3 hover:bg-slate-50 rounded transition-all font-bold text-[14px] text-ink-muted"
-                     >
-                       상세내용 {expandedId === cons.id ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                     </button>
-                     <button
-                        onClick={() => handleToggleCheck(cons.id, cons.is_checked)}
-                        className={`px-6 py-4 rounded font-black text-[15px] transition-all ${
-                          cons.is_checked
-                            ? 'bg-slate-100 text-ink-muted hover:bg-slate-200'
-                            : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-950/10'
-                        }`}
-                      >
-                        {cons.is_checked ? '상태변경' : '확인처리'}
-                      </button>
-                  </div>
-                </div>
-
-                {/* Expanded Content Area */}
-                {expandedId === cons.id && (
-                  <div className="bg-slate-50/50 p-8 border-t border-slate-100">
-                     <div className="bg-white p-8 rounded border border-slate-100 shadow-inner">
-                        <p className="text-sm font-black text-ink mb-3">상담 상세 내용</p>
-                        <div className="mb-4 grid grid-cols-1 gap-3 text-[14px] font-bold text-ink-sub md:grid-cols-3">
-                          <span className="rounded-sm bg-slate-50 px-4 py-3">상담내용: {cons.consultation_type || '미입력'}</span>
-                          <span className="rounded-sm bg-slate-50 px-4 py-3">희망 날짜: {formatPreferredDate(cons.preferred_date)}</span>
-                          <span className="rounded-sm bg-slate-50 px-4 py-3">접수일: {new Date(cons.created_at).toLocaleString('ko-KR', { dateStyle: 'medium', timeStyle: 'short' })}</span>
-                        </div>
-                        <div className="text-[16px] text-ink leading-[1.8] font-medium whitespace-pre-line bg-slate-50 p-6 rounded">
-                          {cons.message || '상담 내용이 입력되지 않았습니다.'}
-                        </div>
-                     </div>
-                  </div>
-                )}
-              </div>
-            ))
-          )}
+        <div className="grid gap-5 lg:grid-cols-2">
+          <SummaryCard
+            title="일반 문의"
+            label="General / Quick Request"
+            description="로그인 없이 홈페이지 하단 빠른 상담에서 접수된 콜백 요청입니다."
+            pendingLabel="신규 접수"
+            pendingCount={generalPending.count || 0}
+            totalCount={generalTotal.count || 0}
+            href="/admin/consultations/general"
+            icon={<PhoneCall size={24} />}
+            accentClass="bg-blue-50 text-blue-700"
+            items={[
+              '이름·연락처·희망일을 확인합니다.',
+              '유선 안내 후 확인 완료로 변경합니다.',
+            ]}
+          />
+          <SummaryCard
+            title="회원 1:1 문의"
+            label="Members-only Consultation"
+            description="로그인한 회원이 남긴 비공개 상담입니다. 본문과 답변은 작성자 본인만 확인합니다."
+            pendingLabel="답변 대기"
+            pendingCount={memberPending.count || 0}
+            totalCount={memberTotal.count || 0}
+            href="/admin/consultations/member"
+            icon={<LockKeyhole size={24} />}
+            accentClass="bg-primary-light text-primary"
+            items={[
+              '비공개 상담 본문을 확인합니다.',
+              '관리자 답변 저장 시 답변 완료로 변경됩니다.',
+            ]}
+          />
         </div>
       </div>
     </>

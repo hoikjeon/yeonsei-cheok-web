@@ -1,237 +1,193 @@
-'use client';
-
+import Link from 'next/link';
+import { FileQuestion, LockKeyhole, LogIn, PenLine, Search } from 'lucide-react';
 import SubHero from '@/components/SubHero';
-import ConsultationDatePicker from '@/components/ConsultationDatePicker';
-import { useState } from 'react';
-import { supabase } from '@/lib/supabase';
-import {
-  CONSULTATION_TOPICS,
-  MARKETING_CONSENT_TEXT,
-  PRIVACY_CONSENT_TEXT,
-} from '@/lib/consultationForm';
-import { submitConsultation } from '@/lib/submitConsultation';
+import Pagination from '@/components/Pagination';
+import { createClient } from '@/utils/supabase/server';
 
-export default function ConsultationPage() {
-  const [formData, setFormData] = useState({
-    consultationType: '',
-    preferredDate: '',
-    name: '',
-    phone: '',
-    message: ''
+const PAGE_SIZE = 10;
+
+type PublicConsultationTitle = {
+  id: string;
+  title: string;
+  status: 'received' | 'answered';
+  created_at: string;
+  total_count: number | string;
+};
+
+function formatDate(value: string) {
+  return new Date(value).toLocaleDateString('ko-KR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
   });
-  
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isAgreed, setIsAgreed] = useState(true);
-  const [isMarketingAgreed, setIsMarketingAgreed] = useState(true);
+}
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.consultationType || !formData.preferredDate || !formData.name || !formData.phone || !formData.message) {
-      alert('필수 정보(상담내용, 희망 날짜, 이름, 연락처, 상담 내용)를 모두 입력해 주세요.');
-      return;
-    }
+export default async function ConsultationPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; q?: string }>;
+}) {
+  const params = await searchParams;
+  const currentPage = Math.max(1, Number.parseInt(params.page || '1', 10) || 1);
+  const searchTerm = (params.q || '').trim().slice(0, 50);
+  const supabase = await createClient();
 
-    if (!isAgreed) {
-      alert('개인정보 수집 및 이용에 동의해 주세요.');
-      return;
-    }
+  const [titlesResult, authResult] = await Promise.all([
+    supabase.rpc('list_consultation_titles', {
+      search_term: searchTerm,
+      page_offset: (currentPage - 1) * PAGE_SIZE,
+      page_limit: PAGE_SIZE,
+    }),
+    supabase.auth.getUser(),
+  ]);
 
-    setIsSubmitting(true);
-    
-    try {
-      const { error } = await submitConsultation(supabase, {
-        name: formData.name,
-        phone: formData.phone,
-        message: formData.message,
-        consultationType: formData.consultationType,
-        preferredDate: formData.preferredDate,
-        marketingAgreed: isMarketingAgreed,
-      });
+  const titles = (titlesResult.data || []) as PublicConsultationTitle[];
+  const totalCount = titles.length > 0 ? Number(titles[0].total_count) || 0 : 0;
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
+  const user = authResult.data.user;
 
-      if (error) {
-        throw new Error(error);
-      }
+  let ownPostIds = new Set<string>();
+  if (user && titles.length > 0) {
+    const { data: ownPosts } = await supabase
+      .from('consultation_posts')
+      .select('id')
+      .in('id', titles.map((post) => post.id));
+    ownPostIds = new Set((ownPosts || []).map((post) => post.id as string));
+  }
 
-      setFormData({ 
-        consultationType: '',
-        preferredDate: '',
-        name: '', 
-        phone: '', 
-        message: ''
-      });
-      setIsAgreed(true);
-      setIsMarketingAgreed(true);
-      alert('상담 신청이 완료되었습니다. 전문 상담사 확인 후 성심성의껏 답변드리겠습니다.');
-    } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : '알 수 없는 오류';
-      console.error('Error submitting consultation:', message);
-      alert('상담 등록 중 오류가 발생했습니다. 다시 시도해 주시기 바랍니다.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  const databaseSetupPending = Boolean(titlesResult.error);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <SubHero 
-        title="온라인 상담" 
-        subtitle="증상에 대한 궁금증을 전문 상담사가 직접 명확하고 친절하게 상담해 드립니다."
+    <main className="min-h-screen bg-white">
+      <SubHero
+        title="온라인 상담"
+        subtitle="제목은 모든 방문자에게 보이며, 상세 내용과 답변은 작성자 본인만 확인할 수 있습니다."
         path={[{ name: '커뮤니티' }, { name: '온라인 상담' }]}
-        bgImage="/hero-bg.png"
       />
 
-      <section className="flex-grow bg-white py-14 sm:py-16 md:py-24">
-        <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
-          <div className="space-y-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-premium sm:space-y-10 sm:p-6 md:space-y-12 md:rounded-[2rem] md:p-16">
-            
-            <div className="text-center space-y-4">
-              <h2 className="break-keep text-h3 tracking-tight text-ink">전문 상담사 1:1 상담</h2>
-              <p className="break-keep text-[15px] font-medium leading-[1.75] text-ink-muted sm:text-base">
-                현재 겪고 계시는 통증이나 증상을 자세히 적어주시면, 전문 상담사가 직접 답변을 드립니다.
-              </p>
+      <section className="bg-white px-4 py-14 sm:px-6 sm:py-16 lg:py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-8 flex flex-col gap-5 rounded-xl border border-primary/15 bg-primary-light/45 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+            <div className="flex items-start gap-3">
+              <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-primary shadow-sm">
+                <LockKeyhole size={20} />
+              </div>
+              <div>
+                <h2 className="text-[16px] font-bold text-ink">안심하고 상담을 남겨 주세요.</h2>
+                <p className="mt-1 break-keep text-[14px] font-medium leading-6 text-ink-muted">
+                  제목은 공개되지만 상담 본문·연락처·병원 답변은 로그인한 작성자 본인과 병원만 볼 수 있습니다.
+                </p>
+              </div>
+            </div>
+            {!user && (
+              <Link
+                href="/login?next=/consultation&reason=consultation-private"
+                className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-lg border border-primary/20 bg-white px-5 py-3 text-[14px] font-bold text-primary transition-colors hover:bg-primary hover:text-white"
+              >
+                <LogIn size={17} /> 로그인
+              </Link>
+            )}
+          </div>
+
+          <div className="mb-5 flex flex-col gap-4 border-b-2 border-navy-900 pb-5 sm:flex-row sm:items-end sm:justify-between">
+            <p className="text-[15px] font-bold text-ink-muted">
+              총 <strong className="text-[19px] text-ink">{totalCount}</strong>건
+            </p>
+            <form action="/consultation" method="get" className="flex w-full max-w-md gap-2">
+              <label htmlFor="consultation-search" className="sr-only">상담 제목 검색</label>
+              <div className="relative min-w-0 flex-1">
+                <input
+                  id="consultation-search"
+                  name="q"
+                  type="search"
+                  defaultValue={searchTerm}
+                  placeholder="제목을 검색해 주세요."
+                  className="min-h-11 w-full rounded-lg border border-slate-200 bg-white py-3 pl-4 pr-11 text-[15px] font-medium text-ink outline-none transition-colors focus:border-primary focus:ring-3 focus:ring-primary/10"
+                />
+                <Search size={19} className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-ink-muted" />
+              </div>
+              <button type="submit" className="min-h-11 rounded-lg bg-navy-950 px-5 py-3 text-[14px] font-bold text-white transition-colors hover:bg-primary">
+                검색
+              </button>
+            </form>
+          </div>
+
+          <div className="overflow-hidden border-y border-slate-200">
+            <div className="hidden grid-cols-[150px_minmax(0,1fr)_160px] bg-slate-50 px-5 py-4 text-center text-[14px] font-bold text-ink-sub md:grid">
+              <span>상태</span>
+              <span>제목</span>
+              <span>등록일</span>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-7 sm:space-y-8 md:space-y-10">
-              <div className="space-y-6 rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:p-6 md:space-y-8 md:p-8">
-                <h3 className="text-h4 text-ink border-b border-slate-200 pb-3">상담 정보</h3>
-
-                <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8">
-                  <div className="space-y-3">
-                    <label className="text-sm font-bold text-ink-sub">상담내용 <span className="text-red-500">*</span></label>
-                    <select
-                      name="consultationType"
-                      value={formData.consultationType}
-                      onChange={handleInputChange}
-                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-medium text-ink transition-all focus:border-primary focus:outline-none sm:px-5 sm:py-4"
-                      required
+            {databaseSetupPending ? (
+              <div className="flex min-h-64 flex-col items-center justify-center gap-3 px-5 py-16 text-center">
+                <FileQuestion size={40} className="text-slate-300" />
+                <p className="text-[17px] font-bold text-ink">상담 게시판을 준비하고 있습니다.</p>
+                <p className="text-[14px] font-medium text-ink-muted">데이터베이스 설정 후 목록이 표시됩니다.</p>
+              </div>
+            ) : titles.length === 0 ? (
+              <div className="flex min-h-64 flex-col items-center justify-center gap-3 px-5 py-16 text-center">
+                <FileQuestion size={40} className="text-slate-300" />
+                <p className="text-[17px] font-bold text-ink">
+                  {searchTerm ? '검색 결과가 없습니다.' : '등록된 온라인 상담이 없습니다.'}
+                </p>
+              </div>
+            ) : (
+              <div className="divide-y divide-slate-100">
+                {titles.map((post) => {
+                  const isMine = ownPostIds.has(post.id);
+                  const isAnswered = post.status === 'answered';
+                  return (
+                    <Link
+                      key={post.id}
+                      href={`/consultation/${post.id}`}
+                      className="group grid gap-3 px-4 py-5 transition-colors hover:bg-slate-50 sm:px-5 md:grid-cols-[150px_minmax(0,1fr)_160px] md:items-center md:gap-0 md:py-6"
                     >
-                      <option value="">상담내용을 선택해 주세요</option>
-                      {CONSULTATION_TOPICS.map((topic) => (
-                        <option key={topic} value={topic}>{topic}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="space-y-3">
-                    <label className="text-sm font-bold text-ink-sub">희망 날짜 <span className="text-red-500">*</span></label>
-                    <ConsultationDatePicker
-                      value={formData.preferredDate}
-                      onChange={(value) => setFormData((prev) => ({ ...prev, preferredDate: value }))}
-                      variant="light"
-                      placeholder="희망 날짜를 선택해 주세요"
-                    />
-                  </div>
-                </div>
+                      <div className="md:text-center">
+                        <span className={`inline-flex min-h-8 items-center justify-center rounded-md px-3 py-1.5 text-[12px] font-bold ${
+                          isAnswered ? 'bg-primary text-white' : 'bg-slate-100 text-ink-muted'
+                        }`}>
+                          {isAnswered ? '답변완료' : '접수완료'}
+                        </span>
+                      </div>
+                      <div className="flex min-w-0 items-center gap-2.5 md:px-5">
+                        <LockKeyhole size={17} className="shrink-0 text-slate-400 transition-colors group-hover:text-primary" />
+                        <h3 className="min-w-0 truncate text-[16px] font-bold text-ink transition-colors group-hover:text-primary sm:text-[17px]">
+                          {post.title}
+                        </h3>
+                        {isMine && (
+                          <span className="shrink-0 rounded-md bg-primary-light px-2 py-1 text-[11px] font-bold text-primary">내 상담</span>
+                        )}
+                      </div>
+                      <time className="pl-7 text-[13px] font-medium text-ink-muted md:pl-0 md:text-center md:text-[14px]" dateTime={post.created_at}>
+                        {formatDate(post.created_at)}
+                      </time>
+                    </Link>
+                  );
+                })}
               </div>
-              
-              {/* === 기본 정보 입력 === */}
-              <div className="space-y-6 rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:p-6 md:space-y-8 md:p-8">
-                <h3 className="text-h4 text-ink border-b border-slate-200 pb-3">환자 기본 정보</h3>
-                
-                <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8">
-                  {/* 이름 & 연락처 */}
-                  <div className="space-y-3">
-                    <label className="text-sm font-bold text-ink-sub">이름 <span className="text-red-500">*</span></label>
-                    <input 
-                      type="text" 
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-medium text-ink transition-all focus:border-primary focus:outline-none sm:px-5 sm:py-4"
-                      placeholder="이름을 입력해 주세요"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-3">
-                    <label className="text-sm font-bold text-ink-sub">연락처 <span className="text-red-500">*</span></label>
-                    <input 
-                      type="tel" 
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-medium text-ink transition-all focus:border-primary focus:outline-none sm:px-5 sm:py-4"
-                      placeholder="010-0000-0000"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
+            )}
+          </div>
 
-              {/* === 상담 내용 === */}
-              <div className="space-y-3">
-                <label className="text-sm font-bold text-ink-sub">상담 내용 <span className="text-red-500">*</span></label>
-                <textarea 
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  rows={8}
-                  className="w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-medium text-ink transition-all focus:border-primary focus:outline-none sm:px-5 sm:py-4"
-                  placeholder={`예) 허리 통증이 심한데 디스크일까요? 
-과거 수술 이력이 있는데도 상담을 받고 싶습니다. 등 증상과 궁금한 점을 최대한 자세하게 적어주시면 정확한 상담이 가능합니다.`}
-                  required
-                />
-              </div>
+          {!databaseSetupPending && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              basePath="/consultation"
+              query={{ q: searchTerm || undefined }}
+            />
+          )}
 
-              {/* === 개인정보 처리방침 === */}
-              <div className="space-y-4 pt-4 border-t border-slate-100">
-                <label className="text-sm font-bold text-ink-sub">개인정보 수집 및 이용 동의 <span className="text-red-500">*</span></label>
-                <div className="h-48 overflow-y-auto whitespace-pre-line rounded-xl border border-slate-200 bg-slate-50 p-4 text-[13px] font-medium leading-[1.7] text-ink-sub sm:p-5">
-                  {PRIVACY_CONSENT_TEXT}
-                </div>
-                
-                <div className="flex items-start gap-3 pt-2">
-                  <input 
-                    type="checkbox" 
-                    id="privacy-agree" 
-                    checked={isAgreed}
-                    onChange={(e) => setIsAgreed(e.target.checked)}
-                    className="mt-0.5 h-5 w-5 shrink-0 cursor-pointer rounded border-slate-300 text-primary focus:ring-primary"
-                    required 
-                  />
-                  <label htmlFor="privacy-agree" className="text-[15px] font-bold text-ink cursor-pointer select-none">
-                    개인정보 수집 및 이용 목적에 동의합니다.
-                  </label>
-                </div>
-
-                <label className="text-sm font-bold text-ink-sub block pt-5">마케팅 정보 수신 및 활용 동의 <span className="text-ink-muted">(선택)</span></label>
-                <div className="h-40 overflow-y-auto whitespace-pre-line rounded-xl border border-slate-200 bg-slate-50 p-4 text-[13px] font-medium leading-[1.7] text-ink-sub sm:p-5">
-                  {MARKETING_CONSENT_TEXT}
-                </div>
-
-                <div className="flex items-start gap-3 pt-2">
-                  <input
-                    type="checkbox"
-                    id="marketing-agree"
-                    checked={isMarketingAgreed}
-                    onChange={(e) => setIsMarketingAgreed(e.target.checked)}
-                    className="mt-0.5 h-5 w-5 shrink-0 cursor-pointer rounded border-slate-300 text-primary focus:ring-primary"
-                  />
-                  <label htmlFor="marketing-agree" className="text-[15px] font-bold text-ink cursor-pointer select-none">
-                    마케팅 정보 수신 및 활용에 동의합니다.
-                  </label>
-                </div>
-              </div>
-
-              <div className="pt-6">
-                <button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className={`flex w-full items-center justify-center gap-2 rounded-xl py-4 text-base font-bold text-white shadow-xl shadow-primary/20 transition-all hover:-translate-y-1 sm:rounded-[1.5rem] sm:py-5 sm:text-lg ${isSubmitting ? 'bg-slate-400 cursor-not-allowed' : 'bg-primary hover:bg-primary-dark active:scale-[0.98]'}`}
-                >
-                  {isSubmitting ? '상담 등록 중...' : '전문 상담사에게 상담 접수하기'}
-                </button>
-              </div>
-              
-            </form>
+          <div className="mt-8 flex justify-end">
+            <Link
+              href={user ? '/consultation/write' : '/login?next=/consultation/write&reason=consultation-private'}
+              className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-7 py-3.5 text-[15px] font-bold text-white shadow-lg shadow-primary/15 transition-colors hover:bg-primary-dark sm:w-auto"
+            >
+              <PenLine size={18} /> 글쓰기
+            </Link>
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

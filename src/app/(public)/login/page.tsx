@@ -21,10 +21,15 @@ export default function LoginPage() {
   const [mode, setMode] = useState<AuthMode>('signin');
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [returnPath, setReturnPath] = useState('/');
   
   // URL 에러 파라미터 확인 및 안내
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    const requestedPath = params.get('next');
+    if (requestedPath?.startsWith('/') && !requestedPath.startsWith('//')) {
+      setReturnPath(requestedPath);
+    }
     const error = params.get('error');
     if (error) {
       let errorMsg = error;
@@ -38,7 +43,12 @@ export default function LoginPage() {
     }
 
     // 회원 전용 페이지 접근으로 이동해 온 경우 사유 안내
-    if (params.get('reason') === 'members-only') {
+    if (params.get('reason') === 'consultation-private') {
+      setMessage({
+        type: 'error',
+        text: '상담 내용은 작성자 본인만 확인할 수 있습니다. 로그인 후 이용해 주세요.',
+      });
+    } else if (params.get('reason') === 'members-only') {
       setMessage({
         type: 'error',
         text: '의료법에 따라 치료 경험담은 로그인하신 회원에게만 제공됩니다. 로그인 후 이용해 주세요.',
@@ -180,6 +190,7 @@ export default function LoginPage() {
 
           <div className="px-10 pb-10">
             <form onSubmit={handleSubmit} className="space-y-6">
+              <input type="hidden" name="next" value={returnPath} />
               <AnimatePresence mode="wait">
                 <motion.div
                   key={mode}
@@ -449,7 +460,7 @@ export default function LoginPage() {
                 {/* Social Buttons */}
                 <div className="grid grid-cols-2 gap-4">
                   <button 
-                    onClick={() => signInWithSocial('kakao')}
+                    onClick={() => signInWithSocial('kakao', returnPath)}
                     className="flex items-center justify-center py-4 bg-[#FEE500] hover:bg-[#ebcd00] rounded-2xl transition-all active:scale-95 group relative overflow-hidden"
                   >
                     <svg viewBox="0 0 24 24" className="w-6 h-6 fill-[#191919]"><path d="M12 3c-4.97 0-9 3.134-9 7 0 2.458 1.625 4.636 4.108 5.92-.164.613-.591 2.215-.675 2.535-.104.4.153.395.321.282.131-.088 2.115-1.438 2.964-2.015.748.18 1.536.278 2.282.278 4.97 0 9-3.134 9-7s-4.03-7-9-7z"/></svg>
@@ -457,7 +468,7 @@ export default function LoginPage() {
                   </button>
 
                   <button 
-                    onClick={() => signInWithSocial('google')}
+                    onClick={() => signInWithSocial('google', returnPath)}
                     className="flex items-center justify-center py-4 bg-white border border-slate-200 hover:bg-slate-50 rounded-2xl transition-all active:scale-95 group relative overflow-hidden"
                   >
                     <svg viewBox="0 0 24 24" className="w-6 h-6"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>

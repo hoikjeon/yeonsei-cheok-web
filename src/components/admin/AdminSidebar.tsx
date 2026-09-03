@@ -11,7 +11,7 @@ export default function AdminSidebar() {
   const menuItems = [
     { name: '통합 대시보드', href: '/admin', icon: <LayoutDashboard size={18} /> },
     { name: '온라인 예약 관리', href: '/admin/reservations', icon: <Calendar size={18} /> },
-    { name: '온라인 상담 관리', href: '/admin/consultations', icon: <MessageSquare size={18} /> },
+    { name: '상담 관리', href: '/admin/consultations', icon: <MessageSquare size={18} /> },
     { name: '병원소식 관리', href: '/admin/news', icon: <Newspaper size={18} /> },
     { name: '메인 공지/휴진 관리', href: '/admin/notice-bar', icon: <Megaphone size={18} /> },
     { name: '공지 팝업 관리', href: '/admin/popups', icon: <Settings size={18} /> },

@@ -17,7 +17,7 @@ export async function updateSession(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
+          cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           );
           response = NextResponse.next({
@@ -42,7 +42,12 @@ export async function updateSession(request: NextRequest) {
     loginUrl.pathname = '/login';
     loginUrl.search = '';
     loginUrl.searchParams.set('next', request.nextUrl.pathname);
-    loginUrl.searchParams.set('reason', 'members-only');
+    loginUrl.searchParams.set(
+      'reason',
+      request.nextUrl.pathname.startsWith('/consultation/')
+        ? 'consultation-private'
+        : 'members-only'
+    );
     return NextResponse.redirect(loginUrl);
   }
 
@@ -51,7 +56,7 @@ export async function updateSession(request: NextRequest) {
 
 // 목록 페이지는 누구나 볼 수 있고, 그 아래 하위 경로(상세·작성)만 회원 전용입니다.
 // 예) /board/reviews → 공개, /board/reviews/{id}·/board/reviews/write → 회원 전용
-const MEMBER_ONLY_PARENTS = ['/board/reviews'];
+const MEMBER_ONLY_PARENTS = ['/board/reviews', '/consultation'];
 
 function isMemberOnlyPath(pathname: string) {
   return MEMBER_ONLY_PARENTS.some((parent) => {

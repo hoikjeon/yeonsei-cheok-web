@@ -7,7 +7,8 @@ export async function GET(request: Request) {
   // 수파베이스에서 넘겨주는 type 확인 (비밀번호 재설정인 경우 recovery일 가능성 농후)
   const type = searchParams.get('type');
   // 기본 리다이렉트 경로 결정
-  let next = searchParams.get('next') ?? '/';
+  const requestedPath = searchParams.get('next') ?? '/';
+  let next = requestedPath.startsWith('/') && !requestedPath.startsWith('//') ? requestedPath : '/';
   
   // 비밀번호 재설정 흐름인 경우 강제로 재설정 페이지로 안내
   if (type === 'recovery') {

@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import { revalidatePath } from 'next/cache';
-import { createAdminSession, deleteAdminSession } from '@/lib/adminAuth';
+import { createAdminSession, deleteAdminSession, requireAdmin } from '@/lib/adminAuth';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -48,6 +48,8 @@ export async function adminLogout() {
  * 예약 확인 상태 토글
  */
 export async function toggleReservationChecked(id: string, currentStatus: boolean) {
+  await requireAdmin();
+
   const { error } = await supabase
     .from('reservations')
     .update({ is_checked: !currentStatus })
@@ -64,6 +66,8 @@ export async function toggleReservationChecked(id: string, currentStatus: boolea
  * 상담 확인 상태 토글
  */
 export async function toggleConsultationChecked(id: string, currentStatus: boolean) {
+  await requireAdmin();
+
   const { error } = await supabase
     .from('consultations')
     .update({ is_checked: !currentStatus })

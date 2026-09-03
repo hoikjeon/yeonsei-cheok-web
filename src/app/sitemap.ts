@@ -36,7 +36,6 @@ const staticPages: Array<{
   { path: '/board/faq', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/board/certificates', changeFrequency: 'monthly', priority: 0.5 },
   { path: '/non-covered', changeFrequency: 'monthly', priority: 0.5 },
-  { path: '/consultation', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/reservation', changeFrequency: 'monthly', priority: 0.8 },
   { path: '/privacy', changeFrequency: 'yearly', priority: 0.2 },
   { path: '/terms', changeFrequency: 'yearly', priority: 0.2 },
