@@ -64,7 +64,12 @@ export async function adminLogin(formData: FormData) {
   await createAdminSession();
   await clearLoginFailures(ip);
   await recordLoginAttempt(ip, true);
-  redirect('/admin');
+
+  // 여기서 redirect() 를 호출하면 안 됩니다.
+  // redirect 는 내부적으로 예외를 던지는데, 로그인 화면이 이 호출을 try/catch 로
+  // 감싸고 있어 그 예외가 잡히면 실제로는 로그인에 성공했는데도 화면에는
+  // '서버 오류'만 뜨고 이동하지 않습니다. 이동은 호출한 쪽에서 처리합니다.
+  return { success: true };
 }
 
 /**

@@ -19,12 +19,17 @@ export default function AdminLoginPage() {
     
     try {
       const response = await adminLogin(formData);
+
       if (response?.error) {
         setError(response.error);
         setIsLoading(false);
+        return;
       }
-    } catch (err) {
-      setError('서버 오류가 발생했습니다.');
+
+      // 쿠키로 인증하므로 전체 이동으로 서버 컴포넌트를 새로 받습니다.
+      window.location.href = '/admin';
+    } catch {
+      setError('서버 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
       setIsLoading(false);
     }
   };
