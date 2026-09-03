@@ -6,20 +6,16 @@ import { revalidatePath, updateTag } from 'next/cache';
 import { isAdminAuthenticated } from '@/lib/adminAuth';
 import { isAdminNewsType } from '@/lib/adminNews';
 import { HOSPITAL_NEWS_CACHE_TAG } from '@/lib/hospitalNews';
+import {
+  ALLOWED_IMAGE_TYPES,
+  collectUploadFiles,
+  validateUploadFiles,
+} from '@/lib/imageUploadRules';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!,
 );
-
-const MAX_FILE_COUNT = 10;
-const MAX_FILE_SIZE = 10 * 1024 * 1024;
-const ALLOWED_IMAGE_TYPES: Record<string, string> = {
-  'image/jpeg': 'jpg',
-  'image/png': 'png',
-  'image/webp': 'webp',
-  'image/gif': 'gif',
-};
 
 export type CreateAdminNewsResult =
   | { success: true }
@@ -80,21 +76,10 @@ export async function createAdminNews(formData: FormData): Promise<CreateAdminNe
       return { success: false, error: '유튜브 링크를 입력해주세요.' };
     }
 
-    const files = formData
-      .getAll('files')
-      .filter((entry): entry is File => entry instanceof File && entry.size > 0);
-
-    if (files.length > MAX_FILE_COUNT) {
-      return { success: false, error: `이미지는 최대 ${MAX_FILE_COUNT}개까지 첨부할 수 있습니다.` };
-    }
-
-    for (const file of files) {
-      if (!ALLOWED_IMAGE_TYPES[file.type]) {
-        return { success: false, error: 'JPG, PNG, WEBP, GIF 이미지만 첨부할 수 있습니다.' };
-      }
-      if (file.size > MAX_FILE_SIZE) {
-        return { success: false, error: '이미지 한 개의 크기는 10MB를 넘을 수 없습니다.' };
-      }
+    const files = collectUploadFiles(formData);
+    const fileProblem = validateUploadFiles(files);
+    if (fileProblem) {
+      return { success: false, error: fileProblem };
     }
 
     const uploadedPaths: string[] = [];
