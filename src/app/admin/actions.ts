@@ -59,9 +59,11 @@ export async function adminLogin(formData: FormData) {
     };
   }
 
+  // 세션을 먼저 만들고 기록은 그 뒤에 남깁니다.
+  // 기록 쪽 문제로 로그인이 막히지 않게 하기 위한 순서입니다.
+  await createAdminSession();
   await clearLoginFailures(ip);
   await recordLoginAttempt(ip, true);
-  await createAdminSession();
   redirect('/admin');
 }
 

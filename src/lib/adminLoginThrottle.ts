@@ -44,7 +44,8 @@ export async function checkLoginThrottle(ip: string): Promise<ThrottleState> {
     .eq('ip', ip)
     .eq('succeeded', false)
     .gte('attempted_at', since)
-    .order('attempted_at', { ascending: true });
+    .order('attempted_at', { ascending: true })
+    .then((result) => result, (thrown) => ({ data: null, error: thrown as { message: string } }));
 
   if (error || !data) {
     // 테이블이 아직 없거나 조회 실패. 로그인 자체를 막지는 않습니다.
@@ -69,11 +70,21 @@ export async function checkLoginThrottle(ip: string): Promise<ThrottleState> {
   return { active: true, locked: true, remainingAttempts: 0, retryAfterMinutes };
 }
 
+// 기록은 보조 기능입니다. 여기서 예외가 나더라도 로그인 자체를 막지 않습니다.
+// (네트워크 순단이나 콜드 스타트 때 관리자가 못 들어가는 일이 없도록)
 export async function recordLoginAttempt(ip: string, succeeded: boolean) {
-  await supabase.from('admin_login_attempts').insert({ ip, succeeded });
+  try {
+    await supabase.from('admin_login_attempts').insert({ ip, succeeded });
+  } catch (error) {
+    console.warn('관리자 로그인 시도 기록 실패:', error);
+  }
 }
 
 /** 로그인에 성공하면 해당 IP 의 실패 기록을 지웁니다. */
 export async function clearLoginFailures(ip: string) {
-  await supabase.from('admin_login_attempts').delete().eq('ip', ip).eq('succeeded', false);
+  try {
+    await supabase.from('admin_login_attempts').delete().eq('ip', ip).eq('succeeded', false);
+  } catch (error) {
+    console.warn('관리자 로그인 실패 기록 정리 실패:', error);
+  }
 }
