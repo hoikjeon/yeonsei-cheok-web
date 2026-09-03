@@ -48,9 +48,10 @@ export default function RehabPage() {
           <Image
             src="/images/treatments/spine/rehab-clinic-intro.webp"
             alt="연세척병원 도수·재활 클리닉에서 의료진이 환자의 상지 재활 운동 치료를 돕는 모습"
-            width={1024}
-            height={681}
+            width={1537}
+            height={1023}
             priority
+            unoptimized
             className="h-[210px] w-full object-cover object-center sm:h-auto"
           />
         </div>
@@ -77,9 +78,9 @@ export default function RehabPage() {
               <Image
                 src="/images/treatments/spine/rehab-manual-therapy.webp"
                 alt="연세척병원 도수치료사가 환자의 허리와 등 부위 움직임을 섬세하게 교정 치료하는 모습"
-                width={1024}
-                height={682}
-                sizes="(max-width: 1023px) calc(100vw - 40px), 55vw"
+                width={2560}
+                height={1707}
+                unoptimized
                 className="h-[250px] w-full object-cover object-center sm:h-[360px] md:h-[440px] lg:h-[500px]"
               />
             </div>
@@ -122,9 +123,9 @@ export default function RehabPage() {
               <Image
                 src="/images/treatments/spine/rehab-functional-exercise.webp"
                 alt="연세척병원 재활치료실에서 치료사의 지도에 따라 환자가 1:1 균형 및 기능 운동 훈련을 진행하는 모습"
-                width={1024}
-                height={682}
-                sizes="(max-width: 1023px) calc(100vw - 40px), 55vw"
+                width={2560}
+                height={1707}
+                unoptimized
                 className="aspect-[3/2] w-full object-cover"
               />
             </div>
