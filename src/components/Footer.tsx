@@ -43,6 +43,8 @@ const POLICY_LINKS = [
   { label: '환자의 권리와 의무', href: '/rights' },
   { label: '비급여안내', href: '/non-covered' },
   { label: '오시는 길', href: '/about/location' },
+  // 비로그인 시 /admin/login 으로 리다이렉트됩니다.
+  { label: '관리자', href: '/admin' },
 ];
 
 const isExternalHref = (href: string) =>

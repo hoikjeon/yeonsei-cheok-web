@@ -117,7 +117,7 @@ const MainPopup = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ type: 'spring', damping: 26, stiffness: 320, delay: 0.08 * index }}
-              className="w-full max-w-[380px] overflow-hidden rounded-2xl bg-white shadow-[0_24px_60px_rgba(0,0,0,0.35)]"
+              className="w-full max-w-[380px] overflow-hidden bg-white shadow-[0_24px_60px_rgba(0,0,0,0.35)]"
             >
               {/* 팝업 이미지 (760 x 950 권장 비율로 고정) */}
               <img

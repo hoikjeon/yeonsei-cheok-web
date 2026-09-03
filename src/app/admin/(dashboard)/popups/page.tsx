@@ -168,7 +168,7 @@ function PopupsAdminContent() {
       <div className="p-10 space-y-10 max-w-[1400px] w-full mx-auto">
 
         {/* 메인 화면 미리보기 */}
-        <section className="rounded-[2rem] bg-navy-950 p-8">
+        <section className="rounded bg-navy-950 p-8">
           <div className="mb-6 flex flex-col gap-1 md:flex-row md:items-end md:justify-between">
             <div>
               <h2 className="text-xl font-bold text-white">메인 화면 미리보기</h2>
@@ -186,7 +186,7 @@ function PopupsAdminContent() {
               const popup = popups.find(p => p.display_slot === slot);
               if (!popup) {
                 return (
-                  <div key={slot} className="flex min-h-[220px] flex-col items-center justify-center rounded-2xl border-2 border-dashed border-white/15 text-slate-500">
+                  <div key={slot} className="flex min-h-[220px] flex-col items-center justify-center rounded border-2 border-dashed border-white/15 text-slate-500">
                     <p className="text-2xl font-black">{slot}</p>
                     <p className="mt-1 text-sm font-bold">빈 자리</p>
                   </div>
@@ -198,10 +198,10 @@ function PopupsAdminContent() {
               const endsLabel = formatKstLabel(popup.ends_at);
 
               return (
-                <div key={slot} className={`overflow-hidden rounded-2xl bg-white shadow-lg transition-opacity ${status.isLiveNow ? '' : 'opacity-50'}`}>
+                <div key={slot} className={`overflow-hidden rounded bg-white shadow-lg transition-opacity ${status.isLiveNow ? '' : 'opacity-50'}`}>
                   <div className="relative">
                     <img src={popup.image_url || '/ube_training.jpg'} alt="" className="block aspect-[4/5] w-full object-cover" />
-                    <span className="absolute left-3 top-3 rounded-full bg-navy-950/80 px-2.5 py-1 text-[11px] font-black text-white">
+                    <span className="absolute left-3 top-3 rounded-sm bg-navy-950/80 px-2.5 py-1 text-[11px] font-black text-white">
                       {slot}번
                     </span>
                   </div>
@@ -224,20 +224,20 @@ function PopupsAdminContent() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
           
-          <div className="lg:col-span-2 bg-white rounded-[2rem] p-8 shadow-sm border border-slate-200">
+          <div className="lg:col-span-2 bg-white rounded p-8 shadow-sm border border-slate-200">
             <h2 className="text-xl font-bold text-ink border-b border-slate-100 pb-4 mb-6">등록된 팝업 리스트</h2>
             
             {isLoading ? (
               <div className="py-20 text-center text-ink-muted font-bold">데이터를 불러오는 중입니다...</div>
             ) : popups.length === 0 ? (
-              <div className="py-20 text-center text-ink-muted font-medium bg-slate-50 rounded-2xl border border-slate-100">
+              <div className="py-20 text-center text-ink-muted font-medium bg-slate-50 rounded border border-slate-100">
                 등록된 팝업이 없습니다.
               </div>
             ) : (
               <div className="space-y-6">
                 {popups.map(popup => (
-                  <div key={popup.id} className={`flex max-sm:flex-col gap-6 p-6 rounded-2xl border transition-all ${editingPopup?.id === popup.id ? 'border-primary bg-primary/5 ring-4 ring-primary/10 shadow-lg' : popup.is_active ? 'border-primary/20 bg-primary/[0.02] shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300'}`}>
-                    <div className="w-full sm:w-32 h-32 rounded-xl border border-slate-100 overflow-hidden bg-slate-100 shrink-0">
+                  <div key={popup.id} className={`flex max-sm:flex-col gap-6 p-6 rounded border transition-all ${editingPopup?.id === popup.id ? 'border-primary bg-primary/5 ring-4 ring-primary/10 shadow-lg' : popup.is_active ? 'border-primary/20 bg-primary/[0.02] shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300'}`}>
+                    <div className="w-full sm:w-32 h-32 rounded border border-slate-100 overflow-hidden bg-slate-100 shrink-0">
                       <img src={popup.image_url || '/ube_training.jpg'} alt="popup" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1 space-y-2">
@@ -269,7 +269,7 @@ function PopupsAdminContent() {
                        <select
                          value={popup.display_slot ?? ''}
                          onChange={(e) => handleSlotChange(popup.id, e.target.value)}
-                         className="w-full rounded-lg border border-slate-200 bg-white px-2 py-2 text-[13px] font-bold text-ink focus:border-primary focus:outline-none"
+                         className="w-full rounded border border-slate-200 bg-white px-2 py-2 text-[13px] font-bold text-ink focus:border-primary focus:outline-none"
                        >
                          <option value="">노출 안 함</option>
                          <option value="1">1번 자리</option>
@@ -278,17 +278,17 @@ function PopupsAdminContent() {
                        </select>
                        <button
                          onClick={() => handleToggle(popup.id, popup.is_active)}
-                         className={`flex items-center justify-center px-5 py-3 rounded-xl font-bold text-sm transition-all ${
+                         className={`flex items-center justify-center px-5 py-3 rounded font-bold text-sm transition-all ${
                            popup.is_active ? 'bg-primary text-white hover:bg-primary-dark' : 'bg-slate-100 text-ink-muted hover:bg-slate-200'
                          }`}
                        >
                          {popup.is_active ? '노출 중' : '비노출'}
                        </button>
                        <div className="flex gap-2">
-                         <button onClick={() => handleEditClick(popup)} className={`p-3 rounded-lg transition-colors ${editingPopup?.id === popup.id ? 'bg-primary text-white shadow-md' : 'bg-slate-50 text-ink-muted hover:text-primary hover:bg-white border border-transparent'}`}>
+                         <button onClick={() => handleEditClick(popup)} className={`p-3 rounded-sm transition-colors ${editingPopup?.id === popup.id ? 'bg-primary text-white shadow-md' : 'bg-slate-50 text-ink-muted hover:text-primary hover:bg-white border border-transparent'}`}>
                            <Edit3 size={18} />
                          </button>
-                         <button onClick={() => handleDelete(popup.id)} className="p-3 bg-slate-50 text-ink-muted hover:text-red-500 hover:bg-white border border-transparent rounded-lg transition-colors">
+                         <button onClick={() => handleDelete(popup.id)} className="p-3 bg-slate-50 text-ink-muted hover:text-red-500 hover:bg-white border border-transparent rounded-sm transition-colors">
                            <Trash2 size={18} />
                          </button>
                        </div>
@@ -299,7 +299,7 @@ function PopupsAdminContent() {
             )}
           </div>
 
-          <div className="bg-white rounded-[2rem] p-8 shadow-premium border border-slate-200 sticky top-28">
+          <div className="bg-white rounded p-8 shadow-premium border border-slate-200 sticky top-28">
             <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
               <h2 className="text-xl font-bold text-ink">
                 {editingPopup ? '팝업 수정하기' : '신규 팝업 등록'}
@@ -314,10 +314,10 @@ function PopupsAdminContent() {
                    <span>대표 이미지</span>
                    <span className="text-primary tracking-tighter text-[10px]">권장: 760 x 950 px</span>
                 </label>
-                <div className="relative border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50 p-4 transition-colors hover:border-primary/50 text-center group">
+                <div className="relative border-2 border-dashed border-slate-200 rounded bg-slate-50 p-4 transition-colors hover:border-primary/50 text-center group">
                   <input type="file" name="image" accept="image/*" onChange={handleImageChange} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
                   {previewImage ? (
-                     <div className="relative h-44 w-full rounded-xl overflow-hidden shadow-sm">
+                     <div className="relative h-44 w-full rounded overflow-hidden shadow-sm">
                        <img src={previewImage || undefined} alt="Preview" className="w-full h-full object-cover" />
                      </div>
                   ) : (
@@ -331,11 +331,11 @@ function PopupsAdminContent() {
               <input type="hidden" name="label" key={editingPopup?.id} defaultValue={editingPopup?.label || "Notice"} />
               <div className="space-y-2">
                 <label className="text-xs font-bold text-ink-muted font-montserrat uppercase">메인 제목</label>
-                <textarea required name="title" rows={2} key={editingPopup?.id} defaultValue={editingPopup?.title || ""} placeholder="내용 입력..." className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-bold resize-none leading-tight text-ink" />
+                <textarea required name="title" rows={2} key={editingPopup?.id} defaultValue={editingPopup?.title || ""} placeholder="내용 입력..." className="w-full px-4 py-3 rounded border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-bold resize-none leading-tight text-ink" />
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold text-ink-muted font-montserrat uppercase">서브 내용</label>
-                <textarea required name="content" rows={3} key={editingPopup?.id} defaultValue={editingPopup?.content || ""} placeholder="설명 입력..." className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-medium resize-y leading-relaxed text-ink-sub" />
+                <textarea required name="content" rows={3} key={editingPopup?.id} defaultValue={editingPopup?.content || ""} placeholder="설명 입력..." className="w-full px-4 py-3 rounded border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-medium resize-y leading-relaxed text-ink-sub" />
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold text-ink-muted font-montserrat uppercase">노출 자리</label>
@@ -343,7 +343,7 @@ function PopupsAdminContent() {
                   name="display_slot"
                   key={`slot-${editingPopup?.id}`}
                   defaultValue={editingPopup?.display_slot ?? ''}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-bold text-ink"
+                  className="w-full px-4 py-3 rounded border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-bold text-ink"
                 >
                   <option value="">노출 안 함 (자리 미지정)</option>
                   <option value="1">1번 자리 (왼쪽)</option>
@@ -360,7 +360,7 @@ function PopupsAdminContent() {
                     name="starts_at"
                     key={`starts-${editingPopup?.id}`}
                     defaultValue={toKstInputValue(editingPopup?.starts_at)}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-bold text-ink"
+                    className="w-full px-4 py-3 rounded border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-bold text-ink"
                   />
                 </div>
                 <div className="space-y-2">
@@ -370,19 +370,19 @@ function PopupsAdminContent() {
                     name="ends_at"
                     key={`ends-${editingPopup?.id}`}
                     defaultValue={toKstInputValue(editingPopup?.ends_at)}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-bold text-ink"
+                    className="w-full px-4 py-3 rounded border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-bold text-ink"
                   />
                 </div>
                 <p className="sm:col-span-2 text-[11px] font-medium text-ink-muted -mt-1">
                   비워두면 제한 없이 노출됩니다. 시작일만 넣으면 그때부터, 종료일만 넣으면 그때까지 노출됩니다. (한국 시간 기준)
                 </p>
               </div>
-              <label className="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100 cursor-pointer hover:bg-slate-100">
+              <label className="flex items-center gap-3 p-4 bg-slate-50 rounded border border-slate-100 cursor-pointer hover:bg-slate-100">
                 <input type="checkbox" name="is_active" key={editingPopup?.id} className="w-5 h-5 rounded text-primary focus:ring-primary border-slate-300" defaultChecked={editingPopup ? editingPopup.is_active : true} />
                 <span className="text-sm font-bold text-ink">사이트 노출 적용</span>
               </label>
               <div className="pt-2 flex gap-3">
-                <button type="submit" disabled={isSubmitting} className={`w-full py-4 text-white font-black text-lg rounded-xl transition-all shadow-md ${isSubmitting ? 'bg-slate-400' : 'bg-primary hover:-translate-y-1 hover:shadow-blue-glow'}`}>
+                <button type="submit" disabled={isSubmitting} className={`w-full py-4 text-white font-black text-lg rounded transition-all shadow-md ${isSubmitting ? 'bg-slate-400' : 'bg-primary hover:-translate-y-1 hover:shadow-blue-glow'}`}>
                   {isSubmitting ? '처리 중...' : editingPopup ? '수정 완료' : '등록 하기'}
                 </button>
               </div>

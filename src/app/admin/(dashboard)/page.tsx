@@ -80,10 +80,10 @@ export default async function AdminDashboardPage() {
 
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-10">
           {/* 온라인 예약 리스트 (미확인) */}
-          <section className="bg-white rounded-[1.5rem] shadow-sm border border-slate-200 overflow-hidden flex flex-col max-h-[600px]">
+          <section className="bg-white rounded shadow-sm border border-slate-200 overflow-hidden flex flex-col max-h-[600px]">
             <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
               <h3 className="text-[17px] font-black text-ink">미확인 온라인 예약</h3>
-              <Link href="/admin/reservations" className="text-xs font-bold text-primary bg-primary/5 px-3 py-1.5 rounded-lg hover:bg-primary/10 transition-all flex items-center gap-1">전체보기 <ArrowRight size={12} /></Link>
+              <Link href="/admin/reservations" className="text-xs font-bold text-primary bg-primary/5 px-3 py-1.5 rounded hover:bg-primary/10 transition-all flex items-center gap-1">전체보기 <ArrowRight size={12} /></Link>
             </div>
             <div className="overflow-auto flex-1 p-2">
               <table className="w-full text-left text-sm">
@@ -103,7 +103,7 @@ export default async function AdminDashboardPage() {
                     reservations.map((res) => (
                       <tr key={res.id} className="hover:bg-slate-50 border-b border-slate-50 transition-colors group">
                         <td className="py-4 px-6 font-bold text-ink">
-                          <span className="text-[11px] bg-blue-50 text-blue-600 px-2.5 py-1.5 rounded-lg font-black">
+                          <span className="text-[11px] bg-blue-50 text-blue-600 px-2.5 py-1.5 rounded-sm font-black">
                             {new Date(res.created_at).toLocaleDateString('ko-KR', { month: 'numeric', day: 'numeric' })}
                           </span>
                         </td>
@@ -124,10 +124,10 @@ export default async function AdminDashboardPage() {
           </section>
 
           {/* 온라인 상담 리스트 (미확인) */}
-          <section className="bg-white rounded-[1.5rem] shadow-sm border border-slate-200 overflow-hidden flex flex-col max-h-[600px]">
+          <section className="bg-white rounded shadow-sm border border-slate-200 overflow-hidden flex flex-col max-h-[600px]">
             <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
               <h3 className="text-[17px] font-black text-ink">미확인 온라인 상담</h3>
-              <Link href="/admin/consultations" className="text-xs font-bold text-primary bg-primary/5 px-3 py-1.5 rounded-lg hover:bg-primary/10 transition-all flex items-center gap-1">전체보기 <ArrowRight size={12} /></Link>
+              <Link href="/admin/consultations" className="text-xs font-bold text-primary bg-primary/5 px-3 py-1.5 rounded hover:bg-primary/10 transition-all flex items-center gap-1">전체보기 <ArrowRight size={12} /></Link>
             </div>
             <div className="overflow-auto flex-1 p-2">
               <table className="w-full text-left text-sm">
@@ -147,7 +147,7 @@ export default async function AdminDashboardPage() {
                     consultations.map((cons) => (
                       <tr key={cons.id} className="hover:bg-slate-50 border-b border-slate-50 transition-colors group">
                         <td className="py-4 px-6">
-                          <span className="text-[11px] bg-emerald-50 text-emerald-600 px-2.5 py-1.5 rounded-lg font-black">
+                          <span className="text-[11px] bg-emerald-50 text-emerald-600 px-2.5 py-1.5 rounded-sm font-black">
                             {new Date(cons.created_at).toLocaleDateString('ko-KR', { month: 'numeric', day: 'numeric' })}
                           </span>
                         </td>
@@ -175,7 +175,7 @@ export default async function AdminDashboardPage() {
         <AnalyticsGraphs visits={visits} />
 
         {/* 3. 팝업 설정 현황 요약 */}
-        <section className="bg-white rounded-[1.5rem] shadow-sm border border-slate-200 overflow-hidden">
+        <section className="bg-white rounded shadow-sm border border-slate-200 overflow-hidden">
           <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
             <h3 className="text-[17px] font-black text-ink">공지 팝업창 현황</h3>
             <Link href="/admin/popups" className="text-sm font-bold text-primary hover:text-ink transition-colors">
@@ -185,15 +185,15 @@ export default async function AdminDashboardPage() {
           
           <div className="p-8">
               {popups.length === 0 ? (
-                <div className="p-20 text-center text-ink-muted font-medium bg-slate-50/50 rounded-2xl border border-dashed border-slate-200">
+                <div className="p-20 text-center text-ink-muted font-medium bg-slate-50/50 rounded border border-dashed border-slate-200">
                    등록된 팝업이 없습니다.
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {popups.map((p) => (
-                    <div key={p.id} className="p-5 border border-slate-200 rounded-2xl flex justify-between items-center hover:bg-slate-50 transition-all hover:shadow-md bg-white group">
+                    <div key={p.id} className="p-5 border border-slate-200 rounded flex justify-between items-center hover:bg-slate-50 transition-all hover:shadow-md bg-white group">
                       <div className="flex items-center gap-4">
-                         <div className="w-14 h-14 rounded-xl bg-slate-100 overflow-hidden shrink-0 border border-slate-100 shadow-sm transition-transform group-hover:scale-105">
+                         <div className="w-14 h-14 rounded bg-slate-100 overflow-hidden shrink-0 border border-slate-100 shadow-sm transition-transform group-hover:scale-105">
                             <img src={p.image_url || '/ube_training.jpg'} className="w-full h-full object-cover" alt="" />
                          </div>
                          <div>
@@ -206,7 +206,7 @@ export default async function AdminDashboardPage() {
                             </div>
                          </div>
                       </div>
-                      <Link href={`/admin/popups?edit=${p.id}`} className="px-4 py-2 bg-white border border-slate-200 hover:border-primary hover:text-primary transition-all font-bold text-[13px] rounded-xl shadow-sm hover:shadow-md">
+                      <Link href={`/admin/popups?edit=${p.id}`} className="px-4 py-2 bg-white border border-slate-200 hover:border-primary hover:text-primary transition-all font-bold text-[13px] rounded shadow-sm hover:shadow-md">
                         수정
                       </Link>
                     </div>

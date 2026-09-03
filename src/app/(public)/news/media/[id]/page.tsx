@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Home, ChevronRight, ArrowLeft, Calendar, Newspaper, Globe, ExternalLink } from 'lucide-react';
+import { Home, ChevronRight, ArrowLeft, Calendar, Globe, ExternalLink } from 'lucide-react';
 import { getHospitalNewsItem } from '@/lib/hospitalNews';
 import { createPageMetadata, summarizeForMetadata } from '@/lib/seo';
 
@@ -60,10 +60,6 @@ export default async function MediaDetailPage({ params }: DetailPageProps) {
       <div className="mx-auto max-w-[1000px] px-4 py-10 sm:px-6 sm:py-14 md:py-24">
         {/* Header */}
         <div className="mb-8 border-b border-slate-100 pb-8 sm:mb-12 sm:pb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/5 border border-primary/10 rounded-full text-primary text-[13px] font-bold tracking-tight mb-6 font-montserrat uppercase">
-            <Newspaper size={12} />
-            Media News
-          </div>
           <h1 className="mb-6 break-keep text-h2 tracking-tight text-ink sm:mb-8">
             {item.title}
           </h1>

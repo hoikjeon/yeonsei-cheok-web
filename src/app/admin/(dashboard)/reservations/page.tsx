@@ -58,24 +58,24 @@ export default function AdminReservationsPage() {
       <div className="p-10 space-y-8 max-w-[1400px] w-full mx-auto">
         
         {/* Controls */}
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
+        <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-6 rounded border border-slate-100 shadow-sm">
           <div className="relative w-full md:w-96">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted" size={18} />
             <input 
               type="text" 
               placeholder="이름 또는 연락처로 검색..." 
-              className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-primary text-sm font-medium"
+              className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded focus:outline-none focus:border-primary text-sm font-medium"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
           
-          <div className="flex bg-slate-100 p-1.5 rounded-2xl w-full md:w-auto">
+          <div className="flex bg-slate-100 p-1.5 rounded w-full md:w-auto">
             {(['all', 'pending', 'checked'] as const).map((status) => (
               <button
                 key={status}
                 onClick={() => setFilterStatus(status)}
-                className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                className={`flex-1 md:flex-none px-6 py-2.5 rounded text-sm font-bold transition-all ${
                   filterStatus === status ? 'bg-white text-ink shadow-md' : 'text-ink-muted hover:text-ink-sub'
                 }`}
               >
@@ -86,7 +86,7 @@ export default function AdminReservationsPage() {
         </div>
 
         {/* List Board */}
-        <div className="bg-white border border-slate-200 rounded-[2.5rem] shadow-sm overflow-hidden">
+        <div className="bg-white border border-slate-200 rounded shadow-sm overflow-hidden">
           <table className="w-full text-left">
             <thead>
               <tr className="bg-slate-50/50 border-b border-slate-100">
@@ -107,14 +107,14 @@ export default function AdminReservationsPage() {
                 filteredReservations.map((res) => (
                   <tr key={res.id} className={`group transition-all ${res.is_checked ? 'bg-white opacity-80' : 'bg-blue-50/10'}`}>
                     <td className="px-8 py-7">
-                      <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-black tracking-tight ${
+                      <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-[11px] font-black tracking-tight ${
                         res.is_checked ? 'bg-slate-100 text-ink-muted' : 'bg-blue-600 text-white'
                       }`}>
                         {res.is_checked ? '확인완료' : '신규접수'}
                       </span>
                     </td>
                     <td className="px-8">
-                       <div className={`inline-block px-3 py-1.5 rounded-xl ${res.is_checked ? 'bg-slate-50' : 'bg-blue-50'}`}>
+                       <div className={`inline-block px-3 py-1.5 rounded-sm ${res.is_checked ? 'bg-slate-50' : 'bg-blue-50'}`}>
                          <p className={`text-sm font-black ${res.is_checked ? 'text-ink-muted' : 'text-blue-700'}`}>{new Date(res.created_at).toLocaleDateString('ko-KR', { month: 'numeric', day: 'numeric' })}</p>
                          <p className={`text-[10px] font-bold ${res.is_checked ? 'text-slate-300' : 'text-blue-400 opacity-80'}`}>{new Date(res.created_at).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })}</p>
                        </div>
@@ -131,12 +131,12 @@ export default function AdminReservationsPage() {
                     </td>
                     <td className="px-8">
                       <p className="text-sm font-black text-ink">{res.reservation_date}</p>
-                      <p className="text-xs text-blue-500 font-bold mt-1 bg-blue-50 inline-block px-2 py-0.5 rounded">{res.reservation_time}</p>
+                      <p className="text-xs text-blue-500 font-bold mt-1 bg-blue-50 inline-block px-2 py-0.5 rounded-sm">{res.reservation_time}</p>
                     </td>
                     <td className="px-8 text-right">
                       <button
                         onClick={() => handleToggleCheck(res.id, res.is_checked)}
-                        className={`px-5 py-2.5 rounded-xl font-bold text-sm transition-all ${
+                        className={`px-5 py-2.5 rounded font-bold text-sm transition-all ${
                           res.is_checked 
                             ? 'bg-slate-100 text-ink-muted hover:bg-slate-200' 
                             : 'bg-primary text-white hover:bg-primary-dark shadow-lg shadow-primary/20'

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ChevronRight, Search, PlayCircle, Newspaper } from 'lucide-react';
+import { ChevronRight, Search, PlayCircle } from 'lucide-react';
 import SubHero from '@/components/SubHero';
 import Pagination from '@/components/Pagination';
 import { getHospitalNewsList } from '@/lib/hospitalNews';
@@ -77,11 +77,6 @@ export default async function MediaPage({
                            <PlayCircle size={60} strokeWidth={1} />
                         </div>
                       )}
-                      {/* Category Badge Over Thumbnail */}
-                      <div className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-navy-950/80 px-3 py-1.5 font-montserrat text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md sm:left-6 sm:top-6 sm:px-4 sm:text-[11px]">
-                        <Newspaper size={12} />
-                        Media News
-                      </div>
                     </div>
 
                     {/* Text Body */}

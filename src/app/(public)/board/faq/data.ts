@@ -69,10 +69,10 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     id: 'examination-01',
     category: '검사/치료',
-    question: '방문 당일 MRI나 CT 검사를 받을 수 있나요?',
+    question: '방문 당일 MRI 등 정밀 검사를 받을 수 있나요?',
     answer:
       '영상검사는 먼저 전문의 진료를 통해 필요한 검사 종류와 부위를 결정한 뒤 진행합니다. 당일 검사 가능 여부는 장비 예약 상황에 따라 달라질 수 있으므로, 검사까지 원하시는 경우 예약 시 미리 말씀해 주세요.',
-    keywords: ['MRI', 'CT', '영상검사', '당일검사'],
+    keywords: ['MRI', '정밀검사', '영상검사', '당일검사'],
   },
   {
     id: 'examination-02',
@@ -85,9 +85,9 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     id: 'examination-03',
     category: '검사/치료',
-    question: '다른 병원에서 촬영한 MRI나 CT 자료를 가져가도 되나요?',
+    question: '다른 병원에서 촬영한 MRI나 영상 검사 자료를 가져가도 되나요?',
     answer:
-      '기존에 촬영한 MRI·CT·X-ray 영상과 판독지, 진료기록이 있다면 진료에 도움이 될 수 있습니다. 영상은 CD나 저장매체에 담아 가져오시고, 접수 시 외부 영상 자료가 있다고 말씀해 주세요.',
+      '기존에 촬영한 영상(MRI·X-ray 등)과 판독지, 진료기록이 있다면 진료에 도움이 될 수 있습니다. 영상은 CD나 저장매체에 담아 가져오시고, 접수 시 외부 영상 자료가 있다고 말씀해 주세요.',
     keywords: ['외부영상', 'CD', '판독지', '진료기록'],
   },
   {
@@ -229,10 +229,10 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     id: 'document-03',
     category: '서류발급',
-    question: 'MRI·CT 영상 CD를 발급받을 수 있나요?',
+    question: 'MRI 등 영상 검사 CD를 발급받을 수 있나요?',
     answer:
       '병원에서 촬영한 영상자료는 본인 확인 후 CD 등 저장매체로 발급받을 수 있습니다. 발급 준비에 시간이 걸릴 수 있으므로 필요한 검사명과 촬영일을 확인하여 원무 접수창구에 신청해 주세요.',
-    keywords: ['영상CD', 'MRI', 'CT', 'X-ray'],
+    keywords: ['영상CD', 'MRI', 'X-ray'],
   },
   {
     id: 'document-04',

@@ -14,8 +14,10 @@ type YoutubeCard = {
   title: string;
   tags: string[];
   date: string;
+  featuredImage: string;
+  featuredImageFallbacks: string[];
   image: string;
-  imageFallback: string;
+  imageFallbacks: string[];
   href: string;
 };
 
@@ -42,12 +44,16 @@ function formatDate(value: string) {
 
 const FALLBACK_IMG = '/generated/hero-university-doctors.png';
 
-// 썸네일 로드 실패 시 폴백 이미지로 1회 교체
-function handleImgError(fallback: string) {
+// 고해상도 썸네일부터 순서대로 시도하고, 없는 경우 다음 해상도로 교체합니다.
+function handleImgError(fallbacks: string[]) {
   return (e: React.SyntheticEvent<HTMLImageElement>) => {
     const img = e.currentTarget;
-    if (img.dataset.fb || !fallback) return;
-    img.dataset.fb = '1';
+    const fallbackIndex = Number(img.dataset.fallbackIndex ?? '0');
+    const fallback = fallbacks[fallbackIndex];
+
+    if (!fallback) return;
+
+    img.dataset.fallbackIndex = String(fallbackIndex + 1);
     img.src = fallback;
   };
 }
@@ -76,14 +82,27 @@ export default function YoutubeSection() {
       const mapped: YoutubeCard[] = data.map((row) => {
         const ytId = row.video_url ? getYoutubeId(row.video_url) : null;
         const firstImage = Array.isArray(row.image_urls) ? (row.image_urls[0] as string | undefined) : undefined;
-        // hqdefault은 모든 유튜브 영상에 항상 존재(200). maxresdefault은 HD 업로드가 아니면 404가 나서 사용하지 않음.
-        // 4:3(480x360) 썸네일이지만 aspect-video + object-cover로 레터박스가 잘려 깔끔한 16:9로 표시됨.
+        const featuredImage = ytId
+          ? `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`
+          : firstImage ?? FALLBACK_IMG;
+        const featuredImageFallbacks = ytId
+          ? [
+              `https://img.youtube.com/vi/${ytId}/sddefault.jpg`,
+              `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`,
+              `https://img.youtube.com/vi/${ytId}/mqdefault.jpg`,
+              FALLBACK_IMG,
+            ]
+          : firstImage
+            ? [FALLBACK_IMG]
+            : [];
         const image = ytId
           ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`
           : firstImage ?? FALLBACK_IMG;
-        const imageFallback = ytId
-          ? `https://img.youtube.com/vi/${ytId}/mqdefault.jpg`
-          : firstImage ?? FALLBACK_IMG;
+        const imageFallbacks = ytId
+          ? [`https://img.youtube.com/vi/${ytId}/mqdefault.jpg`, FALLBACK_IMG]
+          : firstImage
+            ? [FALLBACK_IMG]
+            : [];
 
         return {
           id: row.id,
@@ -91,8 +110,10 @@ export default function YoutubeSection() {
           title: row.title,
           tags: extractTags(row.content),
           date: formatDate(row.created_at),
+          featuredImage,
+          featuredImageFallbacks,
           image,
-          imageFallback,
+          imageFallbacks,
           href: `/news/youtube/${row.id}`,
         };
       });
@@ -140,7 +161,7 @@ export default function YoutubeSection() {
         </motion.div>
 
         {/* Featured + List */}
-        <div className="mt-10 grid grid-cols-1 gap-6 md:mt-16 lg:grid-cols-[1.72fr_1fr] lg:items-stretch lg:gap-8">
+        <div className="mt-10 grid grid-cols-1 gap-6 md:mt-16 lg:grid-cols-[1.4fr_1fr] lg:items-stretch lg:gap-8">
           {/* Featured (latest / selected) */}
           <div>
             <div className="relative aspect-video overflow-hidden rounded-2xl bg-slate-900 shadow-[0_28px_70px_-38px_rgba(15,29,54,0.55)] ring-1 ring-slate-900/5 md:rounded-[1.5rem]">
@@ -166,9 +187,9 @@ export default function YoutubeSection() {
                   <AnimatePresence mode="wait">
                     <motion.img
                       key={active.id}
-                      src={active.image}
+                      src={active.featuredImage}
                       alt={active.title}
-                      onError={handleImgError(active.imageFallback)}
+                      onError={handleImgError(active.featuredImageFallbacks)}
                       initial={{ opacity: 0, scale: 1.04 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0 }}
@@ -230,7 +251,7 @@ export default function YoutubeSection() {
                       <img
                         src={card.image}
                         alt={card.title}
-                        onError={handleImgError(card.imageFallback)}
+                        onError={handleImgError(card.imageFallbacks)}
                         className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       <span className="absolute inset-0 flex items-center justify-center bg-black/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100">

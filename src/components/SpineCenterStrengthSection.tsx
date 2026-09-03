@@ -21,7 +21,7 @@ const strengths = [
   {
     no: '04',
     title: '첨단 검사 및 수술 장비',
-    desc: '3.0T MRI, 3D CT, 이동식 X-ray, 초음파 등 첨단 검사 및 수술 장비를 활용해 환자에게 적합한 정밀 치료 시스템을 제공합니다.',
+    desc: 'MRI, X-ray, 초음파 등 첨단 검사 및 수술 장비를 활용해 환자에게 적합한 정밀 치료 시스템을 제공합니다.',
   },
   {
     no: '05',
@@ -32,16 +32,16 @@ const strengths = [
 
 const centerImages = [
   {
-    src: '/generated/ube/ube-center-collaboration.png',
-    alt: '척추 영상을 보며 협진하는 전문의들',
+    src: '/generated/spine-center/training-v2.webp',
+    alt: '양방향 척추내시경 교육 세미나 현장',
   },
   {
-    src: '/generated/ube/ube-center-equipment.png',
-    alt: '첨단 영상 검사 장비가 있는 병원 검사실',
+    src: '/generated/spine-center/imaging-v2.webp',
+    alt: '영상 검사실을 바라보는 의료진의 진단 모니터',
   },
   {
-    src: '/generated/ube/ube-center-care.png',
-    alt: '청결한 병동에서 간호사가 물품을 점검하는 장면',
+    src: '/generated/spine-center/care-v2.webp',
+    alt: '휠체어 환자를 돌보는 간호사',
   },
 ];
 

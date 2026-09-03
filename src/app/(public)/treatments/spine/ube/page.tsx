@@ -60,14 +60,14 @@ const treatmentSteps = [
     no: '01',
     title: '정밀 진단 및 접근',
     desc: '1cm 미만의 최소 절개 두 곳으로 특수 척추 내시경을 삽입해 병변 부위와 신경 압박 위치를 육안으로 정확히 확인합니다.',
-    image: '/generated/ube/ube-step-diagnosis.png',
+    image: '/generated/ube/ube-step-diagnosis-mri.webp',
     alt: '척추 MRI 영상을 확인하는 정밀 진단 장면',
   },
   {
     no: '02',
     title: '원인 제거 및 감압',
     desc: '미세 수술 기구로 신경을 누르는 좁아진 협착 부위를 넓히거나 튀어나온 디스크만 선택적으로 제거합니다.',
-    image: '/generated/ube/ube-step-decompression.png',
+    image: '/generated/ube/ube-step-decompression-v2.png',
     alt: '양방향 내시경 수술 기구를 이용한 감압 장면',
   },
   {
@@ -82,8 +82,8 @@ const treatmentSteps = [
 const comparisonItems = [
   {
     title: '한방향 척추 수술',
-    image: '/generated/ube/ube-comparison-uni.png',
-    alt: '한 개 통로로 접근하는 척추 수술 일러스트',
+    image: '/generated/ube/ube-comparison-uni-v2.webp',
+    alt: '통합 작업 채널 내시경 한 개로 접근하는 한방향 척추 수술 일러스트',
     rows: [
       { label: '방식', desc: '한 개의 구멍을 통해 내시경과 수술 도구를 동시에 삽입하여 치료합니다.' },
       { label: '특징 및 한계', desc: '신체 부담은 적지만 기구 움직임이 제한되고 시야가 좁아 복잡한 병변 제거가 어려울 수 있습니다.' },
@@ -92,8 +92,8 @@ const comparisonItems = [
   },
   {
     title: '양방향 척추내시경',
-    image: '/generated/ube/ube-comparison-bi.png',
-    alt: '두 개 통로로 접근하는 양방향 척추 수술 일러스트',
+    image: '/generated/ube/ube-comparison-bi-v2.webp',
+    alt: '관찰용 내시경과 작업용 겸자를 두 통로로 삽입하는 양방향 척추 수술 일러스트',
     rows: [
       { label: '방식', desc: '두 개의 구멍으로 내시경과 수술 도구를 각각 독립적으로 삽입하여 치료합니다.' },
       { label: '안정성 및 장점', desc: '양손을 사용하는 것과 같은 자유로운 움직임이 가능하며 넓은 시야로 더 정밀한 치료를 돕습니다.' },
@@ -144,7 +144,7 @@ const strengths = [
   {
     no: '04',
     title: '첨단 검사 및 수술 장비',
-    desc: '3.0T MRI, 3D CT, 이동식 X-ray, 초음파 등 첨단 검사 및 수술 장비를 활용해 환자에게 적합한 정밀 치료 시스템을 제공합니다.',
+    desc: 'MRI, X-ray, 초음파 등 첨단 검사 및 수술 장비를 활용해 환자에게 적합한 정밀 치료 시스템을 제공합니다.',
   },
   {
     no: '05',
@@ -155,16 +155,16 @@ const strengths = [
 
 const centerImages = [
   {
-    src: '/generated/ube/ube-center-collaboration.png',
-    alt: '척추 영상을 보며 협진하는 전문의들',
+    src: '/generated/spine-center/training-v2.webp',
+    alt: '양방향 척추내시경 교육 세미나 현장',
   },
   {
-    src: '/generated/ube/ube-center-equipment.png',
-    alt: '첨단 영상 검사 장비가 있는 병원 검사실',
+    src: '/generated/spine-center/imaging-v2.webp',
+    alt: '영상 검사실을 바라보는 의료진의 진단 모니터',
   },
   {
-    src: '/generated/ube/ube-center-care.png',
-    alt: '청결한 병동에서 간호사가 물품을 점검하는 장면',
+    src: '/generated/spine-center/care-v2.webp',
+    alt: '휠체어 환자를 돌보는 간호사',
   },
 ];
 
@@ -255,8 +255,8 @@ export default function UbePage() {
             <ScrollReveal delay={0.08} variant="image">
               <div className="relative aspect-[16/11] overflow-hidden rounded-lg bg-slate-100">
                 <Image
-                  src="/generated/ube/ube-surgery-closeup.png"
-                  alt="양방향 척추내시경 기구 클로즈업"
+                  src="/generated/ube/ube-surgery-closeup-v2.webp"
+                  alt="한 손으로 관찰용 내시경을, 다른 손으로 작업용 RF 기구를 조작하는 양방향 척추내시경 수술 장면"
                   fill
                   priority
                   sizes="(min-width: 1024px) 52vw, 100vw"

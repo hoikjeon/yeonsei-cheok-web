@@ -89,18 +89,6 @@ export default async function NoticePage({
 
       <section className="bg-white">
         <div className="mx-auto min-h-0 max-w-7xl border-x border-slate-50 px-4 py-14 shadow-sm sm:px-6 sm:py-16 md:min-h-[800px] lg:px-10 lg:py-24">
-          {/* Intro Copy */}
-          <div className="mb-10 space-y-5 sm:mb-16">
-            <h2 className="break-keep text-h2 tracking-tight text-navy-900">
-              중요한 정보,
-              <br />
-              놓치지 않고 차질 없도록
-            </h2>
-            <p className="max-w-3xl break-keep text-[15px] font-medium leading-[1.75] text-ink-sub sm:text-[16px]">
-              진료와 관련된 중요한 소식을 사전에 꼼꼼히 안내해 드립니다. 내원 전 확인하시면 더욱 편안한 진료가 가능합니다.
-            </p>
-          </div>
-
           <div className="space-y-5 sm:space-y-6">
             {/* Search & Tool Bar */}
             <div className="flex flex-col items-stretch gap-4 border-b-2 border-slate-200 pb-4 sm:flex-row sm:items-end sm:justify-between">

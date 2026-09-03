@@ -69,7 +69,7 @@ export default function AdminNewsEditor({ type }: { type: AdminNewsType }) {
         <Link
           href={config.publicPath}
           target="_blank"
-          className="inline-flex items-center gap-2 rounded-xl bg-slate-100 px-4 py-3 text-sm font-bold text-ink-muted transition-colors hover:bg-primary/10 hover:text-primary"
+          className="inline-flex items-center gap-2 rounded bg-slate-100 px-4 py-3 text-sm font-bold text-ink-muted transition-colors hover:bg-primary/10 hover:text-primary"
         >
           게시판 보기 <ExternalLink size={16} />
         </Link>
@@ -80,7 +80,7 @@ export default function AdminNewsEditor({ type }: { type: AdminNewsType }) {
           <ArrowLeft size={18} /> 병원소식 관리로 돌아가기
         </Link>
 
-        <form onSubmit={handleSubmit} className="space-y-8 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-10">
+        <form onSubmit={handleSubmit} className="space-y-8 rounded border border-slate-200 bg-white p-5 shadow-sm md:p-10">
           <div>
             <h2 className="text-xl font-black text-ink">{config.label}</h2>
             <p className="mt-2 text-sm font-medium leading-6 text-ink-muted">{config.description}</p>
@@ -96,7 +96,7 @@ export default function AdminNewsEditor({ type }: { type: AdminNewsType }) {
                 value={videoUrl}
                 onChange={(event) => setVideoUrl(event.target.value)}
                 placeholder="https://www.youtube.com/watch?v=..."
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-bold text-ink outline-none transition focus:border-primary focus:bg-white"
+                className="w-full rounded border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-bold text-ink outline-none transition focus:border-primary focus:bg-white"
               />
             </div>
           )}
@@ -110,7 +110,7 @@ export default function AdminNewsEditor({ type }: { type: AdminNewsType }) {
               maxLength={150}
               value={title}
               onChange={(event) => setTitle(event.target.value)}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-bold text-ink outline-none transition focus:border-primary focus:bg-white"
+              className="w-full rounded border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-bold text-ink outline-none transition focus:border-primary focus:bg-white"
             />
           </div>
 
@@ -125,12 +125,12 @@ export default function AdminNewsEditor({ type }: { type: AdminNewsType }) {
               rows={12}
               value={content}
               onChange={(event) => setContent(event.target.value)}
-              className="w-full resize-y rounded-xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-medium leading-7 text-ink outline-none transition focus:border-primary focus:bg-white"
+              className="w-full resize-y rounded border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-medium leading-7 text-ink outline-none transition focus:border-primary focus:bg-white"
             />
           </div>
 
           {type === 'notice' && (
-            <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+            <label className="flex cursor-pointer items-start gap-3 rounded border border-slate-200 bg-slate-50 p-5">
               <input
                 type="checkbox"
                 checked={isPinned}
@@ -148,11 +148,11 @@ export default function AdminNewsEditor({ type }: { type: AdminNewsType }) {
             <div className="grid gap-5 md:grid-cols-2">
               <div className="space-y-2">
                 <label htmlFor="source-name" className="text-sm font-black text-ink">언론사명</label>
-                <input id="source-name" type="text" value={sourceName} onChange={(event) => setSourceName(event.target.value)} className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-bold text-ink outline-none transition focus:border-primary focus:bg-white" />
+                <input id="source-name" type="text" value={sourceName} onChange={(event) => setSourceName(event.target.value)} className="w-full rounded border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-bold text-ink outline-none transition focus:border-primary focus:bg-white" />
               </div>
               <div className="space-y-2">
                 <label htmlFor="source-url" className="text-sm font-black text-ink">보도 원문 링크</label>
-                <input id="source-url" type="url" value={sourceUrl} onChange={(event) => setSourceUrl(event.target.value)} placeholder="https://..." className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-bold text-ink outline-none transition focus:border-primary focus:bg-white" />
+                <input id="source-url" type="url" value={sourceUrl} onChange={(event) => setSourceUrl(event.target.value)} placeholder="https://..." className="w-full rounded border border-slate-200 bg-slate-50 px-4 py-4 text-sm font-bold text-ink outline-none transition focus:border-primary focus:bg-white" />
               </div>
             </div>
           )}
@@ -163,7 +163,7 @@ export default function AdminNewsEditor({ type }: { type: AdminNewsType }) {
                 <label htmlFor="news-files" className="flex items-center gap-2 text-sm font-black text-ink"><FileImage size={17} /> 첨부 이미지</label>
                 <span className="text-xs font-bold text-ink-muted">{files.length}/10개 · 파일당 10MB</span>
               </div>
-              <label htmlFor="news-files" className="flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 px-5 py-9 text-center transition hover:border-primary/40 hover:bg-primary/5">
+              <label htmlFor="news-files" className="flex cursor-pointer flex-col items-center justify-center rounded border-2 border-dashed border-slate-200 bg-slate-50 px-5 py-9 text-center transition hover:border-primary/40 hover:bg-primary/5">
                 <UploadCloud size={34} className="mb-3 text-primary" />
                 <span className="text-sm font-black text-ink">이미지 선택</span>
                 <span className="mt-1 text-xs font-medium text-ink-muted">JPG, PNG, WEBP, GIF</span>
@@ -173,10 +173,10 @@ export default function AdminNewsEditor({ type }: { type: AdminNewsType }) {
               {files.length > 0 && (
                 <div className="grid gap-2 sm:grid-cols-2">
                   {files.map((file, index) => (
-                    <div key={`${file.name}-${file.lastModified}-${index}`} className="flex min-w-0 items-center gap-3 rounded-xl border border-slate-200 bg-white p-3">
+                    <div key={`${file.name}-${file.lastModified}-${index}`} className="flex min-w-0 items-center gap-3 rounded border border-slate-200 bg-white p-3">
                       <FileImage size={18} className="shrink-0 text-primary" />
                       <span className="min-w-0 flex-1 truncate text-xs font-bold text-ink">{file.name}</span>
-                      <button type="button" aria-label={`${file.name} 제거`} onClick={() => setFiles((current) => current.filter((_, fileIndex) => fileIndex !== index))} className="rounded-lg p-1.5 text-ink-muted hover:bg-red-50 hover:text-red-500">
+                      <button type="button" aria-label={`${file.name} 제거`} onClick={() => setFiles((current) => current.filter((_, fileIndex) => fileIndex !== index))} className="rounded-sm p-1.5 text-ink-muted hover:bg-red-50 hover:text-red-500">
                         <X size={16} />
                       </button>
                     </div>
@@ -187,8 +187,8 @@ export default function AdminNewsEditor({ type }: { type: AdminNewsType }) {
           )}
 
           <div className="flex flex-col-reverse gap-3 border-t border-slate-100 pt-7 sm:flex-row sm:justify-end">
-            <Link href="/admin/news" className="inline-flex items-center justify-center rounded-xl bg-slate-100 px-6 py-4 text-sm font-black text-ink-muted hover:bg-slate-200">취소</Link>
-            <button type="submit" disabled={isSubmitting} className="inline-flex min-w-48 items-center justify-center gap-2 rounded-xl bg-navy-950 px-7 py-4 text-sm font-black text-white transition hover:bg-primary disabled:cursor-not-allowed disabled:opacity-50">
+            <Link href="/admin/news" className="inline-flex items-center justify-center rounded bg-slate-100 px-6 py-4 text-sm font-black text-ink-muted hover:bg-slate-200">취소</Link>
+            <button type="submit" disabled={isSubmitting} className="inline-flex min-w-48 items-center justify-center gap-2 rounded bg-navy-950 px-7 py-4 text-sm font-black text-white transition hover:bg-primary disabled:cursor-not-allowed disabled:opacity-50">
               <Send size={18} /> {isSubmitting ? '등록 중...' : `${config.label} 등록`}
             </button>
           </div>

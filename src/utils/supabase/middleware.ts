@@ -36,7 +36,7 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // 의료법상 치료경험담(후기)은 회원에게만 노출할 수 있으므로 비로그인 접근을 차단합니다.
+  // 후기 '내용'은 회원에게만 노출합니다. 목록은 열어두고 상세·작성만 막습니다.
   if (!user && isMemberOnlyPath(request.nextUrl.pathname)) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = '/login';
@@ -49,11 +49,14 @@ export async function updateSession(request: NextRequest) {
   return response;
 }
 
-// 로그인한 회원만 접근할 수 있는 경로
-const MEMBER_ONLY_PATHS = ['/board/reviews'];
+// 목록 페이지는 누구나 볼 수 있고, 그 아래 하위 경로(상세·작성)만 회원 전용입니다.
+// 예) /board/reviews → 공개, /board/reviews/{id}·/board/reviews/write → 회원 전용
+const MEMBER_ONLY_PARENTS = ['/board/reviews'];
 
 function isMemberOnlyPath(pathname: string) {
-  return MEMBER_ONLY_PATHS.some(
-    (path) => pathname === path || pathname.startsWith(`${path}/`)
-  );
+  return MEMBER_ONLY_PARENTS.some((parent) => {
+    if (!pathname.startsWith(`${parent}/`)) return false;
+    // '/board/reviews/' 처럼 하위 경로가 비어 있으면 목록으로 취급합니다.
+    return pathname.length > parent.length + 1;
+  });
 }

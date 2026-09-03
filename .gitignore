@@ -50,3 +50,17 @@ public/shoulder.mov
 # public/banner/ 는 메인 히어로에서 사용하므로 추적합니다.
 public/병원장님들.jpg
 public/ch-hospital.png
+
+# 코드에서 참조하지 않는 대용량 작업 원본 (MRI 스캔, 촬영 원본 등)
+# 페이지에 연결할 때 이 목록에서 빼고 최적화 후 커밋하세요.
+public/MRI-1.jpg
+public/MRI-2.jpg
+public/DSC00079.jpg
+public/DSC00171.jpg
+public/hand.png
+public/hand2.png
+public/pat-1.png
+public/pat-2.png
+public/choi.jpg
+public/doctor gr.jpg
+public/doctors dong.jpg

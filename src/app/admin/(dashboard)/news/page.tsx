@@ -26,7 +26,7 @@ export default async function AdminNewsPage() {
       </header>
 
       <div className="mx-auto w-full max-w-6xl p-5 md:p-10">
-        <div className="mb-7 rounded-3xl bg-navy-950 p-6 text-white shadow-lg md:p-8">
+        <div className="mb-7 rounded bg-navy-950 p-6 text-white shadow-lg md:p-8">
           <p className="text-xs font-black uppercase tracking-[0.18em] text-blue-300">Hospital News</p>
           <h2 className="mt-3 text-2xl font-black tracking-tight md:text-3xl">게시판을 선택해 새 글을 등록하세요.</h2>
           <p className="mt-3 max-w-2xl break-keep text-sm font-medium leading-6 text-slate-300">등록된 글은 각 병원소식 게시판에 반영됩니다. 공개 홈페이지에서는 글을 작성할 수 없습니다.</p>
@@ -37,15 +37,15 @@ export default async function AdminNewsPage() {
             const config = adminNewsConfig[type];
 
             return (
-              <section key={type} className="flex min-h-64 flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${accent}`}>{icon}</div>
+              <section key={type} className="flex min-h-64 flex-col rounded border border-slate-200 bg-white p-6 shadow-sm">
+                <div className={`flex h-12 w-12 items-center justify-center rounded ${accent}`}>{icon}</div>
                 <h3 className="mt-5 text-xl font-black text-ink">{config.label}</h3>
                 <p className="mt-2 flex-1 break-keep text-sm font-medium leading-6 text-ink-muted">{config.description}</p>
                 <div className="mt-6 grid grid-cols-[1fr_auto] gap-2">
-                  <Link href={`/admin/news/${type}/write`} className="inline-flex items-center justify-center gap-2 rounded-xl bg-navy-950 px-4 py-3 text-sm font-black text-white transition hover:bg-primary">
+                  <Link href={`/admin/news/${type}/write`} className="inline-flex items-center justify-center gap-2 rounded bg-navy-950 px-4 py-3 text-sm font-black text-white transition hover:bg-primary">
                     <Plus size={17} /> 새 글 등록
                   </Link>
-                  <Link href={config.publicPath} target="_blank" aria-label={`${config.label} 게시판 보기`} className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-slate-100 text-ink-muted transition hover:bg-primary/10 hover:text-primary">
+                  <Link href={config.publicPath} target="_blank" aria-label={`${config.label} 게시판 보기`} className="inline-flex h-11 w-11 items-center justify-center rounded bg-slate-100 text-ink-muted transition hover:bg-primary/10 hover:text-primary">
                     <ExternalLink size={17} />
                   </Link>
                 </div>

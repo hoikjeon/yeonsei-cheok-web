@@ -35,9 +35,9 @@ export default function AdminLoginPage() {
         &larr; 홈페이지로 돌아가기
       </Link>
       
-      <div className="w-full max-w-md bg-white rounded-[2rem] shadow-premium p-10 mt-10">
+      <div className="w-full max-w-md bg-white rounded shadow-premium p-10 mt-10">
         <div className="text-center mb-10">
-          <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 text-primary">
+          <div className="w-16 h-16 bg-primary/10 rounded flex items-center justify-center mx-auto mb-4 text-primary">
             <Lock size={32} />
           </div>
           <h1 className="text-2xl font-black text-ink tracking-tight">관리자 로그인</h1>
@@ -55,7 +55,7 @@ export default function AdminLoginPage() {
                 name="id"
                 autoComplete="off"
                 placeholder="관리자 아이디를 입력하세요" 
-                className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-primary transition-all text-sm font-bold text-ink placeholder:text-ink-muted"
+                className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded focus:outline-none focus:border-primary transition-all text-sm font-bold text-ink placeholder:text-ink-muted"
                 required
               />
             </div>
@@ -68,14 +68,14 @@ export default function AdminLoginPage() {
                 type="password" 
                 name="password"
                 placeholder="비밀번호를 입력하세요" 
-                className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-primary transition-all text-sm font-bold text-ink placeholder:text-ink-muted"
+                className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded focus:outline-none focus:border-primary transition-all text-sm font-bold text-ink placeholder:text-ink-muted"
                 required
               />
             </div>
           </div>
 
           {error && (
-            <div className="p-3 bg-red-50 text-red-500 text-sm font-bold rounded-xl text-center">
+            <div className="p-3 bg-red-50 text-red-500 text-sm font-bold rounded text-center">
               {error}
             </div>
           )}
@@ -83,7 +83,7 @@ export default function AdminLoginPage() {
           <button 
             type="submit" 
             disabled={isLoading}
-            className={`w-full py-4 text-white font-black text-[15px] rounded-xl transition-all shadow-md ${isLoading ? 'bg-slate-400' : 'bg-navy-950 hover:bg-primary active:scale-[0.98]'}`}
+            className={`w-full py-4 text-white font-black text-[15px] rounded transition-all shadow-md ${isLoading ? 'bg-slate-400' : 'bg-navy-950 hover:bg-primary active:scale-[0.98]'}`}
           >
             {isLoading ? '인증 중...' : '로그인'}
           </button>

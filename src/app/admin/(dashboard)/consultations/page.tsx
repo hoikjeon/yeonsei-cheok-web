@@ -91,24 +91,24 @@ export default function AdminConsultationsPage() {
       <div className="p-10 space-y-8 max-w-[1400px] w-full mx-auto">
         
         {/* Controls */}
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
+        <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-6 rounded border border-slate-100 shadow-sm">
           <div className="relative w-full md:w-96">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-ink-muted" size={18} />
             <input 
               type="text" 
               placeholder="이름 또는 상담 내용으로 검색..." 
-              className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:border-primary text-sm font-medium"
+              className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded focus:outline-none focus:border-primary text-sm font-medium"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
           
-          <div className="flex bg-slate-100 p-1.5 rounded-2xl w-full md:w-auto">
+          <div className="flex bg-slate-100 p-1.5 rounded w-full md:w-auto">
             {(['all', 'pending', 'checked'] as const).map((status) => (
               <button
                 key={status}
                 onClick={() => setFilterStatus(status)}
-                className={`flex-1 md:flex-none px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                className={`flex-1 md:flex-none px-6 py-2.5 rounded text-sm font-bold transition-all ${
                   filterStatus === status ? 'bg-white text-ink shadow-md' : 'text-ink-muted hover:text-ink-sub'
                 }`}
               >
@@ -121,16 +121,16 @@ export default function AdminConsultationsPage() {
         {/* List Cards */}
         <div className="space-y-4">
           {isLoading ? (
-            <div className="py-20 text-center font-bold text-slate-300 bg-white rounded-3xl border border-slate-100 shadow-sm">데이터를 불러오고 있습니다...</div>
+            <div className="py-20 text-center font-bold text-slate-300 bg-white rounded border border-slate-100 shadow-sm">데이터를 불러오고 있습니다...</div>
           ) : filteredConsultations.length === 0 ? (
-            <div className="py-20 text-center font-medium text-ink-muted bg-white rounded-3xl border border-slate-100 shadow-sm">내역이 존재하지 않습니다.</div>
+            <div className="py-20 text-center font-medium text-ink-muted bg-white rounded border border-slate-100 shadow-sm">내역이 존재하지 않습니다.</div>
           ) : (
               filteredConsultations.map((cons) => (
-              <div key={cons.id} className={`bg-white border rounded-[2.5rem] overflow-hidden transition-all shadow-sm ${cons.is_checked ? 'border-slate-100 opacity-80' : 'border-emerald-100 ring-2 ring-emerald-50 shadow-emerald-950/5 shadow-xl'}`}>
+              <div key={cons.id} className={`bg-white border rounded overflow-hidden transition-all shadow-sm ${cons.is_checked ? 'border-slate-100 opacity-80' : 'border-emerald-100 ring-2 ring-emerald-50 shadow-emerald-950/5 shadow-xl'}`}>
                 <div className="p-8 flex flex-col md:flex-row gap-6 md:items-center">
                   {/* Status & Name */}
                   <div className="md:w-60 border-r border-slate-100 pr-6">
-                    <span className={`inline-block px-3 py-1 rounded-full text-[12px] font-black mb-2 ${cons.is_checked ? 'bg-slate-100 text-ink-muted' : 'bg-emerald-100 text-emerald-700'}`}>
+                    <span className={`inline-block px-3 py-1 rounded-sm text-[12px] font-black mb-2 ${cons.is_checked ? 'bg-slate-100 text-ink-muted' : 'bg-emerald-100 text-emerald-700'}`}>
                       {cons.is_checked ? '상담확인' : '신규신청'}
                     </span>
                     <p className="text-xl font-black text-ink">{cons.name}</p>
@@ -160,13 +160,13 @@ export default function AdminConsultationsPage() {
                   <div className="md:border-l border-slate-100 md:pl-8 flex items-center gap-3">
                      <button
                        onClick={() => setExpandedId(expandedId === cons.id ? null : cons.id)}
-                       className="flex items-center gap-2 px-5 py-3 hover:bg-slate-50 rounded-xl transition-all font-bold text-[14px] text-ink-muted"
+                       className="flex items-center gap-2 px-5 py-3 hover:bg-slate-50 rounded transition-all font-bold text-[14px] text-ink-muted"
                      >
                        상세내용 {expandedId === cons.id ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                      </button>
                      <button
                         onClick={() => handleToggleCheck(cons.id, cons.is_checked)}
-                        className={`px-6 py-4 rounded-2xl font-black text-[15px] transition-all ${
+                        className={`px-6 py-4 rounded font-black text-[15px] transition-all ${
                           cons.is_checked
                             ? 'bg-slate-100 text-ink-muted hover:bg-slate-200'
                             : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-950/10'
@@ -180,14 +180,14 @@ export default function AdminConsultationsPage() {
                 {/* Expanded Content Area */}
                 {expandedId === cons.id && (
                   <div className="bg-slate-50/50 p-8 border-t border-slate-100">
-                     <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-inner">
+                     <div className="bg-white p-8 rounded border border-slate-100 shadow-inner">
                         <p className="text-sm font-black text-ink mb-3">상담 상세 내용</p>
                         <div className="mb-4 grid grid-cols-1 gap-3 text-[14px] font-bold text-ink-sub md:grid-cols-3">
-                          <span className="rounded-xl bg-slate-50 px-4 py-3">상담내용: {cons.consultation_type || '미입력'}</span>
-                          <span className="rounded-xl bg-slate-50 px-4 py-3">희망 날짜: {formatPreferredDate(cons.preferred_date)}</span>
-                          <span className="rounded-xl bg-slate-50 px-4 py-3">접수일: {new Date(cons.created_at).toLocaleString('ko-KR', { dateStyle: 'medium', timeStyle: 'short' })}</span>
+                          <span className="rounded-sm bg-slate-50 px-4 py-3">상담내용: {cons.consultation_type || '미입력'}</span>
+                          <span className="rounded-sm bg-slate-50 px-4 py-3">희망 날짜: {formatPreferredDate(cons.preferred_date)}</span>
+                          <span className="rounded-sm bg-slate-50 px-4 py-3">접수일: {new Date(cons.created_at).toLocaleString('ko-KR', { dateStyle: 'medium', timeStyle: 'short' })}</span>
                         </div>
-                        <div className="text-[16px] text-ink leading-[1.8] font-medium whitespace-pre-line bg-slate-50 p-6 rounded-xl">
+                        <div className="text-[16px] text-ink leading-[1.8] font-medium whitespace-pre-line bg-slate-50 p-6 rounded">
                           {cons.message || '상담 내용이 입력되지 않았습니다.'}
                         </div>
                      </div>

@@ -155,35 +155,27 @@ const specializedPrograms = [
 const dailyCareSlides = [
   {
     point: 'POINT 1',
-    title: '세분화된 전문 클리닉',
-    desc: '통증의 원인부터 기능 회복까지, 분야별 정밀 클리닉을 운영하고 있습니다. 질환별로 특화된 진료 시스템을 통해 근본적인 문제를 정확히 진단하고 효과적인 회복을 이끕니다.',
-    tags: ['척추통증', '관절통증', '도수재활'],
-    image: '/generated/ys-daily-care-consultation.png',
-    imageAlt: '연세척병원 전문의가 환자와 상담하는 장면',
-  },
-  {
-    point: 'POINT 2',
     title: '검사부터 진단까지 정확하게',
     desc: '대학병원급 영상 장비와 숙련된 의료진의 판독을 바탕으로 통증의 원인을 세밀하게 확인합니다. 필요한 치료만 제안하는 정직한 진료를 지향합니다.',
     tags: ['정밀검사', 'MRI 판독', '맞춤진단'],
-    image: '/generated/ys-daily-care-diagnosis.png',
-    imageAlt: '의료진이 척추 MRI 영상을 확인하는 장면',
+    image: '/images/daily-care/ys-daily-care-diagnosis.jpg',
+    imageAlt: '영상 검사실에서 의료진이 척추 MRI 영상을 확인하는 장면',
   },
   {
-    point: 'POINT 3',
+    point: 'POINT 2',
     title: '비수술 치료와 재활의 연결',
     desc: '주사치료, 도수치료, 재활운동을 환자 상태에 맞게 연결해 일상 복귀의 부담을 낮춥니다. 치료 후 회복 과정까지 꼼꼼하게 살핍니다.',
     tags: ['비수술치료', '재활운동', '통증관리'],
-    image: '/generated/ys-daily-care-rehab.png',
-    imageAlt: '재활 치료사가 환자의 어깨 운동을 돕는 장면',
+    image: '/images/daily-care/ys-daily-care-rehab.jpg',
+    imageAlt: '재활 치료실에서 의료진이 환자의 상지 재활 운동 치료를 돕는 장면',
   },
   {
-    point: 'POINT 4',
+    point: 'POINT 3',
     title: '일상으로 돌아가는 따뜻한 동행',
     desc: '진료실을 나선 뒤에도 환자분의 내일이 흔들리지 않도록 회복 여정을 함께합니다. 작은 변화까지 살피는 마음으로 건강한 일상을 응원합니다.',
     tags: ['회복관리', '생활복귀', '안심동행'],
-    image: '/generated/ys-daily-care-recovery.png',
-    imageAlt: '의료진이 환자와 함께 병원 복도를 걷는 장면',
+    image: '/images/daily-care/ys-daily-care-recovery.jpg',
+    imageAlt: '휠체어 환자와 다정하게 눈을 맞추며 회복을 돕는 의료진',
   },
 ];
 

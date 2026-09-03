@@ -4,7 +4,6 @@ import {
   Check,
   ClipboardCheck,
   ClipboardPlus,
-  Clock3,
   Download,
   FileCheck2,
   FilePenLine,
@@ -33,31 +32,34 @@ type DownloadForm = {
   title: string;
   description: string;
   formats: string;
-  href: string | null;
+  href: string;
+  downloadName: string;
 };
 
-// 파일이 확정되면 public/documents/certificates에 추가한 뒤 href만 입력하면 됩니다.
 const DOWNLOAD_FORMS: DownloadForm[] = [
   {
     icon: FileText,
     title: '진료기록 열람 및 사본발급 동의서',
     description: '환자의 친족 또는 대리인이 발급을 신청할 때 필요합니다.',
-    formats: 'PDF · HWP 예정',
-    href: null,
+    formats: 'PDF',
+    href: '/dox/medical-record-consent.pdf',
+    downloadName: '진료기록_열람_및_사본발급_동의서.pdf',
   },
   {
     icon: FilePenLine,
     title: '진료기록 열람 및 사본발급 위임장',
     description: '환자가 발급 업무를 대리인에게 위임할 때 작성해 주세요.',
-    formats: 'PDF · HWP 예정',
-    href: null,
+    formats: 'PDF',
+    href: '/dox/medical-record-authorization.pdf',
+    downloadName: '진료기록_열람_및_사본발급_위임장.pdf',
   },
   {
     icon: Pill,
     title: '처방전 대리수령 신청서',
     description: '환자를 대신해 처방전을 수령해야 하는 경우 사용하는 양식입니다.',
-    formats: 'HWP 예정',
-    href: null,
+    formats: 'HWP',
+    href: '/dox/prescription-proxy-receipt.hwp',
+    downloadName: '처방전_대리수령_신청서.hwp',
   },
 ];
 
@@ -298,7 +300,7 @@ export default function CertificatesPage() {
             <SectionHeading
               id="certificate-download-title"
               title="필요한 양식을 미리 준비해 주세요."
-              description="파일은 추후 등록되면 각 카드에서 바로 다운로드할 수 있습니다."
+              description="필요한 양식을 각 카드에서 바로 다운로드할 수 있습니다."
             />
             <div className="grid gap-4 md:grid-cols-3 md:gap-5">
               {DOWNLOAD_FORMS.map((form) => {
@@ -313,25 +315,14 @@ export default function CertificatesPage() {
                     <p className="mt-3 flex-1 break-keep text-body text-ink-muted">{form.description}</p>
                     <div className="mt-6 flex items-center justify-between gap-3 border-t border-slate-100 pt-5">
                       <span className="text-caption font-bold text-primary">{form.formats}</span>
-                      {form.href ? (
-                        <a
-                          href={form.href}
-                          download
-                          className="inline-flex min-h-11 items-center gap-2 rounded-full bg-primary px-4 text-[14px] font-bold text-white transition hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
-                        >
-                          <Download size={16} aria-hidden="true" />
-                          다운로드
-                        </a>
-                      ) : (
-                        <button
-                          type="button"
-                          disabled
-                          className="inline-flex min-h-11 cursor-not-allowed items-center gap-2 rounded-full bg-slate-100 px-4 text-[14px] font-bold text-ink-muted"
-                        >
-                          <Clock3 size={16} aria-hidden="true" />
-                          파일 준비 중
-                        </button>
-                      )}
+                      <a
+                        href={form.href}
+                        download={form.downloadName}
+                        className="inline-flex min-h-11 items-center gap-2 rounded-full bg-primary px-4 text-[14px] font-bold text-white transition hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
+                      >
+                        <Download size={16} aria-hidden="true" />
+                        다운로드
+                      </a>
                     </div>
                   </article>
                 );

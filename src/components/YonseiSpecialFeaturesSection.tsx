@@ -5,26 +5,26 @@ const specialFeatures = [
   {
     title: '해외 의료진 전수',
     desc: '연세척병원의 양방향 척추내시경 술기와 치료 프로토콜을 해외 의료진에게 전수합니다.',
-    image: '/generated/ube/ube-special-overseas-training.png',
-    alt: '양방향 척추내시경 교육 장면',
+    image: '/images/special/ube-special-overseas-training.jpg',
+    alt: '해외 의료진에게 양방향 척추내시경 술기를 전수하는 모습',
   },
   {
     title: '의사를 가르치는 의사',
     desc: '진료 현장에서 축적한 경험과 섬세한 술기를 바탕으로 의료진이 배우는 표준화된 치료 흐름을 만듭니다.',
-    image: '/generated/ube/ube-special-doctor-teacher.png',
-    alt: '척추 모형으로 내시경 술기를 교육하는 의료진',
+    image: '/images/special/ube-special-doctor-teacher.jpg',
+    alt: '모니터를 확인하며 섬세한 술기 교육과 진료를 진행하는 의료진',
   },
   {
     title: '원스톱 진료에서 수술까지',
     desc: '내원 당일 검사, 시술까지 가능한 One stop care system',
-    image: '/generated/ube/ube-special-one-stop-care.png',
-    alt: 'MRI 영상을 확인하며 수술 계획을 상담하는 척추 전문의와 환자',
+    image: '/images/special/ube-special-one-stop-care.jpg',
+    alt: '진료실에서 관절 모형을 바탕으로 환자에게 맞춤 상담을 제공하는 전문의',
   },
   {
     title: '마지막 회복까지, 나를 위한 맞춤 케어',
     desc: '수술 후 컨디션에 맞춘 1:1 전담 관리로 회복 과정과 일상 복귀를 세심하게 함께합니다.',
-    image: '/generated/ube/ube-special-personal-recovery-care.png',
-    alt: '수술 후 보행 회복을 1대1로 돕는 의료진과 환자',
+    image: '/images/special/ube-special-personal-recovery-care.jpg',
+    alt: '환자의 손을 따뜻하게 맞잡고 회복 과정을 함께하는 전담 케어',
   },
 ];
 

@@ -5,6 +5,8 @@ import { createClient } from '@supabase/supabase-js';
 import SubHero from '@/components/SubHero';
 import Pagination from '@/components/Pagination';
 import { createPageMetadata } from '@/lib/seo';
+// 목록은 공개이므로 로그인 여부에 따라 안내 노출을 달리합니다.
+import { createClient as createSessionClient } from '@/utils/supabase/server';
 
 export const metadata = createPageMetadata({
   title: '치료체험후기',
@@ -56,6 +58,11 @@ export default async function ReviewsPage({
   const reviewsCount = count || 0;
   const totalPages = Math.max(1, Math.ceil(reviewsCount / PAGE_SIZE));
 
+  const sessionClient = await createSessionClient();
+  const {
+    data: { user },
+  } = await sessionClient.auth.getUser();
+
   return (
     <main className="min-h-screen bg-slate-50">
       <SubHero
@@ -68,6 +75,22 @@ export default async function ReviewsPage({
       {/* 🔹 Main Content Area */}
       <section className="bg-white">
         <div className="mx-auto min-h-0 max-w-7xl border-x border-slate-50 px-4 py-14 shadow-sm sm:px-6 sm:py-16 md:min-h-[800px] lg:px-10 lg:py-24">
+          {!user && (
+            <div className="mb-9 sm:mb-12">
+              <div className="flex flex-col items-start gap-3 rounded-lg border border-slate-100 bg-slate-50/70 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-5 sm:px-6 sm:py-5">
+                <span className="break-keep text-[14px] font-bold leading-[1.7] tracking-tight text-ink-muted sm:text-[15px]">
+                  <strong className="text-[16px] font-bold text-ink">※</strong> 후기 상세 내용은 로그인 후 확인하실 수 있습니다.
+                </span>
+                <Link
+                  href="/login?next=/board/reviews"
+                  className="inline-flex flex-shrink-0 items-center justify-center rounded-full bg-primary/10 px-5 py-2 text-[14px] font-bold text-primary transition-colors hover:bg-primary hover:text-white sm:px-7"
+                >
+                  로그인하기
+                </Link>
+              </div>
+            </div>
+          )}
+
           {/* List Area */}
           <div className="space-y-5 sm:space-y-6">
             <div className="flex flex-col items-stretch gap-4 border-b-2 border-slate-200 pb-4 sm:flex-row sm:items-end sm:justify-between">

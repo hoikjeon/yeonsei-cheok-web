@@ -31,7 +31,7 @@ export default function AdminSidebar() {
             <Link 
               key={item.href} 
               href={item.href} 
-              className={`px-4 py-3.5 rounded-xl font-bold flex items-center gap-3 transition-all ${
+              className={`px-4 py-3.5 rounded font-bold flex items-center gap-3 transition-all ${
                 isActive 
                   ? 'bg-white/15 text-white shadow-lg shadow-black/10' 
                   : 'text-ink-muted hover:bg-white/5 hover:text-slate-200'
@@ -46,7 +46,7 @@ export default function AdminSidebar() {
 
       <div className="p-4 border-t border-white/5">
         <form action={adminLogout}>
-          <button type="submit" className="w-full flex items-center gap-2 justify-center py-3.5 bg-white/5 hover:bg-red-500/10 text-ink-muted hover:text-red-400 rounded-xl transition-all text-[13px] font-bold">
+          <button type="submit" className="w-full flex items-center gap-2 justify-center py-3.5 bg-white/5 hover:bg-red-500/10 text-ink-muted hover:text-red-400 rounded transition-all text-[13px] font-bold">
             <LogOut size={16} /> 로그아웃
           </button>
         </form>
