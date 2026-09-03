@@ -3,8 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { createClient } from '@/utils/supabase/client';
-import { togglePopupActive, uploadPopup, deletePopup, updatePopup, assignPopupSlot } from './actions';
+import { listPopups, togglePopupActive, uploadPopup, deletePopup, updatePopup, assignPopupSlot } from './actions';
 import { Image as ImageIcon, Trash2, Edit3 } from 'lucide-react';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 
@@ -62,11 +61,10 @@ function PopupsAdminContent() {
   const [editingPopup, setEditingPopup] = useState<any | null>(null);
   
   const searchParams = useSearchParams();
-  const supabase = createClient();
 
   const fetchPopups = async () => {
-    const { data } = await supabase.from('popups').select('*').order('created_at', { ascending: false });
-    const popupList: any[] = data || [];
+    const { data } = await listPopups();
+    const popupList: any[] = data;
     setPopups(popupList);
     setIsLoading(false);
 

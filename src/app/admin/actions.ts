@@ -20,14 +20,6 @@ export async function adminLogin(formData: FormData) {
   // 간단한 하드코딩 인증 (나중에 DB 연동 가능)
   if (id === 'admin' && password === 'ys1004!') {
     await createAdminSession();
-    const cookieStore = await cookies();
-    cookieStore.set('admin_auth', 'true', { 
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 60 * 60 * 24,
-      path: '/',
-    });
     redirect('/admin');
   } else {
     return { error: '아이디 또는 비밀번호가 일치하지 않습니다.' };
@@ -39,9 +31,26 @@ export async function adminLogin(formData: FormData) {
  */
 export async function adminLogout() {
   await deleteAdminSession();
+  // 예전 버전에서 심어둔 비서명 쿠키가 남아 있을 수 있으므로 함께 정리합니다.
   const cookieStore = await cookies();
   cookieStore.delete('admin_auth');
   redirect('/admin/login');
+}
+
+/**
+ * 예약 목록 조회
+ * anon 키로는 예약 테이블을 읽을 수 없으므로(개인정보 보호) 관리자 화면은
+ * 이 서버 액션을 통해 service role로만 조회합니다.
+ */
+export async function listReservations() {
+  await requireAdmin();
+
+  const { data, error } = await supabase
+    .from('reservations')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  return { data: data ?? [], error: error?.message };
 }
 
 /**

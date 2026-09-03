@@ -2,6 +2,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { revalidatePath } from 'next/cache';
+import { isAdminAuthenticated, requireAdmin } from '@/lib/adminAuth';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -29,8 +30,25 @@ async function releaseSlotConflict(slot: number | null, excludeId?: string) {
   await query;
 }
 
+// 팝업 목록 조회 (관리자 전용)
+// anon 키의 popups 쓰기 권한을 회수했으므로 관리 화면은 service role로만 읽고 씁니다.
+export async function listPopups() {
+  await requireAdmin();
+
+  const { data, error } = await supabase
+    .from('popups')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  return { data: data ?? [], error: error?.message };
+}
+
 export async function togglePopupActive(id: string, currentStatus: boolean) {
   try {
+    if (!(await isAdminAuthenticated())) {
+      return { error: '관리자 인증이 필요합니다. 다시 로그인해주세요.' };
+    }
+
     const { error } = await supabase
       .from('popups')
       .update({ is_active: !currentStatus })
@@ -48,6 +66,10 @@ export async function togglePopupActive(id: string, currentStatus: boolean) {
 
 export async function uploadPopup(formData: FormData) {
   try {
+    if (!(await isAdminAuthenticated())) {
+      return { error: '관리자 인증이 필요합니다. 다시 로그인해주세요.' };
+    }
+
     const title = formData.get('title') as string;
     const content = formData.get('content') as string;
     const label = formData.get('label') as string;
@@ -114,6 +136,10 @@ export async function uploadPopup(formData: FormData) {
 
 export async function updatePopup(id: string, formData: FormData) {
   try {
+    if (!(await isAdminAuthenticated())) {
+      return { error: '관리자 인증이 필요합니다. 다시 로그인해주세요.' };
+    }
+
     const title = formData.get('title') as string;
     const content = formData.get('content') as string;
     const label = formData.get('label') as string;
@@ -179,6 +205,10 @@ export async function updatePopup(id: string, formData: FormData) {
 // 리스트에서 노출 자리(1~3 또는 해제)를 바로 변경
 export async function assignPopupSlot(id: string, slot: number | null) {
   try {
+    if (!(await isAdminAuthenticated())) {
+      return { error: '관리자 인증이 필요합니다. 다시 로그인해주세요.' };
+    }
+
     const safeSlot = slot !== null && slot >= 1 && slot <= 3 ? slot : null;
     await releaseSlotConflict(safeSlot, id);
 
@@ -199,6 +229,10 @@ export async function assignPopupSlot(id: string, slot: number | null) {
 
 export async function deletePopup(id: string) {
   try {
+    if (!(await isAdminAuthenticated())) {
+      return { error: '관리자 인증이 필요합니다. 다시 로그인해주세요.' };
+    }
+
     const { error } = await supabase.from('popups').delete().eq('id', id);
     if (error) throw error;
     revalidatePath('/admin/popups');

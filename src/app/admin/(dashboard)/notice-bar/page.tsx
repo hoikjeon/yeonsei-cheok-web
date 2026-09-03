@@ -1,16 +1,14 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AlertCircle, Plus, Trash2 } from 'lucide-react';
-import { createClient } from '@/utils/supabase/client';
 import {
   DEFAULT_HOME_NOTICE_SETTINGS,
   HOME_NOTICE_SETTINGS_ID,
   type HomeNoticeItem,
   type HomeNoticeSettings,
-  normalizeHomeNoticeSettings,
 } from '@/lib/homeNoticeSettings';
-import { updateHomeNoticeSettings } from './actions';
+import { getHomeNoticeSettings, updateHomeNoticeSettings } from './actions';
 
 type NoticeDraft = HomeNoticeItem;
 
@@ -43,7 +41,6 @@ function NoticeBarPreview({ settings }: { settings: HomeNoticeSettings }) {
 }
 
 export default function AdminNoticeBarPage() {
-  const supabase = useMemo(() => createClient(), []);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [fetchError, setFetchError] = useState('');
@@ -63,41 +60,33 @@ export default function AdminNoticeBarPage() {
     setIsLoading(true);
     setFetchError('');
 
-    const { data, error } = await supabase
-      .from('home_notice_settings')
-      .select('*')
-      .eq('id', HOME_NOTICE_SETTINGS_ID)
-      .maybeSingle();
+    const { settings, error } = await getHomeNoticeSettings();
 
-    if (error) {
-      setFetchError('설정 테이블을 불러오지 못했습니다. setup_home_notice_bar.sql 적용 여부를 확인해주세요.');
+    if (error || !settings) {
+      setFetchError(error || '설정을 불러오지 못했습니다.');
       setIsLoading(false);
       return;
     }
 
-    applySettings(normalizeHomeNoticeSettings(data));
+    applySettings(settings);
     setIsLoading(false);
-  }, [applySettings, supabase]);
+  }, [applySettings]);
 
   useEffect(() => {
     let isMounted = true;
 
     const loadInitialSettings = async () => {
-      const { data, error } = await supabase
-        .from('home_notice_settings')
-        .select('*')
-        .eq('id', HOME_NOTICE_SETTINGS_ID)
-        .maybeSingle();
+      const { settings, error } = await getHomeNoticeSettings();
 
       if (!isMounted) return;
 
-      if (error) {
-        setFetchError('설정 테이블을 불러오지 못했습니다. setup_home_notice_bar.sql 적용 여부를 확인해주세요.');
+      if (error || !settings) {
+        setFetchError(error || '설정을 불러오지 못했습니다.');
         setIsLoading(false);
         return;
       }
 
-      applySettings(normalizeHomeNoticeSettings(data));
+      applySettings(settings);
       setIsLoading(false);
     };
 
@@ -106,7 +95,7 @@ export default function AdminNoticeBarPage() {
     return () => {
       isMounted = false;
     };
-  }, [applySettings, supabase]);
+  }, [applySettings]);
 
   const previewSettings: HomeNoticeSettings = {
     id: HOME_NOTICE_SETTINGS_ID,

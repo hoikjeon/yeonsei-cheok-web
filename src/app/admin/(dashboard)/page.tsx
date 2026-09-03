@@ -1,9 +1,8 @@
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { AnalyticsSummary, AnalyticsGraphs } from '@/components/admin/AnalyticsCharts';
+import { requireAdmin } from '@/lib/adminAuth';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -38,12 +37,8 @@ interface PopupRecord {
 }
 
 export default async function AdminDashboardPage() {
-  const cookieStore = await cookies();
-  const isAdmin = cookieStore.get('admin_auth')?.value === 'true';
-
-  if (!isAdmin) {
-    redirect('/admin/login');
-  }
+  // 서명된 관리자 세션만 인정합니다. (admin_auth 쿠키는 값이 'true'인지만 보므로 위조 가능)
+  await requireAdmin();
 
   // 7일 전 날짜 계산
   const todayRaw = new Date();

@@ -1,9 +1,14 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import { revalidatePath } from 'next/cache';
 import { createClient } from '@supabase/supabase-js';
-import { HOME_NOTICE_SETTINGS_ID, type HomeNoticeItem } from '@/lib/homeNoticeSettings';
+import { isAdminAuthenticated } from '@/lib/adminAuth';
+import {
+  HOME_NOTICE_SETTINGS_ID,
+  normalizeHomeNoticeSettings,
+  type HomeNoticeItem,
+  type HomeNoticeSettings,
+} from '@/lib/homeNoticeSettings';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -26,15 +31,34 @@ const normalizeHref = (value: string) => {
   return `/${href}`;
 };
 
-const requireAdmin = async () => {
-  const cookieStore = await cookies();
-  return cookieStore.get('admin_auth')?.value === 'true';
-};
+// 관리자 설정을 읽어옵니다. anon 키에는 쓰기 권한이 없으므로
+// 관리 화면은 이 서버 액션을 통해 service role로 조회·저장합니다.
+export async function getHomeNoticeSettings(): Promise<{
+  settings?: HomeNoticeSettings;
+  error?: string;
+}> {
+  if (!(await isAdminAuthenticated())) {
+    return { error: '관리자 인증이 필요합니다. 다시 로그인해주세요.' };
+  }
+
+  const { data, error } = await supabase
+    .from('home_notice_settings')
+    .select('*')
+    .eq('id', HOME_NOTICE_SETTINGS_ID)
+    .maybeSingle();
+
+  if (error) {
+    return { error: '설정 테이블을 불러오지 못했습니다. setup_home_notice_bar.sql 적용 여부를 확인해주세요.' };
+  }
+
+  return { settings: normalizeHomeNoticeSettings(data) };
+}
 
 export async function updateHomeNoticeSettings(formData: FormData) {
   try {
-    const isAdmin = await requireAdmin();
-    if (!isAdmin) return { error: '관리자 인증이 필요합니다.' };
+    if (!(await isAdminAuthenticated())) {
+      return { error: '관리자 인증이 필요합니다. 다시 로그인해주세요.' };
+    }
 
     const isActive = formData.get('is_active') === 'on';
     const closedMonth = (formData.get('closed_month') as string | null)?.trim() || '2026년 06월';

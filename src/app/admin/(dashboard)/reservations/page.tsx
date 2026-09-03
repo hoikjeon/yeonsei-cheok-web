@@ -1,25 +1,27 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClient } from '@/utils/supabase/client';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import { Search } from 'lucide-react';
-import { toggleReservationChecked } from '@/app/admin/actions';
+import { listReservations, toggleReservationChecked } from '@/app/admin/actions';
 
 export default function AdminReservationsPage() {
   const [reservations, setReservations] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | 'pending' | 'checked'>('all');
-  
-  const supabase = createClient();
+  const [loadError, setLoadError] = useState('');
 
   const fetchReservations = async () => {
     setIsLoading(true);
-    let query = supabase.from('reservations').select('*').order('created_at', { ascending: false });
-    
-    const { data } = await query;
-    setReservations(data || []);
+    setLoadError('');
+
+    const { data, error } = await listReservations();
+    if (error) {
+      setLoadError('예약 목록을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.');
+    }
+
+    setReservations(data);
     setIsLoading(false);
   };
 
@@ -101,6 +103,8 @@ export default function AdminReservationsPage() {
             <tbody className="divide-y divide-slate-50">
               {isLoading ? (
                 <tr><td colSpan={6} className="py-20 text-center font-bold text-slate-300">데이터를 불러오고 있습니다...</td></tr>
+              ) : loadError ? (
+                <tr><td colSpan={6} className="py-20 text-center font-bold text-red-500">{loadError}</td></tr>
               ) : filteredReservations.length === 0 ? (
                 <tr><td colSpan={6} className="py-20 text-center font-medium text-ink-muted">내역이 존재하지 않습니다.</td></tr>
               ) : (
