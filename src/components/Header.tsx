@@ -73,7 +73,7 @@ const MENU_DATA: MenuData[] = [
       { name: '허리디스크', desc: '허리 통증과 다리 저림·당김 증상을 맞춤 진단합니다', href: '/treatments/spine/disc' },
       { name: '수술 치료', desc: 'UBE 양방향 척추내시경 중심의 최소침습 치료입니다', href: '/treatments/spine/ube' },
       { name: '비수술치료', desc: '주사·시술·재활로 수술 부담을 낮추는 치료입니다', href: '/treatments/spine/non-surgical' },
-      { name: '도수 재활 클리닉', desc: '도수·물리·자세교정으로 회복과 재발을 막습니다', href: '/treatments/spine/rehab' },
+      { name: '도수·재활 클리닉', desc: '도수·물리·자세교정으로 회복과 재발을 막습니다', href: '/treatments/spine/rehab' },
     ]
   },
   {
@@ -94,9 +94,9 @@ const MENU_DATA: MenuData[] = [
     subTitle: '연세척병원의 쉼 없는 발자취',
     items: [
       { name: '공지사항', desc: '병원 운영 및 진료에 관한 주요 안내', href: '/news/notice' },
-      { name: '언론/방송 보도', desc: '다양한 매체에서 주목하는 의료 기술', href: '/news/media' },
+      { name: '언론·방송 보도', desc: '다양한 매체에서 주목하는 의료 기술', href: '/news/media' },
       { name: '연세척 학술의학', desc: '지속적인 연구와 논문 발표 실적', href: '/news/academic' },
-      { name: '연세척tv', desc: '전문의가 직접 알려주는 알기 쉬운 의학 정보', href: '/news/youtube' },
+      { name: '연세척TV', desc: '전문의가 직접 알려주는 알기 쉬운 의학 정보', href: '/news/youtube' },
       { name: '국제 트레이닝 센터', desc: '해외 의료진에게 전수하는 척추내시경 노하우', href: '/news/training' },
     ]
   },

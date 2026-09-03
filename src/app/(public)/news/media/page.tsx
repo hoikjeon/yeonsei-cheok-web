@@ -6,7 +6,7 @@ import { getHospitalNewsList } from '@/lib/hospitalNews';
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata = createPageMetadata({
-  title: '방송보도·언론기사',
+  title: '언론·방송 보도',
   description: '연세척병원의 방송 출연, 언론 보도와 주요 의료 활동 소식을 확인하세요.',
   path: '/news/media',
 });
@@ -28,9 +28,9 @@ export default async function MediaPage({
   return (
     <main className="min-h-screen bg-slate-50">
       <SubHero
-        title="방송보도 및 언론기사"
+        title="언론·방송 보도"
         subtitle={'언론이 주목하는 연세척병원\n연세척병원의 전문성과 진심 어린 진료 소식을 전합니다.'}
-        path={[{ name: '병원소식' }, { name: '방송보도 및 언론기사' }]}
+        path={[{ name: '병원소식' }, { name: '언론·방송 보도' }]}
         bgImage="/hero-bg.png"
       />
 
@@ -82,7 +82,7 @@ export default async function MediaPage({
                     {/* Text Body */}
                     <div className="flex flex-1 flex-col p-5 sm:p-6 md:p-8">
                       <div className="flex-1 space-y-4 mb-8">
-                        <div className="text-primary font-bold text-[13px] tracking-tight">{item.source_name || '언론보도'}</div>
+                        <div className="text-primary font-bold text-[13px] tracking-tight">{item.source_name || '언론·방송 보도'}</div>
                         <h3 className="line-clamp-2 break-keep text-h4 tracking-tight text-ink transition-colors group-hover:text-primary">
                           {item.title}
                         </h3>

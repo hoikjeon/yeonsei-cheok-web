@@ -326,7 +326,7 @@ export default function WristAnkleJointPage() {
             </p>
             <ul className="mt-7 grid gap-2 text-[14px] font-semibold text-white/82 sm:grid-cols-2 sm:text-[15px]">
               <li>경희대학교 의과대학 외래교수</li>
-              <li>좋은 강안병원 정형외과 주임과장</li>
+              <li>좋은강안병원 정형외과 주임과장</li>
               <li>롯데자이언츠 주치의</li>
               <li>손·발 관절 및 관절내시경 진료</li>
             </ul>

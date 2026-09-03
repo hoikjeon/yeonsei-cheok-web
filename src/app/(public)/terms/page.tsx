@@ -210,13 +210,13 @@ export default function TermsOfServicePage() {
           <section>
             <h2 className="text-xl font-bold text-[#e6005c] mb-4">제19조(회원의 ID 및 비밀번호에 대한 의무)</h2>
             <p className="mb-2">① 제16조의 경우를 제외한 ID와 비밀번호에 관한 관리책임은 회원에게 있습니다.</p>
-            <p className="mb-2">② 회원은 자신의 ID 및 비밀번호를 제3자에게 이용하게 해서는 안됩니다.</p>
+            <p className="mb-2">② 회원은 자신의 ID 및 비밀번호를 제3자에게 이용하게 해서는 안 됩니다.</p>
             <p className="mb-4">③ 회원이 자신의 ID 및 비밀번호를 도난당하거나 제3자가 사용하고 있음을 인지한 경우에는 바로 "연세척병원"에 통보하고 "연세척병원"의 안내가 있는 경우에는 그에 따라야 합니다.</p>
           </section>
 
           <section>
             <h2 className="text-xl font-bold text-[#e6005c] mb-4">제20조(이용자의 의무)</h2>
-            <p className="mb-2">이용자는 다음 행위를 하여서는 안됩니다.</p>
+            <p className="mb-2">이용자는 다음 행위를 하여서는 안 됩니다.</p>
             <ol className="list-decimal pl-5 mb-4 space-y-1">
               <li>신청 또는 변경시 허위내용의 등록</li>
               <li>"연세척병원"에 게시된 정보의 변경</li>
@@ -230,7 +230,7 @@ export default function TermsOfServicePage() {
           <section>
             <h2 className="text-xl font-bold text-[#e6005c] mb-4">제21조(저작권의 귀속 및 이용제한)</h2>
             <p className="mb-2">① "연세척병원"가 작성한 저작물에 대한 저작권 기타 지적재산권은 "연세척병원"에 귀속합니다.</p>
-            <p className="mb-4">② 이용자는 "연세척병원"를 이용함으로써 얻은 정보를 "연세척병원"의 사전 승낙없이 복제, 송신, 출판, 배포, 방송 기타 방법에 의하여 영리목적으로 이용하거나 제3자에게 이용하게 하여서는 안됩니다.</p>
+            <p className="mb-4">② 이용자는 "연세척병원"를 이용함으로써 얻은 정보를 "연세척병원"의 사전 승낙없이 복제, 송신, 출판, 배포, 방송 기타 방법에 의하여 영리목적으로 이용하거나 제3자에게 이용하게 하여서는 안 됩니다.</p>
           </section>
 
           <section>

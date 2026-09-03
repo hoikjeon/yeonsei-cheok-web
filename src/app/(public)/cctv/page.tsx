@@ -45,7 +45,7 @@ export default function CctvPolicyPage() {
                   <tr>
                     <th className="border border-gray-200 p-3 font-semibold text-gray-800 text-center whitespace-nowrap">설치목적</th>
                     <th className="border border-gray-200 p-3 font-semibold text-gray-800 text-center whitespace-nowrap">설치운영대수</th>
-                    <th className="border border-gray-200 p-3 font-semibold text-gray-800 text-center whitespace-nowrap">설치위치 및 주요찰영범위</th>
+                    <th className="border border-gray-200 p-3 font-semibold text-gray-800 text-center whitespace-nowrap">설치 위치 및 주요 촬영 범위</th>
                     <th className="border border-gray-200 p-3 font-semibold text-gray-800 text-center whitespace-nowrap">촬영시간</th>
                     <th className="border border-gray-200 p-3 font-semibold text-gray-800 text-center whitespace-nowrap">영상정보보관기간</th>
                     <th className="border border-gray-200 p-3 font-semibold text-gray-800 text-center whitespace-nowrap">영상정보보관장소</th>

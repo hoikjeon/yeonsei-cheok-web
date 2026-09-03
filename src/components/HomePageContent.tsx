@@ -233,7 +233,7 @@ const quickAccessItems = [
     icon: <MessageCircle size={58} strokeWidth={1.65} />,
   },
   {
-    title: '오시는길',
+    title: '오시는 길',
     href: '/about/location',
     icon: <MapPin size={58} strokeWidth={1.65} />,
   },

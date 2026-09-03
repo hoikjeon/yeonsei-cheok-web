@@ -59,7 +59,7 @@ export default function PrivacyPolicyPage() {
                     <td className="border border-gray-200 p-3 text-center">홈페이지 회원정보</td>
                     <td className="border border-gray-200 p-3 text-center text-gray-600">정보주체 동의에 의한 홈페이지 회원가입/병원 내 정보서비스 제공</td>
                     <td className="border border-gray-200 p-3 text-center text-gray-600">이름, 집주소, 집연락처, 휴대폰번호, 성별, 유입경로, 아이디, 비밀번호</td>
-                    <td className="border border-gray-200 p-3 text-center">회원 탈퇴시 까지</td>
+                    <td className="border border-gray-200 p-3 text-center">회원 탈퇴 시까지</td>
                   </tr>
                   <tr className="hover:bg-gray-50/50 transition-colors">
                     <td className="border border-gray-200 p-3 text-center">2</td>
@@ -114,8 +114,8 @@ export default function PrivacyPolicyPage() {
             </p>
             <ul className="list-disc pl-5 space-y-2">
               <li><strong>홈페이지 회원가입 및 관리</strong> : 본원 홈페이지 탈퇴 시까지 보유, 동의 받은 경우에 한하여 2년마다 갱신</li>
-              <li><strong>진료서비스 제공을 위하여 수집한 정보</strong> : 『의료법』시행규칙 제 15조 "진료에 관한 기록의 보존"에 명시된 기간에 준하여 보존, 수집 목적이 달성된 후에도 보존할 필요성이 있는 경우에는 보유기간을 연장할 수 있습니다. (기록물평가심의회 등에서 매년 심의 후 결정)</li>
-              <li><strong>설문조사를 위한 수집</strong> : 설문조사 종료시 까지</li>
+              <li><strong>진료서비스 제공을 위하여 수집한 정보</strong> : 「의료법」 시행규칙 제15조 "진료에 관한 기록의 보존"에 명시된 기간에 준하여 보존, 수집 목적이 달성된 후에도 보존할 필요성이 있는 경우에는 보유기간을 연장할 수 있습니다. (기록물평가심의회 등에서 매년 심의 후 결정)</li>
+              <li><strong>설문조사를 위한 수집</strong> : 설문조사 종료 시까지</li>
               <li><strong>민원사무처리를 위한 정보</strong> : 민원처리 종료 후 10년</li>
             </ul>
           </section>
@@ -204,7 +204,7 @@ export default function PrivacyPolicyPage() {
                     <td className="border border-gray-200 p-3 text-center">마케팅위너</td>
                     <td className="border border-gray-200 p-3 text-center text-gray-600">홈페이지 내 데이터베이스</td>
                     <td className="border border-gray-200 p-3 text-center text-gray-600">이름,등록번호, 비밀번호, 전화번호 아이디 등</td>
-                    <td className="border border-gray-200 p-3 text-center">위탁계약 종료 시 까지</td>
+                    <td className="border border-gray-200 p-3 text-center">위탁계약 종료 시까지</td>
                   </tr>
                 </tbody>
               </table>

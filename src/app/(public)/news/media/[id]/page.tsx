@@ -14,8 +14,8 @@ export async function generateMetadata({ params }: DetailPageProps): Promise<Met
 
   if (!item) {
     return createPageMetadata({
-      title: '언론보도를 찾을 수 없습니다',
-      description: '요청하신 방송·언론보도를 찾을 수 없습니다.',
+      title: '언론·방송 보도를 찾을 수 없습니다',
+      description: '요청하신 언론·방송 보도를 찾을 수 없습니다.',
       path: `/news/media/${id}`,
       noIndex: true,
     });
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: DetailPageProps): Promise<Met
     title: item.title,
     description: summarizeForMetadata(
       item.content,
-      '연세척병원의 방송 출연과 언론보도 소식입니다.',
+      '연세척병원의 언론·방송 보도 소식입니다.',
     ),
     path: `/news/media/${id}`,
     image: item.image_urls?.[0],
@@ -51,7 +51,7 @@ export default async function MediaDetailPage({ params }: DetailPageProps) {
           <ChevronRight size={12} strokeWidth={3} />
           <Link href="/news/media" className="hover:text-primary transition-colors">병원소식</Link>
           <ChevronRight size={12} strokeWidth={3} />
-          <Link href="/news/media" className="hover:text-primary transition-colors">방송보도</Link>
+          <Link href="/news/media" className="hover:text-primary transition-colors">언론·방송 보도</Link>
           <ChevronRight size={12} strokeWidth={3} />
           <span className="min-w-0 flex-1 truncate text-ink">{item.title}</span>
         </div>
@@ -71,7 +71,7 @@ export default async function MediaDetailPage({ params }: DetailPageProps) {
             </div>
             <div className="flex items-center gap-2">
               <Globe size={18} className="text-slate-300" />
-              {item.source_name || '언론보도'}
+              {item.source_name || '언론·방송 보도'}
             </div>
             {item.source_url && (
               <a 

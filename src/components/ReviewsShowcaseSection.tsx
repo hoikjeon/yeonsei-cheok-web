@@ -16,7 +16,7 @@ type ReviewItem = {
 
 const reviews: ReviewItem[] = [
   {
-    category: '도수재활 클리닉',
+    category: '도수·재활 클리닉',
     title: '발목 통증으로 방문해서 2달 간 체외충격파, 도수치료 꾸준히 받고 있어요.',
     author: 'G*H',
     date: '2025.09.01',
@@ -28,7 +28,7 @@ const reviews: ReviewItem[] = [
     date: '2025.09.01',
   },
   {
-    category: '도수재활 클리닉',
+    category: '도수·재활 클리닉',
     title: '작년에 운동을 하다가 예상치 못한 부상을 입었습니다.',
     author: '구**5',
     date: '2025.09.01',
@@ -76,7 +76,7 @@ const reviews: ReviewItem[] = [
     date: '2025.06.12',
   },
   {
-    category: '도수재활 클리닉',
+    category: '도수·재활 클리닉',
     title: '야간 진료가 가능해서 퇴근 후에도 꾸준히 치료받을 수 있어 좋았습니다.',
     author: 'r***7',
     date: '2025.05.28',

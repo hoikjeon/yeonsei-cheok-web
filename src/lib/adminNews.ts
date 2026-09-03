@@ -20,7 +20,7 @@ export const adminNewsConfig: Record<
     contentLabel: '공지 내용',
   },
   media: {
-    label: '방송·언론보도',
+    label: '언론·방송 보도',
     description: '방송 출연과 언론 보도 자료를 등록합니다.',
     publicPath: '/news/media',
     titleLabel: '보도 제목',
