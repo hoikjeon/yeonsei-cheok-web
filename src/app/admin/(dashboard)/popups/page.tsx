@@ -258,6 +258,11 @@ function PopupsAdminContent() {
                                  {startsLabel ? `${startsLabel}부터` : ''}{startsLabel && endsLabel ? ' ' : ''}{endsLabel ? `${endsLabel}까지` : ''}
                                </span>
                              )}
+                             {!endsLabel && (
+                               <span className="rounded-sm bg-amber-50 px-2 py-1 text-[11px] font-bold text-amber-700">
+                                 종료일 없음 · 수정에서 지정 필요
+                               </span>
+                             )}
                            </p>
                          );
                        })()}
@@ -352,7 +357,7 @@ function PopupsAdminContent() {
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-ink-muted font-montserrat uppercase">노출 시작일시</label>
+                  <label className="text-xs font-bold text-ink-muted font-montserrat uppercase">노출 시작일시 (선택)</label>
                   <input
                     type="datetime-local"
                     name="starts_at"
@@ -362,17 +367,20 @@ function PopupsAdminContent() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-ink-muted font-montserrat uppercase">노출 종료일시</label>
+                  <label className="text-xs font-bold text-ink-muted font-montserrat uppercase">
+                    노출 종료일시 <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="datetime-local"
                     name="ends_at"
+                    required
                     key={`ends-${editingPopup?.id}`}
                     defaultValue={toKstInputValue(editingPopup?.ends_at)}
                     className="w-full px-4 py-3 rounded border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-bold text-ink"
                   />
                 </div>
                 <p className="sm:col-span-2 text-[11px] font-medium text-ink-muted -mt-1">
-                  비워두면 제한 없이 노출됩니다. 시작일만 넣으면 그때부터, 종료일만 넣으면 그때까지 노출됩니다. (한국 시간 기준)
+                  종료일시는 필수입니다. 비워두면 지난 안내가 계속 노출됩니다. 시작일시를 비워두면 저장 즉시 노출됩니다. (한국 시간 기준)
                 </p>
               </div>
               <label className="flex items-center gap-3 p-4 bg-slate-50 rounded border border-slate-100 cursor-pointer hover:bg-slate-100">

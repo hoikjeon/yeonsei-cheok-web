@@ -43,10 +43,32 @@ export async function listPopups() {
   return { data: data ?? [], error: error?.message };
 }
 
+// 종료일시가 없는 팝업을 켜면 지난 안내가 무기한 노출됩니다.
+// 목록의 토글·자리 지정에서도 같은 규칙을 적용합니다.
+async function assertHasEndDate(id: string) {
+  const { data, error } = await supabase
+    .from('popups')
+    .select('ends_at')
+    .eq('id', id)
+    .maybeSingle();
+
+  if (error) throw error;
+  if (data && !data.ends_at) {
+    return '이 팝업은 노출 종료일시가 없습니다. 먼저 수정 화면에서 종료일시를 지정해주세요.';
+  }
+  return null;
+}
+
 export async function togglePopupActive(id: string, currentStatus: boolean) {
   try {
     if (!(await isAdminAuthenticated())) {
       return { error: '관리자 인증이 필요합니다. 다시 로그인해주세요.' };
+    }
+
+    // 켜는 경우에만 검사합니다. 끄는 것은 언제나 허용합니다.
+    if (!currentStatus) {
+      const problem = await assertHasEndDate(id);
+      if (problem) return { error: problem };
     }
 
     const { error } = await supabase
@@ -82,7 +104,11 @@ export async function uploadPopup(formData: FormData) {
     if (!title || !content) {
       return { error: '제목과 내용을 모두 입력해주세요.' };
     }
-    if (startsAt && endsAt && startsAt >= endsAt) {
+    // 종료일시를 비워두면 지난 안내가 무기한 노출됩니다. 반드시 받습니다.
+    if (!endsAt) {
+      return { error: '노출 종료일시를 입력해주세요. 비워두면 지난 안내가 계속 노출됩니다.' };
+    }
+    if (startsAt && startsAt >= endsAt) {
       return { error: '종료일시는 시작일시보다 이후여야 합니다.' };
     }
 
@@ -152,7 +178,11 @@ export async function updatePopup(id: string, formData: FormData) {
     if (!title || !content) {
       return { error: '제목과 내용을 모두 입력해주세요.' };
     }
-    if (startsAt && endsAt && startsAt >= endsAt) {
+    // 종료일시를 비워두면 지난 안내가 무기한 노출됩니다. 반드시 받습니다.
+    if (!endsAt) {
+      return { error: '노출 종료일시를 입력해주세요. 비워두면 지난 안내가 계속 노출됩니다.' };
+    }
+    if (startsAt && startsAt >= endsAt) {
       return { error: '종료일시는 시작일시보다 이후여야 합니다.' };
     }
 
@@ -210,6 +240,12 @@ export async function assignPopupSlot(id: string, slot: number | null) {
     }
 
     const safeSlot = slot !== null && slot >= 1 && slot <= 3 ? slot : null;
+
+    if (safeSlot !== null) {
+      const problem = await assertHasEndDate(id);
+      if (problem) return { error: problem };
+    }
+
     await releaseSlotConflict(safeSlot, id);
 
     const { error } = await supabase
