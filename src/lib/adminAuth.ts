@@ -1,6 +1,7 @@
 import 'server-only';
 
-import { createHmac, timingSafeEqual } from 'node:crypto';
+import { createHmac, scrypt as scryptCallback, timingSafeEqual } from 'node:crypto';
+import { promisify } from 'node:util';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -43,6 +44,66 @@ function verifySessionToken(token: string | undefined) {
     actualBuffer.length === expectedBuffer.length &&
     timingSafeEqual(actualBuffer, expectedBuffer)
   );
+}
+
+
+const scrypt = promisify(scryptCallback) as (
+  password: string,
+  salt: Buffer,
+  keylen: number,
+  options: { N: number; r: number; p: number },
+) => Promise<Buffer>;
+
+export type AdminCredentialCheck =
+  | { ok: true }
+  | { ok: false; reason: 'not-configured' | 'mismatch' };
+
+/**
+ * 관리자 비밀번호 검증.
+ * 비밀번호는 코드에 두지 않고 ADMIN_PASSWORD_HASH 환경변수의 scrypt 해시와 비교합니다.
+ * 형식: scrypt:N:r:p:saltBase64Url:hashBase64Url
+ * ('$' 를 쓰면 .env 로더가 $16384 를 변수 참조로 보고 값을 망가뜨립니다)
+ *
+ * 새 비밀번호 해시를 만들려면:
+ *   node scripts/hash-admin-password.mjs '새비밀번호'
+ */
+export async function verifyAdminCredentials(
+  id: unknown,
+  password: unknown,
+): Promise<AdminCredentialCheck> {
+  const expectedId = process.env.ADMIN_ID || 'admin';
+  const encoded = process.env.ADMIN_PASSWORD_HASH;
+
+  // 해시가 없으면 로그인을 허용하지 않습니다. (예전처럼 코드에 적힌 값으로 되돌아가지 않도록)
+  if (!encoded) return { ok: false, reason: 'not-configured' };
+  if (typeof id !== 'string' || typeof password !== 'string') return { ok: false, reason: 'mismatch' };
+
+  const [scheme, nRaw, rRaw, pRaw, saltRaw, hashRaw] = encoded.split(':');
+  if (scheme !== 'scrypt' || !saltRaw || !hashRaw) return { ok: false, reason: 'not-configured' };
+
+  const N = Number(nRaw);
+  const r = Number(rRaw);
+  const parallelization = Number(pRaw);
+  if (!Number.isSafeInteger(N) || !Number.isSafeInteger(r) || !Number.isSafeInteger(parallelization)) {
+    return { ok: false, reason: 'not-configured' };
+  }
+
+  const expectedHash = Buffer.from(hashRaw, 'base64url');
+  const actualHash = await scrypt(password, Buffer.from(saltRaw, 'base64url'), expectedHash.length, {
+    N,
+    r,
+    p: parallelization,
+  });
+
+  // 아이디가 틀려도 해시 계산을 건너뛰지 않아, 응답 시간으로 아이디를 추측할 수 없게 합니다.
+  const idBuffer = Buffer.from(id);
+  const expectedIdBuffer = Buffer.from(expectedId);
+  const idMatches =
+    idBuffer.length === expectedIdBuffer.length && timingSafeEqual(idBuffer, expectedIdBuffer);
+  const passwordMatches =
+    actualHash.length === expectedHash.length && timingSafeEqual(actualHash, expectedHash);
+
+  return idMatches && passwordMatches ? { ok: true } : { ok: false, reason: 'mismatch' };
 }
 
 export async function createAdminSession() {

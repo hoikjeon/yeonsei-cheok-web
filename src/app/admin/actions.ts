@@ -4,7 +4,18 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
 import { revalidatePath } from 'next/cache';
-import { createAdminSession, deleteAdminSession, requireAdmin } from '@/lib/adminAuth';
+import {
+  createAdminSession,
+  deleteAdminSession,
+  requireAdmin,
+  verifyAdminCredentials,
+} from '@/lib/adminAuth';
+import {
+  checkLoginThrottle,
+  clearLoginFailures,
+  getRequestIp,
+  recordLoginAttempt,
+} from '@/lib/adminLoginThrottle';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -14,16 +25,44 @@ const supabase = createClient(supabaseUrl, supabaseServiceKey);
  * 관리자 로그인
  */
 export async function adminLogin(formData: FormData) {
-  const id = formData.get('id');
-  const password = formData.get('password');
+  const ip = await getRequestIp();
 
-  // 간단한 하드코딩 인증 (나중에 DB 연동 가능)
-  if (id === 'admin' && password === 'ys1004!') {
-    await createAdminSession();
-    redirect('/admin');
-  } else {
-    return { error: '아이디 또는 비밀번호가 일치하지 않습니다.' };
+  const throttle = await checkLoginThrottle(ip);
+  if (throttle.locked) {
+    return {
+      error: `로그인 시도가 너무 많습니다. ${throttle.retryAfterMinutes}분 후에 다시 시도해 주세요.`,
+    };
   }
+
+  const result = await verifyAdminCredentials(formData.get('id'), formData.get('password'));
+
+  if (!result.ok) {
+    await recordLoginAttempt(ip, false);
+
+    if (result.reason === 'not-configured') {
+      return {
+        error: '관리자 비밀번호가 설정되지 않았습니다. ADMIN_PASSWORD_HASH 환경변수를 확인해 주세요.',
+      };
+    }
+
+    // 시도 제한이 실제로 켜져 있을 때만 남은 횟수를 안내합니다.
+    if (!throttle.active) {
+      return { error: '아이디 또는 비밀번호가 일치하지 않습니다.' };
+    }
+
+    const remaining = Math.max(0, throttle.remainingAttempts - 1);
+    return {
+      error:
+        remaining > 0
+          ? `아이디 또는 비밀번호가 일치하지 않습니다. (남은 시도 ${remaining}회)`
+          : '아이디 또는 비밀번호가 일치하지 않습니다. 잠시 후 다시 시도해 주세요.',
+    };
+  }
+
+  await clearLoginFailures(ip);
+  await recordLoginAttempt(ip, true);
+  await createAdminSession();
+  redirect('/admin');
 }
 
 /**
