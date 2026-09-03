@@ -1,8 +1,9 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, updateTag } from 'next/cache';
 import { createClient } from '@supabase/supabase-js';
 import { isAdminAuthenticated } from '@/lib/adminAuth';
+import { HOME_NOTICE_CACHE_TAG } from '@/lib/homeNoticeData';
 import {
   HOME_NOTICE_SETTINGS_ID,
   normalizeHomeNoticeSettings,
@@ -103,7 +104,9 @@ export async function updateHomeNoticeSettings(formData: FormData) {
 
     if (error) throw error;
 
-    revalidatePath('/');
+    // 메인 공지바와 푸터가 서버에서 이 값을 읽으므로 캐시 태그를 갱신합니다.
+    updateTag(HOME_NOTICE_CACHE_TAG);
+    revalidatePath('/', 'layout');
     revalidatePath('/admin');
     revalidatePath('/admin/notice-bar');
 

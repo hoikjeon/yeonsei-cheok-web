@@ -1,21 +1,12 @@
-'use client';
-
-import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import {
   ArrowRight,
   ChevronRight,
   Phone,
 } from 'lucide-react';
-import { createClient } from '@/utils/supabase/client';
-import {
-  DEFAULT_HOME_NOTICE_SETTINGS,
-  HOME_NOTICE_SETTINGS_ID,
-  type HomeNoticeItem,
-  normalizeHomeNoticeSettings,
-} from '@/lib/homeNoticeSettings';
+import { type HomeNoticeItem } from '@/lib/homeNoticeSettings';
+import { getHomeNoticeSettings } from '@/lib/homeNoticeData';
 
 const REPRESENTATIVE_PHONE = '051-935-1004';
 // 연세척병원 네이버 플레이스(장소 ID 35643868).
@@ -25,8 +16,10 @@ const NAVER_RESERVATION_URL = 'https://map.naver.com/p/entry/place/35643868';
 // 연세척병원 카카오톡 채널. /chat을 붙이면 채널 홈이 아니라 1:1 채팅으로 바로 들어갑니다.
 const KAKAO_CONSULT_URL = 'https://pf.kakao.com/_FGNLM/chat';
 
-const FOOTER_FALLBACK_NOTICES: HomeNoticeItem[] = [
-  ...DEFAULT_HOME_NOTICE_SETTINGS.notices,
+// 항상 참인 안내만 둡니다.
+// 날짜가 붙은 공지 기본값을 여기에 섞으면, DB 공지와 나란히 놓였을 때
+// 같은 날이 휴진이자 정상진료로 읽히는 모순이 생깁니다.
+const FOOTER_STATIC_NOTICES: HomeNoticeItem[] = [
   {
     title: '진료시간 안내: 평일 09:00-17:30 / 토요일 09:00-13:00',
     href: '/doctors#doctor-schedule',
@@ -50,10 +43,11 @@ const POLICY_LINKS = [
 const isExternalHref = (href: string) =>
   href.startsWith('http://') || href.startsWith('https://') || href.startsWith('tel:') || href.startsWith('mailto:');
 
+// DB 공지를 먼저 보여주고, 세 칸이 남으면 고정 안내로 채웁니다.
 const getTopFooterNotices = (items: HomeNoticeItem[]) => {
   const seen = new Set<string>();
 
-  return [...items, ...FOOTER_FALLBACK_NOTICES].filter((notice) => {
+  return [...items, ...FOOTER_STATIC_NOTICES].filter((notice) => {
     const key = `${notice.title}-${notice.href}`;
     if (seen.has(key)) return false;
 
@@ -95,38 +89,10 @@ function NoticeAnchor({ notice }: { notice: HomeNoticeItem }) {
   );
 }
 
-const Footer = () => {
-  const pathname = usePathname();
-  const supabase = useMemo(() => createClient(), []);
-  const [notices, setNotices] = useState<HomeNoticeItem[]>(FOOTER_FALLBACK_NOTICES);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchFooterNotices = async () => {
-      const { data } = await supabase
-        .from('home_notice_settings')
-        .select('*')
-        .eq('id', HOME_NOTICE_SETTINGS_ID)
-        .maybeSingle();
-
-      if (!isMounted || !data) return;
-
-      const normalized = normalizeHomeNoticeSettings(data);
-      const visibleNotices = normalized.is_active ? normalized.notices : [];
-      setNotices(getTopFooterNotices(visibleNotices));
-    };
-
-    fetchFooterNotices();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [supabase]);
-
-  if (pathname.startsWith('/admin')) return null;
-
-  const footerNotices = getTopFooterNotices(notices);
+// 관리자 화면은 별도 레이아웃을 쓰므로 이 푸터가 렌더되지 않습니다.
+const Footer = async () => {
+  const settings = await getHomeNoticeSettings();
+  const footerNotices = getTopFooterNotices(settings.is_active ? settings.notices : []);
 
   return (
     <footer className="border-t-2 border-primary bg-[#F5F6F8] py-12 text-ink md:py-20">

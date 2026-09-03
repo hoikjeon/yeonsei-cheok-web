@@ -1,16 +1,13 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { createClient } from '@/utils/supabase/client';
 import {
   DEFAULT_HOME_NOTICE_SETTINGS,
-  HOME_NOTICE_SETTINGS_ID,
   type HomeNoticeItem,
   type HomeNoticeSettings,
-  normalizeHomeNoticeSettings,
 } from '@/lib/homeNoticeSettings';
 
 const isExternalHref = (href: string) =>
@@ -36,32 +33,10 @@ function NoticeLink({ notice, compact = false }: { notice: HomeNoticeItem; compa
   );
 }
 
-export default function HomeNoticeBar() {
-  const supabase = useMemo(() => createClient(), []);
-  const [settings, setSettings] = useState<HomeNoticeSettings>(DEFAULT_HOME_NOTICE_SETTINGS);
+// 설정은 서버에서 읽어 넘겨받습니다. 여기서 다시 조회하면 기본값이 잠깐
+// 보였다가 바뀌는 깜빡임이 생깁니다.
+export default function HomeNoticeBar({ settings }: { settings: HomeNoticeSettings }) {
   const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchSettings = async () => {
-      const { data } = await supabase
-        .from('home_notice_settings')
-        .select('*')
-        .eq('id', HOME_NOTICE_SETTINGS_ID)
-        .maybeSingle();
-
-      if (isMounted && data) {
-        setSettings(normalizeHomeNoticeSettings(data));
-      }
-    };
-
-    fetchSettings();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [supabase]);
 
   useEffect(() => {
     if (settings.notices.length <= 1) return;
