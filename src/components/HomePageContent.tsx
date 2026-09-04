@@ -156,6 +156,16 @@ const specializedPrograms = [
 const dailyCareSlides = [
   {
     point: 'POINT 1',
+    title: '분야가 다른 전문의가 함께 봅니다',
+    desc: '신경외과·정형외과·마취통증의학과·영상의학과 전문의가 같은 환자의 검사 결과와 치료 방향을 함께 논의합니다. 한 분야의 시야로 놓칠 수 있는 원인까지 함께 확인합니다.',
+    tags: ['다학제 협진', '분야별 전문의', '치료 방향 논의'],
+    image: '/images/daily-care/ys-daily-care-collaboration.jpg',
+    // 원본이 가로로 길어(1.93:1) 그대로 넣으면 양 끝 의료진이 잘립니다.
+    // 박스 비율(1.34:1) 캔버스에 위·아래를 흰색으로 페이드해 얹은 이미지를 씁니다.
+    imageAlt: '수술실에서 세 명의 의료진이 함께 척추내시경 수술을 진행하는 모습',
+  },
+  {
+    point: 'POINT 2',
     title: '검사부터 진단까지 정확하게',
     desc: '대학병원급 영상 장비와 숙련된 의료진의 판독을 바탕으로 통증의 원인을 세밀하게 확인합니다. 필요한 치료만 제안하는 정직한 진료를 지향합니다.',
     tags: ['정밀검사', 'MRI 판독', '맞춤진단'],
@@ -163,7 +173,7 @@ const dailyCareSlides = [
     imageAlt: '영상 검사실에서 의료진이 척추 MRI 영상을 확인하는 장면',
   },
   {
-    point: 'POINT 2',
+    point: 'POINT 3',
     title: '비수술 치료와 재활의 연결',
     desc: '주사치료, 도수치료, 재활운동을 환자 상태에 맞게 연결해 일상 복귀의 부담을 낮춥니다. 치료 후 회복 과정까지 꼼꼼하게 살핍니다.',
     tags: ['비수술치료', '재활운동', '통증관리'],
@@ -171,7 +181,7 @@ const dailyCareSlides = [
     imageAlt: '재활 치료실에서 의료진이 환자의 상지 재활 운동 치료를 돕는 장면',
   },
   {
-    point: 'POINT 3',
+    point: 'POINT 4',
     title: '일상으로 돌아가는 따뜻한 동행',
     desc: '진료실을 나선 뒤에도 환자분의 내일이 흔들리지 않도록 회복 여정을 함께합니다. 작은 변화까지 살피는 마음으로 건강한 일상을 응원합니다.',
     tags: ['회복관리', '생활복귀', '안심동행'],
@@ -243,7 +253,7 @@ export default function HomePageContent({ noticeSettings }: { noticeSettings: Ho
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [incomingSlideIndex, setIncomingSlideIndex] = useState<number | null>(null);
   const [isIncomingSlideReady, setIsIncomingSlideReady] = useState(false);
-  const [activeCareIndex, setActiveCareIndex] = useState(1);
+  const [activeCareIndex, setActiveCareIndex] = useState(0);
   const prefersReducedMotion = useReducedMotion();
   const selectedSlideIndex = incomingSlideIndex ?? activeSlideIndex;
   const activeCareSlide = dailyCareSlides[activeCareIndex];
@@ -425,7 +435,8 @@ export default function HomePageContent({ noticeSettings }: { noticeSettings: Ho
             </h2>
             <p className="mx-auto mt-6 max-w-3xl break-keep text-body-lg text-ink-sub md:mt-10">
               환자 한 분 한 분의 건강한 내일을 위해 세심하고 정확한 진료를 약속합니다.
-              <br className="hidden md:block" />
+              {/* 모바일에서는 br 이 사라지므로 공백을 명시해야 두 문장이 붙지 않습니다. */}
+              <br className="hidden md:block" />{' '}
               연세척병원만의 차별화된 전문성과 따뜻한 마음을 만나보세요.
             </p>
           </div>
