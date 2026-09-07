@@ -36,7 +36,7 @@ export default function NonCoveredPage() {
             <ul className="space-y-2 break-keep text-[14px] leading-[1.7] text-gray-100 sm:text-base">
               <li>- 행위의 경우 직접 시술에 대한 비용으로 입원료, 마취료, 약제, 치료재료 등은 별도 산정.</li>
               <li>- 비급여 진료비용은 단일 개별 항목외 1회 비용이므로 처방량에 따라 해당 항목의 비용이 달라질 수 있습니다.</li>
-              <li>- 기준일 : 2025년 4월 3일</li>
+              <li>- 기준일 : 2026년 9월 8일</li>
             </ul>
           </div>
           <div className="absolute inset-0 bg-blue-900/60 mix-blend-multiply pointer-events-none"></div>
