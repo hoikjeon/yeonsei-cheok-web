@@ -102,7 +102,7 @@ test('formatting, clipboard images, preview, draft recovery, public rendering an
   await page.getByLabel('이미지 너비', { exact: true }).selectOption('50');
   await page.getByLabel('이미지 설명', { exact: true }).fill('붙여넣은 사진 설명');
   await page.getByLabel('첨부 이미지 파일').setInputFiles(imageFile);
-  await expect(page.getByText('본문 포함 2/10개 · 파일당 10MB')).toBeVisible();
+  await expect(page.getByText('본문 포함 2/10개 · 파일당 20MB')).toBeVisible();
   await page.locator('main').evaluate((main) => { main.scrollTop = 250; });
   await page.screenshot({ path: '/tmp/ys-news-admin-editor.png', fullPage: true });
   await page.getByRole('button', { name: '미리보기', exact: true }).click();
@@ -183,7 +183,7 @@ test('unsaved changes warn on links and browser back, and discarded uploads are 
   await (await backDialog).dismiss();
   await expect(page).toHaveURL(/academic\/write/);
   await page.getByLabel('첨부 이미지 파일').setInputFiles(imageFile);
-  await expect(page.getByText('본문 포함 1/10개 · 파일당 10MB')).toBeVisible();
+  await expect(page.getByText('본문 포함 1/10개 · 파일당 20MB')).toBeVisible();
   await expect(page.getByRole('button', { name: '임시보관 버리기', exact: true })).toBeVisible();
   page.once('dialog', (dialog) => dialog.accept());
   await page.getByRole('button', { name: '임시보관 버리기', exact: true }).click();
