@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ChevronRight, Search, GraduationCap, Microscope } from 'lucide-react';
+import { ChevronRight, Search, Microscope } from 'lucide-react';
 import SubHero from '@/components/SubHero';
 import Pagination from '@/components/Pagination';
 import { getHospitalNewsList } from '@/lib/hospitalNews';
@@ -52,7 +52,6 @@ export default async function AcademicPage({
                   <Link href={`/news/academic/${item.id}`} key={item.id} className="group flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white transition-all duration-500 hover:border-primary/20 hover:shadow-2xl md:rounded-[2rem]">
                     <div className="aspect-square bg-slate-100 relative overflow-hidden">
                       {item.image_urls?.[0] ? <img src={item.image_urls[0]} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" /> : <div className="w-full h-full flex items-center justify-center text-slate-300"><Microscope size={60} strokeWidth={1} /></div>}
-                      <div className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-navy-950/80 px-3 py-1.5 font-montserrat text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-md sm:left-6 sm:top-6 sm:px-4 sm:text-[11px]"><GraduationCap size={12} />Academic</div>
                     </div>
                     <div className="flex flex-1 flex-col p-5 sm:p-6 md:p-8">
                       <h3 className="mb-5 line-clamp-2 break-keep text-h4 tracking-tight text-ink transition-colors group-hover:text-primary md:mb-6">{item.title}</h3>

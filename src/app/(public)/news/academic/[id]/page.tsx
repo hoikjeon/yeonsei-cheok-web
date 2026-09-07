@@ -4,7 +4,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Home, ChevronRight, ArrowLeft, Calendar, GraduationCap, Microscope } from 'lucide-react';
+import { Home, ChevronRight, ArrowLeft, Calendar, Microscope } from 'lucide-react';
 import { getHospitalNewsItem } from '@/lib/hospitalNews';
 import { createPageMetadata, summarizeForMetadata } from '@/lib/seo';
 
@@ -58,9 +58,6 @@ export default async function AcademicDetailPage({ params }: DetailPageProps) {
 
       <div className="mx-auto max-w-[1000px] px-4 py-10 sm:px-6 sm:py-14 md:py-24">
         <div className="mb-8 border-b border-slate-100 pb-8 sm:mb-12 sm:pb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/5 border border-primary/10 rounded-full text-primary text-[13px] font-bold tracking-tight mb-6 font-montserrat uppercase">
-            <GraduationCap size={12} /> Academic Detail
-          </div>
           <h1 className="mb-6 break-keep text-h2 tracking-tight text-ink sm:mb-8">{item.title}</h1>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[14px] font-bold tracking-tight text-ink-muted sm:gap-6 sm:text-[15px]">
             <div className="flex items-center gap-2"><Calendar size={18} className="text-slate-300" />{new Date(item.created_at).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
