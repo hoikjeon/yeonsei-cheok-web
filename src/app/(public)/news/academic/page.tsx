@@ -11,8 +11,9 @@ export const metadata = createPageMetadata({
   path: '/news/academic',
 });
 
-// 한 페이지 노출 수. 1/2/3열 그리드라 2와 3으로 나누어떨어지는 값이어야 마지막 줄이 비지 않습니다.
-const PAGE_SIZE = 12;
+// 한 페이지 노출 수. PC(3열) 기준 3행이 꽉 차도록 9개로 맞췄습니다.
+// 태블릿(2열)에서는 마지막 줄에 1개만 남습니다.
+const PAGE_SIZE = 9;
 
 export default async function AcademicPage({
   searchParams,
