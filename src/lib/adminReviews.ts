@@ -11,7 +11,7 @@ export interface ReviewRecord {
   created_at: string;
 }
 
-export type HomeReview = Pick<ReviewRecord, 'id' | 'title' | 'created_at'>;
+export type HomeReview = Pick<ReviewRecord, 'id' | 'category' | 'title' | 'created_at'>;
 
 export function isReviewCategory(value: unknown): value is ReviewCategory {
   return typeof value === 'string' && reviewCategories.includes(value as ReviewCategory);

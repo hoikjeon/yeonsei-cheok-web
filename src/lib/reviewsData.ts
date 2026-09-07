@@ -16,7 +16,7 @@ const getCachedLatestReviews = unstable_cache(
   async (limit: number): Promise<HomeReview[]> => {
     const { data, error } = await supabase
       .from('reviews')
-      .select('id,title,created_at')
+      .select('id,category,title,created_at')
       .order('created_at', { ascending: false })
       .order('id', { ascending: false })
       .limit(limit);
