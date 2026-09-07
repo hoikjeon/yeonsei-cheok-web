@@ -26,7 +26,7 @@ export default function AdminSidebar() {
 
       <nav className="flex-1 px-4 py-8 space-y-1.5">
         {menuItems.map((item) => {
-          const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+          const isActive = pathname === item.href || (item.href !== '/admin' && pathname.startsWith(`${item.href}/`));
           return (
             <Link 
               key={item.href} 

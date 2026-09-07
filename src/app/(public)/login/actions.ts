@@ -2,8 +2,10 @@
 
 import { createClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Provider } from '@supabase/supabase-js';
+import { SITE_URL } from '@/lib/seo';
 
 // 오류 메시지 한국어 번역 헬퍼 함수
 function translateError(error: any) {
@@ -21,6 +23,19 @@ function translateError(error: any) {
     errorMessage = '요청이 너무 많습니다. 잠시 후(약 1분 뒤) 다시 시도해 주세요.';
   }
   return errorMessage;
+}
+
+// 소셜 로그인·메일 링크가 돌아올 주소는 '지금 접속 중인 도메인'을 기준으로 만듭니다.
+// 환경 변수(NEXT_PUBLIC_SITE_URL)에만 의존하면 배포 환경에서 값이 비었을 때
+// localhost로 돌려보내 로그인이 끊기고, 프리뷰 배포에서도 도메인이 어긋납니다.
+async function getRequestOrigin() {
+  const headerList = await headers();
+  const host = headerList.get('x-forwarded-host') || headerList.get('host');
+  if (!host) return SITE_URL;
+  const proto =
+    headerList.get('x-forwarded-proto') ||
+    (host.startsWith('localhost') || host.startsWith('127.0.0.1') ? 'http' : 'https');
+  return `${proto}://${host}`;
 }
 
 function safeRedirectPath(value: FormDataEntryValue | string | null | undefined) {
@@ -100,10 +115,9 @@ export async function signOut() {
 // 소셜 로그인 (네이버 제거됨)
 export async function signInWithSocial(provider: 'google' | 'kakao', nextPath = '/') {
   const supabase = await createClient();
-  
-  // 서버 사이드에서 리다이렉트 경로 설정 (실제 도메인 또는 환경 변수 활용 권장)
-  const host = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-  const redirectTo = `${host}/auth/callback?next=${encodeURIComponent(safeRedirectPath(nextPath))}`;
+
+  const origin = await getRequestOrigin();
+  const redirectTo = `${origin}/auth/callback?next=${encodeURIComponent(safeRedirectPath(nextPath))}`;
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: provider as Provider,
@@ -118,19 +132,20 @@ export async function signInWithSocial(provider: 'google' | 'kakao', nextPath = 
   }
 
   // 서버 사이드 리다이렉트 수행
-  if (data.url) {
-    redirect(data.url);
+  if (!data.url) {
+    return { error: '소셜 로그인 주소를 만들지 못했습니다. 잠시 후 다시 시도해 주세요.' };
   }
+
+  redirect(data.url);
 }
 
 // 비밀번호 재설정 요청 (메일 발송)
 export async function requestPasswordReset(formData: FormData) {
   const email = formData.get('email') as string;
   const supabase = await createClient();
-  
-  // 서버 사이드에서 리다이렉트 경로 설정 (재설정 페이지로 바로 연결)
-  const host = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-  const redirectTo = `${host}/auth/callback?next=/login/reset-password`;
+
+  const origin = await getRequestOrigin();
+  const redirectTo = `${origin}/auth/callback?next=/login/reset-password`;
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo,

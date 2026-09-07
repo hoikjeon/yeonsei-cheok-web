@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { newsPlainText } from '@/lib/newsContent';
 
 export const SITE_NAME = '연세척병원';
 export const DEFAULT_SITE_TITLE = '연세척병원 | 부산 척추·관절 진료';
@@ -87,7 +88,7 @@ export function createPageMetadata({
 }
 
 export function summarizeForMetadata(value: string | null | undefined, fallback: string) {
-  const normalized = value?.replace(/\s+/g, ' ').trim();
+  const normalized = newsPlainText(value).replace(/\s+/g, ' ').trim();
   if (!normalized) return fallback;
   return normalized.length > 160 ? `${normalized.slice(0, 157).trimEnd()}…` : normalized;
 }

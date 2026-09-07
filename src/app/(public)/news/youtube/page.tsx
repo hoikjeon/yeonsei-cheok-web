@@ -1,3 +1,4 @@
+import { youtubeVideoId } from '@/lib/newsContent';
 import Link from 'next/link';
 import { Search, Play, Video } from 'lucide-react';
 import SubHero from '@/components/SubHero';
@@ -14,12 +15,6 @@ export const metadata = createPageMetadata({
 // 한 페이지 노출 수. 1/2/3열 그리드라 2와 3으로 나누어떨어지는 값이어야 마지막 줄이 비지 않습니다.
 const PAGE_SIZE = 12;
 
-// 유튜브 URL에서 ID 추출 함수 (Shorts, Mobile, Watch 등 대응)
-function getYoutubeId(url: string) {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\/shorts\/)([^#\&\?]*).*/;
-  const match = url.match(regExp);
-  return (match && match[2].length === 11) ? match[2] : null;
-}
 
 export default async function YoutubePage({
   searchParams,
@@ -55,14 +50,14 @@ export default async function YoutubePage({
             {newsCount > 0 ? (
               <div className="grid grid-cols-1 gap-6 py-6 sm:gap-8 sm:py-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10 lg:py-10">
                 {news.map((item) => {
-                  const youtubeId = item.video_url ? getYoutubeId(item.video_url) : null;
-                  const thumbUrl = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg` : item.image_urls?.[0];
+                  const youtubeId = item.video_url ? youtubeVideoId(item.video_url) : null;
+                  const thumbUrl = item.image_urls?.[0] || (youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : null);
 
                   return (
                     <Link href={`/news/youtube/${item.id}`} key={item.id} className="group flex flex-col overflow-hidden rounded-xl border border-slate-100 bg-white transition-all duration-500 hover:border-primary/20 md:rounded-[1rem]">
                       <div className="aspect-video bg-slate-100 relative overflow-hidden">
                         {thumbUrl ? (
-                           <img src={youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : thumbUrl} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                           <img src={thumbUrl} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-slate-300"><Video size={60} strokeWidth={1} /></div>
                         )}

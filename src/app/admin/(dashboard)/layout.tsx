@@ -14,7 +14,7 @@ export default async function AdminLayout({
       <AdminSidebar />
 
       {/* Main Content Area: 대시보드의 스크롤과 레이아웃을 전담합니다. */}
-      <main className="flex-1 flex flex-col h-screen overflow-y-auto relative">
+      <main className="min-w-0 flex-1 flex flex-col h-screen overflow-y-auto relative">
         {children}
       </main>
     </div>

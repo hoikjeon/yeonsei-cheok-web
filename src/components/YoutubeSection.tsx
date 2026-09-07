@@ -1,5 +1,7 @@
 'use client';
 
+import { newsPlainText, youtubeVideoId } from '@/lib/newsContent';
+
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -21,17 +23,11 @@ type YoutubeCard = {
   href: string;
 };
 
-// 유튜브 URL에서 11자리 영상 ID 추출 (watch, youtu.be, shorts, embed 등 대응)
-function getYoutubeId(url: string): string | null {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|\/shorts\/)([^#&?]*).*/;
-  const match = url.match(regExp);
-  return match && match[2].length === 11 ? match[2] : null;
-}
 
 // 설명(content)에서 해시태그 추출 → 최대 3개, '#' 제거
 function extractTags(content?: string | null): string[] {
   if (!content) return [];
-  const matches = content.match(/#[^\s#]+/g);
+  const matches = newsPlainText(content).match(/#[^\s#]+/g);
   if (!matches) return [];
   return matches.map((t) => t.replace(/^#/, '')).slice(0, 3);
 }
@@ -80,29 +76,18 @@ export default function YoutubeSection() {
       if (!alive || !data || data.length === 0) return;
 
       const mapped: YoutubeCard[] = data.map((row) => {
-        const ytId = row.video_url ? getYoutubeId(row.video_url) : null;
+        const ytId = row.video_url ? youtubeVideoId(row.video_url) : null;
         const firstImage = Array.isArray(row.image_urls) ? (row.image_urls[0] as string | undefined) : undefined;
-        const featuredImage = ytId
-          ? `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`
-          : firstImage ?? FALLBACK_IMG;
-        const featuredImageFallbacks = ytId
-          ? [
-              `https://img.youtube.com/vi/${ytId}/sddefault.jpg`,
-              `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`,
-              `https://img.youtube.com/vi/${ytId}/mqdefault.jpg`,
-              FALLBACK_IMG,
-            ]
-          : firstImage
-            ? [FALLBACK_IMG]
-            : [];
-        const image = ytId
-          ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`
-          : firstImage ?? FALLBACK_IMG;
-        const imageFallbacks = ytId
-          ? [`https://img.youtube.com/vi/${ytId}/mqdefault.jpg`, FALLBACK_IMG]
-          : firstImage
-            ? [FALLBACK_IMG]
-            : [];
+        const videoImages = ytId ? [
+          `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`,
+          `https://img.youtube.com/vi/${ytId}/sddefault.jpg`,
+          `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`,
+          `https://img.youtube.com/vi/${ytId}/mqdefault.jpg`,
+        ] : [];
+        const featuredImage = firstImage || videoImages[0] || FALLBACK_IMG;
+        const featuredImageFallbacks = [...(firstImage ? videoImages : videoImages.slice(1)), FALLBACK_IMG];
+        const image = firstImage || videoImages[2] || FALLBACK_IMG;
+        const imageFallbacks = [...(firstImage ? videoImages.slice(2) : videoImages.slice(3)), FALLBACK_IMG];
 
         return {
           id: row.id,

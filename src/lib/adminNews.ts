@@ -52,3 +52,41 @@ export const adminNewsConfig: Record<
 export function isAdminNewsType(value: string): value is AdminNewsType {
   return adminNewsTypes.includes(value as AdminNewsType);
 }
+
+export interface AdminNewsRecord {
+  id: string;
+  type: string;
+  title: string;
+  content: string;
+  image_urls: string[] | null;
+  video_url: string | null;
+  source_name: string | null;
+  source_url: string | null;
+  created_at: string;
+}
+
+export function adminTypeForStoredType(type: string): AdminNewsType | null {
+  return type === 'notice_pinned' ? 'notice' : isAdminNewsType(type) ? type : null;
+}
+
+export function storedNewsTypes(type?: AdminNewsType) {
+  return type === 'notice' ? ['notice', 'notice_pinned'] : type ? [type] : [...adminNewsTypes, 'notice_pinned'];
+}
+
+export function safeNewsReturnTo(value: unknown, fallback = '/admin/news'): string {
+  if (typeof value !== 'string' || !value.startsWith('/admin/news')) return fallback;
+  try {
+    const url = new URL(value, 'https://admin.local');
+    if (url.origin !== 'https://admin.local' || url.pathname !== '/admin/news') return fallback;
+    const params = new URLSearchParams();
+    for (const key of ['type', 'q', 'sort', 'page']) {
+      const entry = url.searchParams.get(key);
+      if (entry) params.set(key, entry.slice(0, 200));
+    }
+    return '/admin/news' + (params.size ? `?${params}` : '');
+  } catch { return fallback; }
+}
+
+export function validNewsId(value: unknown): value is string {
+  return typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+}

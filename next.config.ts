@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Browser checks use a separate development cache and never connect to production data.
+  distDir: process.env.NEWS_TEST_DIST_DIR || '.next',
   images: {
     qualities: [75, 90],
     localPatterns: [

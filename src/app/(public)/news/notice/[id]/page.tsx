@@ -1,3 +1,5 @@
+import NewsContent from '@/components/NewsContent';
+import { newsGalleryImages } from '@/lib/newsContent';
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -68,9 +70,9 @@ export default async function NoticeDetailPage({ params }: DetailPageProps) {
           </div>
         </div>
 
-        {item.image_urls && item.image_urls.length > 0 && (
+        {newsGalleryImages(item.content, item.image_urls).length > 0 && (
           <div className="mb-12 flex flex-col items-center gap-6 sm:mb-20 sm:gap-10">
-            {item.image_urls.map((url: string, index: number) => (
+            {newsGalleryImages(item.content, item.image_urls).map((url: string, index: number) => (
               <div key={index} className="w-full max-w-[720px] overflow-hidden rounded-[1.5rem] border border-slate-100 bg-slate-50 shadow-xl">
                 <img src={url} alt={`${item.title} 안내 이미지 ${index + 1}`} className="h-auto w-full object-cover" />
               </div>
@@ -79,7 +81,7 @@ export default async function NoticeDetailPage({ params }: DetailPageProps) {
         )}
 
         <div className="prose prose-slate mb-14 max-w-none sm:mb-20 md:mb-24">
-          <p className="whitespace-pre-wrap break-keep text-[16px] font-medium leading-[1.8] tracking-tight text-ink-sub sm:text-[18px] sm:leading-[1.9]">{item.content}</p>
+          <NewsContent content={item.content} />
         </div>
 
         <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">

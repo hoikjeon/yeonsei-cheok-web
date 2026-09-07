@@ -1,3 +1,5 @@
+import NewsContent from '@/components/NewsContent';
+import { newsGalleryImages, youtubeVideoId } from '@/lib/newsContent';
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -8,11 +10,7 @@ import { createPageMetadata, summarizeForMetadata } from '@/lib/seo';
 
 type DetailPageProps = { params: Promise<{ id: string }> };
 
-function getYoutubeId(url: string) {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-  const match = url.match(regExp);
-  return (match && match[2].length === 11) ? match[2] : null;
-}
+
 
 export async function generateMetadata({ params }: DetailPageProps): Promise<Metadata> {
   const { id } = await params;
@@ -27,7 +25,7 @@ export async function generateMetadata({ params }: DetailPageProps): Promise<Met
     });
   }
 
-  const youtubeId = item.video_url ? getYoutubeId(item.video_url) : null;
+  const youtubeId = item.video_url ? youtubeVideoId(item.video_url) : null;
 
   return createPageMetadata({
     title: item.title,
@@ -48,7 +46,7 @@ export default async function YoutubeDetailPage({ params }: DetailPageProps) {
 
   if (error || !item) return notFound();
 
-  const youtubeId = item.video_url ? getYoutubeId(item.video_url) : null;
+  const youtubeId = item.video_url ? youtubeVideoId(item.video_url) : null;
 
   return (
     <main className="min-h-screen bg-white pt-0 md:pt-[96px]">
@@ -82,14 +80,17 @@ export default async function YoutubeDetailPage({ params }: DetailPageProps) {
               allowFullScreen
             ></iframe>
           </div>
-        ) : item.image_urls?.[0] && (
-          <div className="mb-12 overflow-hidden rounded-2xl sm:mb-20 sm:rounded-[2rem]">
-             <img src={item.image_urls[0]} alt={item.title} className="w-full h-auto" />
+        ) : null}
+        {newsGalleryImages(item.content, item.image_urls).length > 0 && (
+          <div className="mb-12 space-y-6">
+            {newsGalleryImages(item.content, item.image_urls).map((url, index) => (
+              <img key={url} src={url} alt={`${item.title} 첨부 이미지 ${index + 1}`} className="mx-auto h-auto max-w-full rounded-xl" />
+            ))}
           </div>
         )}
 
         <div className="prose prose-slate mb-14 max-w-none sm:mb-20 md:mb-24">
-          <p className="whitespace-pre-wrap break-keep text-[16px] font-medium leading-[1.8] tracking-tight text-ink-sub sm:text-[18px] sm:leading-[1.9] md:text-[20px]">{item.content}</p>
+          <NewsContent content={item.content} />
         </div>
 
         <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">
