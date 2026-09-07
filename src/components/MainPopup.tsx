@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -52,6 +52,9 @@ const MainPopup = () => {
   const pathname = usePathname();
   const [visiblePopups, setVisiblePopups] = useState<PopupItem[]>([]);
   const [isReady, setIsReady] = useState(false);
+  // 좁은 화면에서는 좌우로 넘겨 보므로, 지금 보고 있는 팝업이 몇 번째인지 표시합니다.
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollerRef = useRef<HTMLDivElement>(null);
 
   const supabase = useMemo(() => createClient(), []);
 
@@ -98,6 +101,32 @@ const MainPopup = () => {
       // localStorage 사용 불가 환경에서는 화면에서만 닫습니다
     }
     setVisiblePopups((prev) => prev.filter((popup) => popup.id !== id));
+  }, []);
+
+  // 가운데에 가장 가까운 카드를 현재 카드로 봅니다. 카드 폭이 화면마다 달라도 그대로 맞습니다.
+  const syncActiveIndex = useCallback(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+
+    const center = scroller.scrollLeft + scroller.clientWidth / 2;
+    let nearest = 0;
+    let nearestDistance = Number.POSITIVE_INFINITY;
+
+    Array.from(scroller.children).forEach((child, index) => {
+      const item = child as HTMLElement;
+      const distance = Math.abs(item.offsetLeft + item.offsetWidth / 2 - center);
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearest = index;
+      }
+    });
+
+    setActiveIndex(nearest);
+  }, []);
+
+  const scrollToPopup = useCallback((index: number) => {
+    const target = scrollerRef.current?.children[index] as HTMLElement | undefined;
+    target?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   }, []);
 
   const closeAllPopups = useCallback(() => {
@@ -150,7 +179,14 @@ const MainPopup = () => {
           </button>
         </div>
 
-        <div className="mx-auto flex w-full max-w-7xl flex-wrap items-start justify-center gap-4 sm:gap-5">
+        {/* 넓은 화면(xl~)에서는 세 개를 한 줄에 놓습니다. 줄바꿈되면 세 번째 팝업이
+              화면 아래로 잘려 스크롤해야 보이기 때문입니다. 폭이 모자라면 정사각형을
+              유지한 채 셋이 같은 비율로 줄어듭니다. */}
+          <div
+            ref={scrollerRef}
+            onScroll={syncActiveIndex}
+            className="mx-auto flex w-full max-w-[1580px] snap-x snap-mandatory items-start gap-4 overflow-x-auto overscroll-x-contain [scrollbar-width:none] sm:gap-5 xl:snap-none xl:justify-center xl:overflow-x-visible [&::-webkit-scrollbar]:hidden"
+          >
           {visiblePopups.map((popup, index) => (
             <motion.div
               key={popup.id}
@@ -158,17 +194,19 @@ const MainPopup = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ type: 'spring', damping: 26, stiffness: 320, delay: 0.08 * index }}
-              className="relative w-full max-w-[380px] overflow-hidden bg-white shadow-[0_24px_60px_rgba(0,0,0,0.35)]"
+              className="relative w-full max-w-[380px] shrink-0 snap-center overflow-hidden bg-white shadow-[0_24px_60px_rgba(0,0,0,0.35)] first:ml-auto last:mr-auto xl:min-w-0 xl:max-w-[500px] xl:shrink xl:basis-[500px]"
             >
-              {/* 팝업 이미지 (760 x 950 권장 비율로 고정) */}
-              <div className="relative aspect-[4/5] w-full">
+              {/* 팝업 이미지 (500 x 500 정사각형. 원본도 1:1 로 올리면 여백 없이 꽉 찹니다) */}
+              <div className="relative aspect-square w-full">
                 <Image
                   src={popup.image_url || '/ube_training.jpg'}
                   alt={popup.title}
                   fill
-                  sizes="(min-width: 640px) 380px, 100vw"
+                  sizes="(min-width: 1280px) 500px, (min-width: 640px) 380px, 100vw"
                   priority={index === 0}
-                  className="object-cover"
+                  // 세로로 긴 기존 포스터가 잘려나가지 않도록 contain 으로 맞춥니다.
+                  // 1:1 이미지는 cover 와 똑같이 정사각형을 꽉 채웁니다.
+                  className="object-contain"
                 />
               </div>
 
@@ -183,7 +221,25 @@ const MainPopup = () => {
               </button>
             </motion.div>
           ))}
-        </div>
+          </div>
+
+        {/* 좌우로 넘길 수 있다는 것과 몇 번째인지 알려줍니다. 한 줄에 다 보이는 xl 이상에서는 감춥니다. */}
+        {visiblePopups.length > 1 && (
+          <div className="mt-5 flex items-center justify-center gap-2.5 xl:hidden">
+            {visiblePopups.map((popup, index) => (
+              <button
+                key={`dot-${popup.id}`}
+                type="button"
+                onClick={() => scrollToPopup(index)}
+                aria-label={`${index + 1}번째 팝업 보기`}
+                aria-current={index === activeIndex}
+                className={`h-2.5 rounded-full transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+                  index === activeIndex ? 'w-7 bg-white' : 'w-2.5 bg-white/45'
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </motion.div>
     </AnimatePresence>
   );
