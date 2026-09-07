@@ -2,9 +2,15 @@
 // 병원소식(관리자)과 치료체험후기(회원)에서 개수·형식 기준을 공유하고 용량은 서비스별로 둡니다.
 
 export const MAX_IMAGE_COUNT = 10;
-// 치료체험후기는 기존 10MB 제한을 유지하고, 병원소식은 별도 20MB 제한을 사용합니다.
+// 치료체험후기는 기존 10MB 제한을 유지하고, 병원소식은 게시판별 제한을 사용합니다.
 export const MAX_IMAGE_SIZE = 10 * 1024 * 1024;
 export const MAX_NEWS_IMAGE_SIZE = 20 * 1024 * 1024;
+export const MAX_TRAINING_NEWS_IMAGE_SIZE = 30 * 1024 * 1024;
+
+/** 트레이닝센터는 고해상도 교육 사진을 위해 별도 30MB 제한을 둡니다. */
+export function newsImageMaxSize(type: string) {
+  return type === 'training' ? MAX_TRAINING_NEWS_IMAGE_SIZE : MAX_NEWS_IMAGE_SIZE;
+}
 
 export const ALLOWED_IMAGE_TYPES: Record<string, string> = {
   'image/jpeg': 'jpg',

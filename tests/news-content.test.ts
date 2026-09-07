@@ -2,14 +2,20 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { NEWS_CONTENT_PREFIX, normalizeNewsDocument, newsPlainText, newsDocumentForEditor, documentImages, documentText, newsGalleryImages, serializeNewsDocument, parseNewsDocument, safeNewsLink, youtubeVideoId, type NewsNode } from '../src/lib/newsContent';
 import { safeNewsReturnTo, storedNewsTypes, validNewsId } from '../src/lib/adminNews';
-import { MAX_IMAGE_SIZE, MAX_NEWS_IMAGE_SIZE, validateUploadFiles } from '../src/lib/imageUploadRules';
+import { MAX_IMAGE_SIZE, MAX_NEWS_IMAGE_SIZE, MAX_TRAINING_NEWS_IMAGE_SIZE, newsImageMaxSize, validateUploadFiles } from '../src/lib/imageUploadRules';
 
-test('hospital news allows 20MB images while review uploads stay at 10MB', () => {
+test('news image limits keep reviews at 10MB, general news at 20MB and training at 30MB', () => {
   const oversizedForReviews = { type: 'image/jpeg', size: 15 * 1024 * 1024 } as File;
+  const oversizedForGeneralNews = { type: 'image/jpeg', size: 25 * 1024 * 1024 } as File;
   assert.equal(MAX_IMAGE_SIZE, 10 * 1024 * 1024);
   assert.equal(MAX_NEWS_IMAGE_SIZE, 20 * 1024 * 1024);
+  assert.equal(MAX_TRAINING_NEWS_IMAGE_SIZE, 30 * 1024 * 1024);
+  assert.equal(newsImageMaxSize('media'), MAX_NEWS_IMAGE_SIZE);
+  assert.equal(newsImageMaxSize('training'), MAX_TRAINING_NEWS_IMAGE_SIZE);
   assert.equal(validateUploadFiles([oversizedForReviews]), '이미지 한 개의 크기는 10MB를 넘을 수 없습니다.');
   assert.equal(validateUploadFiles([oversizedForReviews], MAX_NEWS_IMAGE_SIZE), null);
+  assert.equal(validateUploadFiles([oversizedForGeneralNews], MAX_NEWS_IMAGE_SIZE), '이미지 한 개의 크기는 20MB를 넘을 수 없습니다.');
+  assert.equal(validateUploadFiles([oversizedForGeneralNews], MAX_TRAINING_NEWS_IMAGE_SIZE), null);
 });
 
 test('legacy posts keep their text and newlines, and HTML remains text', () => {

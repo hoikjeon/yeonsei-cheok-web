@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { isAdminAuthenticated } from '@/lib/adminAuth';
 import { isAdminNewsType, storedNewsTypes, validNewsId } from '@/lib/adminNews';
 import { newsAdminClient } from '@/lib/adminNewsRepository';
-import { ALLOWED_IMAGE_TYPES, MAX_NEWS_IMAGE_SIZE } from '@/lib/imageUploadRules';
+import { ALLOWED_IMAGE_TYPES, newsImageMaxSize } from '@/lib/imageUploadRules';
 
 export async function POST(request: Request) {
   if (!(await isAdminAuthenticated())) return Response.json({ error: '관리자 로그인이 필요합니다.' }, { status: 401 });
@@ -10,8 +10,10 @@ export async function POST(request: Request) {
     const origin = request.headers.get('origin');
     if (!origin || new URL(origin).host !== request.headers.get('host')) return Response.json({ error: '올바르지 않은 업로드 요청입니다.' }, { status: 403 });
     const { id, type, mime, size } = await request.json();
-    if (!validNewsId(id) || !isAdminNewsType(type) || typeof mime !== 'string' || !Object.hasOwn(ALLOWED_IMAGE_TYPES, mime) || !Number.isInteger(size) || size <= 0 || size > MAX_NEWS_IMAGE_SIZE) {
-      return Response.json({ error: 'JPG, PNG, WEBP, GIF 이미지를 파일당 20MB 이하로 선택해주세요.' }, { status: 400 });
+    const maxImageSize = newsImageMaxSize(type);
+    const maxImageSizeMb = Math.round(maxImageSize / (1024 * 1024));
+    if (!validNewsId(id) || !isAdminNewsType(type) || typeof mime !== 'string' || !Object.hasOwn(ALLOWED_IMAGE_TYPES, mime) || !Number.isInteger(size) || size <= 0 || size > maxImageSize) {
+      return Response.json({ error: `JPG, PNG, WEBP, GIF 이미지를 파일당 ${maxImageSizeMb}MB 이하로 선택해주세요.` }, { status: 400 });
     }
     const client = newsAdminClient();
     const { data: post, error: lookupError } = await client.from('hospital_news').select('type').eq('id', id).maybeSingle();

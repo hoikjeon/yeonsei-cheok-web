@@ -6,7 +6,7 @@ import { isAdminAuthenticated } from '@/lib/adminAuth';
 import { isAdminNewsType, storedNewsTypes, validNewsId, type AdminNewsRecord, type AdminNewsType } from '@/lib/adminNews';
 import { newsAdminClient, managedNewsImagePath, removeUnusedNewsImages } from '@/lib/adminNewsRepository';
 import { HOSPITAL_NEWS_CACHE_TAG } from '@/lib/hospitalNews';
-import { ALLOWED_IMAGE_TYPES, MAX_IMAGE_COUNT, MAX_NEWS_IMAGE_SIZE } from '@/lib/imageUploadRules';
+import { ALLOWED_IMAGE_TYPES, MAX_IMAGE_COUNT, newsImageMaxSize } from '@/lib/imageUploadRules';
 import { MAX_NEWS_DOCUMENT_LENGTH, MAX_NEWS_TEXT_LENGTH, NEWS_CONTENT_PREFIX, documentImages, documentText, normalizeNewsDocument, newsDocumentForEditor, newsInlineImages, safeNewsImage, serializeNewsDocument, youtubeVideoId } from '@/lib/newsContent';
 
 export type AdminNewsResult = { success: true; id: string; warning?: string } | { success: false; error: string };
@@ -55,6 +55,8 @@ async function saveNews(formData: FormData, editing: boolean): Promise<AdminNews
     if (rawContent.length > MAX_NEWS_DOCUMENT_LENGTH) throw new Error('본문 서식이 너무 큽니다. 서식을 정리해주세요.');
     const images = imageArray(getString(formData, 'image_urls'));
     const staged = imageArray(getString(formData, 'uploaded_urls')).filter((url) => managedNewsImagePath(url)?.startsWith(`news/${type}/${id}/`));
+    const maxImageSize = newsImageMaxSize(type);
+    const maxImageSizeMb = Math.round(maxImageSize / (1024 * 1024));
     if (images.length > MAX_IMAGE_COUNT) throw new Error(`본문과 첨부 이미지는 합쳐서 최대 ${MAX_IMAGE_COUNT}개입니다.`);
     const existingImages = new Set([...(previous?.image_urls || []), ...newsInlineImages(previous?.content || '')]);
     for (const url of images) {
@@ -63,7 +65,7 @@ async function saveNews(formData: FormData, editing: boolean): Promise<AdminNews
       if (!path?.startsWith(`news/${type}/${id}/`)) throw new Error('이 글에 업로드한 이미지만 사용할 수 있습니다. 이미지를 다시 첨부해주세요.');
       const { data: info, error: infoError } = await client.storage.from('reviews').info(path);
       if (infoError || !info) throw new Error('이미지 업로드가 완료되지 않았습니다. 다시 첨부해주세요.');
-      if (!Object.hasOwn(ALLOWED_IMAGE_TYPES, info.contentType || '') || typeof info.size !== 'number' || info.size <= 0 || info.size > MAX_NEWS_IMAGE_SIZE) throw new Error('이미지 형식 또는 크기를 확인해주세요. 파일당 최대 20MB입니다.');
+      if (!Object.hasOwn(ALLOWED_IMAGE_TYPES, info.contentType || '') || typeof info.size !== 'number' || info.size <= 0 || info.size > maxImageSize) throw new Error(`이미지 형식 또는 크기를 확인해주세요. 파일당 최대 ${maxImageSizeMb}MB입니다.`);
     }
     const doc = normalizeNewsDocument(rawContent.startsWith(NEWS_CONTENT_PREFIX)
       ? JSON.parse(rawContent.slice(NEWS_CONTENT_PREFIX.length)) : newsDocumentForEditor(rawContent), new Set(images));

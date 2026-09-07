@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { ArrowLeft, ArrowUp, ArrowDown, Check, Eye, FileImage, Monitor, Smartphone, UploadCloud, X } from 'lucide-react';
 import { createAdminNews, updateAdminNews, discardAdminNewsUploads } from '@/app/admin/(dashboard)/news/actions';
 import { adminNewsConfig, safeNewsReturnTo, validNewsId, type AdminNewsRecord, type AdminNewsType } from '@/lib/adminNews';
-import { MAX_IMAGE_COUNT, MAX_NEWS_IMAGE_SIZE, validateUploadFiles } from '@/lib/imageUploadRules';
+import { MAX_IMAGE_COUNT, newsImageMaxSize, validateUploadFiles } from '@/lib/imageUploadRules';
 import { documentImages, documentText, newsDocumentForEditor, newsGalleryImages, normalizeNewsDocument, safeNewsImage, serializeNewsDocument, type NewsNode } from '@/lib/newsContent';
 import NewsRichEditor from './NewsRichEditor';
 import NewsArticlePreview from './NewsArticlePreview';
@@ -37,6 +37,8 @@ export default function AdminNewsEditor({ type, postId, initialPost, returnTo = 
   type: AdminNewsType; postId: string; initialPost?: AdminNewsRecord; returnTo?: string;
 }) {
   const config = adminNewsConfig[type];
+  const maxImageSize = newsImageMaxSize(type);
+  const maxImageSizeMb = Math.round(maxImageSize / (1024 * 1024));
   const router = useRouter();
   const baseline = useRef<FormState>({
     id: postId, title: initialPost?.title || '', document: newsDocumentForEditor(initialPost?.content || ''),
@@ -149,7 +151,7 @@ export default function AdminNewsEditor({ type, postId, initialPost, returnTo = 
   }
 
   const uploadImage = useCallback(async (file: File, onProgress: (value: number) => void): Promise<string> => {
-    const problem = validateUploadFiles([file], MAX_NEWS_IMAGE_SIZE);
+    const problem = validateUploadFiles([file], maxImageSize);
     if (problem || !file.size) throw new Error(problem || '빈 이미지 파일은 업로드할 수 없습니다.');
     const count = new Set([...current.current.gallery, ...documentImages(current.current.document)]).size;
     if (count + uploadCount.current >= MAX_IMAGE_COUNT) throw new Error('본문과 첨부 이미지는 합쳐서 최대 10개입니다.');
@@ -175,7 +177,7 @@ export default function AdminNewsEditor({ type, postId, initialPost, returnTo = 
       });
       return data.publicUrl;
     } finally { uploadCount.current -= 1; setActiveUploads(uploadCount.current); }
-  }, [change, type]);
+  }, [change, maxImageSize, type]);
 
   async function uploadGallery(files: File[]) {
     if (pending || activeUploads || galleryUploading) return;
@@ -247,7 +249,7 @@ export default function AdminNewsEditor({ type, postId, initialPost, returnTo = 
           <p className="text-xs leading-5 text-slate-500">글자를 선택해 크기와 색을 바꿀 수 있습니다. 캡처한 이미지는 본문에 붙여넣거나 끌어놓으세요.</p>
         </section>
         <fieldset disabled={locked} className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-8">
-          <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="flex items-center gap-2 font-bold"><FileImage size={18} /> 첨부·대표 이미지</h2><span className="text-xs text-slate-500">본문 포함 {allImages.length}/10개 · 파일당 20MB</span></div>
+          <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="flex items-center gap-2 font-bold"><FileImage size={18} /> 첨부·대표 이미지</h2><span className="text-xs text-slate-500">본문 포함 {allImages.length}/10개 · 파일당 {maxImageSizeMb}MB</span></div>
           <p className="text-sm leading-6 text-slate-500">대표 이미지는 게시물 목록에 표시됩니다. 본문에 넣지 않은 첨부 이미지는 글 상단에 표시됩니다.</p>
           <label className={`flex cursor-pointer items-center justify-center gap-3 rounded-lg border-2 border-dashed border-slate-200 bg-slate-50 p-6 text-sm font-bold text-slate-600 ${locked ? 'pointer-events-none opacity-50' : 'hover:border-blue-300 hover:bg-blue-50'}`}><UploadCloud size={22} /> 이미지 파일 추가<input type="file" aria-label="첨부 이미지 파일" accept="image/jpeg,image/png,image/webp,image/gif" multiple className="hidden" onChange={(event) => { void uploadGallery(Array.from(event.target.files || [])); event.target.value = ''; }} /></label>
           {galleryUploading && <p role="status" className="text-sm text-primary">첨부 이미지 업로드 중… {galleryProgress}%</p>}

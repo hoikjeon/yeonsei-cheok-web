@@ -153,6 +153,7 @@ test('formatting, clipboard images, preview, draft recovery, public rendering an
 test('upload and save failures retain the form and allow retry; mobile layout fits', async ({ page, request }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await write(page, 'training', '실패 후 재시도');
+  await expect(page.getByText('본문 포함 0/10개 · 파일당 30MB')).toBeVisible();
   await request.post(`${fixture}/__test/fail-upload`);
   await page.getByLabel('본문 이미지 파일').setInputFiles(imageFile);
   await expect(page.getByRole('button', { name: '실패한 이미지 재시도', exact: true })).toBeVisible();
