@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LogOut, Calendar, MessageSquare, Settings, LayoutDashboard, Megaphone, Newspaper } from 'lucide-react';
+import { LogOut, Calendar, MessageSquare, Settings, LayoutDashboard, Megaphone, Newspaper, HeartHandshake } from 'lucide-react';
 import { adminLogout } from '@/app/admin/actions';
 
 export default function AdminSidebar() {
@@ -13,6 +13,7 @@ export default function AdminSidebar() {
     { name: '온라인 예약 관리', href: '/admin/reservations', icon: <Calendar size={18} /> },
     { name: '상담 관리', href: '/admin/consultations', icon: <MessageSquare size={18} /> },
     { name: '병원소식 관리', href: '/admin/news', icon: <Newspaper size={18} /> },
+    { name: '치료체험후기 관리', href: '/admin/reviews', icon: <HeartHandshake size={18} /> },
     { name: '메인 공지/휴진 관리', href: '/admin/notice-bar', icon: <Megaphone size={18} /> },
     { name: '공지 팝업 관리', href: '/admin/popups', icon: <Settings size={18} /> },
   ];

@@ -2,13 +2,14 @@
 
 import { randomUUID } from 'node:crypto';
 import { createClient } from '@supabase/supabase-js';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, updateTag } from 'next/cache';
 import { createClient as createSessionClient } from '@/utils/supabase/server';
 import {
   ALLOWED_IMAGE_TYPES,
   collectUploadFiles,
   validateUploadFiles,
 } from '@/lib/imageUploadRules';
+import { REVIEWS_CACHE_TAG } from '@/lib/reviewsData';
 
 // Storage 업로드와 저장은 service role 로 수행합니다.
 // 서버 액션은 공개 엔드포인트이므로, 이 클라이언트를 쓰기 전에 반드시 회원 여부를 확인합니다.
@@ -104,6 +105,8 @@ export async function createReview(formData: FormData): Promise<CreateReviewResu
 
   // 5. 목록 캐시 갱신 (기존에는 존재하지 않는 /news/reviews 를 갱신하고 있었습니다)
   revalidatePath('/board/reviews');
+  revalidatePath('/');
+  updateTag(REVIEWS_CACHE_TAG);
 
   return { success: true };
 }

@@ -34,10 +34,11 @@ function Tool({ label, active = false, disabled = false, onClick, children }: { 
   return <button type="button" title={label} aria-label={label} aria-pressed={active} disabled={disabled} onMouseDown={(event) => event.preventDefault()} onClick={onClick} className={`flex h-9 min-w-9 items-center justify-center rounded-md px-2 transition disabled:opacity-30 ${active ? 'bg-blue-100 text-blue-800' : 'text-slate-600 hover:bg-slate-200'}`}>{children}</button>;
 }
 
-export default function NewsRichEditor({ initialDocument, onChange, uploadImage, disabled, allowedImages, onReady }: {
+export default function NewsRichEditor({ initialDocument, onChange, uploadImage, disabled, allowedImages, onReady, ariaLabel = '게시물 본문', placeholder = '내용을 작성하세요. 복사한 이미지는 Ctrl+V / ⌘+V로 넣을 수 있습니다.' }: {
   initialDocument: NewsNode; onChange: (doc: NewsNode) => void;
   uploadImage: (file: File, progress: (value: number) => void) => Promise<string>;
   disabled: boolean; allowedImages: string[]; onReady?: (editor: Editor) => void;
+  ariaLabel?: string; placeholder?: string;
 }) {
   const input = useRef<HTMLInputElement>(null);
   const insertRef = useRef<(files: File[], position?: number) => void>(() => {});
@@ -55,11 +56,11 @@ export default function NewsRichEditor({ initialDocument, onChange, uploadImage,
       TextStyleKit.configure({ fontFamily: false, lineHeight: false }),
       TextAlign.configure({ types: ['heading', 'paragraph'], alignments: ['left', 'center', 'right'] }),
       NewsImage,
-      Placeholder.configure({ placeholder: '내용을 작성하세요. 복사한 이미지는 Ctrl+V / ⌘+V로 넣을 수 있습니다.' }),
+      Placeholder.configure({ placeholder }),
     ],
     content: initialDocument,
     editorProps: {
-      attributes: { class: 'news-content', role: 'textbox', 'aria-label': '게시물 본문', 'aria-multiline': 'true' },
+      attributes: { class: 'news-content', role: 'textbox', 'aria-label': ariaLabel, 'aria-multiline': 'true' },
       handlePaste: (_view, event) => {
         const files = Array.from(event.clipboardData?.items || []).filter((item) => item.kind === 'file').map((item) => item.getAsFile()).filter((file): file is File => Boolean(file));
         if (!files.length) return false;

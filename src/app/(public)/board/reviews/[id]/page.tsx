@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { Home, ChevronRight, ArrowLeft, Calendar } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
 import { createPageMetadata, summarizeForMetadata } from '@/lib/seo';
+import NewsContent from '@/components/NewsContent';
+import { newsGalleryImages, newsPlainText } from '@/lib/newsContent';
 
 // 서버 사이드 Supabase 클라이언트 설정
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -49,7 +51,7 @@ export async function generateMetadata({ params }: DetailPageProps): Promise<Met
   return createPageMetadata({
     title: review.title,
     description: summarizeForMetadata(
-      review.content,
+      newsPlainText(review.content),
       '연세척병원 이용자가 직접 작성한 치료체험후기입니다.',
     ),
     path: `/board/reviews/${id}`,
@@ -68,6 +70,7 @@ export default async function ReviewDetailPage({ params }: DetailPageProps) {
     console.error('Error fetching review:', error);
     return notFound();
   }
+  const gallery = newsGalleryImages(review.content, review.image_urls || []);
 
   return (
     <main className="min-h-screen bg-white pt-0 md:pt-[96px]">
@@ -102,9 +105,9 @@ export default async function ReviewDetailPage({ params }: DetailPageProps) {
         </div>
 
         {/* 🔹 Image Content (Top Gallery) */}
-        {review.image_urls && review.image_urls.length > 0 && (
+        {gallery.length > 0 && (
           <div className="mb-12 flex flex-col items-center gap-6 sm:mb-20 sm:gap-10">
-            {review.image_urls.map((url: string, index: number) => (
+            {gallery.map((url: string, index: number) => (
               <Image
                 key={index}
                 src={url}
@@ -120,10 +123,8 @@ export default async function ReviewDetailPage({ params }: DetailPageProps) {
         )}
 
         {/* 🔹 Text Content */}
-        <div className="prose prose-slate mb-14 max-w-none sm:mb-20 md:mb-24">
-          <p className="whitespace-pre-wrap break-keep text-[16px] font-medium leading-[1.8] tracking-tight text-ink-sub sm:text-[18px] sm:leading-[1.9] md:text-[20px]">
-            {review.content}
-          </p>
+        <div className="mb-14 sm:mb-20 md:mb-24">
+          <NewsContent content={review.content} className="break-keep !text-[16px] sm:!text-[18px] md:!text-[20px]" />
         </div>
 
         {/* 🔹 Bottom Actions */}

@@ -4,90 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
+import type { HomeReview } from '@/lib/adminReviews';
 
 type ReviewTone = 'navy' | 'mist' | 'amber' | 'paper';
-
-type ReviewItem = {
-  category: string;
-  title: string;
-  author: string;
-  date: string;
-};
-
-const reviews: ReviewItem[] = [
-  {
-    category: '도수·재활 클리닉',
-    title: '발목 통증으로 방문해서 2달 간 체외충격파, 도수치료 꾸준히 받고 있어요.',
-    author: 'G*H',
-    date: '2025.09.01',
-  },
-  {
-    category: '무릎 통증 클리닉',
-    title: '무리해서 뛰다가 무릎 붓고 통증으로 한달 이상 참았어요.',
-    author: 'Cr****IW',
-    date: '2025.09.01',
-  },
-  {
-    category: '도수·재활 클리닉',
-    title: '작년에 운동을 하다가 예상치 못한 부상을 입었습니다.',
-    author: '구**5',
-    date: '2025.09.01',
-  },
-  {
-    category: '어깨 통증 클리닉',
-    title: '지난 10월부터 다니는 병원입니다. 원장님이 너무 친절하시고 잘 치료해주세요.',
-    author: '숲속**향기',
-    date: '2025.09.01',
-  },
-  {
-    category: '허리 통증 클리닉',
-    title: '처음 방문했습니다. 다른 병원보다 상세하게 진료봐주시네요.',
-    author: '테***쉬',
-    date: '2025.08.06',
-  },
-  {
-    category: '손발 통증 클리닉',
-    title: '잦은 발목 부상으로 찾게 되었어요!',
-    author: 'ho***17',
-    date: '2025.08.04',
-  },
-  {
-    category: '목 통증 클리닉',
-    title: '평소 자세가 안 좋아 목과 어깨 통증이 심했는데 꼼꼼하게 봐주셨어요.',
-    author: '바***늘',
-    date: '2025.07.22',
-  },
-  {
-    category: '무릎 통증 클리닉',
-    title: '계단 오를 때마다 시큰했던 무릎이 치료 후 훨씬 편해졌습니다.',
-    author: '산***길',
-    date: '2025.07.14',
-  },
-  {
-    category: '허리 통증 클리닉',
-    title: '허리디스크 진단 후 비수술 치료로 일상생활이 많이 편해졌어요.',
-    author: 'm***2',
-    date: '2025.06.30',
-  },
-  {
-    category: '어깨 통증 클리닉',
-    title: '팔을 들기 힘들었는데 치료와 재활을 병행하면서 움직임이 좋아졌습니다.',
-    author: '오***봄',
-    date: '2025.06.12',
-  },
-  {
-    category: '도수·재활 클리닉',
-    title: '야간 진료가 가능해서 퇴근 후에도 꾸준히 치료받을 수 있어 좋았습니다.',
-    author: 'r***7',
-    date: '2025.05.28',
-  },
-  {
-    category: '손발 통증 클리닉',
-    title: '발목을 자주 접질렀는데 원인을 자세히 설명해주셔서 안심이 됐어요.',
-    author: '초***록',
-    date: '2025.05.09',
-  },
-];
 
 const toneStyles: Record<ReviewTone, { card: string; body: string; meta: string }> = {
   navy: {
@@ -118,7 +37,13 @@ const STEP_INTERVAL_MS = 3600;
 const SLIDE_DURATION_MS = 1100;
 const SLIDE_EASING = 'cubic-bezier(0.45, 0.05, 0.15, 1)';
 
-export default function ReviewsShowcaseSection() {
+function formatDate(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+}
+
+export default function ReviewsShowcaseSection({ reviews }: { reviews: HomeReview[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [step, setStep] = useState(0);
   const [slotWidth, setSlotWidth] = useState(344);
@@ -126,6 +51,7 @@ export default function ReviewsShowcaseSection() {
   const [isPaused, setIsPaused] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   const total = reviews.length;
+  const loops = total >= 5;
 
   useEffect(() => {
     const measure = () => {
@@ -144,17 +70,17 @@ export default function ReviewsShowcaseSection() {
   }, []);
 
   useEffect(() => {
-    if (isPaused || shouldReduceMotion) return;
+    if (isPaused || shouldReduceMotion || !loops) return;
 
     const interval = window.setInterval(() => {
       setStep((current) => current + 1);
     }, STEP_INTERVAL_MS);
 
     return () => window.clearInterval(interval);
-  }, [isPaused, shouldReduceMotion]);
+  }, [isPaused, loops, shouldReduceMotion]);
 
   useEffect(() => {
-    if (step < total) return;
+    if (!loops || step < total) return;
 
     const timer = window.setTimeout(() => {
       setAnimated(false);
@@ -162,7 +88,7 @@ export default function ReviewsShowcaseSection() {
     }, SLIDE_DURATION_MS);
 
     return () => window.clearTimeout(timer);
-  }, [step, total]);
+  }, [loops, step, total]);
 
   useEffect(() => {
     if (animated) return;
@@ -174,7 +100,7 @@ export default function ReviewsShowcaseSection() {
     return () => window.cancelAnimationFrame(raf);
   }, [animated]);
 
-  const cards = [...reviews, ...reviews];
+  const cards = loops ? [...reviews, ...reviews] : reviews;
   const transition = animated && !shouldReduceMotion ? `transform ${SLIDE_DURATION_MS}ms ${SLIDE_EASING}` : 'none';
 
   return (
@@ -208,7 +134,7 @@ export default function ReviewsShowcaseSection() {
         </div>
       </div>
 
-      <div
+      {reviews.length > 0 ? <div
         className="mt-6 overflow-hidden md:mt-16"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
@@ -217,7 +143,7 @@ export default function ReviewsShowcaseSection() {
       >
         <div
           ref={trackRef}
-          className="ml-4 flex h-[252px] w-max items-start gap-2 sm:ml-7 sm:h-[400px] sm:gap-7 md:-ml-44 md:h-[420px]"
+          className={`${loops ? 'ml-4 w-max sm:ml-7 md:-ml-44' : 'mx-auto w-fit max-w-full justify-center px-4 sm:px-7'} flex h-[252px] items-start gap-2 sm:h-[400px] sm:gap-7 md:h-[420px]`}
           style={{
             transform: `translateX(${-step * slotWidth}px)`,
             transition,
@@ -229,7 +155,7 @@ export default function ReviewsShowcaseSection() {
 
             return (
               <article
-                key={`${review.title}-${index}`}
+                key={`${review.id}-${index}`}
                 aria-hidden={index >= total}
                 className={`flex h-[210px] w-[164px] shrink-0 flex-col rounded-[9px] px-3 py-3.5 sm:h-[342px] sm:w-[286px] sm:rounded-[14px] sm:px-7 sm:py-8 md:w-[320px] ${isLower ? 'translate-y-9 md:translate-y-[58px]' : 'translate-y-0'} ${tone.card}`}
                 style={{
@@ -239,22 +165,21 @@ export default function ReviewsShowcaseSection() {
                 <p className={`line-clamp-4 break-keep text-[13px] font-bold leading-[1.4] tracking-normal sm:text-h4 sm:leading-[1.55] ${tone.body}`}>
                   {review.title}
                 </p>
-                <div className={`mt-auto flex items-center justify-between gap-1.5 pt-3 text-[11px] font-medium tracking-normal sm:gap-4 sm:pt-10 sm:text-body ${tone.meta}`}>
-                  <span>{review.author}</span>
-                  <time dateTime={review.date.replaceAll('.', '-')}>{review.date}</time>
+                <div className={`mt-auto flex items-center justify-end pt-3 text-[11px] font-medium tracking-normal sm:pt-10 sm:text-body ${tone.meta}`}>
+                  <time dateTime={review.created_at}>{formatDate(review.created_at)}</time>
                 </div>
               </article>
             );
           })}
         </div>
-      </div>
+      </div> : <div className="mx-auto mt-10 max-w-7xl px-5 text-center text-sm font-semibold text-ink-muted sm:px-7 md:mt-16 xl:px-10">등록된 치료체험후기가 없습니다.</div>}
 
-      <div className="mx-auto mt-2.5 flex w-full max-w-7xl justify-center px-5 sm:px-7 md:mt-8 xl:px-10">
+      {reviews.length > 0 && <div className="mx-auto mt-2.5 flex w-full max-w-7xl justify-center px-5 sm:px-7 md:mt-8 xl:px-10">
         <div className="flex items-center">
           <span className="h-[5px] w-11 rounded-full bg-[#10346f] md:h-1.5 md:w-[62px]" />
           <span className="h-[5px] w-[76px] rounded-full bg-white/70 md:h-1.5 md:w-[110px]" />
         </div>
-      </div>
+      </div>}
     </section>
   );
 }

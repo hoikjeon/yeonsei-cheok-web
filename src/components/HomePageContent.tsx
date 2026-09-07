@@ -17,6 +17,7 @@ import {
 import HomeDoctorsRevealSection from '@/components/HomeDoctorsRevealSection';
 import HomeNoticeBar from '@/components/HomeNoticeBar';
 import type { HomeNoticeSettings } from '@/lib/homeNoticeSettings';
+import type { HomeReview } from '@/lib/adminReviews';
 import ReviewsShowcaseSection from '@/components/ReviewsShowcaseSection';
 import TrainingCenterSection from '@/components/TrainingCenterSection';
 import YoutubeSection from '@/components/YoutubeSection';
@@ -249,7 +250,7 @@ const quickAccessItems = [
   },
 ];
 
-export default function HomePageContent({ noticeSettings }: { noticeSettings: HomeNoticeSettings }) {
+export default function HomePageContent({ noticeSettings, latestReviews }: { noticeSettings: HomeNoticeSettings; latestReviews: HomeReview[] }) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [incomingSlideIndex, setIncomingSlideIndex] = useState<number | null>(null);
   const [isIncomingSlideReady, setIsIncomingSlideReady] = useState(false);
@@ -597,7 +598,7 @@ export default function HomePageContent({ noticeSettings }: { noticeSettings: Ho
       <YoutubeSection />
 
       {/* 💬 치료체험 후기 Section */}
-      <ReviewsShowcaseSection />
+      <ReviewsShowcaseSection reviews={latestReviews} />
     </div>
   );
 }

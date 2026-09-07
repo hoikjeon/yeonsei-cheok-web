@@ -4,11 +4,13 @@ const port = 4312;
 const origin = `http://127.0.0.1:${port}`;
 const image = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==', 'base64');
 let records = [];
+let reviewRecords = [];
 const files = new Map();
 let failUpload = false;
 let failSave = false;
 function reset() {
   records = Array.from({ length: 26 }, (_, i) => ({ id: `00000000-0000-4000-8000-${String(i + 1).padStart(12, '0')}`, type: i === 0 ? 'notice_pinned' : ['notice', 'media', 'training', 'academic', 'youtube'][i % 5], title: `기존 소식 ${String(i + 1).padStart(2, '0')}`, content: `기존 본문 ${i + 1}\n줄바꿈이 유지됩니다.`, image_urls: [], video_url: i % 5 === 4 ? 'https://youtu.be/abcdefghijk' : null, source_name: null, source_url: null, created_at: new Date(Date.UTC(2026, 8, 1, 0, i)).toISOString() }));
+  reviewRecords = Array.from({ length: 23 }, (_, i) => ({ id: `10000000-0000-4000-8000-${String(i + 1).padStart(12, '0')}`, category: ['목', '허리', '무릎', '어깨', '손발'][i % 5], title: `기존 치료후기 ${String(i + 1).padStart(2, '0')}`, content: `기존 치료후기 본문 ${i + 1}입니다.`, image_urls: [], created_at: new Date(Date.UTC(2026, 8, 1, 0, i)).toISOString() }));
   files.clear(); failUpload = false; failSave = false;
 }
 reset();
@@ -25,7 +27,7 @@ createServer(async (req, res) => {
   let body = {}; try { body = JSON.parse(buffer.toString()); } catch { /* Multipart upload. */ }
   if (url.pathname === '/health') return send({ ok: true });
   if (url.pathname === '/__test/reset') { reset(); return send({ ok: true }); }
-  if (url.pathname === '/__test/state') return send({ records, files: [...files.keys()] });
+  if (url.pathname === '/__test/state') return send({ records, reviews: reviewRecords, files: [...files.keys()] });
   if (url.pathname === '/__test/fail-upload') { failUpload = true; return send({ ok: true }); }
   if (url.pathname === '/__test/fail-save') { failSave = true; return send({ ok: true }); }
   if (url.pathname.startsWith('/storage/v1/object/upload/sign/')) {
@@ -62,6 +64,38 @@ createServer(async (req, res) => {
         const row = { ...body, created_at: new Date().toISOString() }; records.push(row); matching = [row];
       } else { for (const row of matching) Object.assign(row, body); }
     } else if (req.method === 'DELETE') records = records.filter((row) => !matches(row));
+    const order = url.searchParams.get('order') || '';
+    matching.sort((a, b) => {
+      for (const entry of order.split(',')) {
+        const [key, dir] = entry.split('.');
+        const delta = String(a[key]).localeCompare(String(b[key]));
+        if (delta) return dir === 'desc' ? -delta : delta;
+      }
+      return 0;
+    });
+    const count = matching.length;
+    const offset = Number(url.searchParams.get('offset') || 0);
+    const limit = Number(url.searchParams.get('limit') || 1000);
+    const result = matching.slice(offset, offset + limit).map(selected);
+    const single = (req.headers.accept || '').includes('vnd.pgrst.object');
+    return send(single ? result[0] || null : result, 200, { 'Content-Range': `${offset}-${offset + result.length - 1}/${count}` });
+  }
+  if (url.pathname === '/rest/v1/reviews') {
+    const select = url.searchParams.get('select') || '*';
+    const selected = (row) => select === '*' ? row : Object.fromEntries(select.split(',').filter((key) => key in row).map((key) => [key, row[key]]));
+    const matches = (row) => [...url.searchParams.entries()].every(([key, val]) => {
+      if (['select', 'order', 'limit', 'offset'].includes(key)) return true;
+      if (val.startsWith('eq.')) return String(row[key]) === val.slice(3);
+      return true;
+    });
+    let matching = reviewRecords.filter(matches);
+    if (req.method === 'POST' || req.method === 'PATCH') {
+      if (failSave) { failSave = false; return send({ code: 'XX000', message: 'Test save failure' }, 500); }
+      if (req.method === 'POST') {
+        if (reviewRecords.some((row) => row.id === body.id)) return send({ code: '23505', message: 'duplicate' }, 409);
+        const row = { ...body, created_at: new Date().toISOString() }; reviewRecords.push(row); matching = [row];
+      } else { for (const row of matching) Object.assign(row, body); }
+    } else if (req.method === 'DELETE') reviewRecords = reviewRecords.filter((row) => !matches(row));
     const order = url.searchParams.get('order') || '';
     matching.sort((a, b) => {
       for (const entry of order.split(',')) {

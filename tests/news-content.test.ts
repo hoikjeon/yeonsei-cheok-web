@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { NEWS_CONTENT_PREFIX, normalizeNewsDocument, newsPlainText, newsDocumentForEditor, documentImages, documentText, newsGalleryImages, serializeNewsDocument, parseNewsDocument, safeNewsLink, youtubeVideoId, type NewsNode } from '../src/lib/newsContent';
 import { safeNewsReturnTo, storedNewsTypes, validNewsId } from '../src/lib/adminNews';
+import { isReviewCategory, safeReviewReturnTo, validReviewId } from '../src/lib/adminReviews';
 import { MAX_IMAGE_SIZE, MAX_NEWS_IMAGE_SIZE, MAX_TRAINING_NEWS_IMAGE_SIZE, newsImageMaxSize, validateUploadFiles } from '../src/lib/imageUploadRules';
 
 test('news image limits keep reviews at 10MB, general news at 20MB and training at 30MB', () => {
@@ -88,6 +89,15 @@ test('board and return URL validation includes pinned notices without open redir
   assert.equal(safeNewsReturnTo('/admin/news?type=media&page=2&unexpected=yes'), '/admin/news?type=media&page=2');
   assert.ok(validNewsId('00000000-0000-4000-8000-000000000001'));
   assert.ok(!validNewsId('../bad'));
+});
+
+test('review categories, IDs and admin return URLs are validated', () => {
+  assert.ok(isReviewCategory('허리'));
+  assert.ok(!isReviewCategory('전체'));
+  assert.ok(validReviewId('10000000-0000-4000-8000-000000000001'));
+  assert.ok(!validReviewId('../bad'));
+  assert.equal(safeReviewReturnTo('/admin/reviews?category=허리&page=2&unexpected=yes'), '/admin/reviews?category=%ED%97%88%EB%A6%AC&page=2');
+  assert.equal(safeReviewReturnTo('https://bad.test/admin/reviews'), '/admin/reviews');
 });
 
 test('YouTube validation accepts supported formats and rejects spoofed hosts', () => {
