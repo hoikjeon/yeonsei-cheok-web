@@ -2,12 +2,84 @@
 
 import SubHero from '@/components/SubHero';
 import ConsultationDatePicker from '@/components/ConsultationDatePicker';
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 
 const DOCTORS_BY_SPECIALTY = {
   '척추외과(신경외과)': ['김동한', '이남'],
   '정형외과': ['최호']
+};
+
+const DOCTOR_TITLES: Record<string, string> = {
+  '김동한': '병원장',
+  '이남': '병원장',
+  '최호': '원장',
+};
+
+type ReservationPeriod = 'morning' | 'afternoon';
+
+const TIME_OPTIONS: Record<ReservationPeriod, { value: string; label: string }> = {
+  morning: {
+    value: '오전 (09:00 - 12:00)',
+    label: '오전 (09:00 - 12:00)',
+  },
+  afternoon: {
+    value: '오후 (14:00 - 17:30)',
+    label: '오후 (14:00 - 17:30)',
+  },
+};
+
+// 의료진 소개의 진료시간표와 동일한 기준을 사용합니다. (0: 일요일, 6: 토요일)
+const DOCTOR_WEEKDAY_AVAILABILITY: Record<
+  string,
+  Partial<Record<number, ReservationPeriod[]>>
+> = {
+  '김동한': {
+    1: ['morning', 'afternoon'],
+    2: ['afternoon'],
+    3: ['morning'],
+    4: ['afternoon'],
+    5: ['morning', 'afternoon'],
+  },
+  '이남': {
+    1: ['morning', 'afternoon'],
+    2: ['morning'],
+    3: ['afternoon'],
+    4: ['morning'],
+    5: ['morning', 'afternoon'],
+  },
+  '최호': {
+    1: ['morning', 'afternoon'],
+    2: ['morning', 'afternoon'],
+    3: ['morning', 'afternoon'],
+    4: ['morning', 'afternoon'],
+    5: ['morning', 'afternoon'],
+  },
+};
+
+const getDayOfWeek = (dateValue: string) => {
+  if (!dateValue) return null;
+
+  const [year, month, day] = dateValue.split('-').map(Number);
+  if (!year || !month || !day) return null;
+
+  return new Date(year, month - 1, day).getDay();
+};
+
+const getAvailableTimeOptions = (doctor: string, dateValue: string) => {
+  const dayOfWeek = getDayOfWeek(dateValue);
+
+  if (dayOfWeek === 6) {
+    return [{ value: '문의', label: '문의' }];
+  }
+
+  if (dayOfWeek === null || dayOfWeek === 0) {
+    return [];
+  }
+
+  return (DOCTOR_WEEKDAY_AVAILABILITY[doctor]?.[dayOfWeek] ?? []).map(
+    (period) => TIME_OPTIONS[period],
+  );
 };
 
 export default function ReservationPage() {
@@ -23,6 +95,11 @@ export default function ReservationPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isAgreed, setIsAgreed] = useState(false);
+  const selectedDayOfWeek = getDayOfWeek(formData.reservation_date);
+  const availableTimeOptions = useMemo(
+    () => getAvailableTimeOptions(formData.doctor, formData.reservation_date),
+    [formData.doctor, formData.reservation_date],
+  );
 
   // Update doctor when specialty changes
   useEffect(() => {
@@ -31,6 +108,23 @@ export default function ReservationPage() {
       setFormData(prev => ({ ...prev, doctor: doctors[0] }));
     }
   }, [formData.doctor, formData.specialty]);
+
+  // 의료진이나 날짜가 바뀐 때 선택된 시간을 해당 진료표에 맞춥니다.
+  useEffect(() => {
+    const isCurrentTimeAvailable = availableTimeOptions.some(
+      (option) => option.value === formData.reservation_time,
+    );
+    const nextReservationTime =
+      selectedDayOfWeek === 6
+        ? '문의'
+        : isCurrentTimeAvailable
+          ? formData.reservation_time
+          : '';
+
+    if (nextReservationTime !== formData.reservation_time) {
+      setFormData((prev) => ({ ...prev, reservation_time: nextReservationTime }));
+    }
+  }, [availableTimeOptions, formData.reservation_time, selectedDayOfWeek]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,7 +171,9 @@ export default function ReservationPage() {
         reservation_time: ''
       });
       setIsAgreed(false);
-      alert('예약 신청이 완료되었습니다. 확인 후 빠른 시일 내에 연락드리겠습니다.');
+      alert(
+        '예약 신청이 접수되었습니다. 담당자가 일정을 확인한 뒤 연락드리며, 안내를 받으셔야 예약이 최종 확정됩니다.',
+      );
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : '알 수 없는 오류';
       console.error('Error submitting reservation:', message);
@@ -109,6 +205,27 @@ export default function ReservationPage() {
               <h2 className="break-keep text-h3 tracking-tight text-ink">진료 예약 신청</h2>
               <p className="break-keep text-[15px] font-medium leading-[1.75] text-ink-muted sm:text-base">
                 정보를 정확히 기입해 주시면, 전문 상담원이 예약 확정을 위해 연락을 드립니다.
+              </p>
+            </div>
+
+            <div
+              role="note"
+              aria-label="예약 확정 안내"
+              className="mx-auto flex w-full max-w-2xl items-start gap-3 rounded-xl border border-primary/20 bg-primary-light/70 px-4 py-4 text-left sm:gap-4 sm:px-5 sm:py-5"
+            >
+              <span
+                aria-hidden="true"
+                className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-extrabold text-white sm:h-7 sm:w-7"
+              >
+                !
+              </span>
+              <p className="break-keep text-[14px] font-medium leading-[1.7] text-ink-sub sm:text-[15px]">
+                <strong className="block text-[15px] font-extrabold text-primary-dark sm:text-base">
+                  온라인 예약 신청은 즉시 확정되는 예약이 아닙니다.
+                </strong>
+                <span className="mt-1 block">
+                  담당자가 일정을 확인한 뒤 연락드리며, 안내를 받으셔야 예약이 최종 확정됩니다.
+                </span>
               </p>
             </div>
 
@@ -197,7 +314,7 @@ export default function ReservationPage() {
                     >
                       {DOCTORS_BY_SPECIALTY[formData.specialty as keyof typeof DOCTORS_BY_SPECIALTY].map((doc) => (
                         <option key={doc} value={doc}>
-                          {doc} {(['김동한', '이남', '김훈'].includes(doc)) ? '병원장님' : '원장님'}
+                          {doc} {DOCTOR_TITLES[doc]}
                         </option>
                       ))}
                     </select>
@@ -225,11 +342,25 @@ export default function ReservationPage() {
                       name="reservation_time"
                       value={formData.reservation_time}
                       onChange={handleInputChange}
+                      disabled={!formData.reservation_date || selectedDayOfWeek === 0}
                       className="w-full cursor-pointer appearance-none rounded-xl border border-slate-200 bg-white px-4 py-3.5 font-medium text-ink transition-all focus:border-primary focus:outline-none sm:px-5 sm:py-4"
                     >
-                      <option value="">원하시는 시간대를 선택해주세요 (선택)</option>
-                      <option value="오전 (09:00 - 12:00)">오전 (09:00 - 12:00)</option>
-                      <option value="오후 (14:00 - 17:30)">오후 (14:00 - 17:30)</option>
+                      {selectedDayOfWeek === 0 ? (
+                        <option value="">일요일은 휴진입니다</option>
+                      ) : !formData.reservation_date ? (
+                        <option value="">먼저 진료 희망일을 선택해주세요</option>
+                      ) : (
+                        <>
+                          {selectedDayOfWeek !== 6 ? (
+                            <option value="">원하시는 시간대를 선택해주세요 (선택)</option>
+                          ) : null}
+                          {availableTimeOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </>
+                      )}
                     </select>
                   </div>
                 </div>

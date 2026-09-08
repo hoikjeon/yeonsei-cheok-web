@@ -20,6 +20,7 @@ import type { HomeNoticeSettings } from '@/lib/homeNoticeSettings';
 import type { HomeReview } from '@/lib/adminReviews';
 import ReviewsShowcaseSection from '@/components/ReviewsShowcaseSection';
 import TrainingCenterSection from '@/components/TrainingCenterSection';
+import UbeTextbookFeatureSection from '@/components/UbeTextbookFeatureSection';
 import YoutubeSection from '@/components/YoutubeSection';
 
 const heroSlides = [
@@ -538,6 +539,8 @@ export default function HomePageContent({ noticeSettings, latestReviews }: { not
           </div>
         </div>
       </section>
+
+      <UbeTextbookFeatureSection />
 
       {/* 🌏 국제 척추내시경 트레이닝 센터 Section */}
       <TrainingCenterSection />

@@ -236,42 +236,7 @@ export default function EquipmentPage() {
 
         <section className="bg-slate-50 px-4 pb-16 sm:px-6 sm:pb-20 md:pb-28">
           <div className="relative mx-auto -mt-24 max-w-7xl sm:-mt-32 md:-mt-40">
-            <ScrollReveal variant="image">
-              <div className="hidden overflow-hidden rounded-[1.25rem] border border-slate-200 bg-white shadow-[0_26px_70px_-42px_rgba(10,20,40,0.45)] sm:block">
-                <div className="relative aspect-[2000/650]">
-                  <Image
-                    src="/generated/equipment/equipment-feature.webp"
-                    alt="연세척병원 3D 입체영상기와 장비 안내"
-                    fill
-                    sizes="(max-width: 1536px) calc(100vw - 48px), 1400px"
-                    quality={90}
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-
-              <article className="overflow-hidden rounded-[1.25rem] border border-white/15 bg-[#17377f] shadow-[0_26px_70px_-42px_rgba(10,20,40,0.5)] sm:hidden">
-                <div className="relative h-64 overflow-hidden bg-white">
-                  <Image
-                    src="/generated/equipment/equipment-feature.webp"
-                    alt="연세척병원 3D 입체영상기"
-                    fill
-                    sizes="calc(100vw - 32px)"
-                    quality={90}
-                    className="object-cover object-[22%_center]"
-                  />
-                </div>
-                <div className="px-5 py-6 text-white">
-                  <p className="text-h3 tracking-tight">3D 입체영상기</p>
-                  <p className="mt-3 break-keep text-body leading-[1.75] text-white/75">
-                    전신 체형을 스캔해 자세·체형 비율·밸런스를 측정하고,
-                    치료 전후의 변화를 분석하는 데 활용합니다.
-                  </p>
-                </div>
-              </article>
-            </ScrollReveal>
-
-            <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               {EQUIPMENT.map((item, index) => (
                 <EquipmentCard key={item.name} item={item} index={index} />
               ))}
