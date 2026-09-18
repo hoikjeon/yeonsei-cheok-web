@@ -118,9 +118,9 @@ export default function ReviewsShowcaseSection({ reviews }: { reviews: HomeRevie
               id="reviews-showcase-title"
               className="break-keep text-[24px] font-extrabold leading-[1.25] tracking-normal text-black md:text-h2"
             >
-              끄덕임으로 전해지는
+              진솔함으로 전해지는
               <br />
-              환자들의 치료후기
+              생생한 환자 후기
             </h2>
             <p className="break-keep text-body-lg text-ink">
               수술 후 통증에서 벗어난 환자분들이 직접 남겨주신 생생한 회복 이야기를 만나보세요.

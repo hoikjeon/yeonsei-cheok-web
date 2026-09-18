@@ -3,9 +3,16 @@ import { newsPlainText } from '@/lib/newsContent';
 
 export const SITE_NAME = '연세척병원';
 export const DEFAULT_SITE_TITLE = '연세척병원 | 부산 척추·관절 진료';
+// 네이버 서치어드바이저는 사이트 설명을 80자 이내로 권장합니다.
 export const DEFAULT_SITE_DESCRIPTION =
-  '부산 부산진구 부암역 인근 연세척병원입니다. 신경외과·정형외과 전문의가 목·허리·무릎·어깨 질환을 진료하며 예약, 진료시간과 오시는 길을 안내합니다.';
+  '부산 부산진구 부암역 인근 연세척병원. 신경외과·정형외과 전문의가 목·허리·무릎·어깨 척추관절 질환을 진료합니다.';
 export const DEFAULT_OG_IMAGE = '/generated/hero-hospital-exterior.png';
+
+// 네이버 서치어드바이저 사이트 소유확인 값입니다.
+// HTML <head>에 그대로 노출되는 공개 값이라 환경 변수가 없어도 항상 붙도록 기본값을 둡니다.
+export const NAVER_SITE_VERIFICATION =
+  process.env.NAVER_SITE_VERIFICATION ||
+  '28dc208007c1ab30f35610a342e36412a5c88d20';
 
 function normalizeSiteUrl(value: string) {
   const withProtocol = /^https?:\/\//i.test(value) ? value : `https://${value}`;

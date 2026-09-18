@@ -4,6 +4,7 @@ import {
   DEFAULT_OG_IMAGE,
   DEFAULT_SITE_DESCRIPTION,
   DEFAULT_SITE_TITLE,
+  NAVER_SITE_VERIFICATION,
   SITE_NAME,
   SITE_URL,
 } from "@/lib/seo";
@@ -59,13 +60,9 @@ export const metadata: Metadata = {
     ...(process.env.GOOGLE_SITE_VERIFICATION
       ? { google: process.env.GOOGLE_SITE_VERIFICATION }
       : {}),
-    ...(process.env.NAVER_SITE_VERIFICATION
-      ? {
-          other: {
-            "naver-site-verification": process.env.NAVER_SITE_VERIFICATION,
-          },
-        }
-      : {}),
+    other: {
+      "naver-site-verification": NAVER_SITE_VERIFICATION,
+    },
   },
   icons: {
     icon: "/favicon.ico",
