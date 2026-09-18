@@ -115,12 +115,12 @@ export default function KneeArthroscopyPage() {
               변화와 연관될 수 있습니다.
             </p>
             <p>
-              관절내시경은 작은 절개로 가느다란 카메라를 삽입해 관절 내부를 실시간으로
+              관절내시경은 작은 절개로 가느다란 스코프를 삽입해 관절 내부를 실시간으로
               확인하고, 진찰과 영상검사에서 얻은 정보를 함께 살피는 치료입니다.
             </p>
             <p>
               병변의 위치와 형태를 직접 확인하면서 증상과 관련된 부위에 계획된 치료를
-              진행하고, 주변 정상 조직은 가능한 한 보존합니다.
+              진행하고, 주변 정상 조직은 보존합니다.
             </p>
           </ScrollReveal>
         </section>
@@ -151,8 +151,8 @@ export default function KneeArthroscopyPage() {
                 <h2 className={sectionTitleClass}>무릎관절내시경이란?</h2>
                 <div className="mt-6 space-y-4 break-keep text-base font-medium leading-[1.8] text-ink-sub sm:mt-8 sm:space-y-5 md:text-lg md:leading-relaxed">
                   <p>
-                    작은 절개를 통해 가느다란 카메라와 수술 기구를 삽입하고, 관절 내부를
-                    실시간 화면으로 확인하는 수술입니다.
+                    작은 절개를 통해 가느다란 스코프와 수술 기구를 삽입하고, 관절 내부를
+                    실시간 화면으로 확인하고 시행하는 수술입니다.
                   </p>
                   <p>
                     영상검사와 진찰 결과를 바탕으로 반월상연골, 관절연골, 인대와 활막의
@@ -160,7 +160,7 @@ export default function KneeArthroscopyPage() {
                   </p>
                   <p>
                     확인된 병변 가운데 증상과 관련된 부위에 계획된 치료를 진행하고, 주변의
-                    정상 조직은 가능한 한 보존합니다.
+                    정상 조직은 보존합니다.
                   </p>
                 </div>
               </ScrollReveal>

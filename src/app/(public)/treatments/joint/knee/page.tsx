@@ -54,11 +54,11 @@ const symptomCards = [
 
 const causeItems = [
   '나이에 따른 관절 조직의 변화',
-  '체중으로 인한 반복 하중',
+  '관절 정렬과 주변 근육의 불균형',
   '반복 사용과 갑작스러운 운동량 증가',
   '과거의 무릎 손상이나 수술',
   '비틀림·충돌·잘못된 착지',
-  '관절 정렬과 주변 근육의 불균형',
+  '체중으로 인한 반복 하중',
 ];
 
 const arthroscopyFlow = [
@@ -70,13 +70,13 @@ const arthroscopyFlow = [
   },
   {
     title: '관절 내부를 직접 확인',
-    description: '작은 절개를 통해 카메라를 넣고 연골과 반월상연골, 인대 상태를 살펴봅니다.',
-    image: `${ASSET_ROOT}/knee-arthroscopy-process-camera-v3.webp`,
+    description: '작은 절개를 통해 스코프를 넣고 연골과 반월상연골, 인대 상태를 살펴봅니다.',
+    image: `${ASSET_ROOT}/knee-arthroscopy-process-camera-v4.webp`,
     alt: '작은 절개로 무릎 관절내시경을 삽입하는 모습',
   },
   {
     title: '필요한 병변을 선별 치료',
-    description: '정상 조직은 가능한 한 보존하면서 증상과 관련된 병변을 치료합니다.',
+    description: '정상 조직은 보존하면서 증상과 관련된 병변을 치료합니다.',
     image: `${ASSET_ROOT}/knee-arthroscopy-process-treatment-v3.webp`,
     alt: '무릎 관절내시경으로 필요한 병변을 치료하는 모습',
   },
@@ -90,9 +90,15 @@ const arthroscopyFlow = [
 
 const arthroscopyCandidates = [
   {
+    title: '연골 병변',
+    description: '주변 연골은 비교적 보존되어 있고 한정된 부위에 확인되는 연골 손상',
+    image: `${ASSET_ROOT}/knee-arthroscopy-target-cartilage.webp`,
+    alt: '연골 손상을 표현한 의료 일러스트',
+  },
+  {
     title: '반월상연골 파열',
     description: '비수술 치료에도 걸림·잠김과 통증이 이어지거나 움직임을 막는 파열',
-    image: `${ASSET_ROOT}/knee-arthroscopy-target-meniscus.webp`,
+    image: `${ASSET_ROOT}/knee-arthroscopy-target-meniscus-v2.webp`,
     alt: '반월상연골 파열을 표현한 의료 일러스트',
   },
   {
@@ -106,12 +112,6 @@ const arthroscopyCandidates = [
     description: '관절 안에서 움직이며 실제 잠김이나 반복적인 자극을 일으키는 유리체',
     image: `${ASSET_ROOT}/knee-arthroscopy-target-loose-body.webp`,
     alt: '무릎 관절 내 유리체를 표현한 의료 일러스트',
-  },
-  {
-    title: '국소 연골 병변',
-    description: '주변 연골은 비교적 보존되어 있고 한정된 부위에 확인되는 연골 손상',
-    image: `${ASSET_ROOT}/knee-arthroscopy-target-cartilage.webp`,
-    alt: '국소 연골 손상을 표현한 의료 일러스트',
   },
 ];
 
@@ -278,10 +278,6 @@ export default function KneeJointPage() {
               ))}
             </div>
           </div>
-
-          <p className="mt-8 rounded-2xl bg-amber-50 px-4 py-4 text-[13px] font-bold leading-[1.7] text-amber-950 ring-1 ring-amber-200/70 sm:mt-10 sm:px-6 sm:text-[15px]">
-            통증 없는 소리만으로 연골 손상을 진단할 수는 없습니다. 통증·붓기·잠김·불안정감이 함께 나타나면 진료가 필요합니다.
-          </p>
         </div>
       </section>
 
@@ -292,14 +288,14 @@ export default function KneeJointPage() {
           <ScrollReveal className="mx-auto max-w-4xl text-center">
             <h2 className="break-keep text-h2 tracking-tight text-ink">무릎 관절내시경 치료</h2>
             <p className="mx-auto mt-5 max-w-3xl text-body-lg text-ink-sub">
-              작은 절개를 통해 가느다란 카메라와 수술 기구를 넣고 관절 내부를 확인하면서 필요한 병변을 치료하는 수술입니다.
+              작은 절개를 통해 가느다란 스코프와 수술 기구를 넣고 관절 내부를 확인하면서 필요한 병변을 치료하는 수술입니다.
             </p>
           </ScrollReveal>
 
           <div className="mt-10 grid gap-5 lg:mt-16 lg:grid-cols-[1.2fr_0.8fr] lg:items-stretch">
             <ScrollReveal variant="image" className="relative min-h-[300px] overflow-hidden rounded-[1.25rem] bg-slate-100 sm:min-h-[420px] sm:rounded-[1.75rem]">
               <Image
-                src={`${ASSET_ROOT}/knee-arthroscopy-concept-v3.webp`}
+                src={`${ASSET_ROOT}/knee-arthroscopy-concept-v4.webp`}
                 alt="작은 절개를 통해 무릎 안을 확인하는 관절내시경 치료 모습"
                 fill
                 sizes="(min-width: 1024px) 58vw, 100vw"

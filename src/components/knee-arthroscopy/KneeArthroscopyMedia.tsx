@@ -11,8 +11,8 @@ const STILL_CHANGE_INTERVAL = 4600;
 
 const stills = [
   {
-    src: `${ASSET_ROOT}/scope-view-01.png`,
-    alt: '관절내시경으로 본 매끄러운 무릎 관절면',
+    src: `${ASSET_ROOT}/scope-view-01-v2.webp`,
+    alt: '관절내시경으로 본 연골 손상 부위 및 관절면',
     title: '관절면 관찰',
     description: '관절 표면과 관절 간격을 여러 각도에서 살펴봅니다.',
   },

@@ -201,7 +201,7 @@ export default function PrivacyPolicyPage() {
                 </thead>
                 <tbody>
                   <tr className="hover:bg-gray-50/50 transition-colors">
-                    <td className="border border-gray-200 p-3 text-center">마케팅위너</td>
+                    <td className="border border-gray-200 p-3 text-center">그날그때</td>
                     <td className="border border-gray-200 p-3 text-center text-gray-600">홈페이지 내 데이터베이스</td>
                     <td className="border border-gray-200 p-3 text-center text-gray-600">이름,등록번호, 비밀번호, 전화번호 아이디 등</td>
                     <td className="border border-gray-200 p-3 text-center">위탁계약 종료 시까지</td>
@@ -361,8 +361,8 @@ export default function PrivacyPolicyPage() {
                 <ul className="text-gray-600 space-y-1">
                   <li><strong>직책 :</strong> 총무팀</li>
                   <li><strong>연락처 :</strong> 010-8558-2126</li>
-                  <li><strong>이메일 :</strong> izzimrock@naver.com</li>
-                  <li><strong>팩스번호 :</strong> 070-4009-1494</li>
+                  <li><strong>이메일 :</strong> bsysc2020@naver.com</li>
+                  <li><strong>팩스번호 :</strong> 051-935-8275</li>
                 </ul>
                 <p className="text-sm text-gray-500 mt-2">※ 개인정보 보호 담당부서로 연결됩니다.</p>
               </div>
@@ -371,8 +371,8 @@ export default function PrivacyPolicyPage() {
                 <ul className="text-gray-600 space-y-1">
                   <li><strong>부서명 :</strong> 총무팀</li>
                   <li><strong>연락처 :</strong> 010-8558-2126</li>
-                  <li><strong>이메일 :</strong> izzimrock@naver.com</li>
-                  <li><strong>팩스번호 :</strong> 070-4009-1494</li>
+                  <li><strong>이메일 :</strong> bsysc2020@naver.com</li>
+                  <li><strong>팩스번호 :</strong> 051-935-8275</li>
                 </ul>
               </div>
             </div>
@@ -390,10 +390,10 @@ export default function PrivacyPolicyPage() {
               <h3 className="font-bold text-gray-900 mb-2">개인정보 열람청구 접수ㆍ처리부서</h3>
               <ul className="text-gray-600 space-y-1">
                 <li><strong>부서명 :</strong> 총무팀</li>
-                <li><strong>담당자 :</strong> 도형록 주임</li>
+                <li><strong>담당자 :</strong> 도형록 행정팀장</li>
                 <li><strong>연락처 :</strong> 010-8558-2126</li>
-                <li><strong>이메일 :</strong> izzimrock@naver.com</li>
-                <li><strong>팩스번호 :</strong> 070-4009-1494</li>
+                <li><strong>이메일 :</strong> bsysc2020@naver.com</li>
+                <li><strong>팩스번호 :</strong> 051-935-8275</li>
               </ul>
             </div>
             <p className="mb-4">

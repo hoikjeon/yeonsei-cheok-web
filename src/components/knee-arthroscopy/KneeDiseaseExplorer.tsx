@@ -23,17 +23,34 @@ interface Disease {
 
 const diseases: Disease[] = [
   {
+    id: 'cartilage',
+    title: '관절연골 손상',
+    summary: '손상 깊이와 주변 관절면의 상태를 세밀하게 살펴봅니다.',
+    description:
+      '관절 표면을 덮는 연골은 외상이나 반복적인 하중으로 손상될 수 있습니다. 손상의 크기와 깊이, 주변 연골의 안정성을 함께 확인합니다.',
+    image: `${ASSET_ROOT}/disease-cartilage.jpg`,
+    imageAlt: '관절내시경으로 본 무릎 관절연골 손상',
+    symptoms: [
+      '활동할 때 심해지는 무릎 통증',
+      '반복되는 관절 부종',
+      '움직일 때 걸리거나 마찰되는 느낌',
+    ],
+    detailTitle: '평가할 내용',
+    details: ['연골 결손의 크기와 깊이', '주변 연골의 안정성', '연골 아래 뼈와 관절 전체의 상태'],
+  },
+  {
     id: 'chondromalacia',
-    title: '슬개골 연골연화증',
+    title: '슬개골 정렬이상 및 연골 연화증',
     summary: '무릎 앞쪽 연골과 슬개골 움직임을 함께 살펴봅니다.',
     description:
       '슬개골 아래의 관절연골이 부드러워지거나 손상된 상태로, 슬개골의 움직임과 다리 정렬을 함께 평가해 통증의 원인을 살펴봅니다.',
-    image: `${ASSET_ROOT}/disease-chondromalacia.jpg`,
-    imageAlt: '관절내시경으로 본 슬개골 연골연화증 관련 관절면',
+    image: `${ASSET_ROOT}/disease-chondromalacia-v2.webp`,
+    imageAlt: '슬개골이 화면 오른쪽으로 치우쳐 관절면에 닿는 정렬 이상과 연골 자극을 표현한 의료 일러스트',
     symptoms: [
       '계단을 오르내리거나 쪼그려 앉을 때 앞무릎 통증',
       '무릎을 굽힌 채 오래 앉은 뒤 느껴지는 불편감',
       '무릎을 움직일 때 나타나는 마찰감이나 걸리는 느낌',
+      '앉은 자세에서 일어설 때 느껴지는 통증',
     ],
     detailTitle: '평가할 내용',
     details: ['연골 표면의 상태와 손상 범위', '슬개골이 움직이는 경로', '주변 활막과 관절면의 변화'],
@@ -52,7 +69,7 @@ const diseases: Disease[] = [
       '활동 뒤 반복되는 붓기와 운동 범위 감소',
     ],
     detailTitle: '평가할 내용',
-    details: ['파열의 위치와 모양', '조직의 안정성과 남아 있는 범위', '관절연골과 인대의 동반 손상'],
+    details: ['파열의 위치와 모양', '조직의 안정성과 남아 있는 범위'],
   },
   {
     id: 'cruciate-ligament',
@@ -69,22 +86,6 @@ const diseases: Disease[] = [
     ],
     detailTitle: '평가할 내용',
     details: ['인대 섬유의 연속성과 긴장도', '손상 위치와 범위', '반월상연골과 연골의 동반 손상'],
-  },
-  {
-    id: 'cartilage',
-    title: '관절연골 손상',
-    summary: '손상 깊이와 주변 관절면의 상태를 세밀하게 살펴봅니다.',
-    description:
-      '관절 표면을 덮는 연골은 외상이나 반복적인 하중으로 손상될 수 있습니다. 손상의 크기와 깊이, 주변 연골의 안정성을 함께 확인합니다.',
-    image: `${ASSET_ROOT}/disease-cartilage.jpg`,
-    imageAlt: '관절내시경으로 본 무릎 관절연골 손상',
-    symptoms: [
-      '활동할 때 심해지는 무릎 통증',
-      '반복되는 관절 부종',
-      '움직일 때 걸리거나 마찰되는 느낌',
-    ],
-    detailTitle: '평가할 내용',
-    details: ['연골 결손의 크기와 깊이', '주변 연골의 안정성', '연골 아래 뼈와 관절 전체의 상태'],
   },
   {
     id: 'plica',

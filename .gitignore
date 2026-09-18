@@ -67,3 +67,15 @@ public/doctors dong.jpg
 
 # 협진 사진 원본 (8MB). 최적화본은 public/images/daily-care/ 에 있습니다.
 public/의료진협진.jpg
+
+# 환자정보(이름·차트번호·촬영일)가 화면에 찍힌 관절내시경 촬영 원본.
+# 절대 커밋/배포하지 마세요. 페이지에 쓸 때는 정보 영역을 제거·마스킹한
+# 최적화본을 public/images/treatments/joint/knee-arthroscopy/ 에 만들어 사용합니다.
+public/민기순 AS.jpg
+public/오염주 AS2.jpg
+public/오염주 AS 48.jpg
+public/오염주 AS 49.jpg
+public/김효진2.jpg
+
+# 코드에서 참조하지 않는 관절내시경 원본
+public/손상범위확인.jpg

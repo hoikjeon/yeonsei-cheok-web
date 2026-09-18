@@ -93,13 +93,13 @@ const diseases: KneeDisease[] = [
 
 const diseaseMarkers = [
   {
-    diseaseId: 'osteoarthritis',
+    diseaseId: 'chondromalacia',
     point: { left: '38%', top: '54%' },
     line: { left: '26%', top: '54%', width: '12%' },
     button: { left: '14%', top: '54%' },
   },
   {
-    diseaseId: 'chondromalacia',
+    diseaseId: 'osteoarthritis',
     point: { left: '38%', top: '62%' },
     line: { left: '26%', top: '62%', width: '12%' },
     button: { left: '15%', top: '62%' },
@@ -119,13 +119,13 @@ const diseaseMarkers = [
 
 const mobileDiseaseMarkers = [
   {
-    id: 'osteoarthritis',
-    title: '퇴행성관절염',
+    id: 'chondromalacia',
+    title: '연골연화증',
     point: { left: '34%', top: '54%' },
   },
   {
-    id: 'chondromalacia',
-    title: '연골연화증',
+    id: 'osteoarthritis',
+    title: '퇴행성관절염',
     point: { left: '34%', top: '62%' },
   },
   {

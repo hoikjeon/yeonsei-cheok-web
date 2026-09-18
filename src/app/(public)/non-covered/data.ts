@@ -1062,47 +1062,6 @@ export const nonCoveredData: NonCoveredSection[] = [
               "updateDate": ""
             }
           ]
-        },
-        {
-          "categoryName": "신의료기술",
-          "items": [
-            {
-              "name": "무릎 골관절염 PRP",
-              "code": "",
-              "division": "",
-              "cost": "250,000",
-              "minCost": "",
-              "maxCost": "",
-              "materialIncluded": "O",
-              "drugIncluded": "",
-              "note": "",
-              "updateDate": ""
-            },
-            {
-              "name": "회전근개봉합술 PRP",
-              "code": "",
-              "division": "",
-              "cost": "450,000",
-              "minCost": "",
-              "maxCost": "",
-              "materialIncluded": "O",
-              "drugIncluded": "",
-              "note": "",
-              "updateDate": ""
-            },
-            {
-              "name": "(BMAC)무릎 골관절염 골수 흡인 농축물 관절강내 주사",
-              "code": "",
-              "division": "",
-              "cost": "2,500,000",
-              "minCost": "",
-              "maxCost": "",
-              "materialIncluded": "O",
-              "drugIncluded": "",
-              "note": "",
-              "updateDate": "2024.01.09"
-            }
-          ]
         }
       ]
     },
@@ -1998,8 +1957,8 @@ export const nonCoveredData: NonCoveredSection[] = [
               "updateDate": "2024.04.01"
             },
             {
-              "name": "리포라제주1500iu 1.0ml",
-              "code": "669904600",
+              "name": "히알오스 주 1500IU",
+              "code": "647205971",
               "division": "",
               "cost": "100,000",
               "minCost": "",
@@ -2007,7 +1966,7 @@ export const nonCoveredData: NonCoveredSection[] = [
               "materialIncluded": "",
               "drugIncluded": "",
               "note": "",
-              "updateDate": ""
+              "updateDate": "2026.09.08"
             },
             {
               "name": "슈가 덱스 주",

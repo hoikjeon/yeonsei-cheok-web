@@ -83,7 +83,6 @@ const MENU_DATA: MenuData[] = [
     items: [
       { name: '무릎 관절', desc: '퇴행성 관절염·연골 손상 등 무릎 통증 진단', href: '/treatments/joint/knee' },
       { name: '어깨 관절', desc: '오십견·회전근개 등 어깨 통증 맞춤 진료', href: '/treatments/joint/shoulder' },
-      { name: '손목·발목 관절', desc: '손목·손가락과 발목·족저근막 통증 통합 진단', href: '/treatments/joint/wrist-ankle' },
       { name: '무릎관절내시경', desc: '작은 절개로 무릎 속을 직접 보는 주력 치료', href: '/treatments/joint/knee-arthroscopy' },
     ]
   },

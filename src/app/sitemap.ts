@@ -27,7 +27,6 @@ const staticPages: Array<{
   { path: '/treatments/joint/knee', changeFrequency: 'monthly', priority: 0.9 },
   { path: '/treatments/joint/knee-arthroscopy', changeFrequency: 'monthly', priority: 0.9 },
   { path: '/treatments/joint/shoulder', changeFrequency: 'monthly', priority: 0.8 },
-  { path: '/treatments/joint/wrist-ankle', changeFrequency: 'monthly', priority: 0.8 },
   { path: '/news/notice', changeFrequency: 'weekly', priority: 0.7 },
   { path: '/news/media', changeFrequency: 'weekly', priority: 0.7 },
   { path: '/news/academic', changeFrequency: 'weekly', priority: 0.7 },

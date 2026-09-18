@@ -22,11 +22,11 @@ const treatmentSteps: TreatmentStep[] = [
   {
     title: '관절 내부 확인',
     description:
-      '관절경 카메라를 통해 관절연골과 반월상연골, 활막 등 무릎 내부 구조를 차례로 살펴봅니다.',
+      '관절경 스코프를 통해 관절연골과 반월상연골, 활막 등 무릎 내부 구조를 차례로 살펴봅니다.',
     points: ['연골 손상 위치 확인', '관절 전체의 동반 병변 점검'],
     images: [
       {
-        src: `${ASSET_ROOT}/cartilage-step-01-a.jpg`,
+        src: `${ASSET_ROOT}/cartilage-step-01-a-v2.webp`,
         alt: '관절경으로 무릎 관절 내부를 확인하는 화면',
       },
     ],
@@ -62,7 +62,7 @@ const treatmentSteps: TreatmentStep[] = [
   {
     title: '골수 자극술',
     description:
-      '선별된 국소 연골 결손에서는 연골 아래 뼈에 작은 통로를 만들어 골수 성분을 통한 회복 반응을 유도할 수 있습니다.',
+      '줄기세포가 생성되는 골수와 연결 통로를 만들어, 흘러나오는 줄기세포를 유도해 연골 재생을 돕습니다.',
     points: ['병변의 크기와 위치에 맞춘 접근', '회복 반응이 형성될 공간 준비'],
     images: [
       {
@@ -76,18 +76,30 @@ const treatmentSteps: TreatmentStep[] = [
     ],
   },
   {
-    title: '치료 부위 마무리 확인',
+    title: '치료부위 마무리 확인',
     description:
       '치료 부위와 주변 관절면을 다시 살펴 안정성을 확인하고, 관절 내부를 정돈한 뒤 수술을 마무리합니다.',
     points: ['치료 부위의 최종 상태 확인', '주변 관절면과 관절 내부 점검'],
     images: [
       {
-        src: `${ASSET_ROOT}/cartilage-step-05-a.jpg`,
-        alt: '관절경으로 연골 치료 부위를 마무리 점검하는 화면',
+        src: `${ASSET_ROOT}/cartilage-step-05-a-v2.webp`,
+        alt: '관절경으로 치료부위 마무리 상태를 점검하는 화면',
       },
       {
-        src: `${ASSET_ROOT}/cartilage-step-05-b.jpg`,
+        src: `${ASSET_ROOT}/cartilage-step-05-b-v2.webp`,
         alt: '관절경으로 치료 후 관절면을 확인하는 화면',
+      },
+    ],
+  },
+  {
+    title: '2개월 후 관절 모습',
+    description:
+      '치료 약 2개월 후 관절내시경으로 다시 확인한 관절 내부 모습입니다. 치료 부위의 관절면과 주변 조직의 상태를 함께 살펴봅니다.',
+    points: ['치료 부위 관절면의 상태', '주변 조직과 관절 내부 점검'],
+    images: [
+      {
+        src: `${ASSET_ROOT}/cartilage-step-06-a.webp`,
+        alt: '치료 2개월 후 관절내시경으로 확인한 무릎 관절면',
       },
     ],
   },
