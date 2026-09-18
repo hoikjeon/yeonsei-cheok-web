@@ -146,7 +146,7 @@ export default function TrainingCenterSection() {
   }, [animate]);
 
   return (
-    <section className="relative overflow-hidden bg-white py-16 md:py-32">
+    <section className="relative overflow-hidden bg-white py-16 md:py-32 lg:pb-16">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-7 xl:px-10">

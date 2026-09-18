@@ -483,7 +483,7 @@ const Header = () => {
 
             const label = (
               <span
-                className={`relative z-10 block whitespace-nowrap text-[14px] font-bold transition-[letter-spacing] duration-500 ease-in-out motion-reduce:transition-none xl:text-[15px] 2xl:text-[16px] ${
+                className={`relative z-10 block whitespace-nowrap text-[16px] font-bold transition-[letter-spacing] duration-500 ease-in-out motion-reduce:transition-none xl:text-[17px] 2xl:text-[18px] ${
                   isActive
                     ? 'tracking-[-0.012em]'
                     : 'tracking-tight group-hover:tracking-[-0.012em] group-focus-visible:tracking-[-0.012em]'

@@ -546,7 +546,7 @@ export default function HomePageContent({ noticeSettings, latestReviews }: { not
       <TrainingCenterSection />
 
       {/* 🧬 Specialty System Section */}
-      <section className="relative overflow-hidden bg-[#f4f9ff] py-10 text-ink md:py-28">
+      <section className="relative overflow-hidden bg-[#f4f9ff] py-10 text-ink md:py-28 lg:py-16">
         <div className="absolute inset-0 bg-[linear-gradient(180deg,#ffffff_0%,#eef7ff_48%,#ffffff_100%)]" />
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white to-transparent" />

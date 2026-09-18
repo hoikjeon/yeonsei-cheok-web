@@ -241,7 +241,7 @@ const UbeTextbookFeatureSection = () => {
             <span className="h-px flex-1 bg-gradient-to-l from-transparent via-[#b98a3f]/45 to-[#b98a3f]" />
           </div>
 
-          <div className="grid gap-8 py-8 sm:py-9 lg:grid-cols-[minmax(280px,0.78fr)_minmax(0,1.22fr)] lg:items-start lg:gap-16 lg:py-10">
+          <div className="grid gap-8 py-8 max-md:text-center sm:py-9 lg:grid-cols-[minmax(280px,0.78fr)_minmax(0,1.22fr)] lg:items-start lg:gap-16 lg:py-10">
             <div>
               <div>
                 <h3 className="break-keep text-[clamp(1.65rem,3vw,2.6rem)] font-extrabold leading-[1.28] tracking-[-0.045em] text-white">
