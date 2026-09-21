@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
+import JsonLd from "@/components/JsonLd";
+import { buildHospitalStructuredData } from "@/lib/structuredData";
 import {
   DEFAULT_OG_IMAGE,
   DEFAULT_SITE_DESCRIPTION,
@@ -84,6 +86,8 @@ export default function RootLayout({
   return (
     <html lang="ko" className={montserrat.variable}>
       <body className="min-h-screen flex flex-col antialiased">
+        {/* 어느 페이지로 크롤러가 들어와도 병원 정보를 확인할 수 있게 전 페이지에 둡니다. */}
+        <JsonLd data={buildHospitalStructuredData()} />
         {children}
       </body>
     </html>
