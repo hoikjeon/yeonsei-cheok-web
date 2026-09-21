@@ -27,7 +27,7 @@ type MenuItem = {
 type MenuData = {
   id: string;
   name: string;
-  /** 대메뉴 자체의 소개 페이지가 있을 때만 지정합니다. */
+  /** 대메뉴 클릭 시 이동할 대표 페이지입니다. */
   href?: string;
   subTitle: string;
   items: MenuItem[];
@@ -66,7 +66,8 @@ const MENU_DATA: MenuData[] = [
   {
     id: 'spine',
     name: '척추센터',
-    href: '/treatments/spine',
+    href: '/treatments/spine/neck-disc',
+    navigateOnClick: true,
     subTitle: '통증의 근본을 찾는 정교한 치료',
     items: [
       { name: '목디스크', desc: '목·어깨 통증과 팔 저림의 원인을 정밀하게 확인합니다', href: '/treatments/spine/neck-disc' },
@@ -79,6 +80,8 @@ const MENU_DATA: MenuData[] = [
   {
     id: 'joint',
     name: '관절센터',
+    href: '/treatments/joint/knee',
+    navigateOnClick: true,
     subTitle: '자유로운 움직임을 위한 정교한 치료',
     items: [
       { name: '무릎 관절', desc: '퇴행성 관절염·연골 손상 등 무릎 통증 진단', href: '/treatments/joint/knee' },
