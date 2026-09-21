@@ -11,6 +11,21 @@ type LinkSection = {
 
 const SECTIONS: LinkSection[] = [
   {
+    heading: '대표 수술',
+    links: [
+      {
+        title: '양방향 척추내시경(UBE)',
+        path: '/treatments/spine/ube',
+        note: '부산 척추 수술. 1cm 이하 절개 두 곳으로 내시경과 수술 기구를 각각 삽입해, 부분마취하에 신경을 누르는 협착 부위를 넓히거나 튀어나온 디스크를 선택적으로 제거합니다. UBE, 양방향 척추 내시경, Unilateral Biportal Endoscopy로도 불립니다.',
+      },
+      {
+        title: '무릎관절내시경',
+        path: '/treatments/joint/knee-arthroscopy',
+        note: '부산 무릎 관절 수술. 작은 통로로 관절경을 넣어 반월상연골·관절연골·인대·활막 상태를 확대 화면으로 확인하고 병변에 맞춰 치료합니다. 무릎 관절경, 슬관절 관절내시경, Knee Arthroscopy로도 불립니다.',
+      },
+    ],
+  },
+  {
     heading: '병원 소개',
     links: [
       { title: '병원 소개', path: '/about', note: '진료 철학과 병원 개요' },
@@ -67,14 +82,17 @@ function renderSection(section: LinkSection) {
 
 function buildLlmsTxt() {
   const header = [
-    `# ${SITE_NAME} (Yonsei Cheok Hospital)`,
+    `# ${SITE_NAME} (Yonsei Cheok Hospital) - 부산 척추·관절 병원`,
     '',
     `> ${DEFAULT_SITE_DESCRIPTION}`,
     '',
     '## 기본 정보',
     '',
     `- 정식 명칭: ${SITE_NAME} (Yonsei Cheok Hospital)`,
+    '- 분류: 부산 척추병원 / 부산 관절병원',
     '- 진료 분야: 척추·관절 질환 (신경외과, 정형외과, 마취통증의학과, 영상의학과, 재활)',
+    '- 대표 수술: 양방향 척추내시경(UBE), 무릎관절내시경',
+    '- 진료권: 부산광역시 전역 (부산진구, 사상구, 북구, 동래구, 연제구, 서구, 남구 등)',
     '- 주소: 부산광역시 부산진구 가야대로 715 위너스빌딩 1~4층 (당감동 974)',
     '- 대표전화: 051-935-1004 / FAX: 051-935-1008',
     '- 진료시간: 평일 09:00-17:30, 토요일 09:00-13:00 (점심시간 12:30-13:30)',

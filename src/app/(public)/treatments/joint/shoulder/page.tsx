@@ -8,7 +8,7 @@ import ShoulderFaqAccordion from '@/components/ShoulderFaqAccordion';
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = createPageMetadata({
-  title: '어깨 관절 | 연세척병원 관절센터',
+  title: '어깨 관절 | 부산 관절 치료',
   description:
     '어깨 통증, 야간 통증, 운동 범위 감소의 원인을 살피고 회전근개 파열·오십견·석회성건염과 관절내시경 회전근개 봉합술을 안내합니다.',
   path: '/treatments/joint/shoulder',

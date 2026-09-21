@@ -11,11 +11,13 @@ import KneeArthroscopyHero from '@/components/knee-arthroscopy/KneeArthroscopyHe
 import KneeDoctorFeature from '@/components/knee-arthroscopy/KneeDoctorFeature';
 import KneeParallaxBackground from '@/components/knee-arthroscopy/KneeParallaxBackground';
 import { createPageMetadata } from '@/lib/seo';
+import JsonLd from '@/components/JsonLd';
+import { buildProcedurePageStructuredData } from '@/lib/structuredData';
 
 export const metadata: Metadata = createPageMetadata({
-  title: '무릎관절내시경 | 연세척병원 관절센터',
+  title: '무릎관절내시경 | 부산 관절 치료',
   description:
-    '무릎관절내시경의 원리와 주요 적용 질환, 실제 관절경 화면, 연골 치료 과정과 진료 흐름을 안내합니다.',
+    '부산 연세척병원 관절센터의 무릎관절내시경 안내. 반월상연골·관절연골 등 주요 적용 질환과 실제 관절경 화면, 연골 치료 과정과 진료 흐름을 안내합니다.',
   path: '/treatments/joint/knee-arthroscopy',
   image: '/images/treatments/joint/knee-arthroscopy/knee-arthroscopy-consultation.jpg',
 });
@@ -74,11 +76,46 @@ const treatmentJourney = [
   },
 ];
 
+// 아래 값은 모두 이 페이지 본문에 이미 적혀 있는 내용입니다.
+// 본문에 없는 수치나 효과를 여기에 추가하지 마십시오.
+const structuredData = buildProcedurePageStructuredData({
+  page: {
+    name: '무릎관절내시경',
+    description:
+      '부산 연세척병원 관절센터의 무릎관절내시경 안내. 반월상연골·관절연골 등 주요 적용 질환과 실제 관절경 화면, 연골 치료 과정과 진료 흐름을 안내합니다.',
+    path: '/treatments/joint/knee-arthroscopy',
+    image: '/images/treatments/joint/knee-arthroscopy/knee-arthroscopy-consultation.jpg',
+  },
+  procedure: {
+    name: '무릎관절내시경',
+    alternateName: [
+      '무릎 관절내시경',
+      '무릎 관절경',
+      '슬관절 관절내시경',
+      'Knee Arthroscopy',
+    ],
+    bodyLocation: '무릎 관절',
+    specialty: 'https://schema.org/Musculoskeletal',
+    howPerformed:
+      '가느다란 관절경과 미세 수술 기구가 들어갈 수 있는 작은 통로로 관절 안쪽에 접근합니다. 반월상연골과 관절연골, 인대와 활막의 상태를 확대된 화면으로 실시간 확인하고, 진찰과 영상검사에서 얻은 정보를 함께 살펴 병변의 위치와 범위에 맞춰 계획된 치료를 진행합니다.',
+    followup:
+      '수술 내용과 무릎 상태에 맞춰 보행, 관절 운동 범위와 근력 회복 과정을 단계적으로 관리합니다.',
+    indications: candidates,
+  },
+  breadcrumb: [
+    { name: '홈', path: '/' },
+    { name: '진료과목', path: '/treatments' },
+    { name: '무릎 관절', path: '/treatments/joint/knee' },
+    { name: '무릎관절내시경', path: '/treatments/joint/knee-arthroscopy' },
+  ],
+});
+
 const sectionTitleClass = 'break-keep text-h2 tracking-tight text-ink';
 
 export default function KneeArthroscopyPage() {
   return (
     <div className="flex flex-col overflow-x-clip bg-white">
+      <JsonLd data={structuredData} />
       <KneeArthroscopyHero />
 
       <main className="w-full">

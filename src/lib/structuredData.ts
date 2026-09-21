@@ -31,16 +31,79 @@ const MEDICAL_SPECIALTIES = [
   'https://schema.org/Physiotherapy',
 ];
 
-const PROCEDURES: Array<{ name: string; path: string }> = [
-  { name: '양방향 척추내시경(UBE)', path: '/treatments/spine/ube' },
-  { name: '허리디스크 치료', path: '/treatments/spine/disc' },
-  { name: '목디스크 치료', path: '/treatments/spine/neck-disc' },
-  { name: '척추관협착증 치료', path: '/treatments/spine/stenosis' },
+// 대표 시술 두 가지(양방향 척추내시경 · 무릎관절내시경)는 부르는 이름이 여러 가지라
+// alternateName으로 표기 차이를 흡수해야 같은 시술로 인식됩니다.
+const PROCEDURES: Array<{
+  name: string;
+  path: string;
+  alternateName?: string[];
+}> = [
+  {
+    name: '양방향 척추내시경(UBE)',
+    path: '/treatments/spine/ube',
+    alternateName: [
+      'UBE',
+      '양방향 척추 내시경',
+      '양방향 내시경 척추수술',
+      '척추 내시경 수술',
+      'Unilateral Biportal Endoscopy',
+    ],
+  },
+  { name: '허리디스크 치료', path: '/treatments/spine/disc', alternateName: ['요추 추간판 탈출증'] },
+  { name: '목디스크 치료', path: '/treatments/spine/neck-disc', alternateName: ['경추 추간판 탈출증'] },
+  { name: '척추관협착증 치료', path: '/treatments/spine/stenosis', alternateName: ['척추관 협착증'] },
   { name: '척추 비수술 치료', path: '/treatments/spine/non-surgical' },
   { name: '도수·재활 치료', path: '/treatments/spine/rehab' },
   { name: '무릎 관절 치료', path: '/treatments/joint/knee' },
-  { name: '무릎 관절내시경', path: '/treatments/joint/knee-arthroscopy' },
-  { name: '어깨 관절 치료', path: '/treatments/joint/shoulder' },
+  {
+    name: '무릎관절내시경',
+    path: '/treatments/joint/knee-arthroscopy',
+    alternateName: [
+      '무릎 관절내시경',
+      '무릎 관절경',
+      '슬관절 관절내시경',
+      'Knee Arthroscopy',
+    ],
+  },
+  { name: '어깨 관절 치료', path: '/treatments/joint/shoulder', alternateName: ['회전근개 파열', '오십견'] },
+];
+
+// 진료권. "부산 척추", "부산 관절" 같은 지역 질의에서 이 병원이 후보에 들도록 명시합니다.
+const AREA_SERVED = [
+  '부산광역시',
+  '부산진구',
+  '사상구',
+  '북구',
+  '동래구',
+  '연제구',
+  '서구',
+  '남구',
+].map((name) => ({ '@type': 'AdministrativeArea', name }));
+
+// 병원을 설명하는 주제어. 검색어 표기 그대로도 포함합니다.
+const KNOWS_ABOUT = [
+  '부산 척추',
+  '부산 관절',
+  '부산 척추병원',
+  '부산 관절병원',
+  '양방향 척추내시경(UBE)',
+  '무릎관절내시경',
+  '허리디스크',
+  '목디스크',
+  '척추관협착증',
+  '척추 비수술 치료',
+  '반월상연골 손상',
+  '무릎 연골 치료',
+  '회전근개 파열',
+  '도수·재활 치료',
+];
+
+// 의료진 소개에 표기된 센터 구성입니다.
+const DEPARTMENTS = [
+  { name: '척추내시경센터', specialty: 'https://schema.org/Neurologic' },
+  { name: '관절센터', specialty: 'https://schema.org/Musculoskeletal' },
+  { name: '척추·관절 통증센터', specialty: 'https://schema.org/Anesthesia' },
+  { name: '영상의학과', specialty: 'https://schema.org/Radiography' },
 ];
 
 // src/app/(public)/doctors/page.tsx 의 doctorList 와 같은 순서·같은 id 입니다.
@@ -109,9 +172,18 @@ export function buildHospitalStructuredData() {
         hasMap: 'https://map.naver.com/p/entry/place/35643868',
         openingHoursSpecification: OPENING_HOURS,
         medicalSpecialty: MEDICAL_SPECIALTIES,
+        areaServed: AREA_SERVED,
+        knowsAbout: KNOWS_ABOUT,
+        department: DEPARTMENTS.map((department) => ({
+          '@type': 'MedicalClinic',
+          name: department.name,
+          medicalSpecialty: department.specialty,
+          parentOrganization: { '@id': HOSPITAL_ID },
+        })),
         availableService: PROCEDURES.map((procedure) => ({
           '@type': 'MedicalProcedure',
           name: procedure.name,
+          ...(procedure.alternateName ? { alternateName: procedure.alternateName } : {}),
           url: absoluteUrl(procedure.path),
         })),
         employee: PHYSICIANS.map((physician) => ({
@@ -142,6 +214,88 @@ export function buildHospitalStructuredData() {
         description: DEFAULT_SITE_DESCRIPTION,
         inLanguage: 'ko-KR',
         publisher: { '@id': HOSPITAL_ID },
+      },
+    ],
+  };
+}
+
+type ProcedurePageOptions = {
+  /** 페이지 제목과 설명. metadata와 같은 내용을 씁니다. */
+  page: { name: string; description: string; path: string; image?: string };
+  procedure: {
+    name: string;
+    alternateName: string[];
+    /** 시술 부위. 예: '척추', '무릎 관절' */
+    bodyLocation: string;
+    /** schema.org MedicalSpecialty 열거값 URL */
+    specialty: string;
+    /** 시술 방법. 반드시 해당 페이지에 실제로 적혀 있는 내용만 옮깁니다. */
+    howPerformed: string;
+    /** 적용 대상. 역시 페이지에 적힌 문장을 그대로 씁니다. */
+    indications: string[];
+    followup?: string;
+  };
+  breadcrumb: Array<{ name: string; path: string }>;
+};
+
+/**
+ * 시술 상세 페이지용 구조화 데이터.
+ *
+ * 홈에 깔아둔 Hospital 노드만으로는 "부산 척추 / 부산 관절" 같은 질의에서
+ * 어떤 시술을 하는 곳인지가 드러나지 않습니다. 대표 시술 페이지에 시술 자체를
+ * 하나의 개체로 기술해 두면, AI가 시술 이름과 병원을 직접 연결할 수 있습니다.
+ *
+ * howPerformed와 indications에는 페이지 본문에 없는 내용을 절대 쓰지 마십시오.
+ * 구조화 데이터와 본문이 어긋나면 스팸으로 처리될 뿐 아니라 의료광고 문제가 됩니다.
+ */
+export function buildProcedurePageStructuredData({
+  page,
+  procedure,
+  breadcrumb,
+}: ProcedurePageOptions) {
+  const pageId = `${absoluteUrl(page.path)}#webpage`;
+  const procedureId = `${absoluteUrl(page.path)}#procedure`;
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'MedicalWebPage',
+        '@id': pageId,
+        url: absoluteUrl(page.path),
+        name: page.name,
+        description: page.description,
+        inLanguage: 'ko-KR',
+        ...(page.image ? { primaryImageOfPage: absoluteUrl(page.image) } : {}),
+        about: { '@id': procedureId },
+        mainEntity: { '@id': procedureId },
+        publisher: { '@id': HOSPITAL_ID },
+        isPartOf: { '@id': WEBSITE_ID },
+        breadcrumb: {
+          '@type': 'BreadcrumbList',
+          itemListElement: breadcrumb.map((crumb, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: crumb.name,
+            item: absoluteUrl(crumb.path),
+          })),
+        },
+      },
+      {
+        '@type': 'MedicalProcedure',
+        '@id': procedureId,
+        name: procedure.name,
+        alternateName: procedure.alternateName,
+        procedureType: 'https://schema.org/SurgicalProcedure',
+        bodyLocation: procedure.bodyLocation,
+        howPerformed: procedure.howPerformed,
+        ...(procedure.followup ? { followup: procedure.followup } : {}),
+        indication: procedure.indications.map((text) => ({
+          '@type': 'MedicalIndication',
+          description: text,
+        })),
+        relevantSpecialty: procedure.specialty,
+        url: absoluteUrl(page.path),
       },
     ],
   };

@@ -9,11 +9,13 @@ import UbeIndicationMap from '@/components/UbeIndicationMap';
 import YonseiSpecialFeaturesSection from '@/components/YonseiSpecialFeaturesSection';
 import UbeTextbookFeatureSection from '@/components/UbeTextbookFeatureSection';
 import { createPageMetadata } from '@/lib/seo';
+import JsonLd from '@/components/JsonLd';
+import { buildProcedurePageStructuredData } from '@/lib/structuredData';
 
 export const metadata = createPageMetadata({
-  title: '양방향 척추내시경(UBE) 안내',
+  title: '양방향 척추내시경(UBE) | 부산 척추 치료',
   description:
-    '두 개의 작은 통로를 이용하는 양방향 척추내시경(UBE)의 원리, 적용 대상, 치료 과정과 주의사항을 안내합니다.',
+    '부산 연세척병원의 양방향 척추내시경(UBE) 안내. 1cm 이하 절개 두 곳으로 접근하는 원리와 적용 대상, 치료 과정과 주의사항을 정리했습니다.',
   path: '/treatments/spine/ube',
   image: '/generated/ube/ube-hero-operating-room.png',
 });
@@ -174,9 +176,45 @@ const sectionTitleClass =
 const blueSectionTitleClass =
   'break-keep text-h2 tracking-tight text-white';
 
+// 아래 값은 모두 이 페이지 본문에 이미 적혀 있는 내용입니다.
+// 본문에 없는 수치나 효과를 여기에 추가하지 마십시오.
+const structuredData = buildProcedurePageStructuredData({
+  page: {
+    name: '양방향 척추내시경(UBE)',
+    description:
+      '부산 연세척병원의 양방향 척추내시경(UBE) 안내. 1cm 이하 절개 두 곳으로 접근하는 원리와 적용 대상, 치료 과정과 주의사항을 정리했습니다.',
+    path: '/treatments/spine/ube',
+    image: '/generated/ube/ube-hero-operating-room.png',
+  },
+  procedure: {
+    name: '양방향 척추내시경(UBE)',
+    alternateName: [
+      'UBE',
+      '양방향 척추 내시경',
+      '양방향 내시경 척추수술',
+      '척추 내시경 수술',
+      'Unilateral Biportal Endoscopy',
+    ],
+    bodyLocation: '척추',
+    specialty: 'https://schema.org/Neurologic',
+    howPerformed:
+      '1cm 이하의 절개 두 곳으로 관찰용 내시경과 수술 기구를 각각 독립적으로 삽입합니다. 부분마취하에 8~10배율 내시경으로 병변과 신경 압박 위치를 직접 확인하면서, 좁아진 협착 부위를 넓히거나 튀어나온 디스크를 선택적으로 제거합니다. 감압에는 약 40분이 소요됩니다.',
+    followup:
+      '조직 손상과 출혈이 적어 수술 후 통증 부담을 낮추고, 짧은 입원 후 일상 복귀를 목표로 회복을 관리합니다.',
+    indications: indications,
+  },
+  breadcrumb: [
+    { name: '홈', path: '/' },
+    { name: '진료과목', path: '/treatments' },
+    { name: '척추센터', path: '/treatments/spine' },
+    { name: '양방향 척추내시경(UBE)', path: '/treatments/spine/ube' },
+  ],
+});
+
 export default function UbePage() {
   return (
     <div className="flex flex-col bg-white">
+      <JsonLd data={structuredData} />
       <SubHero
         title="양방향 척추내시경(UBE)"
         subtitle="작은 절개로 정교하게, 조직 손상은 최소화하여 일상으로의 복귀를 앞당깁니다."

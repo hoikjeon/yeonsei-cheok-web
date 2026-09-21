@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata = createPageMetadata({
-  title: '척추·관절 진료과목',
+  title: '부산 척추·관절 진료과목',
   description:
-    '목디스크, 허리디스크, 척추관협착증과 무릎·어깨·손목·발목 질환의 진단과 치료 정보를 안내합니다.',
+    '부산 연세척병원의 척추·관절 진료 안내. 목디스크, 허리디스크, 척추관협착증과 무릎·어깨 질환을 양방향 척추내시경(UBE), 무릎관절내시경까지 단계별로 치료합니다.',
   path: '/treatments',
 });
 
