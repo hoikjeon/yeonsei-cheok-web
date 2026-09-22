@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FileQuestion, LockKeyhole, LogIn, PenLine, Search } from 'lucide-react';
+import { FileQuestion, LockKeyhole, PenLine, Search } from 'lucide-react';
 import SubHero from '@/components/SubHero';
 import Pagination from '@/components/Pagination';
 import { createClient } from '@/utils/supabase/server';
@@ -67,28 +67,6 @@ export default async function ConsultationPage({
 
       <section className="bg-white px-4 py-14 sm:px-6 sm:py-16 lg:py-24">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-8 flex flex-col gap-5 rounded-xl border border-primary/15 bg-primary-light/45 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-7">
-            <div className="flex items-start gap-3">
-              <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-primary shadow-sm">
-                <LockKeyhole size={20} />
-              </div>
-              <div>
-                <h2 className="text-[16px] font-bold text-ink">안심하고 상담을 남겨 주세요.</h2>
-                <p className="mt-1 break-keep text-[14px] font-medium leading-6 text-ink-muted">
-                  제목은 공개되지만 상담 본문·연락처·병원 답변은 로그인한 작성자 본인과 병원만 볼 수 있습니다.
-                </p>
-              </div>
-            </div>
-            {!user && (
-              <Link
-                href="/login?next=/consultation&reason=consultation-private"
-                className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-lg border border-primary/20 bg-white px-5 py-3 text-[14px] font-bold text-primary transition-colors hover:bg-primary hover:text-white"
-              >
-                <LogIn size={17} /> 로그인
-              </Link>
-            )}
-          </div>
-
           <div className="mb-5 flex flex-col gap-4 border-b-2 border-navy-900 pb-5 sm:flex-row sm:items-end sm:justify-between">
             <p className="text-[15px] font-bold text-ink-muted">
               총 <strong className="text-[19px] text-ink">{totalCount}</strong>건

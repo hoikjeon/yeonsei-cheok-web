@@ -6,7 +6,7 @@ export const DEFAULT_SITE_TITLE = '연세척병원 | 부산 척추·관절 병�
 // 네이버 서치어드바이저는 사이트 설명을 80자 이내로 권장합니다.
 export const DEFAULT_SITE_DESCRIPTION =
   '부산진구 부암역 인근 부산 척추·관절 병원. 신경외과·정형외과 전문의가 양방향 척추내시경(UBE), 무릎관절내시경으로 진료합니다.';
-export const DEFAULT_OG_IMAGE = '/generated/hero-hospital-exterior.png';
+export const DEFAULT_OG_IMAGE = '/main%20title.jpeg';
 
 // 네이버 서치어드바이저 사이트 소유확인 값입니다.
 // HTML <head>에 그대로 노출되는 공개 값이라 환경 변수가 없어도 항상 붙도록 기본값을 둡니다.

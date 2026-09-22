@@ -93,6 +93,7 @@ const MENU_DATA: MenuData[] = [
     id: 'news',
     name: '병원소식',
     href: '/news/notice',
+    navigateOnClick: true,
     subTitle: '연세척병원의 쉼 없는 발자취',
     items: [
       { name: '공지사항', desc: '병원 운영 및 진료에 관한 주요 안내', href: '/news/notice' },

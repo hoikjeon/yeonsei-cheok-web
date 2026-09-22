@@ -42,9 +42,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: DEFAULT_OG_IMAGE,
-        width: 1919,
-        height: 820,
-        alt: "부산 척추·관절 진료 연세척병원",
+        width: 1280,
+        height: 1280,
+        alt: "척추·관절 시술부터 수술까지, 연세척병원 의료진",
       },
     ],
   },
