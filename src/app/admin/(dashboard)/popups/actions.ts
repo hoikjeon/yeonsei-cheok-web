@@ -1,8 +1,9 @@
 'use server';
 
 import { createClient } from '@supabase/supabase-js';
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, updateTag } from 'next/cache';
 import { isAdminAuthenticated, requireAdmin } from '@/lib/adminAuth';
+import { POPUP_CACHE_TAG } from '@/lib/popupData';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -77,6 +78,7 @@ export async function togglePopupActive(id: string, currentStatus: boolean) {
       .eq('id', id);
 
     if (error) throw error;
+    updateTag(POPUP_CACHE_TAG); // 홈 팝업 목록 캐시 갱신
     revalidatePath('/admin/popups');
     revalidatePath('/admin');
     revalidatePath('/'); // 메인 홈페이지 팝업도 갱신
@@ -150,6 +152,7 @@ export async function uploadPopup(formData: FormData) {
       ]);
 
     if (error) throw error;
+    updateTag(POPUP_CACHE_TAG); // 홈 팝업 목록 캐시 갱신
     revalidatePath('/admin/popups');
     revalidatePath('/admin');
     revalidatePath('/', 'layout');
@@ -222,6 +225,7 @@ export async function updatePopup(id: string, formData: FormData) {
       .eq('id', id);
 
     if (error) throw error;
+    updateTag(POPUP_CACHE_TAG); // 홈 팝업 목록 캐시 갱신
     revalidatePath('/admin/popups');
     revalidatePath('/admin');
     revalidatePath('/', 'layout');
@@ -254,6 +258,7 @@ export async function assignPopupSlot(id: string, slot: number | null) {
       .eq('id', id);
 
     if (error) throw error;
+    updateTag(POPUP_CACHE_TAG); // 홈 팝업 목록 캐시 갱신
     revalidatePath('/admin/popups');
     revalidatePath('/admin');
     revalidatePath('/', 'layout');
@@ -271,6 +276,7 @@ export async function deletePopup(id: string) {
 
     const { error } = await supabase.from('popups').delete().eq('id', id);
     if (error) throw error;
+    updateTag(POPUP_CACHE_TAG); // 홈 팝업 목록 캐시 갱신
     revalidatePath('/admin/popups');
     revalidatePath('/admin');
     revalidatePath('/');
