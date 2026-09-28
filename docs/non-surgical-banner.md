@@ -1,0 +1,12 @@
+# Non-surgical spine care banner
+
+Asset: `public/images/about/non-surgical-banner.webp` (1800 × 600). Generated with built-in image_gen, resized and encoded using Sharp. Conceptual ivory lumbar model with a separate flexible catheter, matching the MRI banner. The catheter is displayed alongside the model, not as a procedural insertion diagram. This represents the page's catheter-based treatment content without depicting an operative scene. Existing SubHero dimensions remain unchanged.
+
+Reference checked: [Epimed Racz catheter material](https://epimed.com/docs/2019-racz-catheter-percutaneous.pdf). The banner does not illustrate placement or provide procedural guidance.
+
+## Final prompt
+
+Use case: ads-marketing. Create a wide 3:1 premium hospital website hero background representing NON-SURGICAL SPINE CARE. Bright clean ivory 3D medical model style, matching an elegant high-key MRI equipment banner.
+Composition: LEFT 55 percent completely empty smooth pale blue-gray #e9edf8 for HTML heading. RIGHT 45 percent contains a refined anatomically plausible lumbar vertebral model: five ivory lumbar vertebrae with separate pale beige intervertebral discs, partial sacrum below, gentle natural lumbar curve, three-quarter lateral view with vertebral bodies and posterior processes distinguishable. Vertically arranged, filling right side, natural fine bone texture, smooth light discs. One lower lumbar disc has a SUBTLE warm amber focal highlight, no neon or dramatic pathology.
+Beside the model on the far right show ONE fine flexible epidural treatment catheter as a separate illustrative product element, slender soft light-gray tubing with a small understated white connector near lower-right, gently curved alongside the lower spine. This is a conceptual still-life, NOT a procedural diagram: catheter remains visibly outside the anatomy, not piercing discs, bones or nerves; no insertion trajectory implied. No syringe needle, surgical forceps, endoscope, incisions, person, hands, blood or surgical scene. No visible nerve network to confuse with discs.
+Natural warm ivory studio lighting, delicate ambient shadows and quiet cream background around model gradually blending into pale blue-gray left. Solid three-dimensional material, medical illustration quality, restrained realistic detail. No intense blue cast, no floating UI, no arrows, text, labels, branding or border. No busy room or decorative waves. Model and catheter should read clearly at short banner height. Output only background art, no webpage mockup.

@@ -431,7 +431,7 @@ export default function DoctorsPage() {
         title="의료진 소개"
         subtitle="척추와 관절을 함께 살피는 5명의 의료진이 정확한 진단과 꼭 필요한 치료를 제안합니다."
         path={[{ name: '병원소개', href: '/about' }, { name: '의료진 소개' }]}
-        bgImage="/generated/hero-university-doctors.png"
+        ambientImage="/images/about/hospital-ambient-banner-v2.webp"
       />
 
       <main className="w-full">

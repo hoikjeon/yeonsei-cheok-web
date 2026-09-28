@@ -17,6 +17,7 @@ export default function NonSurgicalPage() {
     <div className="flex flex-col bg-white">
       <SubHero
         title="비수술 치료"
+        ambientImage="/images/about/non-surgical-banner.webp"
         subtitle="선진화된 기술력과 노하우로 절개 없이 통증의 원인을 정확히 겨냥해, 불편한 증상으로부터 벗어나 편안하고 건강한 일상으로의 복귀를 앞당깁니다."
         path={[
           { name: "척추센터", href: "/treatments/spine" },

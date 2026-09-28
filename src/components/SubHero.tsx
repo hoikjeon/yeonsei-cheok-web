@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Home, ChevronDown } from 'lucide-react';
 
 interface SubHeroProps {
@@ -7,14 +8,28 @@ interface SubHeroProps {
   path: { name: string; href?: string }[];
   /** 유지: 하위 페이지 호환용 (라이트 히어로에서는 배경 이미지를 사용하지 않습니다) */
   bgImage?: string;
+  /** 콘텐츠 높이에 영향을 주지 않는 장식용 배경 이미지. */
+  ambientImage?: string;
 }
 
-const SubHero = ({ title, subtitle, path }: SubHeroProps) => {
+const SubHero = ({ title, subtitle, path, ambientImage }: SubHeroProps) => {
   return (
     <section className="px-3 pt-2 sm:px-8 sm:pt-3 lg:px-14 xl:px-20">
       <div className="relative isolate flex min-h-[220px] items-center overflow-hidden rounded-[1.35rem] bg-[linear-gradient(100deg,#e8edf8_0%,#eef1f7_46%,#f7f0e3_100%)] shadow-[0_24px_60px_-40px_rgba(15,29,54,0.4)] ring-1 ring-navy-900/5 sm:min-h-[240px] sm:rounded-[2.25rem] md:min-h-[360px]">
-        {/* 우측 따뜻한 글로우 + 동심원 데코 */}
-        <div className="pointer-events-none absolute inset-0 z-0">
+        {ambientImage ? (
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-[#e9edf8]">
+            <Image
+              src={ambientImage}
+              alt=""
+              fill
+              sizes="100vw"
+              loading="eager"
+              className="object-cover object-right opacity-40 md:opacity-100"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,#e9edf8_0%,rgba(233,237,248,0.85)_45%,rgba(233,237,248,0.15)_100%)] md:bg-[linear-gradient(90deg,#e9edf8_0%,rgba(233,237,248,0.96)_36%,rgba(233,237,248,0.35)_57%,transparent_75%)]" />
+          </div>
+        ) : (
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
           {/* 동심원 아크 */}
           <div className="absolute right-[-28%] top-1/2 h-[420px] w-[420px] -translate-y-1/2 rounded-full opacity-60 bg-[repeating-radial-gradient(circle,transparent_0,transparent_34px,rgba(226,168,88,0.16)_35px,transparent_37px)] sm:right-[4%] sm:h-[760px] sm:w-[760px] sm:opacity-70 sm:bg-[repeating-radial-gradient(circle,transparent_0,transparent_46px,rgba(226,168,88,0.16)_47px,transparent_49px)]" />
           {/* 따뜻한 포컬 글로우 */}
@@ -22,10 +37,11 @@ const SubHero = ({ title, subtitle, path }: SubHeroProps) => {
           {/* 좌측 텍스트 영역 정돈용 페이드 */}
           <div className="absolute inset-0 bg-[linear-gradient(90deg,#e9edf8_16%,rgba(233,237,248,0.35)_52%,transparent_80%)]" />
         </div>
+        )}
 
         {/* 콘텐츠 */}
         <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col justify-center px-5 py-9 sm:px-9 sm:py-12 md:px-12">
-          <div className="fade-up max-w-2xl space-y-3 sm:space-y-4 md:space-y-5">
+          <div className="fade-up min-w-0 max-w-2xl space-y-3 sm:space-y-4 md:space-y-5">
             <nav className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[12px] font-semibold text-slate-500 sm:gap-x-2 sm:text-[13px] md:text-sm">
               <Link
                 href="/"
@@ -64,6 +80,7 @@ const SubHero = ({ title, subtitle, path }: SubHeroProps) => {
               </p>
             </div>
           </div>
+
         </div>
       </div>
     </section>

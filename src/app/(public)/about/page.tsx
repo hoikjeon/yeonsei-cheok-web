@@ -122,7 +122,7 @@ export default function AboutPage() {
         title="병원소개"
         subtitle={'절개를 최소화한 양방향척추내시경(UBE)을 중심으로,\n부산에서 척추와 관절을 함께 살피는 중점 병원입니다.'}
         path={[{ name: '병원소개', href: '/about' }, { name: '연세척병원 소개' }]}
-        bgImage="/generated/hero-hospital-exterior.png"
+        ambientImage="/images/about/hospital-ambient-banner-v2.webp"
       />
 
       <main className="w-full">

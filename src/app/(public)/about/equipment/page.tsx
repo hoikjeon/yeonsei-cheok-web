@@ -195,6 +195,7 @@ export default function EquipmentPage() {
     <div className="flex flex-col bg-white">
       <SubHero
         title="첨단 의료 장비"
+        ambientImage="/images/about/equipment-mri-banner.webp"
         subtitle={'환자의 상태를 세심하게 살피고,\n정확한 진단과 안전한 치료를 돕습니다.'}
         path={[
           { name: '병원소개', href: '/about' },

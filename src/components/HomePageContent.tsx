@@ -14,7 +14,6 @@ import {
   MessageCircle,
   UserCheck,
 } from 'lucide-react';
-import HomeDoctorsRevealSection from '@/components/HomeDoctorsRevealSection';
 import HomeNoticeBar from '@/components/HomeNoticeBar';
 import type { HomeNoticeSettings } from '@/lib/homeNoticeSettings';
 import type { HomeReview } from '@/lib/adminReviews';
@@ -80,17 +79,31 @@ function ResponsiveHeroImage({
 
 const specializedPrograms = [
   {
+    title: '척추센터',
+    titleLines: ['척추센터'],
+    image: '/images/home-specialty/spine-center-v3.webp',
+    overlay: 'linear-gradient(180deg, rgba(36, 68, 114, 0.08) 0%, rgba(36, 68, 114, 0.12) 32%, rgba(28, 61, 109, 0.72) 70%, rgba(24, 51, 93, 0.9) 100%)',
+    href: '/treatments/spine/disc',
+  },
+  {
+    title: '관절센터',
+    titleLines: ['관절센터'],
+    image: '/images/home-specialty/joint-center-v2.webp',
+    overlay: 'linear-gradient(180deg, rgba(48, 78, 119, 0.08) 0%, rgba(48, 78, 119, 0.12) 32%, rgba(38, 72, 118, 0.72) 70%, rgba(30, 61, 104, 0.9) 100%)',
+    href: '/treatments/joint/knee',
+  },
+  {
     title: '양방향 척추내시경',
-    desc: '두 개의 작은 통로로 병변을 정밀하게 확인하고 치료하는 척추 특화 비수술·최소침습 솔루션입니다.',
-    image: '/generated/specialty-spine-endoscopy.png',
-    mobileImagePosition: 'object-[68%_center]',
+    titleLines: ['양방향', '척추내시경'],
+    image: '/images/home-specialty/spine-endoscopy-v3.webp',
+    overlay: 'linear-gradient(180deg, rgba(38, 59, 94, 0.08) 0%, rgba(38, 59, 94, 0.12) 32%, rgba(29, 51, 88, 0.72) 70%, rgba(23, 43, 77, 0.9) 100%)',
     href: '/treatments/spine/ube',
   },
   {
-    title: '무릎관절 내시경',
-    desc: '관절 내부를 직접 확인하며 손상 부위를 섬세하게 치료해 회복 부담을 낮추는 관절 특화 치료입니다.',
-    image: '/generated/specialty-knee-arthroscopy.png',
-    mobileImagePosition: 'object-[70%_center]',
+    title: '무릎관절내시경',
+    titleLines: ['무릎관절', '내시경'],
+    image: '/images/home-specialty/knee-arthroscopy-v4.webp',
+    overlay: 'linear-gradient(180deg, rgba(35, 66, 94, 0.08) 0%, rgba(35, 66, 94, 0.12) 32%, rgba(26, 56, 85, 0.72) 70%, rgba(22, 47, 73, 0.9) 100%)',
     href: '/treatments/joint/knee-arthroscopy',
   },
 ];
@@ -400,7 +413,46 @@ export default function HomePageContent({
         </div>
       </section>
 
-      <HomeDoctorsRevealSection />
+      {/* 의료진 리빌 영역은 임시 비노출: 컴포넌트는 보관하고 마운트·이미지 로딩·스크롤 효과를 중단합니다. */}
+      {/* 🧬 Specialty System Section */}
+      <section aria-labelledby="specialty-heading" className="bg-white py-12 text-ink md:py-20">
+        <div className="mx-auto max-w-7xl px-5 sm:px-7 xl:px-10">
+          <h2 id="specialty-heading" className="mb-7 break-keep text-[clamp(1.5rem,6vw,1.625rem)] font-extrabold leading-tight tracking-tight md:mb-10 md:text-h2">
+            척추/관절 특화 병원
+            <span className="mt-2 block text-primary">연세척병원</span>
+          </h2>
+
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
+            {specializedPrograms.map((program) => (
+              <Link
+                key={program.title}
+                href={program.href}
+                aria-label={program.title}
+                className="group relative isolate flex aspect-square min-w-0 flex-col justify-end overflow-hidden rounded-lg bg-primary text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-safe:transition-transform motion-safe:duration-500 motion-safe:hover:-translate-y-1 lg:aspect-[3/4]"
+              >
+                <Image
+                  src={program.image}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1400px) 315px, (min-width: 1024px) calc((100vw - 116px) / 4), (min-width: 640px) calc((100vw - 76px) / 2), calc((100vw - 52px) / 2)"
+                  className="object-cover object-center motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-105"
+                />
+                <div aria-hidden="true" className="absolute inset-0" style={{ background: program.overlay }} />
+                <div className="relative flex flex-col p-4 sm:p-7 lg:p-6 xl:p-8">
+                  <h3 className="break-keep text-[clamp(1.25rem,5vw,1.75rem)] font-bold leading-[1.25] tracking-tight lg:text-[clamp(1.625rem,2.3vw,2rem)]">
+                    {program.titleLines.map((line) => (
+                      <span key={line} className="block">{line}</span>
+                    ))}
+                  </h3>
+                  <svg aria-hidden="true" viewBox="0 0 64 24" fill="none" className="mt-3 h-5 w-12 self-end sm:mt-6 sm:h-6 sm:w-16 lg:mt-8 motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:translate-x-1">
+                    <path d="M1 21H60L41 2" stroke="currentColor" strokeWidth="1.75" />
+                  </svg>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Daily Care Promise Section */}
       <section className="relative overflow-hidden bg-white py-16 md:py-32">
@@ -503,58 +555,6 @@ export default function HomePageContent({
 
       {/* 🌏 국제 척추내시경 트레이닝 센터 Section */}
       <TrainingCenterSection />
-
-      {/* 🧬 Specialty System Section */}
-      <section className="relative overflow-hidden bg-[#f4f9ff] py-10 text-ink md:py-28 lg:py-16">
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#ffffff_0%,#eef7ff_48%,#ffffff_100%)]" />
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white to-transparent" />
-
-        <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-6 px-5 sm:px-7 md:gap-12 xl:px-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
-          <div className="space-y-5">
-            <div className="space-y-3">
-              <h2 className="break-keep text-[clamp(1.5rem,6vw,1.625rem)] font-extrabold leading-tight tracking-tight md:text-h2">
-                척추/관절 특화 병원
-                <span className="mt-2 block text-primary">연세척병원</span>
-              </h2>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 gap-3 md:gap-5">
-            {specializedPrograms.map((program) => (
-              <Link
-                key={program.title}
-                href={program.href}
-                className="group grid min-h-[168px] overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_28px_80px_-56px_rgba(15,29,54,0.5)] transition-all duration-500 hover:-translate-y-1 hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary md:min-h-[218px]"
-              >
-                <div className="grid grid-cols-[minmax(0,1fr)_clamp(132px,36vw,144px)] md:grid-cols-[minmax(0,1.1fr)_minmax(220px,0.9fr)]">
-                  <div className="flex min-h-0 flex-col justify-center p-4 md:min-h-[230px] md:p-9">
-                    <div className="space-y-2 md:space-y-4">
-                      <h3 className="break-keep text-[20px] font-extrabold leading-[1.3] tracking-tight text-ink transition-colors duration-500 group-hover:text-white md:text-h3">
-                        {program.title}
-                      </h3>
-                      <p className="max-w-md break-keep text-[14px] leading-[1.55] text-ink-sub transition-colors duration-500 group-hover:text-white/[0.82] md:text-body">
-                        {program.desc}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="relative min-h-[168px] overflow-hidden bg-[#e8f3ff] md:min-h-full">
-                    <Image
-                      src={program.image}
-                      alt={program.title}
-                      fill
-                      sizes="(min-width: 1024px) 26vw, (min-width: 768px) 40vw, 36vw"
-                      className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 md:object-center ${program.mobileImagePosition}`}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/35 via-transparent to-primary/10 opacity-80 transition-opacity duration-500 group-hover:opacity-30" />
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ▶️ 척추관절 연세척TV Section */}
       <YoutubeSection />
