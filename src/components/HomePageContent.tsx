@@ -357,7 +357,7 @@ export default function HomePageContent({
                   <span className="flex h-11 w-11 items-center justify-center text-primary transition-all duration-300 group-hover:scale-105 group-hover:text-white [&>svg]:h-9 [&>svg]:w-9 md:h-20 md:w-20 md:[&>svg]:h-[58px] md:[&>svg]:w-[58px]">
                     {item.icon}
                   </span>
-                  <span className="break-keep text-[16px] font-extrabold leading-tight tracking-tight text-ink transition-colors duration-300 group-hover:text-white md:text-h4">
+                  <span className="break-keep text-[16px] font-extrabold leading-tight tracking-tight text-ink transition-colors duration-300 group-hover:text-white md:text-h4 lg:text-[length:calc(var(--text-h4)*1.2)]">
                     {item.title}
                   </span>
                   <ArrowUpRight
