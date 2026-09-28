@@ -23,11 +23,11 @@ export interface NonCoveredSection {
 
 export const nonCoveredData: NonCoveredSection[] = [
     {
-      "title": "1장. 행위료",
+      "title": "1. 행위료",
       "groups": []
     },
     {
-      "title": "1-1장. 상급병실료 차액",
+      "title": "1-1. 상급병실료 차액",
       "groups": [
         {
           "categoryName": "상급병실료차액",
@@ -49,7 +49,7 @@ export const nonCoveredData: NonCoveredSection[] = [
       ]
     },
     {
-      "title": "2장. 검사료",
+      "title": "1-2. 검사료",
       "groups": [
         {
           "categoryName": "평형 및 청각기능검사",
@@ -189,7 +189,7 @@ export const nonCoveredData: NonCoveredSection[] = [
       ]
     },
     {
-      "title": "2-1장. 초음파검사료",
+      "title": "1-3. 초음파 검사료",
       "groups": [
         {
           "categoryName": "초음파 검사료",
@@ -235,7 +235,7 @@ export const nonCoveredData: NonCoveredSection[] = [
       ]
     },
     {
-      "title": "3-1장. 초음파 영상료",
+      "title": "1-4. 초음파 영상료",
       "groups": [
         {
           "categoryName": "초음파 영상료",
@@ -257,7 +257,7 @@ export const nonCoveredData: NonCoveredSection[] = [
       ]
     },
     {
-      "title": "3-2장. 자기공명영상진단료",
+      "title": "1-5. 자기공명영상진단료(MRI)",
       "groups": [
         {
           "categoryName": "뇌",
@@ -897,7 +897,7 @@ export const nonCoveredData: NonCoveredSection[] = [
       ]
     },
     {
-      "title": "7장. 이학요법료(물리치료료)",
+      "title": "1-6. 이학요법료(물리치료료)",
       "groups": [
         {
           "categoryName": "물리치료료",
@@ -1003,7 +1003,7 @@ export const nonCoveredData: NonCoveredSection[] = [
       ]
     },
     {
-      "title": "9장. 처치 및 수술료",
+      "title": "1-7. 처치 및 수술료",
       "groups": [
         {
           "categoryName": "근골",
@@ -1066,53 +1066,7 @@ export const nonCoveredData: NonCoveredSection[] = [
       ]
     },
     {
-      "title": "기타.",
-      "groups": [
-        {
-          "categoryName": "기타",
-          "items": [
-            {
-              "name": "보호자식",
-              "code": "",
-              "division": "",
-              "cost": "5,700",
-              "minCost": "",
-              "maxCost": "",
-              "materialIncluded": "",
-              "drugIncluded": "",
-              "note": "",
-              "updateDate": ""
-            },
-            {
-              "name": "공기밥",
-              "code": "",
-              "division": "",
-              "cost": "1,000",
-              "minCost": "",
-              "maxCost": "",
-              "materialIncluded": "",
-              "drugIncluded": "",
-              "note": "",
-              "updateDate": ""
-            },
-            {
-              "name": "환의 대여료",
-              "code": "",
-              "division": "",
-              "cost": "20,000",
-              "minCost": "",
-              "maxCost": "",
-              "materialIncluded": "",
-              "drugIncluded": "",
-              "note": "",
-              "updateDate": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "2장. 치료재료대",
+      "title": "2. 치료재료대",
       "groups": [
         {
           "categoryName": "추간판내 고주파 열치료술",
@@ -1759,10 +1713,10 @@ export const nonCoveredData: NonCoveredSection[] = [
       ]
     },
     {
-      "title": "3장. 약제비",
+      "title": "3. 약제비",
       "groups": [
         {
-          "categoryName": "기타",
+          "categoryName": "약제",
           "items": [
             {
               "name": "베노스타신캡슐",
@@ -2084,7 +2038,7 @@ export const nonCoveredData: NonCoveredSection[] = [
       "title": "4. 제증명료",
       "groups": [
         {
-          "categoryName": "기타",
+          "categoryName": "제증명",
           "items": [
             {
               "name": "일반진단서",
@@ -2336,6 +2290,52 @@ export const nonCoveredData: NonCoveredSection[] = [
               "materialIncluded": "",
               "drugIncluded": "",
               "note": "최저비용은 재발행용",
+              "updateDate": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "5. 기타",
+      "groups": [
+        {
+          "categoryName": "기타",
+          "items": [
+            {
+              "name": "보호자식",
+              "code": "",
+              "division": "",
+              "cost": "5,700",
+              "minCost": "",
+              "maxCost": "",
+              "materialIncluded": "",
+              "drugIncluded": "",
+              "note": "",
+              "updateDate": ""
+            },
+            {
+              "name": "공기밥",
+              "code": "",
+              "division": "",
+              "cost": "1,000",
+              "minCost": "",
+              "maxCost": "",
+              "materialIncluded": "",
+              "drugIncluded": "",
+              "note": "",
+              "updateDate": ""
+            },
+            {
+              "name": "환의 대여료",
+              "code": "",
+              "division": "",
+              "cost": "20,000",
+              "minCost": "",
+              "maxCost": "",
+              "materialIncluded": "",
+              "drugIncluded": "",
+              "note": "",
               "updateDate": ""
             }
           ]

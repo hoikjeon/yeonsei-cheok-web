@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { nonCoveredData } from './data';
+import { getPublicFees } from '@/lib/nonCoveredRepository';
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = createPageMetadata({
@@ -9,7 +9,9 @@ export const metadata: Metadata = createPageMetadata({
   path: '/non-covered',
 });
 
-export default function NonCoveredPage() {
+export default async function NonCoveredPage() {
+  const { sections: nonCoveredData, publishedDate } = await getPublicFees();
+  const [year, month, day] = publishedDate.split('-');
   return (
     <main className="min-h-screen bg-white px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
       <div className="max-w-[1200px] mx-auto">
@@ -36,7 +38,7 @@ export default function NonCoveredPage() {
             <ul className="space-y-2 break-keep text-[14px] leading-[1.7] text-gray-100 sm:text-base">
               <li>- 행위의 경우 직접 시술에 대한 비용으로 입원료, 마취료, 약제, 치료재료 등은 별도 산정.</li>
               <li>- 비급여 진료비용은 단일 개별 항목외 1회 비용이므로 처방량에 따라 해당 항목의 비용이 달라질 수 있습니다.</li>
-              <li>- 기준일 : 2026년 9월 17일</li>
+              <li>- 기준일 : {year}년 {Number(month)}월 {Number(day)}일</li>
             </ul>
           </div>
           <div className="absolute inset-0 bg-blue-900/60 mix-blend-multiply pointer-events-none"></div>
@@ -44,7 +46,9 @@ export default function NonCoveredPage() {
 
         <div className="space-y-9 sm:space-y-12">
           {nonCoveredData.map((section, sectionIdx) => {
-            const isSubHeading = /^\d+-\d+장\./.test(section.title);
+            // "1-2. 검사료"처럼 가운데 줄표가 있는 제목은 큰 장(예: 1. 행위료) 아래의 작은 제목입니다.
+            // 이전 형식("1-1장.")도 같은 규칙으로 인식합니다.
+            const isSubHeading = /^\d+-\d+장?\./.test(section.title);
             return (
             <section key={sectionIdx}>
               {isSubHeading ? (

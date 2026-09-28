@@ -4,6 +4,7 @@ const CANONICAL_HOST = 'www.ys-cheok.com';
 const MOBILE_HOST = 'm.ys-cheok.com';
 
 const nextConfig: NextConfig = {
+  distDir: process.env.NEXT_DIST_DIR || '.next',
   // 옛 홈페이지(.php)의 색인된 주소를 새 페이지로 이전합니다.
   // 매칭되는 라우팅 규칙이 없는 .php 요청은 Vercel System Mitigations가 403으로
   // 거부하므로, 여기에 규칙이 있어야 사용자가 새 페이지까지 도달합니다.

@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "test:news": "tsx --test tests/news-content.test.ts",
-    "test:news:browser": "playwright test -c playwright.news.config.ts"
+    "test:news:browser": "playwright test -c playwright.news.config.ts",
+    "test:fees": "tsx --test tests/non-covered.test.ts",
+    "test:fees:browser": "playwright test -c playwright.non-covered.config.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.0",
@@ -20,6 +22,7 @@
     "@tiptap/pm": "^3.31.3",
     "@tiptap/react": "^3.31.3",
     "@tiptap/starter-kit": "^3.31.3",
+    "exceljs": "^4.4.0",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.7.0",
     "next": "16.2.1",
@@ -29,6 +32,7 @@
     "recharts": "^3.8.1"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
     "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
@@ -39,5 +43,10 @@
     "tailwindcss": "^4",
     "tsx": "^4.23.13",
     "typescript": "^5"
+  },
+  "overrides": {
+    "exceljs": {
+      "uuid": "^11.1.1"
+    }
   }
 }
