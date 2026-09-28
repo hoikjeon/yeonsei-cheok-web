@@ -1509,8 +1509,8 @@ export const nonCoveredData: NonCoveredSection[] = [
           "categoryName": "압박고정용(탄력반창고)",
           "items": [
             {
-              "name": "토니밴드(방수밴드)",
-              "code": "BK7000CL",
+              "name": "이지밴드(방수밴드)",
+              "code": "BC1000AS",
               "division": "",
               "cost": "50,000",
               "minCost": "",
@@ -1518,7 +1518,7 @@ export const nonCoveredData: NonCoveredSection[] = [
               "materialIncluded": "",
               "drugIncluded": "",
               "note": "",
-              "updateDate": ""
+              "updateDate": "2026.09.17"
             },
             {
               "name": "Plio 상/하지(스타키넷)",
