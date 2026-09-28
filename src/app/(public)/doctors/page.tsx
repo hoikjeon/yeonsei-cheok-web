@@ -66,7 +66,8 @@ const doctorList: DoctorProfile[] = [
         '15th ThaiSMISST, Bangkok, Thailand, 2024',
       ],
       textbooks: [
-        'Springer 출판사. 2022년 1판, 2025년 2판. Biportal Endoscopic Paraspinal Approach for Lumbar Foraminal Stenosis',
+        'Springer 출판사. 2022년 1판. Biportal Endoscopic Paraspinal Approach for Lumbar Foraminal Stenosis',
+        'Springer 출판사. 2025년 2판. Biportal Endoscopic Paraspinal Approach for Lumbar Foraminal Stenosis',
       ],
       papers: [
         {
@@ -167,7 +168,8 @@ const doctorList: DoctorProfile[] = [
         '세계양방향척추내시경연구회(UBE) 학술대회 "최우수 강의상" 수상',
       ],
       textbooks: [
-        "Springer 출판사. 2022년 1판, 2025년 2판. Biportal Endoscopic Decompression for Bertolotti's Syndrome: Far-out Syndrome",
+        "Springer 출판사. 2022년 1판. Biportal Endoscopic Decompression for Bertolotti's Syndrome: Far-out Syndrome",
+        "Springer 출판사. 2025년 2판. Biportal Endoscopic Decompression for Bertolotti's Syndrome: Far-out Syndrome",
       ],
       papers: [
         {

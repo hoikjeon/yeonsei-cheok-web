@@ -13,7 +13,7 @@ interface TimetableItem {
   afternoon: string;
 }
 
-type CredentialTabId = 'career' | 'training' | 'awards' | 'textbooks' | 'papers';
+type CredentialTabId = 'career' | 'training' | 'awards' | 'publications';
 
 export interface DoctorPaper {
   title: string;
@@ -88,8 +88,7 @@ const CREDENTIAL_TABS: { id: CredentialTabId; label: string }[] = [
   { id: 'career', label: '약력' },
   { id: 'training', label: '연수' },
   { id: 'awards', label: '수상' },
-  { id: 'textbooks', label: '저서' },
-  { id: 'papers', label: '논문' },
+  { id: 'publications', label: '저서·논문' },
 ];
 
 const PAPERS_PREVIEW_LIMIT = 5;
@@ -110,16 +109,14 @@ const getCredentialCount = (credentials: DoctorCredentials | undefined, tabId: C
       return credentials.training?.length ?? 0;
     case 'awards':
       return credentials.awards?.length ?? 0;
-    case 'textbooks':
-      return credentials.textbooks?.length ?? 0;
-    case 'papers':
-      return credentials.papers?.length ?? 0;
+    case 'publications':
+      return (credentials.textbooks?.length ?? 0) + (credentials.papers?.length ?? 0);
     default:
       return 0;
   }
 };
 
-const getCredentialItems = (credentials: DoctorCredentials, tabId: Exclude<CredentialTabId, 'papers'>) => {
+const getCredentialItems = (credentials: DoctorCredentials, tabId: Exclude<CredentialTabId, 'publications'>) => {
   switch (tabId) {
     case 'career':
       return credentials.career ?? [];
@@ -127,8 +124,6 @@ const getCredentialItems = (credentials: DoctorCredentials, tabId: Exclude<Crede
       return credentials.training ?? [];
     case 'awards':
       return credentials.awards ?? [];
-    case 'textbooks':
-      return credentials.textbooks ?? [];
     default:
       return [];
   }
@@ -319,6 +314,29 @@ const PapersList = ({ papers }: { papers: DoctorPaper[] }) => {
   );
 };
 
+// 저서와 논문을 한 탭에 소제목으로 나눠 보여줍니다. 한쪽만 있으면 그쪽만 나옵니다.
+const PublicationsList = ({ credentials }: { credentials: DoctorCredentials }) => {
+  const textbooks = credentials.textbooks ?? [];
+  const papers = credentials.papers ?? [];
+
+  return (
+    <div className="space-y-8">
+      {textbooks.length > 0 ? (
+        <section>
+          <h5 className="mb-4 text-[16px] font-bold tracking-tight text-ink sm:text-[18px]">저서</h5>
+          <CredentialBulletList items={textbooks} />
+        </section>
+      ) : null}
+      {papers.length > 0 ? (
+        <section>
+          <h5 className="mb-4 text-[16px] font-bold tracking-tight text-ink sm:text-[18px]">논문</h5>
+          <PapersList papers={papers} />
+        </section>
+      ) : null}
+    </div>
+  );
+};
+
 const CareerList = ({ doctor }: { doctor: DoctorProfile }) => {
   const careers = DOCTOR_CAREERS[doctor.name] ?? doctor.profilePoints;
 
@@ -387,8 +405,8 @@ const CredentialDetails = ({ doctor }: { doctor: DoctorProfile }) => {
         aria-labelledby={tabButtonId}
         className="mt-7 rounded-lg border border-slate-100 bg-slate-50/70 p-5 md:p-6"
       >
-        {selectedTab === 'papers' ? (
-          <PapersList papers={credentials.papers ?? []} />
+        {selectedTab === 'publications' ? (
+          <PublicationsList credentials={credentials} />
         ) : (
           <CredentialBulletList items={getCredentialItems(credentials, selectedTab)} />
         )}
