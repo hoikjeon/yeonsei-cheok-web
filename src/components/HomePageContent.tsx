@@ -97,7 +97,6 @@ const specializedPrograms = [
 
 const dailyCareSlides = [
   {
-    point: 'POINT 1',
     title: '분야가 다른 전문의가 함께 봅니다',
     desc: '신경외과·정형외과·마취통증의학과·영상의학과 전문의가 같은 환자의 검사 결과와 치료 방향을 함께 논의합니다. 한 분야의 시야로 놓칠 수 있는 원인까지 함께 확인합니다.',
     tags: ['다학제 협진', '분야별 전문의', '치료 방향 논의'],
@@ -107,7 +106,6 @@ const dailyCareSlides = [
     imageAlt: '수술실에서 세 명의 의료진이 함께 척추내시경 수술을 진행하는 모습',
   },
   {
-    point: 'POINT 2',
     title: '검사부터 진단까지 정확하게',
     desc: '대학병원급 영상 장비와 숙련된 의료진의 판독을 바탕으로 통증의 원인을 세밀하게 확인합니다. 필요한 치료만 제안하는 정직한 진료를 지향합니다.',
     tags: ['정밀검사', 'MRI 판독', '맞춤진단'],
@@ -115,7 +113,6 @@ const dailyCareSlides = [
     imageAlt: '영상 검사실에서 의료진이 척추 MRI 영상을 확인하는 장면',
   },
   {
-    point: 'POINT 3',
     title: '비수술 치료와 재활의 연결',
     desc: '주사치료, 도수치료, 재활운동을 환자 상태에 맞게 연결해 일상 복귀의 부담을 낮춥니다. 치료 후 회복 과정까지 꼼꼼하게 살핍니다.',
     tags: ['비수술치료', '재활운동', '통증관리'],
@@ -123,7 +120,6 @@ const dailyCareSlides = [
     imageAlt: '재활 치료실에서 의료진이 환자의 상지 재활 운동 치료를 돕는 장면',
   },
   {
-    point: 'POINT 4',
     title: '일상으로 돌아가는 따뜻한 동행',
     desc: '진료실을 나선 뒤에도 환자분의 내일이 흔들리지 않도록 회복 여정을 함께합니다. 작은 변화까지 살피는 마음으로 건강한 일상을 응원합니다.',
     tags: ['회복관리', '생활복귀', '안심동행'],
@@ -157,6 +153,38 @@ const careTextItem: Variants = {
     transition: { duration: 0.4, ease: [0.4, 0, 1, 1] },
   },
 };
+
+type DailyCareSlide = (typeof dailyCareSlides)[number];
+
+// 데스크탑(lg 이상)에서는 글자를 1.3배로 키웁니다. 줄 간격은 토큰의 배수라 함께 커집니다.
+function DailyCareSlideText({ slide, animated = false }: { slide: DailyCareSlide; animated?: boolean }) {
+  const item = animated ? careTextItem : undefined;
+  const Title = animated ? 'h3' : 'p';
+  return (
+    <>
+      <motion.div variants={item}>
+        <Title className="break-keep text-h3 tracking-tight text-ink lg:text-[length:calc(var(--text-h3)*1.3)]">
+          {slide.title}
+        </Title>
+      </motion.div>
+
+      <motion.p variants={item} className="max-w-xl break-keep text-body text-ink-sub lg:max-w-none lg:text-[length:calc(var(--text-body)*1.3)]">
+        {slide.desc}
+      </motion.p>
+
+      <motion.div variants={item} className="flex flex-wrap gap-3">
+        {slide.tags.map((tag) => (
+          <span
+            key={tag}
+            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-caption font-semibold text-ink-sub shadow-[0_10px_28px_-24px_rgba(15,29,54,0.35)] lg:px-5 lg:py-2.5 lg:text-[length:calc(var(--text-caption)*1.3)]"
+          >
+            {tag}
+          </span>
+        ))}
+      </motion.div>
+    </>
+  );
+}
 
 const quickAccessItems = [
   {
@@ -394,8 +422,9 @@ export default function HomePageContent({
 
         <div className="relative z-10 mx-auto mt-14 max-w-7xl px-5 sm:px-7 md:mt-28 xl:px-10">
           <div className="relative min-h-0 lg:min-h-[500px]">
-            <div className="relative z-10 grid grid-cols-1 gap-7 lg:grid-cols-[minmax(0,1.32fr)_minmax(0,1fr)] lg:items-center lg:gap-[72px] xl:gap-[96px]">
-              <div className="relative aspect-[4/3] min-h-0 overflow-hidden rounded-[12px] md:aspect-[1.34/1] md:min-h-[420px] md:rounded-none lg:h-[462px]">
+            <div className="relative z-10 grid grid-cols-1 gap-7 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-center lg:gap-16 xl:gap-20">
+              {/* 사진은 칸 너비를 채우고 높이는 1.34:1 비율로 따라갑니다. 높이를 고정하면 넓은 화면에서는 칸보다 좁아지고 1024px에서는 글 칸을 침범했습니다. */}
+              <div className="relative aspect-[4/3] min-h-0 overflow-hidden rounded-[12px] md:aspect-[1.34/1] md:min-h-[420px] md:rounded-none lg:min-h-0">
                 <AnimatePresence>
                   <motion.div
                     key={activeCareIndex}
@@ -409,26 +438,26 @@ export default function HomePageContent({
                       src={activeCareSlide.image}
                       alt={activeCareSlide.imageAlt}
                       fill
-                      sizes="(min-width: 1280px) 620px, (min-width: 1024px) 48vw, 92vw"
+                      sizes="(min-width: 1400px) 664px, (min-width: 1024px) 47vw, 92vw"
                       className="object-cover"
-                      priority={activeCareIndex === 0}
                     />
                     <div className="absolute inset-0 bg-white/20" />
                   </motion.div>
                 </AnimatePresence>
               </div>
 
-              <article className="space-y-7 md:space-y-12 lg:-translate-y-4">
-                <div className="flex items-center gap-4">
+              <article className="space-y-7 md:space-y-12 lg:space-y-10">
+                {/* 화살표 버튼의 안쪽 여백만큼 당겨, 왼쪽 화살표가 아래 글의 시작선과 맞게 합니다. */}
+                <div className="-ml-2 flex items-center gap-4 lg:-ml-2.5">
                   <button
                     type="button"
                     onClick={showPreviousCareSlide}
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/0 text-ink"
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/0 text-ink lg:h-11 lg:w-11"
                     aria-label="이전 진료 약속 보기"
                   >
-                    <ChevronRight size={20} className="rotate-180" />
+                    <ChevronRight size={20} className="rotate-180 lg:h-6 lg:w-6" />
                   </button>
-                  <div className="flex items-center gap-4 font-montserrat text-[16px] font-bold tracking-widest">
+                  <div className="flex items-center gap-4 font-montserrat text-[16px] font-bold tracking-widest lg:text-[21px]">
                     <span className="text-ink">{String(activeCareIndex + 1).padStart(2, '0')}</span>
                     <span className="h-1 w-1 rounded-full bg-slate-400/50" />
                     <span className="text-slate-400">{String(dailyCareSlides.length).padStart(2, '0')}</span>
@@ -436,14 +465,21 @@ export default function HomePageContent({
                   <button
                     type="button"
                     onClick={showNextCareSlide}
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/0 text-ink"
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/0 text-ink lg:h-11 lg:w-11"
                     aria-label="다음 진료 약속 보기"
                   >
-                    <ChevronRight size={20} />
+                    <ChevronRight size={20} className="lg:h-6 lg:w-6" />
                   </button>
                 </div>
 
-                <div className="relative min-h-0 md:min-h-[276px]">
+                {/* 네 슬라이드를 보이지 않게 겹쳐 두어 가장 긴 슬라이드 높이로 자리를 잡습니다.
+                    슬라이드가 바뀌어도 글 위치가 흔들리지 않고, 사진 세로 가운데에 맞춰집니다. */}
+                <div className="relative grid">
+                  {dailyCareSlides.map((slide) => (
+                    <div key={slide.title} aria-hidden="true" className="invisible space-y-5 [grid-area:1/1] md:space-y-7">
+                      <DailyCareSlideText slide={slide} />
+                    </div>
+                  ))}
                   <AnimatePresence mode="popLayout">
                     <motion.div
                       key={activeCareIndex}
@@ -451,34 +487,9 @@ export default function HomePageContent({
                       initial="hidden"
                       animate="show"
                       exit="exit"
-                      className="space-y-5 md:space-y-7"
+                      className="space-y-5 [grid-area:1/1] md:space-y-7"
                     >
-                      <motion.div variants={careTextItem} className="flex flex-wrap items-center gap-3 md:gap-5">
-                        <span className="rounded-full bg-[#102f66] px-4 py-2 text-caption font-bold tracking-tight text-white md:px-5">
-                          {activeCareSlide.point}
-                        </span>
-                        <h3 className="break-keep text-h3 tracking-tight text-ink">
-                          {activeCareSlide.title}
-                        </h3>
-                      </motion.div>
-
-                      <motion.p
-                        variants={careTextItem}
-                        className="max-w-xl break-keep text-body text-ink-sub"
-                      >
-                        {activeCareSlide.desc}
-                      </motion.p>
-
-                      <motion.div variants={careTextItem} className="flex flex-wrap gap-3">
-                        {activeCareSlide.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-caption font-semibold text-ink-sub shadow-[0_10px_28px_-24px_rgba(15,29,54,0.35)]"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </motion.div>
+                      <DailyCareSlideText slide={activeCareSlide} animated />
                     </motion.div>
                   </AnimatePresence>
                 </div>
