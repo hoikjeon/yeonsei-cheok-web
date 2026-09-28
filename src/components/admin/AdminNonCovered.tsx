@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { mutateFee } from '@/app/admin/(dashboard)/non-covered/actions';
 import {
@@ -35,7 +35,8 @@ export default function AdminNonCovered({ initial, initialHistory }: { initial: 
   const [history, setHistory] = useState(initialHistory);
   const [tab, setTab] = useState<'items' | 'groups' | 'history'>('items');
   const [query, setQuery] = useState('');
-  const [sectionFilter, setSectionFilter] = useState('');
+  // 173개를 한 번에 늘어놓지 않도록 장 하나씩 봅니다. 처음에는 항목이 있는 첫 장을 엽니다. 빈 값은 전체.
+  const [sectionFilter, setSectionFilter] = useState(() => initial.content.sections.find(s => s.groups.length > 0)?.id ?? '');
   const [status, setStatus] = useState('active');
   const [editor, setEditor] = useState<{ id?: string; values: FormValues } | null>(null);
   const [preview, setPreview] = useState<FeeDraft | null>(null);
@@ -46,9 +47,18 @@ export default function AdminNonCovered({ initial, initialHistory }: { initial: 
   const [downloading, setDownloading] = useState(false);
   const catalog = snapshot.content;
   const all = orderedFeeItems(catalog, true);
-  const rows = all.filter(i => (status === 'deleted' ? Boolean(i.deletedAt) : !i.deletedAt)
-    && (!sectionFilter || catalog.sections.find(s => s.id === sectionFilter)?.groups.some(g => g.id === i.groupId))
-    && `${i.name} ${i.code}`.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase()));
+  const needle = query.trim().toLocaleLowerCase();
+  const matches = (i: FeeItem) => (status === 'deleted' ? Boolean(i.deletedAt) : !i.deletedAt)
+    && `${i.name} ${i.code}`.toLocaleLowerCase().includes(needle);
+  // "1. 행위료"처럼 제목만 있는 장은 아래 작은 장(1-1~1-7)으로 나눠 보여줍니다.
+  const chapters = catalog.sections.filter(s => s.groups.length > 0).map(section => {
+    const groups = section.groups.map(group => ({ group, items: all.filter(i => i.groupId === group.id && matches(i)) }));
+    return { section, groups, count: groups.reduce((n, g) => n + g.items.length, 0) };
+  });
+  const totalCount = chapters.reduce((n, c) => n + c.count, 0);
+  const selectedChapter = chapters.find(c => c.section.id === sectionFilter);
+  const visibleChapters = selectedChapter ? [selectedChapter] : chapters;
+  const rowCount = selectedChapter ? selectedChapter.count : totalCount;
 
   async function save(command: FeeCommand) {
     setBusy(true); setError(''); setSuccess('');
@@ -74,7 +84,8 @@ export default function AdminNonCovered({ initial, initialHistory }: { initial: 
   }
   function edit(item?: FeeItem) {
     setError(''); setSuccess(''); setPreview(null);
-    setEditor({ id: item?.id, values: valuesFor(item, catalog.sections.flatMap(s => s.groups)[0]?.id ?? '') });
+    // 새 항목은 지금 보고 있는 장의 첫 분류를 기본으로 고릅니다.
+    setEditor({ id: item?.id, values: valuesFor(item, selectedChapter?.section.groups[0]?.id ?? catalog.sections.flatMap(s => s.groups)[0]?.id ?? '') });
   }
   function confirm(command: FeeCommand, title: string, message: string) { setError(''); setSuccess(''); setConfirmation({ command, title, message }); }
   const alert = error ? <p role="alert" className="my-4 rounded-lg bg-red-50 p-3 text-sm text-red-800">{error}</p> : null;
@@ -90,32 +101,52 @@ export default function AdminNonCovered({ initial, initialHistory }: { initial: 
       {([['items', '항목 관리'], ['groups', '분류·순서 관리'], ['history', '변경 이력']] as const).map(([key, label]) => <button key={key} onClick={() => setTab(key)} aria-current={tab === key ? 'page' : undefined} className={tab === key ? primaryStyle : buttonStyle}>{label}</button>)}
     </nav>
     {tab === 'items' && <>
-      <div className="mb-4 grid gap-3 rounded-xl border border-slate-200 bg-white p-4 sm:grid-cols-[2fr_1fr_1fr]">
+      <div className="mb-4 grid gap-3 rounded-xl border border-slate-200 bg-white p-4 sm:grid-cols-[2fr_1fr]">
         <label className="text-sm font-semibold">항목명·코드 검색<input value={query} onChange={e => setQuery(e.target.value)} className={fieldStyle} placeholder="명칭 또는 코드를 입력하세요" /></label>
-        <label className="text-sm font-semibold">대분류<select value={sectionFilter} onChange={e => setSectionFilter(e.target.value)} className={fieldStyle}><option value="">전체 분류</option>{catalog.sections.map(s => <option value={s.id} key={s.id}>{s.title}</option>)}</select></label>
         <label className="text-sm font-semibold">공개 상태<select value={status} onChange={e => setStatus(e.target.value)} className={fieldStyle}><option value="active">공개 중</option><option value="deleted">삭제된 항목</option></select></label>
       </div>
-      <p className="mb-3 text-sm text-slate-500">{rows.length}개 항목 · 순서는 같은 분류 안에서 변경됩니다.</p>
+      <nav aria-label="장 선택" className="mb-6 flex flex-wrap gap-2">
+        {[{ id: '', title: '전체', count: totalCount }, ...chapters.map(c => ({ id: c.section.id, title: c.section.title, count: c.count }))].map(chip => {
+          const selected = chip.id ? chip.id === selectedChapter?.section.id : !selectedChapter;
+          return <button key={chip.id || 'all'} type="button" aria-pressed={selected} onClick={() => setSectionFilter(chip.id)} className={`inline-flex min-h-10 items-center gap-2 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${selected ? 'border-blue-800 bg-blue-800 text-white' : 'border-slate-300 bg-white text-slate-700 hover:border-blue-300 hover:bg-blue-50'} ${chip.count === 0 && !selected ? 'opacity-50' : ''}`}>
+            {chip.title}{' '}<span className={`rounded-full px-2 py-0.5 text-xs tabular-nums ${selected ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'}`}>{chip.count}</span>
+          </button>;
+        })}
+      </nav>
+      <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
+        <h2 className="text-lg font-bold text-slate-900">{selectedChapter ? selectedChapter.section.title : '전체 장'} <span className="ml-1 text-sm font-medium text-slate-500">{rowCount}개 항목</span></h2>
+        <p className="text-sm text-slate-500">순서(↑↓)는 같은 분류 안에서 변경됩니다.</p>
+      </div>
       <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white">
-        <table className="w-full min-w-[900px] text-left text-sm"><thead className="bg-slate-100 text-slate-600"><tr>{['분류 / 명칭', '코드', '비용', '최저비용', '최고비용', '변경일'].map(h => <th key={h} className="px-4 py-3">{h}</th>)}<th className={`${stickyActionCell} bg-slate-100 py-3`}>관리</th></tr></thead>
-          <tbody>{rows.map(item => {
-            const siblings = all.filter(i => i.groupId === item.groupId && !i.deletedAt);
-            const index = siblings.findIndex(i => i.id === item.id);
-            return <tr key={item.id} data-fee-id={item.id} className="border-t border-slate-100">
-              <td className="max-w-[340px] px-4 py-4"><p className="mb-1 text-xs text-slate-500">{item.sectionTitle} / {item.categoryName}</p><p className="font-semibold text-slate-900">{item.name}</p></td>
-              <td className="px-4 py-4 text-slate-600">{item.code || '—'}</td>
-              {[item.cost, item.minCost, item.maxCost].map((v, i) => <td key={i} className="whitespace-nowrap px-4 py-4 tabular-nums">{v === null ? '—' : `${formatFee(v)}원`}</td>)}
-              <td className="whitespace-nowrap px-4 py-4 text-slate-500">{item.updateDate || '—'}</td>
-              <td className={`${stickyActionCell} bg-white py-4`}><div className="flex gap-1">
-                {item.deletedAt ? <button className={buttonStyle} disabled={busy} onClick={() => confirm({ type: 'restoreItem', id: item.id }, '항목 복원', `${item.name}을 복원하면 홈페이지에 다시 공개됩니다.`)}>복원</button> : <>
-                  <button className={buttonStyle} disabled={busy} onClick={() => edit(item)}>수정</button>
-                  <button className={buttonStyle} disabled={busy} onClick={() => confirm({ type: 'deleteItem', id: item.id }, '항목 삭제', `${item.name}을 홈페이지에서 제외합니다. 삭제된 항목에서 복원할 수 있습니다.`)}>삭제</button>
-                  <button aria-label={`${item.name} 위로`} className={buttonStyle} disabled={busy || index === 0} onClick={() => save({ type: 'moveItem', id: item.id, direction: -1 })}>↑</button>
-                  <button aria-label={`${item.name} 아래로`} className={buttonStyle} disabled={busy || index === siblings.length - 1} onClick={() => save({ type: 'moveItem', id: item.id, direction: 1 })}>↓</button>
-                </>}
-              </div></td>
-            </tr>;
-          })}{!rows.length && <tr><td colSpan={7} className="p-12 text-center text-slate-500">해당하는 항목이 없습니다.</td></tr>}</tbody>
+        <table className="w-full min-w-[900px] text-left text-sm"><thead className="bg-slate-100 text-slate-600"><tr>{['명칭', '코드', '비용', '최저비용', '최고비용', '변경일'].map(h => <th key={h} className="whitespace-nowrap px-4 py-3">{h}</th>)}<th className={`${stickyActionCell} bg-slate-100 py-3`}>관리</th></tr></thead>
+          {visibleChapters.filter(c => c.count > 0).map(({ section, groups }) => <tbody key={section.id}>
+            {!selectedChapter && <tr><th colSpan={7} scope="rowgroup" className="bg-slate-700 px-4 py-2.5 text-left text-sm font-bold text-white">{section.title}</th></tr>}
+            {groups.filter(g => g.items.length > 0).map(({ group, items }) => <Fragment key={group.id}>
+              <tr><th colSpan={7} scope="colgroup" className="border-t border-slate-200 bg-blue-50 px-4 py-2 text-left text-[13px] font-bold text-blue-900">{group.name} <span className="font-medium text-blue-900/60">· {items.length}개</span></th></tr>
+              {items.map(item => {
+                const siblings = all.filter(i => i.groupId === item.groupId && !i.deletedAt);
+                const index = siblings.findIndex(i => i.id === item.id);
+                return <tr key={item.id} data-fee-id={item.id} className="border-t border-slate-100">
+                  <td className="max-w-[340px] px-4 py-4 font-semibold text-slate-900">{item.name}</td>
+                  <td className="px-4 py-4 text-slate-600">{item.code || '—'}</td>
+                  {[item.cost, item.minCost, item.maxCost].map((v, i) => <td key={i} className="whitespace-nowrap px-4 py-4 tabular-nums">{v === null ? '—' : `${formatFee(v)}원`}</td>)}
+                  <td className="whitespace-nowrap px-4 py-4 text-slate-500">{item.updateDate || '—'}</td>
+                  <td className={`${stickyActionCell} bg-white py-4`}><div className="flex gap-1">
+                    {item.deletedAt ? <button className={buttonStyle} disabled={busy} onClick={() => confirm({ type: 'restoreItem', id: item.id }, '항목 복원', `${item.name}을 복원하면 홈페이지에 다시 공개됩니다.`)}>복원</button> : <>
+                      <button className={buttonStyle} disabled={busy} onClick={() => edit(item)}>수정</button>
+                      <button className={buttonStyle} disabled={busy} onClick={() => confirm({ type: 'deleteItem', id: item.id }, '항목 삭제', `${item.name}을 홈페이지에서 제외합니다. 삭제된 항목에서 복원할 수 있습니다.`)}>삭제</button>
+                      <button aria-label={`${item.name} 위로`} className={buttonStyle} disabled={busy || index === 0} onClick={() => save({ type: 'moveItem', id: item.id, direction: -1 })}>↑</button>
+                      <button aria-label={`${item.name} 아래로`} className={buttonStyle} disabled={busy || index === siblings.length - 1} onClick={() => save({ type: 'moveItem', id: item.id, direction: 1 })}>↓</button>
+                    </>}
+                  </div></td>
+                </tr>;
+              })}
+            </Fragment>)}
+          </tbody>)}
+          {rowCount === 0 && <tbody><tr><td colSpan={7} className="p-12 text-center text-slate-500">
+            해당하는 항목이 없습니다.
+            {selectedChapter && totalCount > 0 && <button type="button" onClick={() => setSectionFilter('')} className="ml-2 font-semibold text-blue-800 underline">전체 장에서 {totalCount}개 보기</button>}
+          </td></tr></tbody>}
         </table>
       </div>
     </>}

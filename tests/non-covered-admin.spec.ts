@@ -12,8 +12,15 @@ test('admin workflow, conflict/failure recovery, export and access control', asy
   await context.addCookies([{ name: 'admin_session', value, domain: '127.0.0.1', path: '/', httpOnly: true }]);
   await page.goto('/admin/non-covered');
   await expect(page.getByRole('heading', { name: '비급여 관리', exact: true })).toBeVisible();
-  await expect(page.locator('[data-fee-id]')).toHaveCount(173);
+  // Items open one chapter at a time, starting with the first chapter that has items.
+  await expect(page.locator('[data-fee-id]')).toHaveCount(1);
+  await page.getByRole('button', { name: /^1-2\. 검사료 \d+$/ }).click();
+  await expect(page.locator('[data-fee-id]')).toHaveCount(10);
+  await expect(page.getByRole('columnheader', { name: '외피,근골기능검사 · 4개' })).toBeVisible();
+  await page.waitForTimeout(300); // let the chip colour transition settle
   await page.screenshot({ path: '/tmp/ys-fee-admin-desktop.png', fullPage: false });
+  await page.getByRole('button', { name: /^전체 \d+$/ }).click();
+  await expect(page.locator('[data-fee-id]')).toHaveCount(173);
   const stale = await context.newPage(); await stale.goto('/admin/non-covered');
 
   await page.getByRole('button', { name: '항목 추가', exact: true }).click();
