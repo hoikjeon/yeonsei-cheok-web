@@ -13,7 +13,13 @@ const draft: FeeDraft = { ...catalog.items[0], name: '새 항목', code: '001230
 
 test('migration preserves every public value, order, duplicated code and blank versus zero', () => {
   assert.equal(catalog.items.length, 173);
-  assert.deepEqual(publicFeeSections(catalog), nonCoveredData);
+  // The homepage omits per-item change dates; the catalogue still keeps every one of them.
+  const legacyItems = nonCoveredData.flatMap(s => s.groups.flatMap(g => g.items));
+  assert.deepEqual(publicFeeSections(catalog), nonCoveredData.map(s => ({ ...s, groups: s.groups.map(g => ({
+    ...g, items: g.items.map(({ updateDate, ...item }) => { void updateDate; return item; }),
+  })) })));
+  assert.deepEqual(orderedFeeItems(catalog).map(i => i.updateDate.replaceAll('-', '.')), legacyItems.map(i => i.updateDate));
+  assert.ok(publicFeeSections(catalog).every(s => s.groups.every(g => g.items.every(i => !('updateDate' in i)))));
   assert.equal(parseFee('0'), 0); assert.equal(parseFee(''), null); assert.equal(parseFee('1,000'), 1000);
   for (const value of ['-1', '1,2', '1e4', 'NaN', '1.5', '1,000,000,000']) assert.throws(() => parseFee(value));
   assert.ok(catalog.items.filter(i => i.code === 'EZ776').length > 1);

@@ -1,4 +1,4 @@
-import type { NonCoveredSection } from '@/app/(public)/non-covered/data';
+import type { NonCoveredItem } from '@/app/(public)/non-covered/data';
 
 export interface FeeGroup { id: string; name: string }
 export interface FeeSection { id: string; title: string; groups: FeeGroup[] }
@@ -9,6 +9,9 @@ export interface FeeItem {
   deletedAt: string | null;
 }
 export type FeeDraft = Omit<FeeItem, 'id' | 'deletedAt'>;
+// 홈페이지에는 항목별 최종변경일을 내보내지 않습니다. 관리자 화면과 엑셀에서만 보입니다.
+export type PublicFeeItem = Omit<NonCoveredItem, 'updateDate'>;
+export interface PublicFeeSection { title: string; groups: { categoryName: string; items: PublicFeeItem[] }[] }
 export interface FeeCatalog { sections: FeeSection[]; items: FeeItem[]; publishedDate: string }
 export interface FeeSnapshot { version: number; content: FeeCatalog }
 export interface FeeHistory {
@@ -71,12 +74,12 @@ export function orderedFeeItems(catalog: FeeCatalog, includeDeleted = false) {
     catalog.items.filter(item => item.groupId === group.id && (includeDeleted || !item.deletedAt))
       .map(item => ({ ...item, sectionTitle: section.title, categoryName: group.name }))));
 }
-export function publicFeeSections(catalog: FeeCatalog): NonCoveredSection[] {
+export function publicFeeSections(catalog: FeeCatalog): PublicFeeSection[] {
   return catalog.sections.map(section => ({ title: section.title, groups: section.groups.map(group => ({
     categoryName: group.name,
     items: catalog.items.filter(i => i.groupId === group.id && !i.deletedAt).map(i => ({
       name: i.name, code: i.code, division: i.division, cost: formatFee(i.cost), minCost: formatFee(i.minCost), maxCost: formatFee(i.maxCost),
-      materialIncluded: i.materialIncluded, drugIncluded: i.drugIncluded, note: i.note, updateDate: i.updateDate.replaceAll('-', '.'),
+      materialIncluded: i.materialIncluded, drugIncluded: i.drugIncluded, note: i.note,
     })),
   })).filter(group => group.items.length > 0) }));
 }

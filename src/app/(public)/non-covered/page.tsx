@@ -65,8 +65,7 @@ export default async function NonCoveredPage() {
                       <th rowSpan={2} className="p-3 border-r border-gray-200 align-middle">분류</th>
                       <th colSpan={2} className="p-3 border-r border-b border-gray-200">항목</th>
                       <th colSpan={6} className="p-3 border-r border-b border-gray-200">가격정보(단위:원)</th>
-                      <th rowSpan={2} className="p-3 border-r border-gray-200 align-middle">특이사항</th>
-                      <th rowSpan={2} className="p-3 align-middle">최종변경일</th>
+                      <th rowSpan={2} className="p-3 align-middle">특이사항</th>
                     </tr>
                     <tr>
                       <th className="p-2 border-r border-gray-200 font-medium">명칭</th>
@@ -99,8 +98,7 @@ export default async function NonCoveredPage() {
                           <td className="p-3 border-r border-gray-200 text-right text-gray-600">{item.maxCost}</td>
                           <td className="p-3 border-r border-gray-200 text-center text-gray-600">{item.materialIncluded}</td>
                           <td className="p-3 border-r border-gray-200 text-center text-gray-600">{item.drugIncluded}</td>
-                          <td className="max-w-[260px] whitespace-normal break-keep border-r border-gray-200 p-3 leading-relaxed text-gray-600 lg:max-w-[200px] lg:truncate" title={item.note}>{item.note}</td>
-                          <td className="p-3 text-center text-gray-500 text-xs">{item.updateDate}</td>
+                          <td className="max-w-[260px] whitespace-normal break-keep p-3 leading-relaxed text-gray-600 lg:max-w-[200px] lg:truncate" title={item.note}>{item.note}</td>
                         </tr>
                       ))
                     ))}
