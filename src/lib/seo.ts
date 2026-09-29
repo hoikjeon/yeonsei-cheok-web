@@ -16,14 +16,16 @@ export const NAVER_SITE_VERIFICATION =
 
 function normalizeSiteUrl(value: string) {
   const withProtocol = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+  // 로컬 미리보기 환경 변수가 검색용 대표 주소에 섞이지 않게 합니다.
+  if (['localhost', '127.0.0.1', '0.0.0.0', '[::1]'].includes(new URL(withProtocol).hostname)) {
+    return 'https://www.ys-cheok.com';
+  }
   return withProtocol.replace(/\/+$/, '');
 }
 
 const configuredSiteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
-  process.env.VERCEL_PROJECT_PRODUCTION_URL ||
-  process.env.VERCEL_URL ||
-  'http://localhost:3000';
+  'https://www.ys-cheok.com';
 
 export const SITE_URL = normalizeSiteUrl(configuredSiteUrl);
 

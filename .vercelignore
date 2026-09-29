@@ -11,6 +11,7 @@ glass-sphere-3d/
 *.md
 
 # 로컬 산출물
+output/
 tsconfig.tsbuildinfo
 .DS_Store
 **/.DS_Store
