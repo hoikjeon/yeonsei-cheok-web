@@ -7,6 +7,28 @@ import { DEFAULT_SITE_DESCRIPTION, SITE_NAME, SITE_URL, absoluteUrl } from '@/li
 const HOSPITAL_ID = `${SITE_URL}/#hospital`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
 
+// 시술 개체의 ID. 병원 노드의 availableService, 의료진 노드, 시술 상세 페이지가
+// 모두 같은 ID를 가리켜야 AI가 "이 병원·이 의료진이 하는 이 시술"로 묶어 이해합니다.
+const procedureNodeId = (path: string) => `${absoluteUrl(path)}#procedure`;
+const physicianNodeId = (id: string) => `${SITE_URL}/#physician-${id}`;
+
+const UBE_PATH = '/treatments/spine/ube';
+
+// 양방향 척추내시경을 부르는 여러 이름. 병원 노드와 UBE 페이지가 같은 목록을 씁니다.
+// 띄어쓰기만 다른 표기와 영문 명칭(UBE·BESS)도 검색어로 쓰이므로 모두 적습니다.
+export const UBE_ALTERNATE_NAMES = [
+  'UBE',
+  'UBE 수술',
+  '양방향척추내시경',
+  '양방향 척추 내시경',
+  '양방향 내시경 척추수술',
+  '양방향 내시경 감압술',
+  '척추 내시경 수술',
+  'BESS',
+  'Unilateral Biportal Endoscopy',
+  'Biportal Endoscopic Spine Surgery',
+];
+
 const TELEPHONE = '+82-51-935-1004';
 const FAX = '+82-51-935-1008';
 
@@ -40,14 +62,8 @@ const PROCEDURES: Array<{
 }> = [
   {
     name: '양방향 척추내시경(UBE)',
-    path: '/treatments/spine/ube',
-    alternateName: [
-      'UBE',
-      '양방향 척추 내시경',
-      '양방향 내시경 척추수술',
-      '척추 내시경 수술',
-      'Unilateral Biportal Endoscopy',
-    ],
+    path: UBE_PATH,
+    alternateName: UBE_ALTERNATE_NAMES,
   },
   { name: '허리디스크 치료', path: '/treatments/spine/disc', alternateName: ['요추 추간판 탈출증'] },
   { name: '목디스크 치료', path: '/treatments/spine/neck-disc', alternateName: ['경추 추간판 탈출증'] },
@@ -87,6 +103,10 @@ const KNOWS_ABOUT = [
   '부산 척추병원',
   '부산 관절병원',
   '양방향 척추내시경(UBE)',
+  '척추내시경',
+  '척추수술',
+  '목수술',
+  '허리수술',
   '무릎관절내시경',
   '허리디스크',
   '목디스크',
@@ -106,16 +126,53 @@ const DEPARTMENTS = [
   { name: '영상의학과', specialty: 'https://schema.org/Radiography' },
 ];
 
+// 척추내시경센터 두 병원장의 전문 분야. 검색어 표기 그대로 적습니다.
+const SPINE_ENDOSCOPY_KNOWS_ABOUT = [
+  '양방향 척추내시경(UBE)',
+  '척추내시경',
+  '척추수술',
+  '목수술',
+  '허리수술',
+];
+
+const BUSAN_SPINE_ENDOSCOPY_SOCIETY = '부산-울산-경남 척추내시경 연구회';
+
 // src/app/(public)/doctors/page.tsx 의 doctorList 와 같은 순서·같은 id 입니다.
+// roles에는 병원이 현 직책으로 확인해 준 것만 적습니다. (UBE 페이지 FAQ와 같은 내용)
 const PHYSICIANS: Array<{
   id: string;
   name: string;
   jobTitle: string;
   specialty: string;
   image: string;
+  knowsAbout?: string[];
+  /** 집도하는 대표 시술의 페이지 경로 */
+  procedures?: string[];
+  roles?: Array<{ organization: string; roleName: string }>;
 }> = [
-  { id: 'kim-dong-han', name: '김동한', jobTitle: '병원장', specialty: 'https://schema.org/Neurologic', image: '/김동한병원장.jpg' },
-  { id: 'lee-nam', name: '이남', jobTitle: '병원장', specialty: 'https://schema.org/Neurologic', image: '/이남 병원장.jpg' },
+  {
+    id: 'kim-dong-han',
+    name: '김동한',
+    jobTitle: '병원장',
+    specialty: 'https://schema.org/Neurologic',
+    image: '/김동한병원장.jpg',
+    knowsAbout: SPINE_ENDOSCOPY_KNOWS_ABOUT,
+    procedures: [UBE_PATH],
+    roles: [{ organization: BUSAN_SPINE_ENDOSCOPY_SOCIETY, roleName: '학술간사' }],
+  },
+  {
+    id: 'lee-nam',
+    name: '이남',
+    jobTitle: '병원장',
+    specialty: 'https://schema.org/Neurologic',
+    image: '/이남 병원장.jpg',
+    knowsAbout: SPINE_ENDOSCOPY_KNOWS_ABOUT,
+    procedures: [UBE_PATH],
+    roles: [
+      { organization: '양방향 척추내시경(UBE) 연구회', roleName: '학술이사' },
+      { organization: BUSAN_SPINE_ENDOSCOPY_SOCIETY, roleName: '학술이사' },
+    ],
+  },
   { id: 'choi-ho', name: '최호', jobTitle: '원장', specialty: 'https://schema.org/Musculoskeletal', image: '/최호원장.jpg' },
   { id: 'kim-beom-jun', name: '김범준', jobTitle: '원장', specialty: 'https://schema.org/Anesthesia', image: '/김범준원장.jpg' },
   { id: 'jang-hwi-yeol', name: '장휘열', jobTitle: '원장', specialty: 'https://schema.org/Radiography', image: '/장휘열원장님.png' },
@@ -182,18 +239,38 @@ export function buildHospitalStructuredData() {
         })),
         availableService: PROCEDURES.map((procedure) => ({
           '@type': 'MedicalProcedure',
+          '@id': procedureNodeId(procedure.path),
           name: procedure.name,
           ...(procedure.alternateName ? { alternateName: procedure.alternateName } : {}),
           url: absoluteUrl(procedure.path),
         })),
         employee: PHYSICIANS.map((physician) => ({
           '@type': 'Physician',
+          '@id': physicianNodeId(physician.id),
           name: physician.name,
           jobTitle: physician.jobTitle,
           medicalSpecialty: physician.specialty,
           image: absoluteUrl(physician.image),
           url: absoluteUrl(`/doctors#${physician.id}`),
           worksFor: { '@id': HOSPITAL_ID },
+          ...(physician.knowsAbout ? { knowsAbout: physician.knowsAbout } : {}),
+          ...(physician.procedures
+            ? {
+                availableService: physician.procedures.map((path) => ({
+                  '@id': procedureNodeId(path),
+                })),
+              }
+            : {}),
+          ...(physician.roles
+            ? {
+                // schema.org의 Role 패턴: memberOf 안에 다시 memberOf로 단체를, roleName으로 직책을 적습니다.
+                memberOf: physician.roles.map((role) => ({
+                  '@type': 'OrganizationRole',
+                  roleName: role.roleName,
+                  memberOf: { '@type': 'Organization', name: role.organization },
+                })),
+              }
+            : {}),
         })),
         sameAs: SOCIAL_PROFILES,
         potentialAction: {
@@ -236,6 +313,8 @@ type ProcedurePageOptions = {
     followup?: string;
   };
   breadcrumb: Array<{ name: string; path: string }>;
+  /** 페이지에 실제로 보이는 FAQ. 화면의 질문·답변 문구와 한 글자도 다르면 안 됩니다. */
+  faq?: Array<{ question: string; answer: string }>;
 };
 
 /**
@@ -252,9 +331,11 @@ export function buildProcedurePageStructuredData({
   page,
   procedure,
   breadcrumb,
+  faq,
 }: ProcedurePageOptions) {
   const pageId = `${absoluteUrl(page.path)}#webpage`;
-  const procedureId = `${absoluteUrl(page.path)}#procedure`;
+  const procedureId = procedureNodeId(page.path);
+  const faqId = `${absoluteUrl(page.path)}#faq`;
 
   return {
     '@context': 'https://schema.org',
@@ -297,6 +378,27 @@ export function buildProcedurePageStructuredData({
         relevantSpecialty: procedure.specialty,
         url: absoluteUrl(page.path),
       },
+      // AI 검색은 질문-답변 쌍을 그대로 인용하는 경우가 많아, 페이지의 FAQ를 기계가 읽는 형태로도 둡니다.
+      ...(faq && faq.length > 0
+        ? [
+            {
+              '@type': 'FAQPage',
+              '@id': faqId,
+              url: absoluteUrl(page.path),
+              inLanguage: 'ko-KR',
+              isPartOf: { '@id': pageId },
+              about: { '@id': procedureId },
+              mainEntity: faq.map((item) => ({
+                '@type': 'Question',
+                name: item.question,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: item.answer,
+                },
+              })),
+            },
+          ]
+        : []),
     ],
   };
 }

@@ -5,6 +5,7 @@ import { Check, ChevronDown, Home } from 'lucide-react';
 import NeckDiseaseSection from '@/components/NeckDiseaseSection';
 import ScrollReveal from '@/components/ScrollReveal';
 import SpineCenterStrengthSection from '@/components/SpineCenterStrengthSection';
+import UbeReferralCallout from '@/components/UbeReferralCallout';
 import UbeTextbookFeatureSection from '@/components/UbeTextbookFeatureSection';
 import YonseiSpecialFeaturesSection from '@/components/YonseiSpecialFeaturesSection';
 import { createPageMetadata } from '@/lib/seo';
@@ -221,6 +222,14 @@ export default function NeckDiscPage() {
       </section>
 
       <NeckDiseaseSection />
+
+      <UbeReferralCallout
+        title="비수술 치료로 나아지지 않는 목디스크라면"
+        paragraphs={[
+          '보존적 치료 후에도 목·어깨 통증과 팔 저림이 계속되거나 손의 힘이 약해진다면 수술적 치료를 검토할 수 있습니다.',
+          '부산 연세척병원 척추내시경센터에서는 목디스크(경추 디스크 탈출증)와 경추 척추관·추간공 협착증에도 양방향 척추내시경(UBE) 적용을 검토합니다. 내시경으로 감압이 가능한 위치와 범위인지는 MRI와 신경학적 평가를 바탕으로 신경외과 전문의가 판단합니다.',
+        ]}
+      />
 
       <UbeTextbookFeatureSection />
       <YonseiSpecialFeaturesSection />

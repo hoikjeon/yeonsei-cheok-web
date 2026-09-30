@@ -10,10 +10,10 @@ import YonseiSpecialFeaturesSection from '@/components/YonseiSpecialFeaturesSect
 import UbeTextbookFeatureSection from '@/components/UbeTextbookFeatureSection';
 import { createPageMetadata } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
-import { buildProcedurePageStructuredData } from '@/lib/structuredData';
+import { UBE_ALTERNATE_NAMES, buildProcedurePageStructuredData } from '@/lib/structuredData';
 
 export const metadata = createPageMetadata({
-  title: '양방향 척추내시경(UBE) | 부산 척추 치료',
+  title: '부산 양방향 척추내시경(UBE) | 척추 치료',
   description:
     '부산 연세척병원의 양방향 척추내시경(UBE) 안내. 1cm 이하 절개 두 곳으로 접근하는 원리와 적용 대상, 치료 과정과 주의사항을 정리했습니다.',
   path: '/treatments/spine/ube',
@@ -104,7 +104,24 @@ const comparisonItems = [
   },
 ];
 
+// 답변에는 이 페이지와 의료진 소개 페이지에 이미 공개된 내용만 씁니다.
+// 같은 배열이 FAQ 구조화 데이터로도 나가므로 화면 문구와 검색용 문구가 항상 같습니다.
 const faqItems = [
+  {
+    question: '부산 연세척병원에서는 어떤 의료진이 UBE를 하나요?',
+    answer:
+      '이남 병원장과 김동한 병원장이 양방향 척추내시경(UBE) 수술을 집도합니다. 두 병원장 모두 부산 연세척병원 척추내시경센터의 신경외과 전문의로, Springer에서 출판된 양방향 척추내시경 교과서(2022년 1판, 2025년 2판) 집필에 참여했습니다. 현재 이남 병원장은 양방향 척추내시경(UBE) 연구회 학술이사와 부산-울산-경남 척추내시경 연구회 학술이사를, 김동한 병원장은 부울경 척추내시경연구회 학술간사를 맡고 있습니다. 진료 일정은 의료진 소개 페이지나 예약 상담에서 확인하실 수 있습니다.',
+  },
+  {
+    question: '한방향 내시경과 무엇이 다른가요?',
+    answer:
+      '한방향 척추내시경은 한 개의 구멍으로 내시경과 수술 도구를 함께 넣어 치료합니다. 신체 부담은 적지만 기구 움직임이 제한되고 시야가 좁아, 비교적 증상이 가벼운 초기 디스크 등 일부 치료에 주로 적용됩니다. 양방향 척추내시경(UBE)은 두 개의 구멍으로 내시경과 수술 도구를 각각 독립적으로 넣기 때문에 양손을 쓰듯 자유롭게 움직일 수 있고 시야가 넓습니다. 그래서 심한 척추관 협착증이나 거대 디스크 파열처럼 범위가 넓은 병변에도 적용할 수 있습니다.',
+  },
+  {
+    question: '허리디스크·협착증·목디스크 중 어디에 적용되나요?',
+    answer:
+      '세 질환 모두 적용을 검토할 수 있습니다. 허리(요추)에서는 허리디스크(요추 디스크 탈출증), 요추 척추관 협착증, 추간공 협착증 등에, 목(경추)에서는 목디스크(경추 디스크 탈출증), 경추 척추관 협착증, 추간공 협착증에 적용을 검토합니다. 다만 모든 환자에게 해당하는 것은 아닙니다. 약물·주사·물리치료 같은 보존적 치료 후에도 통증이 이어지는지, MRI에서 확인한 신경 압박 위치와 범위가 내시경으로 감압할 수 있는지를 신경외과 전문의가 확인한 뒤 결정합니다.',
+  },
   {
     question: '양방향 척추내시경은 언제 해야 하나요?',
     answer:
@@ -188,13 +205,7 @@ const structuredData = buildProcedurePageStructuredData({
   },
   procedure: {
     name: '양방향 척추내시경(UBE)',
-    alternateName: [
-      'UBE',
-      '양방향 척추 내시경',
-      '양방향 내시경 척추수술',
-      '척추 내시경 수술',
-      'Unilateral Biportal Endoscopy',
-    ],
+    alternateName: UBE_ALTERNATE_NAMES,
     bodyLocation: '척추',
     specialty: 'https://schema.org/Neurologic',
     howPerformed:
@@ -209,6 +220,7 @@ const structuredData = buildProcedurePageStructuredData({
     { name: '척추센터', path: '/treatments/spine' },
     { name: '양방향 척추내시경(UBE)', path: '/treatments/spine/ube' },
   ],
+  faq: faqItems,
 });
 
 export default function UbePage() {
@@ -249,6 +261,7 @@ export default function UbePage() {
                 </div>
                 <div className="space-y-4 break-keep text-base font-medium leading-[1.8] text-ink-sub sm:space-y-5 md:text-lg md:leading-relaxed">
                   <p>
+                    부산 연세척병원 척추내시경센터에서 시행하는 양방향 척추내시경(UBE)은
                     두 개의 1cm 이하 절개창을 이용하는 정밀 수술방법으로, 한쪽은 내시경,
                     다른 한쪽에는 수술기구를 삽입하여 감압하는 방법입니다. 부분마취하에서
                     진행하며 감압시간은 약 40분입니다.
@@ -261,6 +274,10 @@ export default function UbePage() {
                   <p>
                     수술 시 시야가 넓고 신경이 선명하게 잘 보여 보다 정확한 치료 결과를 기대할 수
                     있습니다.
+                  </p>
+                  <p>
+                    양방향척추내시경은 영문으로 UBE(Unilateral Biportal Endoscopy) 또는
+                    BESS(Biportal Endoscopic Spine Surgery)라고도 부릅니다.
                   </p>
                 </div>
               </div>
@@ -572,7 +589,7 @@ export default function UbePage() {
                 </h2>
                 <p className="break-keep text-base font-medium leading-[1.75] text-white/82 md:text-lg md:leading-relaxed">
                   척추 질환은 초기에 정확한 원인을 파악해 치료하는 것이 가장 중요합니다.
-                  연세척병원 척추센터는 정밀 진단과 풍부한 임상경험을 갖춘 신경외과 전문의가
+                  부산 연세척병원 척추센터는 정밀 진단과 풍부한 임상경험을 갖춘 신경외과 전문의가
                   꼭 필요한 치료만 선별해 시행합니다.
                 </p>
               </ScrollReveal>
@@ -615,8 +632,8 @@ export default function UbePage() {
                 내 증상에 맞는 치료인지 확인하고 싶다면
               </h2>
               <p className="max-w-2xl break-keep text-body text-ink-sub sm:text-lg sm:leading-relaxed">
-                검사 자료와 증상을 바탕으로 양방향 척추내시경 적용 가능 여부를 전문의가
-                안내해 드립니다.
+                부산에서 양방향 척추내시경(UBE) 치료를 고민하고 계신다면, 검사 자료와 증상을
+                바탕으로 적용 가능 여부를 전문의가 안내해 드립니다.
               </p>
             </div>
             <div className="flex flex-col gap-3 border-t border-slate-200 p-5 sm:p-8 md:flex-row md:p-10 lg:border-l lg:border-t-0 lg:p-12">

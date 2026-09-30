@@ -5,6 +5,7 @@ import { Check, ChevronDown, Home } from 'lucide-react';
 import LumbarDiseaseSection from '@/components/LumbarDiseaseSection';
 import ScrollReveal from '@/components/ScrollReveal';
 import SpineCenterStrengthSection from '@/components/SpineCenterStrengthSection';
+import UbeReferralCallout from '@/components/UbeReferralCallout';
 import UbeTextbookFeatureSection from '@/components/UbeTextbookFeatureSection';
 import YonseiSpecialFeaturesSection from '@/components/YonseiSpecialFeaturesSection';
 import { createPageMetadata } from '@/lib/seo';
@@ -60,7 +61,7 @@ const faqItems = [
   {
     question: '허리디스크는 꼭 수술해야 하나요?',
     answer:
-      '대부분의 허리디스크는 증상과 신경 압박 정도를 확인한 뒤 약물, 물리치료, 주사치료 같은 비수술 치료부터 고려합니다. 다만 마비가 진행되거나 통증이 심하게 지속되는 경우에는 수술적 치료가 필요할 수 있습니다.',
+      '대부분의 허리디스크는 증상과 신경 압박 정도를 확인한 뒤 약물, 물리치료, 주사치료 같은 비수술 치료부터 고려합니다. 다만 마비가 진행되거나 통증이 심하게 지속되는 경우에는 수술적 치료가 필요할 수 있습니다. 수술이 필요한 경우에는 1cm 이하의 작은 절개 두 곳으로 튀어나온 디스크만 선택적으로 제거하는 양방향 척추내시경(UBE) 수술을 검토할 수 있습니다.',
   },
   {
     question: '허리 통증이 허벅지나 종아리까지 저려요. 왜 그런가요?',
@@ -249,6 +250,14 @@ export default function DiscPage() {
       </section>
 
       <LumbarDiseaseSection />
+
+      <UbeReferralCallout
+        title="비수술 치료로 나아지지 않는 허리디스크라면"
+        paragraphs={[
+          '약물·주사·물리치료 같은 보존적 치료를 충분히 했는데도 허리 통증과 다리 저림이 이어진다면 수술적 치료를 검토할 수 있습니다.',
+          '부산 연세척병원 척추내시경센터에서는 1cm 이하의 작은 절개 두 곳으로 내시경과 수술 기구를 넣어, 신경을 누르는 튀어나온 디스크만 선택적으로 제거하는 양방향 척추내시경(UBE) 수술을 시행합니다.',
+        ]}
+      />
 
       <UbeTextbookFeatureSection />
 

@@ -1,4 +1,5 @@
 import SubHero from '@/components/SubHero';
+import UbeReferralCallout from '@/components/UbeReferralCallout';
 import Link from 'next/link';
 import { createPageMetadata } from '@/lib/seo';
 
@@ -27,7 +28,13 @@ const stenosisTypes = [
   },
 ];
 
-const treatmentSteps = [
+// 항목에 href가 있으면 해당 치료 안내 페이지로 링크합니다.
+const treatmentSteps: Array<{
+  step: string;
+  title: string;
+  desc: string;
+  items: Array<string | { label: string; href: string }>;
+}> = [
   {
     step: '1단계',
     title: '보존적 치료',
@@ -44,7 +51,11 @@ const treatmentSteps = [
     step: '3단계',
     title: '최소침습 수술',
     desc: '시술에도 호전이 없거나 신경 손상이 진행되는 경우 수술을 고려합니다.',
-    items: ['양방향 내시경 감압술 (UBE)', '미세현미경 감압술', '척추 유합술 (필요 시)'],
+    items: [
+      { label: '양방향 내시경 감압술 (UBE)', href: '/treatments/spine/ube' },
+      '미세현미경 감압술',
+      '척추 유합술 (필요 시)',
+    ],
   },
 ];
 
@@ -111,7 +122,16 @@ export default function StenosisPage() {
                   {t.items.map((item, j) => (
                     <li key={j} className="flex items-center gap-3 text-ink-sub text-[14px] font-medium">
                       <span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" />
-                      {item}
+                      {typeof item === 'string' ? (
+                        item
+                      ) : (
+                        <Link
+                          href={item.href}
+                          className="font-bold text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary"
+                        >
+                          {item.label}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -120,6 +140,14 @@ export default function StenosisPage() {
           </div>
         </div>
       </section>
+
+      <UbeReferralCallout
+        title="시술로도 나아지지 않는 척추관 협착증이라면"
+        paragraphs={[
+          '주사 치료나 시술 후에도 걷기 힘든 증상이 이어진다면 좁아진 신경 통로를 넓히는 감압 수술을 검토합니다.',
+          '부산 연세척병원 척추내시경센터에서는 1cm 이하의 작은 절개 두 곳으로 접근하는 양방향 척추내시경(UBE) 수술로 좁아진 협착 부위를 넓혀, 조직 손상과 회복 부담을 줄이는 치료를 목표로 합니다.',
+        ]}
+      />
 
       {/* CTA */}
       <section className="border-y border-slate-100 bg-slate-50 px-5 py-14 sm:px-6 md:py-24">

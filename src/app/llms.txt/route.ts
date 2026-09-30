@@ -16,7 +16,7 @@ const SECTIONS: LinkSection[] = [
       {
         title: '양방향 척추내시경(UBE)',
         path: '/treatments/spine/ube',
-        note: '부산 척추 수술. 1cm 이하 절개 두 곳으로 내시경과 수술 기구를 각각 삽입해, 부분마취하에 신경을 누르는 협착 부위를 넓히거나 튀어나온 디스크를 선택적으로 제거합니다. UBE, 양방향 척추 내시경, Unilateral Biportal Endoscopy로도 불립니다.',
+        note: '부산 척추 수술. 1cm 이하 절개 두 곳으로 내시경과 수술 기구를 각각 삽입해, 부분마취하에 신경을 누르는 협착 부위를 넓히거나 튀어나온 디스크를 선택적으로 제거합니다. UBE, 양방향척추내시경, 양방향 척추 내시경, 양방향 내시경 감압술, BESS, Unilateral Biportal Endoscopy, Biportal Endoscopic Spine Surgery로도 불립니다.',
       },
       {
         title: '무릎관절내시경',
