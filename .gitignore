@@ -22,6 +22,9 @@ node_modules/
 # production
 /build
 
+# 화면 확인용 스크린샷 등 작업 산출물
+/output/
+
 # misc
 .DS_Store
 *.pem
