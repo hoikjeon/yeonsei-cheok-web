@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { CalendarCheck, ChevronRight } from 'lucide-react';
 import DoctorsDirectory, { type DoctorProfile } from '@/components/DoctorsDirectory';
-import DoctorsHeroLineup from '@/components/DoctorsHeroLineup';
 import ScrollReveal from '@/components/ScrollReveal';
 import SubHero from '@/components/SubHero';
 import { createPageMetadata } from '@/lib/seo';
@@ -13,9 +12,6 @@ export const metadata = createPageMetadata({
   path: '/doctors',
   image: '/generated/hero-university-doctors.png',
 });
-
-const doctorsMarqueeText =
-  'YONSEI CHEOK DOCTORS · SPINE AND JOINT SPECIALISTS · UNIVERSITY HOSPITAL TRAINED ·';
 
 const doctorList: DoctorProfile[] = [
   {
@@ -168,7 +164,8 @@ const doctorList: DoctorProfile[] = [
         '세계양방향척추내시경연구회(UBE) 학술대회 "최우수 강의상" 수상',
       ],
       textbooks: [
-        "Springer 출판사. 2022년 1판. Biportal Endoscopic Decompression for Bertolotti's Syndrome: Far-out Syndrome",
+        'Springer 출판사. 2022년 1판. Challenging Cases Treated with UBE: The Far-Out Syndrome',
+        'Springer 출판사. 2023년. Core Techniques of Minimally Invasive Spine Surgery - Unilateral Biportal Endoscopic Surgery (UBE) for Cervical and Thoracic Spine',
         "Springer 출판사. 2025년 2판. Biportal Endoscopic Decompression for Bertolotti's Syndrome: Far-out Syndrome",
       ],
       papers: [
@@ -435,21 +432,6 @@ export default function DoctorsPage() {
       />
 
       <main className="w-full">
-        {/* 5인 라인업은 좁은 화면에서 눌려 보여 모바일에서는 숨깁니다 */}
-        <div className="hidden md:block">
-          <DoctorsHeroLineup />
-        </div>
-
-        <div
-          aria-hidden="true"
-          className="marquee-fade pointer-events-none relative mt-8 mb-2 overflow-hidden py-2 md:-mt-16 md:mb-0 md:py-6"
-        >
-          <div className="marquee-track flex w-max select-none font-montserrat text-[clamp(3rem,7.2vw,6.6rem)] font-semibold uppercase leading-none tracking-[0.01em] text-navy-900/[0.055]">
-            <span className="shrink-0 pr-12 md:pr-20">{doctorsMarqueeText}</span>
-            <span className="shrink-0 pr-12 md:pr-20">{doctorsMarqueeText}</span>
-          </div>
-        </div>
-
         <DoctorsDirectory doctors={doctorList} />
 
         <section className="px-4 py-14 sm:px-6 sm:py-16 md:py-24">
