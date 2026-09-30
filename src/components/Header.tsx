@@ -60,7 +60,7 @@ const MENU_DATA: MenuData[] = [
       { name: '치료 장점', desc: '정상 조직 손상을 줄이는 최소침습 접근', href: '/treatments/spine/ube#benefits' },
       { name: '적용대상', desc: '경추·흉추·요추 적용대상 안내', href: '/treatments/spine/ube#decompression-candidates' },
       { name: '치료 과정', desc: '진단부터 회복까지 단계별 치료 흐름', href: '/treatments/spine/ube#process' },
-      { name: '혁신적인 수술치료', desc: '최신 수술 기법을 활용한 혁신적인 치료', href: '/treatments/spine/ube/innovative' },
+      { name: '질환별 UBE 치료', desc: '허리디스크·협착증·목디스크별 적용 안내', href: '/treatments/spine/ube/innovative' },
     ]
   },
   {

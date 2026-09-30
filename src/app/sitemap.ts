@@ -24,6 +24,7 @@ const staticPages: Array<{
   { path: '/treatments/spine/rehab', changeFrequency: 'monthly', priority: 0.8 },
   { path: '/treatments/spine/stenosis', changeFrequency: 'monthly', priority: 0.9 },
   { path: '/treatments/spine/ube', changeFrequency: 'monthly', priority: 0.9 },
+  { path: '/treatments/spine/ube/innovative', changeFrequency: 'monthly', priority: 0.8 },
   { path: '/treatments/joint/knee', changeFrequency: 'monthly', priority: 0.9 },
   { path: '/treatments/joint/knee-arthroscopy', changeFrequency: 'monthly', priority: 0.9 },
   { path: '/treatments/joint/shoulder', changeFrequency: 'monthly', priority: 0.8 },
