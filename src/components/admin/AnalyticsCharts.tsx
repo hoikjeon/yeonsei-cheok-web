@@ -2,27 +2,9 @@
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 
-interface AnalyticsProps {
-  visits: any[];
-}
+import type { VisitAnalytics } from '@/lib/visitAnalytics';
 
-export function AnalyticsSummary({ visits }: AnalyticsProps) {
-  const todayRaw = new Date();
-  const todayString = todayRaw.toLocaleDateString();
-  const yesterdayRaw = new Date(todayRaw.getTime() - 24 * 60 * 60 * 1000);
-  const yesterdayString = yesterdayRaw.toLocaleDateString();
-
-  let todayTotal = 0;
-  let yesterdayTotal = 0;
-
-  visits.forEach(v => {
-    const vDate = new Date(v.visited_at);
-    if (vDate.toLocaleDateString() === todayString) {
-      todayTotal += 1;
-    } else if (vDate.toLocaleDateString() === yesterdayString) {
-      yesterdayTotal += 1;
-    }
-  });
+export function AnalyticsSummary({ todayTotal, yesterdayTotal }: Pick<VisitAnalytics, 'todayTotal' | 'yesterdayTotal'>) {
 
   const diff = todayTotal - yesterdayTotal;
   const diffPercent = yesterdayTotal > 0 ? Math.round((diff / yesterdayTotal) * 100) : 0;
@@ -44,37 +26,7 @@ export function AnalyticsSummary({ visits }: AnalyticsProps) {
   );
 }
 
-export function AnalyticsGraphs({ visits }: AnalyticsProps) {
-  const todayRaw = new Date();
-  const todayString = todayRaw.toLocaleDateString();
-  
-  const hourlyData = Array.from({ length: 24 }, (_, i) => ({
-    time: `${i}시`,
-    visits: 0
-  }));
-
-  const dailyDataMap: Record<string, number> = {};
-  for (let i = 6; i >= 0; i--) {
-    const d = new Date(todayRaw.getTime() - i * 24 * 60 * 60 * 1000);
-    const mmdd = `${d.getMonth() + 1}/${d.getDate()}`;
-    dailyDataMap[mmdd] = 0;
-  }
-
-  visits.forEach(v => {
-    const vDate = new Date(v.visited_at);
-    if (vDate.toLocaleDateString() === todayString) {
-      hourlyData[vDate.getHours()].visits += 1;
-    }
-    const mmdd = `${vDate.getMonth() + 1}/${vDate.getDate()}`;
-    if (dailyDataMap[mmdd] !== undefined) {
-      dailyDataMap[mmdd] += 1;
-    }
-  });
-
-  const dailyData = Object.keys(dailyDataMap).map(key => ({
-    date: key,
-    visits: dailyDataMap[key]
-  }));
+export function AnalyticsGraphs({ hourlyData, dailyData }: Pick<VisitAnalytics, 'hourlyData' | 'dailyData'>) {
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 mt-10">

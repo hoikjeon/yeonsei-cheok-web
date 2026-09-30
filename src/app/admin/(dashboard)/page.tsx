@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { AnalyticsSummary, AnalyticsGraphs } from '@/components/admin/AnalyticsCharts';
 import { requireAdmin } from '@/lib/adminAuth';
+import { getVisitAnalytics } from '@/lib/visitAnalytics';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -40,22 +41,20 @@ export default async function AdminDashboardPage() {
   // 서명된 관리자 세션만 인정합니다. (admin_auth 쿠키는 값이 'true'인지만 보므로 위조 가능)
   await requireAdmin();
 
-  // 7일 전 날짜 계산
-  const todayRaw = new Date();
-  const sevenDaysAgo = new Date(todayRaw.getTime() - 7 * 24 * 60 * 60 * 1000);
-
   // 데이터 한 번에 병렬 패칭 (미확인 건 위주)
-  const [reservationsRes, consultationsRes, popupsRes, visitsRes] = await Promise.all([
+  const [reservationsRes, consultationsRes, popupsRes, analytics] = await Promise.all([
     supabase.from('reservations').select('*').eq('is_checked', false).order('created_at', { ascending: false }).limit(10),
     supabase.from('consultations').select('*').eq('is_checked', false).order('created_at', { ascending: false }).limit(10),
     supabase.from('popups').select('*').order('created_at', { ascending: false }).limit(6),
-    supabase.from('site_visits').select('*').gte('visited_at', sevenDaysAgo.toISOString()).order('visited_at', { ascending: true })
+    getVisitAnalytics(supabase).catch((error: unknown) => {
+      console.error('Dashboard analytics failed:', error);
+      return null;
+    })
   ]);
 
   const reservations = (reservationsRes.data || []) as ReservationRecord[];
   const consultations = (consultationsRes.data || []) as ConsultationRecord[];
   const popups = (popupsRes.data || []) as PopupRecord[];
-  const visits = visitsRes.data || [];
 
   return (
     <>
@@ -71,7 +70,11 @@ export default async function AdminDashboardPage() {
       <div className="p-10 space-y-10 max-w-[1600px] w-full">
         
         {/* 1. 요약 카드 최상단 배치 */}
-        <AnalyticsSummary visits={visits} />
+        {analytics ? <AnalyticsSummary todayTotal={analytics.todayTotal} yesterdayTotal={analytics.yesterdayTotal} /> : (
+          <p role="alert" className="rounded border border-amber-200 bg-amber-50 p-5 text-amber-900">
+            방문 통계를 불러오지 못했습니다. 잠시 후 새로고침해 주세요.
+          </p>
+        )}
 
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-10">
           {/* 온라인 예약 리스트 (미확인) */}
@@ -167,7 +170,7 @@ export default async function AdminDashboardPage() {
         </div>
 
         {/* 2. 통계 차트 영역 */}
-        <AnalyticsGraphs visits={visits} />
+        {analytics && <AnalyticsGraphs hourlyData={analytics.hourlyData} dailyData={analytics.dailyData} />}
 
         {/* 3. 팝업 설정 현황 요약 */}
         <section className="bg-white rounded shadow-sm border border-slate-200 overflow-hidden">
