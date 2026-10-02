@@ -3,9 +3,9 @@
 export const heroSlides = [
   {
     id: 'f',
-    desktopImage: '/banner/f1d.jpg',
-    tabletImage: '/banner/f1t.jpg',
-    mobileImage: '/banner/f1m.jpg',
+    desktopImage: '/banner/f2-desktop.webp',
+    tabletImage: '/banner/f2-tablet.webp',
+    mobileImage: '/banner/f2-mobile.webp',
     imageAlt: '김동한·이남 병원장이 이끄는 연세척병원, 척추·관절치료 처음부터 끝까지 함께하겠습니다',
   },
   {
