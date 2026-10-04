@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import JsonLd from "@/components/JsonLd";
 import { buildHospitalStructuredData } from "@/lib/structuredData";
 import {
@@ -89,6 +91,8 @@ export default function RootLayout({
         {/* 어느 페이지로 크롤러가 들어와도 병원 정보를 확인할 수 있게 전 페이지에 둡니다. */}
         <JsonLd data={buildHospitalStructuredData()} />
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
