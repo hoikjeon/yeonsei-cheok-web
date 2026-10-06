@@ -6,7 +6,6 @@ import Image, { getImageProps } from 'next/image';
 import { AnimatePresence, motion, useReducedMotion, type Variants } from 'framer-motion';
 import {
   ChevronRight,
-  ArrowUpRight,
   CalendarDays,
   FileText,
   HeartHandshake,
@@ -15,6 +14,7 @@ import {
   UserCheck,
 } from 'lucide-react';
 import HomeNoticeBar from '@/components/HomeNoticeBar';
+import styles from './HomeQuickAccess.module.css';
 import type { HomeNoticeSettings } from '@/lib/homeNoticeSettings';
 import type { HomeReview } from '@/lib/adminReviews';
 import ReviewsShowcaseSection from '@/components/ReviewsShowcaseSection';
@@ -202,31 +202,37 @@ function DailyCareSlideText({ slide, animated = false }: { slide: DailyCareSlide
 const quickAccessItems = [
   {
     title: '진료일정',
+    description: '의료진별 진료일정을 확인하고\n내원 계획을 세워보세요.',
     href: '/doctors#doctor-schedule',
     icon: <CalendarDays size={58} strokeWidth={1.65} />,
   },
   {
     title: '의료진 소개',
+    description: '환자의 건강한 일상을 위해\n함께하는 의료진을 소개합니다.',
     href: '/doctors',
     icon: <UserCheck size={58} strokeWidth={1.65} />,
   },
   {
     title: '치료체험후기',
+    description: '치료와 회복의 여정을 담은\n환자분들의 이야기를 만나보세요.',
     href: '/board/reviews',
     icon: <HeartHandshake size={58} strokeWidth={1.65} />,
   },
   {
     title: '증명서 발급',
+    description: '필요한 증명서와 발급 절차를\n미리 확인하세요.',
     href: '/board/certificates',
     icon: <FileText size={58} strokeWidth={1.65} />,
   },
   {
     title: '온라인 상담',
+    description: '진료 전 궁금한 점을\n편안하게 남겨주세요.',
     href: '/consultation',
     icon: <MessageCircle size={58} strokeWidth={1.65} />,
   },
   {
     title: '오시는 길',
+    description: '연세척병원으로 오시는 길과\n주차 안내를 확인하세요.',
     href: '/about/location',
     icon: <MapPin size={58} strokeWidth={1.65} />,
   },
@@ -370,44 +376,24 @@ export default function HomePageContent({
       <HomeNoticeBar settings={noticeSettings} />
 
       {/* Quick Access Section */}
-      <section className="relative overflow-hidden bg-white pb-0 pt-9 md:pt-20 md:pb-0 lg:pt-8">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#f4f9ff] to-transparent" />
-
-        <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-7 xl:px-10">
-          <h2 className="sr-only">연세척병원 빠른 메뉴</h2>
-          <div className="grid grid-cols-2 gap-2.5 md:grid-cols-3 md:gap-6">
-            {quickAccessItems.map((item, index) => (
-              <motion.div
+      <section aria-labelledby="quick-access-heading" className="bg-white pt-9 md:pt-12">
+        <div className="mx-auto max-w-7xl px-5 sm:px-7 xl:px-10">
+          <h2 id="quick-access-heading" className="sr-only">연세척병원 빠른 메뉴</h2>
+          <div className={styles.grid}>
+            {quickAccessItems.map((item) => (
+              <Link
                 key={item.title}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.22 }}
-                transition={{ delay: index * 0.045, duration: 0.62, ease: [0.16, 1, 0.3, 1] }}
+                href={item.href}
+                prefetch
+                className={styles.card}
+                aria-label={`${item.title} 바로가기`}
               >
-                <Link
-                  href={item.href}
-                  prefetch
-                  className="group relative flex min-h-[104px] flex-col items-center justify-center gap-2 overflow-hidden rounded-lg border border-slate-100 bg-slate-50/80 px-3 py-3 text-center shadow-[0_20px_58px_-48px_rgba(15,29,54,0.55)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:bg-primary hover:shadow-blue-glow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary md:min-h-[172px] md:gap-5 md:px-4 md:py-7"
-                  aria-label={`${item.title} 바로가기`}
-                >
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-70"
-                  />
-                  <span className="flex h-11 w-11 items-center justify-center text-primary transition-all duration-300 group-hover:scale-105 group-hover:text-white [&>svg]:h-9 [&>svg]:w-9 md:h-20 md:w-20 md:[&>svg]:h-[58px] md:[&>svg]:w-[58px]">
-                    {item.icon}
-                  </span>
-                  <span className="break-keep text-[16px] font-extrabold leading-tight tracking-tight text-ink transition-colors duration-300 group-hover:text-white md:text-h4 lg:text-[length:calc(var(--text-h4)*1.2)]">
-                    {item.title}
-                  </span>
-                  <ArrowUpRight
-                    size={18}
-                    className="absolute right-5 top-5 text-primary/0 transition-all duration-300 group-hover:text-white/70"
-                    aria-hidden="true"
-                  />
-                </Link>
-              </motion.div>
+                <div className={styles.copy}>
+                  <span className={styles.title}>{item.title}</span>
+                  <p className={styles.description}>{item.description}</p>
+                </div>
+                <span className={styles.icon} aria-hidden="true">{item.icon}</span>
+              </Link>
             ))}
           </div>
         </div>
@@ -453,6 +439,17 @@ export default function HomePageContent({
           </div>
         </div>
       </section>
+
+      <UbeTextbookFeatureSection />
+
+      {/* 🌏 국제 척추내시경 트레이닝 센터 Section */}
+      <TrainingCenterSection />
+
+      {/* ▶️ 척추관절 연세척TV Section */}
+      <YoutubeSection />
+
+      {/* 💬 치료체험 후기 Section */}
+      <ReviewsShowcaseSection reviews={latestReviews} />
 
       {/* Daily Care Promise Section */}
       <section className="relative overflow-hidden bg-white py-16 md:py-32">
@@ -550,17 +547,6 @@ export default function HomePageContent({
           </div>
         </div>
       </section>
-
-      <UbeTextbookFeatureSection />
-
-      {/* 🌏 국제 척추내시경 트레이닝 센터 Section */}
-      <TrainingCenterSection />
-
-      {/* ▶️ 척추관절 연세척TV Section */}
-      <YoutubeSection />
-
-      {/* 💬 치료체험 후기 Section */}
-      <ReviewsShowcaseSection reviews={latestReviews} />
     </div>
   );
 }

@@ -108,7 +108,7 @@ const UbeTextbookFeatureSection = () => {
 
       <div className="relative mx-auto max-w-6xl">
         <motion.header
-          className="mx-auto max-w-4xl text-center"
+          className="mx-auto max-w-4xl text-center lg:max-w-none"
           initial={shouldReduceMotion ? false : { opacity: 0, y: 38, filter: 'blur(10px)' }}
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: true, amount: 0.45 }}
@@ -117,7 +117,7 @@ const UbeTextbookFeatureSection = () => {
           <div className="inline-flex items-center gap-3" aria-hidden="true">
             <span className="h-px w-8 bg-gradient-to-r from-transparent to-[#f1cd75] sm:w-12" />
             <span className="h-1.5 w-1.5 rotate-45 bg-[#f1cd75] shadow-[0_0_14px_rgba(241,205,117,0.7)]" />
-            <p className="font-montserrat text-[11px] font-bold tracking-[0.34em] text-[#f4d889] sm:text-xs">
+            <p className="font-montserrat text-[11px] font-bold tracking-[0.34em] text-[#f4d889] sm:text-xs lg:text-base">
               GLOBAL FIRST
             </p>
             <span className="h-1.5 w-1.5 rotate-45 bg-[#f1cd75] shadow-[0_0_14px_rgba(241,205,117,0.7)]" />
@@ -126,15 +126,15 @@ const UbeTextbookFeatureSection = () => {
 
           <h2
             id="ube-textbook-title"
-            className="mx-auto mt-5 max-w-4xl break-keep text-[clamp(1.85rem,4.2vw,3.65rem)] font-extrabold leading-[1.16] tracking-[-0.05em] text-white sm:mt-6"
+            className="mx-auto mt-5 max-w-4xl break-keep text-[clamp(1.85rem,4.2vw,3.65rem)] font-extrabold leading-[1.16] tracking-[-0.05em] text-white sm:mt-6 lg:max-w-none lg:text-[clamp(4rem,5.8vw,5.5rem)] lg:leading-[1.12]"
           >
             세계 최초로 완성한
-            <span className={`mt-1.5 block ${GOLD_GRADIENT}`}>
+            <span className={`mt-1.5 block lg:mt-3 ${GOLD_GRADIENT}`}>
               양방향 척추내시경 교과서
             </span>
           </h2>
 
-          <p className="mx-auto mt-4 max-w-2xl break-keep text-sm font-medium leading-relaxed text-white/64 sm:text-base">
+          <p className="mx-auto mt-4 max-w-2xl break-keep text-sm font-medium leading-relaxed text-white/64 sm:text-base lg:mt-6 lg:max-w-none lg:text-[clamp(1.125rem,1.55vw,1.375rem)] lg:text-white/80">
             연세척병원 의료진의 임상 경험과 척추내시경 술기를 세계와 공유합니다.
           </p>
         </motion.header>
