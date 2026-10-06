@@ -238,7 +238,7 @@ export default function HomePageContent({
   initialSlideIndex,
 }: {
   noticeSettings: HomeNoticeSettings;
-  latestReviews: HomeReview[];
+  latestReviews: HomeReview[] | null;
   initialSlideIndex: number;
 }) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(initialSlideIndex);

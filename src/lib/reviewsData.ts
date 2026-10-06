@@ -19,11 +19,12 @@ const getCachedLatestReviews = unstable_cache(
       .select('id,category,title,created_at')
       .order('created_at', { ascending: false })
       .order('id', { ascending: false })
-      .limit(limit);
+      .limit(limit)
+      .abortSignal(AbortSignal.timeout(10_000));
 
     if (error) {
-      console.error('Failed to load latest reviews:', error.message);
-      return [];
+      // 조회 실패를 빈 목록으로 캐시하면 기존 후기가 없는 것처럼 보입니다.
+      throw new Error('Failed to load latest reviews', { cause: error });
     }
     return (data || []) as HomeReview[];
   },
@@ -31,6 +32,11 @@ const getCachedLatestReviews = unstable_cache(
   { tags: [REVIEWS_CACHE_TAG], revalidate: 60 },
 );
 
-export function getLatestReviews(limit = 12) {
-  return getCachedLatestReviews(Math.min(20, Math.max(1, limit)));
+export async function getLatestReviews(limit = 12): Promise<HomeReview[] | null> {
+  try {
+    return await getCachedLatestReviews(Math.min(20, Math.max(1, limit)));
+  } catch {
+    console.error('Failed to load latest reviews: review service unavailable');
+    return null;
+  }
 }
