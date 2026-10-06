@@ -49,8 +49,7 @@ function formatDate(value: string) {
   return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
 }
 
-export default function ReviewsShowcaseSection({ reviews: loadedReviews }: { reviews: HomeReview[] | null }) {
-  const reviews = loadedReviews ?? [];
+export default function ReviewsShowcaseSection({ reviews }: { reviews: HomeReview[] }) {
   const [step, setStep] = useState(0);
   const [animated, setAnimated] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
@@ -193,20 +192,7 @@ export default function ReviewsShowcaseSection({ reviews: loadedReviews }: { rev
             );
           })}
         </div>
-      </div> : <div className="mx-auto mt-10 max-w-7xl px-5 text-center text-sm font-semibold text-ink-muted sm:px-7 md:mt-16 xl:px-10">
-        {loadedReviews === null ? (
-          <>
-            <p role="status">후기를 일시적으로 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p>
-            <button
-              type="button"
-              onClick={() => window.location.reload()}
-              className="mt-4 rounded-full border border-primary px-5 py-2.5 text-primary transition-colors hover:bg-primary hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-            >
-              다시 불러오기
-            </button>
-          </>
-        ) : '등록된 치료체험후기가 없습니다.'}
-      </div>}
+      </div> : <div className="mx-auto mt-10 max-w-7xl px-5 text-center text-sm font-semibold text-ink-muted sm:px-7 md:mt-16 xl:px-10">등록된 치료체험후기가 없습니다.</div>}
 
       {reviews.length > 0 && <div className="mx-auto mt-2.5 flex w-full max-w-7xl justify-center px-5 sm:px-7 md:mt-8 xl:px-10">
         <div className="flex items-center">

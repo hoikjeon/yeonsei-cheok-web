@@ -244,7 +244,7 @@ export default function HomePageContent({
   initialSlideIndex,
 }: {
   noticeSettings: HomeNoticeSettings;
-  latestReviews: HomeReview[] | null;
+  latestReviews: HomeReview[];
   initialSlideIndex: number;
 }) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(initialSlideIndex);
