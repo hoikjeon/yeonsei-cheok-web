@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
@@ -42,6 +42,22 @@ const STEP_INTERVAL_MS = 3300;
 const SLIDE_DURATION_MS = 750;
 // 끝에서 강하게 감속해 카드가 자리에 꽂히는 느낌을 줍니다.
 const SLIDE_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
+// 이만큼 옆으로 움직여야 끌기로 봅니다. 그보다 짧으면 카드 클릭으로 둡니다.
+const DRAG_START_PX = 6;
+// 놓는 순간의 속도를 이 시간(ms)만큼 더 미끄러진 것으로 쳐서, 휙 넘기면 한두 칸 더 갑니다.
+const FLICK_PROJECTION_MS = 200;
+// 짧게 끌어도 이보다 빠르게(px/ms) 넘기면 최소 한 칸은 넘어갑니다.
+const FLICK_MIN_VELOCITY = 0.4;
+
+type DragState = {
+  pointerId: number;
+  startX: number;
+  startY: number;
+  active: boolean;
+  slotPx: number;
+  basePos: number;
+  samples: { x: number; t: number }[];
+};
 
 function formatDate(value: string) {
   const date = new Date(value);
@@ -50,9 +66,6 @@ function formatDate(value: string) {
 }
 
 export default function ReviewsShowcaseSection({ reviews }: { reviews: HomeReview[] }) {
-  const [step, setStep] = useState(0);
-  const [animated, setAnimated] = useState(true);
-  const [isPaused, setIsPaused] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   const total = reviews.length;
   const loops = total >= 5;
@@ -60,16 +73,29 @@ export default function ReviewsShowcaseSection({ reviews }: { reviews: HomeRevie
 
   // 한 바퀴의 카드 수는 짝수여야 합니다. 홀수면 되감기는 순간 위아래 지그재그가 뒤집혀 튑니다.
   const unit = total % 2 === 0 ? total : total * 2;
-  // 트랙을 정확히 두 벌로 채워두면, 한 바퀴 끝에서 처음으로 되감아도 화면이 똑같아 이음새가 보이지 않습니다.
+  // 트랙을 네 벌로 채우고 평소에는 두 번째 벌(step: unit ~ 2·unit) 위치에 둡니다.
+  // 양옆에 한 벌씩 여유가 있어 앞뒤 어느 쪽으로 끌어도 빈칸이 보이지 않고,
+  // 범위를 벗어나면 한 벌만큼 되감아도 화면이 똑같아 이음새가 보이지 않습니다.
   const cards = loops
-    ? Array.from({ length: unit * 2 }, (_, index) => reviews[index % total])
+    ? Array.from({ length: unit * 4 }, (_, index) => reviews[index % total])
     : reviews;
 
+  const [step, setStep] = useState(loops ? unit : 0);
+  // 끄는 동안 정수 칸(step)에서 얼마나 벗어났는지를 '칸' 단위로 담습니다. (+ 는 앞으로)
+  const [dragPos, setDragPos] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [animated, setAnimated] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const dragRef = useRef<DragState | null>(null);
+  const suppressClickRef = useRef(false);
+
+  const position = step + dragPos;
+
   // 트랙(가로)과 카드(세로)가 이 값을 그대로 나눠 쓰므로 두 움직임은 같은 순간에 시작하고 끝납니다.
-  // translate 를 반드시 함께 적어야 합니다. Tailwind v4의 translate-y-* 는 transform 이 아니라
-  // 독립된 translate 속성으로 컴파일되므로, transform 만 지정하면 세로가 전환 없이 순간이동합니다.
+  // 카드의 세로 이동은 transform 이 아니라 독립된 translate 속성이라 둘 다 적어야 합니다.
   const slideTransition =
-    animated && isMoving
+    animated && !isDragging && !shouldReduceMotion
       ? `transform ${SLIDE_DURATION_MS}ms ${SLIDE_EASING}, translate ${SLIDE_DURATION_MS}ms ${SLIDE_EASING}`
       : 'none';
   // 카드는 위 전환에 더해 마우스를 올렸을 때의 확대만 짧게 따로 겁니다.
@@ -77,26 +103,26 @@ export default function ReviewsShowcaseSection({ reviews }: { reviews: HomeRevie
   const cardTransition = slideTransition === 'none' ? 'scale 200ms ease-out' : `${slideTransition}, scale 200ms ease-out`;
 
   useEffect(() => {
-    if (isPaused || !isMoving) return;
+    if (isPaused || isDragging || !isMoving) return;
 
     const interval = window.setInterval(() => {
       setStep((current) => current + 1);
     }, STEP_INTERVAL_MS);
 
     return () => window.clearInterval(interval);
-  }, [isPaused, isMoving]);
+  }, [isPaused, isDragging, isMoving]);
 
-  // 두 벌 중 첫 벌을 다 지나가면, 미끄러짐이 끝난 직후 전환 없이 처음으로 되감습니다.
+  // 두 번째 벌 범위를 벗어나면, 미끄러짐이 끝난 직후 전환 없이 한 벌만큼 되감습니다.
   useEffect(() => {
-    if (!isMoving || step < unit) return;
+    if (!loops || isDragging || (step >= unit && step < unit * 2)) return;
 
     const timer = window.setTimeout(() => {
       setAnimated(false);
-      setStep(0);
+      setStep((current) => (((current - unit) % unit) + unit) % unit + unit);
     }, SLIDE_DURATION_MS);
 
     return () => window.clearTimeout(timer);
-  }, [isMoving, step, unit]);
+  }, [loops, isDragging, step, unit]);
 
   // 되감은 좌표가 화면에 반영된 다음 프레임에 전환을 다시 켭니다.
   useEffect(() => {
@@ -108,6 +134,103 @@ export default function ReviewsShowcaseSection({ reviews }: { reviews: HomeRevie
 
     return () => window.cancelAnimationFrame(raf);
   }, [animated]);
+
+  const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!loops || (event.pointerType === 'mouse' && event.button !== 0)) return;
+    suppressClickRef.current = false;
+    dragRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      active: false,
+      slotPx: 0,
+      basePos: 0,
+      samples: [],
+    };
+  };
+
+  // 끌기 시작 순간 화면에 보이는 위치를 그대로 이어받습니다. 자동으로 미끄러지는 도중에 잡아도
+  // 목표 칸으로 튀지 않도록, 전환 중인 실제 좌표(computed transform)에서 위치를 읽습니다.
+  const beginDrag = (drag: DragState, event: ReactPointerEvent<HTMLDivElement>) => {
+    const track = trackRef.current;
+    if (!track) return false;
+    const slotPx = parseFloat(getComputedStyle(track).getPropertyValue('--slot'));
+    if (!slotPx) return false;
+
+    const currentPos = -new DOMMatrixReadOnly(getComputedStyle(track).transform).m41 / slotPx;
+    const nearest = Math.round(currentPos);
+    // 가장 가까운 칸을 두 번째 벌 범위로 옮깁니다. 한 벌(짝수 칸) 단위라 화면은 그대로입니다.
+    const normalized = (((nearest - unit) % unit) + unit) % unit + unit;
+
+    drag.active = true;
+    drag.slotPx = slotPx;
+    drag.basePos = currentPos - nearest;
+    drag.startX = event.clientX;
+    drag.samples = [{ x: event.clientX, t: event.timeStamp }];
+    suppressClickRef.current = true;
+    event.currentTarget.setPointerCapture(event.pointerId);
+
+    setStep(normalized);
+    setDragPos(drag.basePos);
+    setIsDragging(true);
+    return true;
+  };
+
+  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+
+    if (!drag.active) {
+      const dx = Math.abs(event.clientX - drag.startX);
+      const dy = Math.abs(event.clientY - drag.startY);
+      // 세로로 먼저 움직이면 페이지 스크롤로 보고 끌기를 포기합니다.
+      if (dy > DRAG_START_PX && dy >= dx) {
+        dragRef.current = null;
+        return;
+      }
+      if (dx < DRAG_START_PX || !beginDrag(drag, event)) return;
+    }
+
+    drag.samples.push({ x: event.clientX, t: event.timeStamp });
+    if (drag.samples.length > 6) drag.samples.shift();
+
+    // 한 번에 한 벌 넘게는 끌리지 않게 막습니다. 그 밖에는 준비된 카드가 없습니다.
+    const next = drag.basePos - (event.clientX - drag.startX) / drag.slotPx;
+    setDragPos(Math.max(-(unit - 1), Math.min(unit - 1, next)));
+  };
+
+  const handlePointerEnd = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    dragRef.current = null;
+    if (!drag.active) return;
+
+    // 놓기 직전 0.1초 동안의 움직임으로 속도를 구합니다. 끌다가 멈춘 뒤 놓으면 던지지 않고,
+    // 취소된 경우(예: 브라우저가 스크롤로 가져감)에도 던지지 않습니다.
+    const recent = drag.samples.filter((sample) => event.timeStamp - sample.t <= 100);
+    const first = recent[0];
+    const last = recent[recent.length - 1];
+    const elapsed = first && last ? last.t - first.t : 0;
+    const velocity = event.type === 'pointerup' && elapsed > 0 ? (last.x - first.x) / elapsed : 0;
+
+    const projected = dragPos - (velocity * FLICK_PROJECTION_MS) / drag.slotPx;
+    let delta = Math.round(projected);
+    if (delta === 0 && Math.abs(velocity) > FLICK_MIN_VELOCITY) delta = velocity < 0 ? 1 : -1;
+    delta = Math.max(-(unit - 1), Math.min(unit - 1, delta));
+
+    setAnimated(true);
+    setIsDragging(false);
+    setDragPos(0);
+    setStep((current) => current + delta);
+  };
+
+  // 끌고 난 뒤 손을 뗄 때 카드 링크가 눌려 후기 페이지로 넘어가지 않게 막습니다.
+  const handleClickCapture = (event: ReactMouseEvent<HTMLDivElement>) => {
+    if (!suppressClickRef.current) return;
+    suppressClickRef.current = false;
+    event.preventDefault();
+    event.stopPropagation();
+  };
 
   return (
     <section className="overflow-hidden bg-[#edf2fa] py-10 md:py-32" aria-labelledby="reviews-showcase-title">
@@ -141,19 +264,30 @@ export default function ReviewsShowcaseSection({ reviews }: { reviews: HomeRevie
       </div>
 
       {reviews.length > 0 ? <div
-        className="mt-6 overflow-hidden md:mt-16"
+        // touch-pan-y: 세로 스크롤은 브라우저에 맡기고 가로 움직임만 끌기로 받습니다.
+        className={`mt-6 overflow-hidden md:mt-16 ${loops ? `touch-pan-y select-none ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}` : ''}`}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onTouchStart={() => setIsPaused(true)}
         onTouchEnd={() => setIsPaused(false)}
+        onTouchCancel={() => setIsPaused(false)}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerEnd}
+        onPointerCancel={handlePointerEnd}
+        onClickCapture={handleClickCapture}
+        // 링크를 끌면 브라우저가 '링크 끌어다 놓기'를 시작해 끌기가 끊기므로 막습니다.
+        onDragStart={(event) => event.preventDefault()}
       >
         <div
+          ref={trackRef}
           // --slot 은 '카드 너비 + 오른쪽 여백'입니다. 카드 크기를 바꾸면 이 값도 같이 맞춰야
           // 한 스텝이 정확히 한 칸이 됩니다. (164+8 / 286+28 / 320+28)
           // 간격을 gap 대신 카드의 오른쪽 여백으로 준 것도 이 계산을 어긋나지 않게 하기 위해서입니다.
-          className={`${loops ? 'ml-4 w-max sm:ml-7 md:-ml-44' : 'mx-auto -mr-2 w-fit max-w-full justify-center px-4 sm:-mr-7 sm:px-7'} flex h-[206px] items-start [--slot:172px] sm:h-[330px] sm:[--slot:314px] md:h-[386px] md:[--slot:348px]`}
+          // --lower 는 아래쪽 자리 카드가 내려가는 거리입니다.
+          className={`${loops ? 'ml-4 w-max sm:ml-7 md:-ml-44' : 'mx-auto -mr-2 w-fit max-w-full justify-center px-4 sm:-mr-7 sm:px-7'} flex h-[206px] items-start [--lower:36px] [--slot:172px] sm:h-[330px] sm:[--slot:314px] md:h-[386px] md:[--lower:58px] md:[--slot:348px]`}
           style={{
-            transform: `translateX(calc(var(--slot) * ${-step}))`,
+            transform: `translateX(calc(var(--slot) * ${-position}))`,
             transition: slideTransition,
             willChange: 'transform',
           }}
@@ -163,10 +297,11 @@ export default function ReviewsShowcaseSection({ reviews }: { reviews: HomeRevie
             // 위아래는 카드가 아니라 '자리'에 붙어 있습니다. 한 칸 밀릴 때마다 카드가
             // 반대편 높이의 자리로 옮겨가므로, 옆으로 미는 동안 위아래도 같이 바뀝니다.
             // 트랙과 완전히 같은 시간·같은 이징을 쓰기 때문에 카드는 대각선 한 번으로 이동합니다.
-            const isLower = (((index - step) % 2) + 2) % 2 === 0;
+            // 끄는 중에는 칸 사이 어중간한 위치이므로 두 높이 사이를 부드럽게 오갑니다.
+            const lowered = (1 + Math.cos(Math.PI * (index - position))) / 2;
 
-            // 두 번째 벌은 화면을 채우기 위한 복제본이라 보조기기와 키보드 이동에서 제외합니다.
-            const isDuplicate = index >= total;
+            // 두 번째 벌만 실제 목록으로 두고, 나머지는 화면을 채우는 복제본이라 보조기기와 키보드 이동에서 제외합니다.
+            const isDuplicate = loops && (index < unit || index >= unit + total);
 
             return (
               <Link
@@ -174,8 +309,12 @@ export default function ReviewsShowcaseSection({ reviews }: { reviews: HomeRevie
                 href={`/board/reviews/${review.id}`}
                 aria-hidden={isDuplicate}
                 tabIndex={isDuplicate ? -1 : undefined}
-                className={`mr-2 flex size-[164px] shrink-0 flex-col rounded-[9px] px-3 py-3.5 hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/40 sm:mr-7 sm:size-[286px] sm:rounded-[14px] sm:px-5 sm:py-6 md:size-[320px] md:px-7 md:py-7 ${tone.card} ${isLower ? 'translate-y-9 md:translate-y-[58px]' : 'translate-y-0'}`}
-                style={{ transition: cardTransition }}
+                draggable={false}
+                className={`mr-2 flex size-[164px] shrink-0 flex-col rounded-[9px] px-3 py-3.5 hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/40 sm:mr-7 sm:size-[286px] sm:rounded-[14px] sm:px-5 sm:py-6 md:size-[320px] md:px-7 md:py-7 ${tone.card}`}
+                style={{
+                  translate: `0 calc(var(--lower) * ${lowered.toFixed(3)})`,
+                  transition: cardTransition,
+                }}
               >
                 {review.category ? (
                   <span className={`mb-2 inline-flex w-fit shrink-0 rounded-full px-2.5 py-1 text-[10px] font-bold tracking-normal sm:mb-4 sm:px-4 sm:py-1.5 sm:text-[13px] ${tone.badge}`}>
