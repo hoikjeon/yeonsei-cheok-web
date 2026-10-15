@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import StorageImage from '@/components/StorageImage';
 import { ChevronRight, Search, PlayCircle } from 'lucide-react';
 import SubHero from '@/components/SubHero';
 import Pagination from '@/components/Pagination';
@@ -59,7 +60,7 @@ export default async function MediaPage({
             {/* Content Cards Grid */}
             {newsCount > 0 ? (
               <div className="grid grid-cols-1 gap-6 py-6 sm:gap-8 sm:py-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10 lg:py-10">
-                {news.map((item) => (
+                {news.map((item, index) => (
                   <Link 
                     href={`/news/media/${item.id}`} 
                     key={item.id}
@@ -68,10 +69,13 @@ export default async function MediaPage({
                     {/* Thumbnail */}
                     <div className="aspect-[16/10] bg-slate-100 relative overflow-hidden shrink-0">
                       {item.image_urls && item.image_urls.length > 0 ? (
-                        <img 
-                          src={item.image_urls[0]} 
-                          alt={item.title} 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        <StorageImage
+                          src={item.image_urls[0]}
+                          alt={item.title}
+                          loading={index < 3 ? 'eager' : undefined}
+                          fill
+                          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-slate-300">

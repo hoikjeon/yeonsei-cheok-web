@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
+import StorageImage from '@/components/StorageImage';
 import { motion } from 'framer-motion';
 import { Plus, ArrowUpRight } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
@@ -209,10 +210,12 @@ export default function TrainingCenterSection() {
                       transition={{ type: 'spring', stiffness: 260, damping: 20 }}
                     >
                       <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100 shadow-[0_22px_55px_-30px_rgba(15,29,54,0.45)] ring-1 ring-slate-900/5 transition-shadow duration-500 group-hover:shadow-[0_40px_80px_-32px_rgba(40,74,165,0.55)] sm:aspect-[3/4]">
-                        <img
+                        <StorageImage
                           src={card.image}
                           alt={card.title}
-                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.07]"
+                          fill
+                          sizes="(min-width: 1024px) 25vw, (min-width: 768px) 34vw, (min-width: 640px) 46vw, 100vw"
+                          className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.07]"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-navy-950/55 via-navy-950/5 to-transparent" />
                         <ArrowUpRight

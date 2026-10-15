@@ -1,5 +1,6 @@
 import { Fragment, type CSSProperties, type ReactNode } from 'react';
 import { parseNewsDocument, type NewsNode } from '@/lib/newsContent';
+import StorageImage from '@/components/StorageImage';
 import './news-content.css';
 
 function renderNode(node: NewsNode, key: number): ReactNode {
@@ -31,8 +32,8 @@ function renderNode(node: NewsNode, key: number): ReactNode {
     case 'blockquote': return <blockquote key={key}>{children}</blockquote>;
     case 'image': return (
       <figure key={key} data-align={node.attrs?.align} style={{ width: `${node.attrs?.width || 100}%` }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={String(node.attrs?.src)} alt={String(node.attrs?.alt || '')} loading="lazy" />
+        {/* 실제 비율은 CSS(height: auto)가 맞추고, width·height 는 내려받을 크기를 고르는 기준으로만 씁니다. */}
+        <StorageImage src={String(node.attrs?.src)} alt={String(node.attrs?.alt || '')} width={960} height={720} sizes="(min-width: 1024px) 960px, 100vw" />
         {node.attrs?.caption ? <figcaption>{node.attrs.caption}</figcaption> : null}
       </figure>
     );

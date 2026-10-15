@@ -1,4 +1,5 @@
 import NewsContent from '@/components/NewsContent';
+import StorageImage from '@/components/StorageImage';
 import { newsGalleryImages } from '@/lib/newsContent';
 import React from 'react';
 import type { Metadata } from 'next';
@@ -74,7 +75,7 @@ export default async function NoticeDetailPage({ params }: DetailPageProps) {
           <div className="mb-12 flex flex-col items-center gap-6 sm:mb-20 sm:gap-10">
             {newsGalleryImages(item.content, item.image_urls).map((url: string, index: number) => (
               <div key={index} className="w-full max-w-[720px] overflow-hidden rounded-[1.5rem] border border-slate-100 bg-slate-50 shadow-xl">
-                <img src={url} alt={`${item.title} 안내 이미지 ${index + 1}`} className="h-auto w-full object-cover" />
+                <StorageImage src={url} alt={`${item.title} 안내 이미지 ${index + 1}`} loading={index === 0 ? 'eager' : undefined} width={720} height={540} sizes="(min-width: 768px) 720px, 100vw" className="h-auto w-full object-cover" />
               </div>
             ))}
           </div>

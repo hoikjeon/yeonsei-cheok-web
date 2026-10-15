@@ -69,6 +69,10 @@ const nextConfig: NextConfig = {
 
   images: {
     qualities: [75, 90],
+    // Supabase Storage 원본은 Cache-Control: no-cache 로 내려와서, 기본값(4시간)이면
+    // 4시간마다 원본을 다시 받아 Supabase 전송량이 쌓입니다. 업로드 파일은 매번 새 이름
+    // (randomUUID·타임스탬프)으로 저장되어 같은 주소의 내용이 바뀌지 않으므로 31일간 캐시합니다.
+    minimumCacheTTL: 2678400,
     localPatterns: [
       {
         pathname: '/**',

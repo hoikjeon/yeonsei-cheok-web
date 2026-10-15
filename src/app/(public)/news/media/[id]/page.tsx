@@ -1,4 +1,5 @@
 import NewsContent from '@/components/NewsContent';
+import StorageImage from '@/components/StorageImage';
 import { newsGalleryImages } from '@/lib/newsContent';
 import React from 'react';
 import type { Metadata } from 'next';
@@ -96,9 +97,13 @@ export default async function MediaDetailPage({ params }: DetailPageProps) {
                 key={index} 
                 className="w-full max-w-[720px] rounded-[1.5rem] overflow-hidden border border-slate-100 shadow-xl bg-slate-50 group hover:shadow-2xl transition-shadow duration-500"
               >
-                <img 
-                  src={url} 
-                  alt={`${item.title} 보도 자료 이미지 ${index + 1}`} 
+                <StorageImage
+                  src={url}
+                  alt={`${item.title} 보도 자료 이미지 ${index + 1}`}
+                  loading={index === 0 ? 'eager' : undefined}
+                  width={720}
+                  height={540}
+                  sizes="(min-width: 768px) 720px, 100vw"
                   className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-700"
                 />
               </div>

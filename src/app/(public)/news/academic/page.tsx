@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import StorageImage from '@/components/StorageImage';
 import { ChevronRight, Search, Microscope } from 'lucide-react';
 import SubHero from '@/components/SubHero';
 import Pagination from '@/components/Pagination';
@@ -48,10 +49,10 @@ export default async function AcademicPage({
 
             {newsCount > 0 ? (
               <div className="grid grid-cols-1 gap-6 py-6 sm:gap-8 sm:py-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10 lg:py-10">
-                {news.map((item) => (
+                {news.map((item, index) => (
                   <Link href={`/news/academic/${item.id}`} key={item.id} className="group flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white transition-all duration-500 hover:border-primary/20 hover:shadow-2xl md:rounded-[2rem]">
                     <div className="aspect-square bg-slate-100 relative overflow-hidden">
-                      {item.image_urls?.[0] ? <img src={item.image_urls[0]} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" /> : <div className="w-full h-full flex items-center justify-center text-slate-300"><Microscope size={60} strokeWidth={1} /></div>}
+                      {item.image_urls?.[0] ? <StorageImage src={item.image_urls[0]} alt={item.title} loading={index < 3 ? 'eager' : undefined} fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw" className="object-cover group-hover:scale-105 transition-transform" /> : <div className="w-full h-full flex items-center justify-center text-slate-300"><Microscope size={60} strokeWidth={1} /></div>}
                     </div>
                     <div className="flex flex-1 flex-col p-5 sm:p-6 md:p-8">
                       <h3 className="mb-5 line-clamp-2 break-keep text-h4 tracking-tight text-ink transition-colors group-hover:text-primary md:mb-6">{item.title}</h3>
