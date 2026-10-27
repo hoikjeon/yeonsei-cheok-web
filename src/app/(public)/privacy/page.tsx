@@ -362,7 +362,7 @@ export default function PrivacyPolicyPage() {
                   <li><strong>직책 :</strong> 총무팀</li>
                   <li><strong>연락처 :</strong> 010-8558-2126</li>
                   <li><strong>이메일 :</strong> bsysc2020@naver.com</li>
-                  <li><strong>팩스번호 :</strong> 051-935-8275</li>
+                  <li><strong>팩스번호 :</strong> 051-935-8275, 051-935-8277</li>
                 </ul>
                 <p className="text-sm text-gray-500 mt-2">※ 개인정보 보호 담당부서로 연결됩니다.</p>
               </div>
@@ -372,7 +372,7 @@ export default function PrivacyPolicyPage() {
                   <li><strong>부서명 :</strong> 총무팀</li>
                   <li><strong>연락처 :</strong> 010-8558-2126</li>
                   <li><strong>이메일 :</strong> bsysc2020@naver.com</li>
-                  <li><strong>팩스번호 :</strong> 051-935-8275</li>
+                  <li><strong>팩스번호 :</strong> 051-935-8275, 051-935-8277</li>
                 </ul>
               </div>
             </div>
@@ -393,7 +393,7 @@ export default function PrivacyPolicyPage() {
                 <li><strong>담당자 :</strong> 도형록 행정팀장</li>
                 <li><strong>연락처 :</strong> 010-8558-2126</li>
                 <li><strong>이메일 :</strong> bsysc2020@naver.com</li>
-                <li><strong>팩스번호 :</strong> 051-935-8275</li>
+                <li><strong>팩스번호 :</strong> 051-935-8275, 051-935-8277</li>
               </ul>
             </div>
             <p className="mb-4">

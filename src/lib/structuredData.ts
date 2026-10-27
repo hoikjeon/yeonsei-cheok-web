@@ -30,7 +30,7 @@ export const UBE_ALTERNATE_NAMES = [
 ];
 
 const TELEPHONE = '+82-51-935-1004';
-const FAX = '+82-51-935-1008';
+const FAX = ['+82-51-935-8275', '+82-51-935-8277'];
 
 // src/app/(public)/about/location/page.tsx 의 HOSPITAL_COORDS 와 같은 좌표입니다.
 const COORDS = { lat: 35.157605, lng: 129.04986 };

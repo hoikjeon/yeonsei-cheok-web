@@ -72,7 +72,7 @@ export default function LocationPage() {
                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary shadow-sm mb-2"><Phone size={24} /></div>
                <h3 className="text-sm font-bold text-ink-muted font-montserrat uppercase tracking-widest">Contact</h3>
                <p className="text-h3 tracking-tight text-ink">051-935-1004</p>
-               <p className="mt-2 text-sm font-medium text-ink-muted">팩스: 051-935-1008</p>
+               <p className="mt-2 text-sm font-medium text-ink-muted">팩스: 051-935-8275, 051-935-8277</p>
              </div>
 
              <div className="relative flex flex-col items-start justify-center gap-3 overflow-hidden rounded-2xl bg-primary p-5 text-white shadow-blue-glow sm:p-6 lg:rounded-[2rem] lg:p-8">

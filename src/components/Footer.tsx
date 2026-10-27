@@ -193,7 +193,7 @@ const Footer = async () => {
                 <strong className="font-bold text-ink">대표전화</strong> {REPRESENTATIVE_PHONE}
               </span>
               <span>
-                <strong className="font-bold text-ink">FAX</strong> 051-935-1008
+                <strong className="font-bold text-ink">FAX</strong> 051-935-8275, 051-935-8277
               </span>
               <span>
                 <strong className="font-bold text-ink">사업자등록번호</strong> 605-92-44375
