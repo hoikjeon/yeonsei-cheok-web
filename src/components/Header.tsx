@@ -110,6 +110,7 @@ const MENU_DATA: MenuData[] = [
     subTitle: '소통과 공감으로 완성되는 치유',
     items: [
       { name: '치료체험후기', desc: '완치의 기쁨을 누리는 환자분들의 생생한 수기', href: '/board/reviews' },
+      { name: '척추·관절 건강정보', desc: '허리·목·무릎 질환의 증상과 치료 방법을 쉽게 알려드립니다', href: '/health' },
       { name: '온라인 상담', desc: '증상에 대한 궁금증을 전문 상담사가 직접 상담해 드립니다', href: '/consultation' },
       { name: '온라인 예약', desc: '원하시는 스케줄에 맞춰 신속하고 간편한 진료 예약', href: '/reservation' },
       { name: '증명서 발급', desc: '제증명 발급 절차와 구비서류, 양식 다운로드 안내', href: '/board/certificates' },

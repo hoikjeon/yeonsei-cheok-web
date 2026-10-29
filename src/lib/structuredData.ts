@@ -402,3 +402,126 @@ export function buildProcedurePageStructuredData({
     ],
   };
 }
+
+type HealthArticlePageOptions = {
+  page: {
+    name: string;
+    description: string;
+    path: string;
+    datePublished: string;
+    lastReviewed: string;
+    keywords: string[];
+  };
+  /** PHYSICIANS id. 병원 노드에 이미 있는 의료진을 @id로만 가리킵니다. 검토 전 글이면 비웁니다. */
+  reviewerId?: string;
+  /** 대표 이미지 절대 주소 */
+  image?: string;
+  breadcrumb: Array<{ name: string; path: string }>;
+  /** 페이지에 실제로 보이는 FAQ. 화면의 질문·답변 문구와 한 글자도 다르면 안 됩니다. */
+  faq: Array<{ question: string; answer: string }>;
+  references: string[];
+};
+
+/**
+ * 건강정보 글(/health/[slug])용 구조화 데이터.
+ *
+ * 건강 주제는 검색엔진이 "누가 썼고 누가 검토했는가"를 특히 무겁게 봅니다.
+ * 작성·검토 의료진을 병원 노드의 Physician @id로 연결해, 글과 병원·의료진이
+ * 하나의 개체로 이어지게 합니다. reviewedBy는 실제로 검토를 마친 글에만 씁니다.
+ */
+export function buildHealthArticleStructuredData({
+  page,
+  reviewerId,
+  breadcrumb,
+  faq,
+  references,
+  image,
+}: HealthArticlePageOptions) {
+  const pageId = `${absoluteUrl(page.path)}#webpage`;
+  // 의료진이 실제로 검토한 글에만 검토자를 밝힙니다. 검토 전 글은 병원이 작성자입니다.
+  const reviewer = reviewerId ? { '@id': physicianNodeId(reviewerId) } : undefined;
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'MedicalWebPage',
+        '@id': pageId,
+        url: absoluteUrl(page.path),
+        name: page.name,
+        headline: page.name,
+        description: page.description,
+        inLanguage: 'ko-KR',
+        keywords: page.keywords.join(', '),
+        datePublished: page.datePublished,
+        dateModified: page.lastReviewed || page.datePublished,
+        ...(reviewer ? { lastReviewed: page.lastReviewed, reviewedBy: reviewer } : {}),
+        author: reviewer ?? { '@id': HOSPITAL_ID },
+        ...(image ? { image } : {}),
+        medicalAudience: { '@type': 'MedicalAudience', audienceType: 'Patient' },
+        publisher: { '@id': HOSPITAL_ID },
+        isPartOf: { '@id': WEBSITE_ID },
+        citation: references,
+        breadcrumb: {
+          '@type': 'BreadcrumbList',
+          itemListElement: breadcrumb.map((crumb, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: crumb.name,
+            item: absoluteUrl(crumb.path),
+          })),
+        },
+      },
+      // FAQ가 없는 글에 빈 FAQPage를 내보내면 검색엔진이 오류로 봅니다.
+      ...(faq.length
+        ? [
+            {
+              '@type': 'FAQPage',
+              '@id': `${absoluteUrl(page.path)}#faq`,
+              url: absoluteUrl(page.path),
+              inLanguage: 'ko-KR',
+              isPartOf: { '@id': pageId },
+              mainEntity: faq.map((item) => ({
+                '@type': 'Question',
+                name: item.question,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: item.answer,
+                },
+              })),
+            },
+          ]
+        : []),
+    ],
+  };
+}
+
+/** 건강정보 목록(/health)용 구조화 데이터. 글 목록을 ItemList로 알립니다. */
+export function buildHealthHubStructuredData({
+  page,
+  articles,
+}: {
+  page: { name: string; description: string; path: string };
+  articles: Array<{ name: string; path: string }>;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${absoluteUrl(page.path)}#webpage`,
+    url: absoluteUrl(page.path),
+    name: page.name,
+    description: page.description,
+    inLanguage: 'ko-KR',
+    publisher: { '@id': HOSPITAL_ID },
+    isPartOf: { '@id': WEBSITE_ID },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: articles.map((article, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: article.name,
+        url: absoluteUrl(article.path),
+      })),
+    },
+  };
+}

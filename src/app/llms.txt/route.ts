@@ -1,13 +1,19 @@
 import { DEFAULT_SITE_DESCRIPTION, SITE_NAME, absoluteUrl } from '@/lib/seo';
+import { getHealthReviewer, healthArticlePath, type HealthArticle } from '@/lib/healthArticles';
+import { getPublishedHealthArticles } from '@/lib/healthArticleStore';
 
 // AI 크롤러가 사이트 전체를 훑지 않고도 병원의 핵심 사실과 주요 문서 위치를 파악하도록 돕는 파일입니다.
 // robots.ts / sitemap.ts 와 같은 방식으로 SITE_URL을 사용해 절대 주소를 만듭니다.
 export const dynamic = 'force-static';
+// 예약 글이 발행되면 5분 안에 목록에 반영합니다.
+export const revalidate = 300;
 
 type LinkSection = {
   heading: string;
   links: Array<{ title: string; path: string; note: string }>;
 };
+
+const HEALTH_SECTION_HEADING = '척추·관절 건강정보';
 
 const SECTIONS: LinkSection[] = [
   {
@@ -54,6 +60,13 @@ const SECTIONS: LinkSection[] = [
     ],
   },
   {
+    heading: HEALTH_SECTION_HEADING,
+    // 글 목록은 관리자에서 바뀌므로 buildLlmsTxt에서 공개 글을 뒤에 붙입니다.
+    links: [
+      { title: '건강정보 목록', path: '/health', note: '전문의가 검토한 척추·관절 질환 증상과 치료 기준' },
+    ],
+  },
+  {
     heading: '예약 및 문의',
     links: [
       { title: '온라인 예약·상담', path: '/reservation', note: '진료 예약과 상담 신청' },
@@ -80,7 +93,18 @@ function renderSection(section: LinkSection) {
   return [`## ${section.heading}`, '', ...lines].join('\n');
 }
 
-function buildLlmsTxt() {
+function healthArticleLinks(articles: HealthArticle[]): LinkSection['links'] {
+  return articles.map((article) => {
+    const reviewer = getHealthReviewer(article);
+    return {
+      title: article.title,
+      path: healthArticlePath(article.slug),
+      note: reviewer ? `${article.summary[0]} (${reviewer.specialty} ${reviewer.name} ${reviewer.jobTitle} 검토)` : article.summary[0],
+    };
+  });
+}
+
+function buildLlmsTxt(healthArticles: HealthArticle[]) {
   const header = [
     `# ${SITE_NAME} (Yonsei Cheok Hospital) - 부산 척추·관절 병원`,
     '',
@@ -106,7 +130,13 @@ function buildLlmsTxt() {
     '',
   ].join('\n');
 
-  const body = SECTIONS.map(renderSection).join('\n\n');
+  const body = SECTIONS.map((section) =>
+    section.heading === HEALTH_SECTION_HEADING
+      ? { ...section, links: [...section.links, ...healthArticleLinks(healthArticles)] }
+      : section,
+  )
+    .map(renderSection)
+    .join('\n\n');
 
   const footer = [
     '',
@@ -122,8 +152,8 @@ function buildLlmsTxt() {
   return `${header}${body}${footer}`;
 }
 
-export function GET() {
-  return new Response(buildLlmsTxt(), {
+export async function GET() {
+  return new Response(buildLlmsTxt(await getPublishedHealthArticles()), {
     headers: {
       'Content-Type': 'text/plain; charset=utf-8',
     },

@@ -10,7 +10,10 @@
     "test:news": "tsx --test tests/news-content.test.ts",
     "test:news:browser": "playwright test -c playwright.news.config.ts",
     "test:fees": "tsx --test tests/non-covered.test.ts",
-    "test:fees:browser": "playwright test -c playwright.non-covered.config.ts"
+    "test:fees:browser": "playwright test -c playwright.non-covered.config.ts",
+    "health:autopost": "tsx --tsconfig tsconfig.json scripts/health-autopost/run.ts",
+    "health:autopost:install": "zsh scripts/health-autopost/install-schedule.sh",
+    "health:autopost:uninstall": "zsh scripts/health-autopost/install-schedule.sh uninstall"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.0",

@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { createClient } from '@supabase/supabase-js';
 import { absoluteUrl } from '@/lib/seo';
+import { healthArticlePath } from '@/lib/healthArticles';
+import { getPublishedHealthArticles } from '@/lib/healthArticleStore';
 
 export const revalidate = 3600;
 
@@ -33,6 +35,7 @@ const staticPages: Array<{
   { path: '/news/academic', changeFrequency: 'weekly', priority: 0.7 },
   { path: '/news/training', changeFrequency: 'weekly', priority: 0.7 },
   { path: '/news/youtube', changeFrequency: 'weekly', priority: 0.7 },
+  { path: '/health', changeFrequency: 'weekly', priority: 0.8 },
   { path: '/board/faq', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/board/certificates', changeFrequency: 'monthly', priority: 0.5 },
   { path: '/non-covered', changeFrequency: 'monthly', priority: 0.5 },
@@ -89,5 +92,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: page.priority,
   }));
 
-  return [...staticEntries, ...(await getNewsEntries())];
+  const healthEntries: MetadataRoute.Sitemap = (await getPublishedHealthArticles()).map((article) => ({
+    url: absoluteUrl(healthArticlePath(article.slug)),
+    lastModified: article.reviewedAt || article.publishedAt,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
+  return [...staticEntries, ...healthEntries, ...(await getNewsEntries())];
 }
