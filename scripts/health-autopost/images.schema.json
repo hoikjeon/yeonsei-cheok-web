@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["images"],
+  "properties": {
+    "images": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["sectionIndex", "style", "prompt", "alt"],
+        "properties": {
+          "sectionIndex": { "type": "integer", "description": "이미지를 넣을 단락 번호(0부터). 이미지가 없는 단락만" },
+          "style": { "type": "string", "enum": ["anatomy", "lifestyle", "illustration"] },
+          "prompt": { "type": "string", "description": "이미지 생성용 영어 프롬프트" },
+          "alt": { "type": "string", "description": "이미지 내용을 설명하는 한국어 한 문장" }
+        }
+      }
+    }
+  }
+}

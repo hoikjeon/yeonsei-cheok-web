@@ -52,12 +52,15 @@ ${HEALTH_TREATMENT_LINKS.map((link) => `- ${link.path} : ${link.name}`).join('\n
 ## 이미 있는 글 (주제와 제목이 겹치지 않게 합니다)
 ${existing.map((item) => `- ${item.title}`).join('\n') || '- (없음)'}
 
-## 이미지 프롬프트 (영어로)
-- heroImage: 글 전체를 대표하는 이미지. sectionImage: 첫 번째나 두 번째 단락 내용을 보여 주는 이미지.
-- 스타일: 밝고 깨끗한 병원 분위기. 아래 둘 중 주제에 맞는 쪽.
-  (a) 밝은 배경의 사실적인 3D 해부 모형 렌더(상아색 뼈, 문제 부위에 은은한 주황빛)
-  (b) 밝은 진료실에서 의사와 환자가 상담하거나 환자가 증상을 보이는 사실적인 사진풍 장면(한국인 성인)
-- 이미지 안에 글자, 숫자, 로고, 워터마크를 넣지 않습니다. 피·수술 장면처럼 불쾌할 수 있는 장면은 피합니다.
+## 이미지 프롬프트 (영어로, 모두 4장)
+글이 단조롭지 않도록 4장의 장면·구도·종류를 모두 다르게 합니다. 공통으로 밝고 깨끗한 분위기를 씁니다.
+- heroImage (1장): 글 전체를 대표하는 사실적인 사진풍 장면. 밝은 진료실 상담, 증상을 느끼는 일상 장면 등(한국인 성인).
+- sectionImages (정확히 3장): 서로 다른 단락에 하나씩, 아래 세 종류를 한 장씩 씁니다.
+  · anatomy: 밝은 배경의 사실적인 3D 해부 모형 렌더(상아색 뼈, 문제 부위에 은은한 주황빛). 원인·구조를 설명하는 단락에.
+  · lifestyle: 운동, 스트레칭, 바른 자세, 걷기, 재활처럼 생활 속 장면을 담은 사실적인 사진풍 이미지. 관리·운동 단락에.
+  · illustration: 글자가 전혀 없는 깔끔한 플랫 일러스트 또는 단순한 의학 설명 그림(파스텔 톤). 비교·과정·주의점 단락에.
+- 대표 이미지와 단락 이미지의 장면이 겹치지 않게 합니다(같은 인물·같은 장소 반복 금지).
+- 이미지 안에 글자, 숫자, 화살표 라벨, 로고, 워터마크를 넣지 않습니다. 피·수술 장면처럼 불쾌할 수 있는 장면은 피합니다.
 - alt는 이미지에 보이는 내용을 한국어 한 문장으로 씁니다.`;
 }
 
@@ -71,10 +74,29 @@ ${problems.map((problem) => `- ${problem}`).join('\n')}
 ${previousJson}`;
 }
 
+/** 이미 올라간 글에 단락 이미지를 더 넣을 때, 이미지가 없는 단락에 맞는 프롬프트를 받습니다. */
+export function buildMoreImagesPrompt(article: { title: string; summary: string[]; sections: Array<{ heading: string; lead?: string; image?: { alt: string } }>; heroImage?: { alt: string } }, count: number) {
+  const used = [article.heroImage?.alt, ...article.sections.map((section) => section.image?.alt)].filter(Boolean);
+  return `아래 건강정보 글에 단락 이미지 ${count}장을 더 넣으려고 합니다. 이미지가 없는 단락에 하나씩, 주어진 JSON 형식으로만 답하세요. 파일을 만들거나 명령을 실행하지 마세요.
+
+## 글
+- 제목: ${article.title}
+- 요약: ${article.summary.join(' ')}
+${article.sections.map((section, index) => `- 단락 ${index}: ${section.heading}${section.lead ? ` — ${section.lead}` : ''}${section.image ? ' (이미지 있음)' : ''}`).join('\n')}
+
+## 이미 있는 이미지 (장면이 겹치지 않게 합니다)
+${used.map((alt) => `- ${alt}`).join('\n') || '- (없음)'}
+
+## 규칙
+- 종류는 anatomy(밝은 배경의 사실적인 3D 해부 모형 렌더), lifestyle(운동·스트레칭·자세·걷기 등 생활 속 사실적인 사진풍 장면, 한국인 성인), illustration(글자 없는 깔끔한 파스텔 톤 설명 그림) 중에서 서로 다르게 고릅니다.
+- 프롬프트는 영어로, 단락 내용을 보여 주는 장면으로 씁니다. 이미지 안에 글자·숫자·로고를 넣지 않고, 피·수술 장면은 피합니다.
+- alt는 이미지에 보이는 내용을 한국어 한 문장으로 씁니다.`;
+}
+
 /** Codex 이미지 생성 지시. 결과 파일을 현재 폴더에 fileName 으로 저장하게 합니다. */
-export function buildImagePrompt(prompt: string, fileName: string, wide: boolean) {
+export function buildImagePrompt(prompt: string, fileName: string) {
   return `Use your image generation tool to create exactly ONE image, then save the generated PNG into the current directory as ${fileName}. Do not create any other files.
 
 Image prompt: ${prompt}
-Requirements: ${wide ? 'wide landscape 16:9 composition' : 'landscape 16:9 composition'}, bright clean medical aesthetic, soft natural lighting, high detail. Absolutely no text, letters, numbers, logos, or watermarks in the image.`;
+Requirements: wide landscape 16:9 composition, bright and clean look, soft natural lighting, high detail. Absolutely no text, letters, numbers, logos, or watermarks in the image.`;
 }

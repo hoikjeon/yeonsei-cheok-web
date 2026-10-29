@@ -8,6 +8,7 @@
 //       npm run health:autopost -- --dry-run   (DB에 넣지 않고 output/health-autopost 에 결과만 저장)
 //       npm run health:autopost -- --dry-run --topic "척추관협착증 걷기 운동"   (대기열 대신 주제를 직접 지정)
 //       npm run health:autopost -- --days 7 --max 4
+//       npm run health:autopost -- --add-images   (자동 작성 글 중 이미지가 4장보다 적은 글에 단락 이미지를 채움)
 //
 // 필요한 것: .env.local 의 Supabase 키, 이 Mac에 로그인된 Codex(Antigravity의 ChatGPT 확장)
 
@@ -25,9 +26,9 @@ import {
   toKstDate,
   type HealthArticle,
 } from '@/lib/healthArticles';
-import { HEALTH_SLUG_PATTERN, healthArticleToRow, parseHealthArticleInput } from '@/lib/healthArticleRecord';
+import { HEALTH_SLUG_PATTERN, healthArticleToRow, parseHealthArticleInput, rowToHealthArticle, type HealthArticleRow } from '@/lib/healthArticleRecord';
 import { lintHealthArticle } from '@/lib/healthMedicalLint';
-import { buildImagePrompt, buildRevisePrompt, buildWritePrompt, type TopicInput } from './prompt';
+import { buildImagePrompt, buildMoreImagesPrompt, buildRevisePrompt, buildWritePrompt, type TopicInput } from './prompt';
 
 const ROOT = process.cwd();
 loadEnvConfig(ROOT);
@@ -101,7 +102,8 @@ type GeneratedArticle = {
   slug: string; category: 'spine' | 'joint'; title: string; seoTitle: string; description: string; keywords: string[]; summary: string;
   sections: Array<{ heading: string; lead: string; paragraphs: string[]; bullets: string[]; table: { caption: string; columns: string[]; rows: string[][] } }>;
   warningSigns: string[]; faq: Array<{ question: string; answer: string }>; references: Array<{ label: string; url: string }>;
-  relatedTreatments: string[]; heroImage: { prompt: string; alt: string }; sectionImage: { sectionIndex: number; prompt: string; alt: string };
+  relatedTreatments: string[]; heroImage: { prompt: string; alt: string };
+  sectionImages: Array<{ sectionIndex: number; style: 'anatomy' | 'lifestyle' | 'illustration'; prompt: string; alt: string }>;
 };
 
 async function writeWithCodex(prompt: string, dir: string, name: string): Promise<GeneratedArticle> {
@@ -170,9 +172,41 @@ async function verifyReferences(references: GeneratedArticle['references']) {
   return checked.filter((reference) => reference !== null);
 }
 
+type ImageSpec = { key: string; prompt?: string; alt?: string; sectionIndex?: number; style?: string };
+
+/** 단락 이미지가 같은 단락에 몰리지 않게, 겹치면 비어 있는 단락으로 옮깁니다. */
+function spreadSectionImages<T extends { sectionIndex: number }>(specs: T[], sectionCount: number) {
+  const used = new Set<number>();
+  return specs.slice(0, 3).map((spec) => {
+    let index = Math.min(Math.max(0, Math.trunc(spec.sectionIndex) || 0), sectionCount - 1);
+    for (let step = 0; used.has(index) && step < sectionCount; step += 1) index = (index + 1) % sectionCount;
+    used.add(index);
+    return { ...spec, sectionIndex: index };
+  });
+}
+
+/** 이미지를 만들어 올리고 글에 붙입니다. key 가 hero 면 대표 이미지, 아니면 sectionIndex 단락에 붙습니다. */
+async function attachImages(article: HealthArticle, specs: ImageSpec[], dir: string) {
+  for (const spec of specs) {
+    if (!spec.prompt) continue;
+    try {
+      log(`  이미지 생성 중: ${spec.key}${spec.style ? ` (${spec.style})` : ''}`);
+      const file = await generateImage(spec.prompt, dir, spec.key);
+      const src = DRY_RUN ? `/${path.relative(ROOT, file)}` : await uploadImage(file);
+      const image = { src, alt: (spec.alt ?? '').slice(0, 150) || article.title };
+      if (spec.key === 'hero') article.heroImage = image;
+      else if (spec.sectionIndex !== undefined && article.sections[spec.sectionIndex]) {
+        article.sections[spec.sectionIndex] = { ...article.sections[spec.sectionIndex], image };
+      }
+    } catch (error) {
+      log(`  이미지(${spec.key}) 실패, 이미지 없이 진행: ${error instanceof Error ? error.message : error}`);
+    }
+  }
+}
+
 async function generateImage(prompt: string, dir: string, name: string) {
   const png = path.join(dir, `${name}.png`);
-  await runCodex(['-s', 'workspace-write'], buildImagePrompt(prompt, `${name}.png`, name === 'hero'), dir);
+  await runCodex(['-s', 'workspace-write'], buildImagePrompt(prompt, `${name}.png`), dir);
   if (!existsSync(png)) throw new Error(`이미지 파일(${name}.png)이 만들어지지 않았습니다.`);
   const webp = path.join(dir, `${name}.webp`);
   await sharp(png).resize({ width: 1600, withoutEnlargement: true }).webp({ quality: 82 }).toFile(webp);
@@ -267,23 +301,11 @@ async function createArticle(topic: Topic, slot: string, existing: ExistingArtic
     problems = lintHealthArticle(article);
   }
 
-  // 이미지는 실패해도 글은 올립니다. 대표 이미지가 없으면 목록은 기본 썸네일을 씁니다.
-  for (const [key, spec] of [['hero', generated.heroImage], ['section', generated.sectionImage]] as const) {
-    if (!spec?.prompt) continue;
-    try {
-      log(`  이미지 생성 중: ${key}`);
-      const file = await generateImage(spec.prompt, dir, key);
-      const src = DRY_RUN ? path.relative(ROOT, file) : await uploadImage(file);
-      const image = { src: DRY_RUN ? `/${src}` : src, alt: spec.alt.slice(0, 150) || article.title };
-      if (key === 'hero') article.heroImage = image;
-      else {
-        const index = Math.min(Math.max(0, generated.sectionImage.sectionIndex), article.sections.length - 1);
-        article.sections[index] = { ...article.sections[index], image };
-      }
-    } catch (error) {
-      log(`  이미지(${key}) 실패, 이미지 없이 진행: ${error instanceof Error ? error.message : error}`);
-    }
-  }
+  // 대표 1장 + 단락 3장. 이미지는 실패해도 글은 올립니다. 대표 이미지가 없으면 목록은 기본 썸네일을 씁니다.
+  await attachImages(article, [
+    { key: 'hero', prompt: generated.heroImage?.prompt, alt: generated.heroImage?.alt },
+    ...spreadSectionImages(generated.sectionImages ?? [], article.sections.length).map((spec, index) => ({ key: `section-${index + 1}`, ...spec })),
+  ], dir);
 
   // 검사를 통과하지 못한 글은 발행하지 않고 임시저장으로 남겨 관리자가 고치게 합니다.
   const publishable = problems.length === 0;
@@ -297,7 +319,48 @@ async function createArticle(topic: Topic, slot: string, existing: ExistingArtic
   return { slug, publishable, problems };
 }
 
+const TARGET_IMAGE_COUNT = 4;
+
+/** 예전에 2장으로 만들어진 자동 작성 글에 단락 이미지를 더 넣어 대표 1장 + 단락 3장을 맞춥니다. */
+async function addMissingImages() {
+  log(`=== 이미지 보충 시작${DRY_RUN ? ' (dry-run)' : ''}`);
+  const { data, error } = await supabase.from('health_articles').select('*').eq('source', 'auto');
+  if (error) throw new Error(`자동 작성 글을 불러오지 못했습니다: ${error.message}`);
+  for (const row of (data ?? []) as HealthArticleRow[]) {
+    const article = rowToHealthArticle(row);
+    const sectionsWithout = article.sections.map((section, index) => (section.image ? -1 : index)).filter((index) => index >= 0);
+    const missing = Math.min(TARGET_IMAGE_COUNT - (article.heroImage ? 1 : 0) - (article.sections.length - sectionsWithout.length), sectionsWithout.length);
+    if (missing <= 0) continue;
+    log(`[${article.slug}] 단락 이미지 ${missing}장 추가`);
+    try {
+      const dir = path.join(WORK_DIR, article.slug);
+      mkdirSync(dir, { recursive: true });
+      const out = path.join(dir, 'more-images.json');
+      await runCodex(['-s', 'read-only', '--output-schema', path.join(ROOT, 'scripts', 'health-autopost', 'images.schema.json'), '-o', out], buildMoreImagesPrompt(article, missing), dir);
+      const { images } = JSON.parse(readFileSync(out, 'utf8')) as { images: Array<{ sectionIndex: number; style: string; prompt: string; alt: string }> };
+      // 이미 이미지가 있는 단락을 고르면 비어 있는 단락으로 옮깁니다.
+      const free = [...sectionsWithout];
+      const specs = images.slice(0, missing).map((image, index) => {
+        const sectionIndex = free.includes(image.sectionIndex) ? image.sectionIndex : free[0];
+        free.splice(free.indexOf(sectionIndex), 1);
+        return { key: `more-${index + 1}`, ...image, sectionIndex };
+      }).filter((spec) => spec.sectionIndex !== undefined);
+      await attachImages(article, specs, dir);
+      if (DRY_RUN) continue;
+      const { isPublished, publishAt, updatedAt } = article;
+      const next = healthArticleToRow(article, { isPublished, publishAt });
+      const { error: updateError } = await supabase.from('health_articles').update({ content: next.content, updated_at: new Date().toISOString() }).eq('slug', article.slug).eq('updated_at', updatedAt);
+      if (updateError) throw new Error(updateError.message);
+      log('  ✓ 저장했습니다.');
+    } catch (err) {
+      log(`  ✗ 실패: ${err instanceof Error ? err.message : err}`);
+    }
+  }
+  log('=== 이미지 보충 끝');
+}
+
 async function main() {
+  if (flag('add-images')) return addMissingImages();
   log(`=== 자동 작성 시작${DRY_RUN ? ' (dry-run: DB에 넣지 않음)' : ''} · ${DAYS}일치, 최대 ${MAX}편 · codex: ${CODEX}`);
   const slots = DRY_RUN ? [kstToIso(toKstDate(new Date(Date.now() + 86_400_000).toISOString()), HEALTH_PUBLISH_SLOTS[0])] : (await findEmptySlots()).slice(0, MAX);
   if (!slots.length) { log('빈 발행 칸이 없습니다. 끝.'); return; }

@@ -1,50 +1,152 @@
 {
   "type": "object",
   "additionalProperties": false,
-  "required": ["slug", "category", "title", "seoTitle", "description", "keywords", "summary", "sections", "warningSigns", "faq", "references", "relatedTreatments", "heroImage", "sectionImage"],
+  "required": [
+    "slug",
+    "category",
+    "title",
+    "seoTitle",
+    "description",
+    "keywords",
+    "summary",
+    "sections",
+    "warningSigns",
+    "faq",
+    "references",
+    "relatedTreatments",
+    "heroImage",
+    "sectionImages"
+  ],
   "properties": {
-    "slug": { "type": "string", "description": "영문 소문자·숫자·하이픈. 검색어를 담은 3~7단어. 예: lumbar-stenosis-walking-exercise" },
-    "category": { "type": "string", "enum": ["spine", "joint"] },
-    "title": { "type": "string", "description": "H1. 15~45자. 환자가 실제로 묻는 질문형 또는 '~구분법/~기준' 형태" },
-    "seoTitle": { "type": "string", "description": "검색 결과 제목. 제목과 같으면 빈 문자열" },
-    "description": { "type": "string", "description": "부제이자 메타 설명. 80~120자" },
-    "keywords": { "type": "array", "items": { "type": "string" }, "description": "검색어 5~8개. 띄어쓰기·의학 용어가 다른 표현 포함" },
-    "summary": { "type": "string", "description": "핵심 요약 한 문단. 2~4문장. 질문에 대한 답을 첫 문장에 바로 씀" },
+    "slug": {
+      "type": "string",
+      "description": "영문 소문자·숫자·하이픈. 검색어를 담은 3~7단어. 예: lumbar-stenosis-walking-exercise"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "spine",
+        "joint"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "description": "H1. 15~45자. 환자가 실제로 묻는 질문형 또는 '~구분법/~기준' 형태"
+    },
+    "seoTitle": {
+      "type": "string",
+      "description": "검색 결과 제목. 제목과 같으면 빈 문자열"
+    },
+    "description": {
+      "type": "string",
+      "description": "부제이자 메타 설명. 80~120자"
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "검색어 5~8개. 띄어쓰기·의학 용어가 다른 표현 포함"
+    },
+    "summary": {
+      "type": "string",
+      "description": "핵심 요약 한 문단. 2~4문장. 질문에 대한 답을 첫 문장에 바로 씀"
+    },
     "sections": {
       "type": "array",
       "description": "본문 단락 4~5개",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["heading", "lead", "paragraphs", "bullets", "table"],
+        "required": [
+          "heading",
+          "lead",
+          "paragraphs",
+          "bullets",
+          "table"
+        ],
         "properties": {
-          "heading": { "type": "string", "description": "H2. 질문형('~인가요?', '~언제인가요?')" },
-          "lead": { "type": "string", "description": "소제목 바로 아래 굵게 보일 한 문장 답. 없으면 빈 문자열" },
-          "paragraphs": { "type": "array", "items": { "type": "string" }, "description": "문단 2~3개. 문단당 150~300자" },
-          "bullets": { "type": "array", "items": { "type": "string" }, "description": "목록이 도움이 될 때만 3~6개. 아니면 빈 배열" },
+          "heading": {
+            "type": "string",
+            "description": "H2. 질문형('~인가요?', '~언제인가요?')"
+          },
+          "lead": {
+            "type": "string",
+            "description": "소제목 바로 아래 굵게 보일 한 문장 답. 없으면 빈 문자열"
+          },
+          "paragraphs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "문단 2~3개. 문단당 150~300자"
+          },
+          "bullets": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "목록이 도움이 될 때만 3~6개. 아니면 빈 배열"
+          },
           "table": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["caption", "columns", "rows"],
+            "required": [
+              "caption",
+              "columns",
+              "rows"
+            ],
             "description": "비교가 핵심인 단락에만. 글 전체에서 최대 1개. 없으면 caption 빈 문자열과 빈 배열",
             "properties": {
-              "caption": { "type": "string" },
-              "columns": { "type": "array", "items": { "type": "string" } },
-              "rows": { "type": "array", "items": { "type": "array", "items": { "type": "string" } } }
+              "caption": {
+                "type": "string"
+              },
+              "columns": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "rows": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         }
       }
     },
-    "warningSigns": { "type": "array", "items": { "type": "string" }, "description": "지체 없이 진료가 필요한 신호 3~5개. 해당 없으면 빈 배열" },
+    "warningSigns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "지체 없이 진료가 필요한 신호 3~5개. 해당 없으면 빈 배열"
+    },
     "faq": {
       "type": "array",
       "description": "자주 묻는 질문 5개. 본문과 겹치지 않는 실제 검색 질문",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["question", "answer"],
-        "properties": { "question": { "type": "string" }, "answer": { "type": "string", "description": "2~3문장" } }
+        "required": [
+          "question",
+          "answer"
+        ],
+        "properties": {
+          "question": {
+            "type": "string"
+          },
+          "answer": {
+            "type": "string",
+            "description": "2~3문장"
+          }
+        }
       }
     },
     "references": {
@@ -53,28 +155,81 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["label", "url"],
-        "properties": { "label": { "type": "string" }, "url": { "type": "string", "description": "확실한 공식 주소만. 모르면 빈 문자열" } }
+        "required": [
+          "label",
+          "url"
+        ],
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "description": "확실한 공식 주소만. 모르면 빈 문자열"
+          }
+        }
       }
     },
-    "relatedTreatments": { "type": "array", "items": { "type": "string" }, "description": "프롬프트에 준 진료 안내 경로 중 1~3개" },
+    "relatedTreatments": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "프롬프트에 준 진료 안내 경로 중 1~3개"
+    },
     "heroImage": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["prompt", "alt"],
+      "required": [
+        "prompt",
+        "alt"
+      ],
       "properties": {
-        "prompt": { "type": "string", "description": "대표 이미지 생성용 영어 프롬프트" },
-        "alt": { "type": "string", "description": "이미지 내용을 설명하는 한국어 한 문장" }
+        "prompt": {
+          "type": "string",
+          "description": "대표 이미지 생성용 영어 프롬프트. 진료실·생활 속 사실적인 장면"
+        },
+        "alt": {
+          "type": "string",
+          "description": "이미지 내용을 설명하는 한국어 한 문장"
+        }
       }
     },
-    "sectionImage": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["sectionIndex", "prompt", "alt"],
-      "properties": {
-        "sectionIndex": { "type": "integer", "description": "이미지를 넣을 단락 번호(0부터). 보통 0 또는 1" },
-        "prompt": { "type": "string", "description": "단락 이미지 생성용 영어 프롬프트" },
-        "alt": { "type": "string" }
+    "sectionImages": {
+      "type": "array",
+      "description": "단락 이미지 정확히 3장. 서로 다른 단락에, 서로 다른 종류(3D 해부 모형 / 생활·운동·자세 장면 / 글자 없는 설명 그림)로",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sectionIndex",
+          "style",
+          "prompt",
+          "alt"
+        ],
+        "properties": {
+          "sectionIndex": {
+            "type": "integer",
+            "description": "이미지를 넣을 단락 번호(0부터). 3장 모두 서로 다른 단락"
+          },
+          "style": {
+            "type": "string",
+            "enum": [
+              "anatomy",
+              "lifestyle",
+              "illustration"
+            ],
+            "description": "anatomy=3D 해부 모형 렌더, lifestyle=생활·운동·자세 사진풍 장면, illustration=글자 없는 깔끔한 설명 그림"
+          },
+          "prompt": {
+            "type": "string",
+            "description": "단락 내용을 보여 주는 이미지 생성용 영어 프롬프트"
+          },
+          "alt": {
+            "type": "string",
+            "description": "이미지 내용을 설명하는 한국어 한 문장"
+          }
+        }
       }
     }
   }
