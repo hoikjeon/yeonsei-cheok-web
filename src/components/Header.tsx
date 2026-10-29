@@ -72,7 +72,7 @@ const MENU_DATA: MenuData[] = [
     items: [
       { name: '목디스크', desc: '목·어깨 통증과 팔 저림의 원인을 정밀하게 확인합니다', href: '/treatments/spine/neck-disc' },
       { name: '허리디스크', desc: '허리 통증과 다리 저림·당김 증상을 맞춤 진단합니다', href: '/treatments/spine/disc' },
-      { name: '수술 치료', desc: 'UBE 양방향 척추내시경 중심의 최소침습 치료입니다', href: '/treatments/spine/ube' },
+      { name: '수술 치료', desc: '부산 척추수술, 양방향 척추내시경 중심의 최소침습 치료입니다', href: '/treatments' },
       { name: '비수술치료', desc: '주사·시술·재활로 수술 부담을 낮추는 치료입니다', href: '/treatments/spine/non-surgical' },
       { name: '도수·재활 클리닉', desc: '도수·물리·자세교정으로 회복과 재발을 막습니다', href: '/treatments/spine/rehab' },
     ]

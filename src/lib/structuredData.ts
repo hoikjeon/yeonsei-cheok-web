@@ -13,6 +13,8 @@ const procedureNodeId = (path: string) => `${absoluteUrl(path)}#procedure`;
 const physicianNodeId = (id: string) => `${SITE_URL}/#physician-${id}`;
 
 const UBE_PATH = '/treatments/spine/ube';
+// 진료안내 페이지는 "부산 척추수술" 안내를 맡습니다.
+const SPINE_SURGERY_PATH = '/treatments';
 
 // 양방향 척추내시경을 부르는 여러 이름. 병원 노드와 UBE 페이지가 같은 목록을 씁니다.
 // 띄어쓰기만 다른 표기와 영문 명칭(UBE·BESS)도 검색어로 쓰이므로 모두 적습니다.
@@ -64,6 +66,11 @@ const PROCEDURES: Array<{
     name: '양방향 척추내시경(UBE)',
     path: UBE_PATH,
     alternateName: UBE_ALTERNATE_NAMES,
+  },
+  {
+    name: '척추수술',
+    path: SPINE_SURGERY_PATH,
+    alternateName: ['부산 척추수술', '척추 수술', '허리 수술', '목 수술', '척추내시경 수술'],
   },
   { name: '허리디스크 치료', path: '/treatments/spine/disc', alternateName: ['요추 추간판 탈출증'] },
   { name: '목디스크 치료', path: '/treatments/spine/neck-disc', alternateName: ['경추 추간판 탈출증'] },
@@ -157,7 +164,7 @@ const PHYSICIANS: Array<{
     specialty: 'https://schema.org/Neurologic',
     image: '/김동한병원장.jpg',
     knowsAbout: SPINE_ENDOSCOPY_KNOWS_ABOUT,
-    procedures: [UBE_PATH],
+    procedures: [SPINE_SURGERY_PATH, UBE_PATH],
     roles: [{ organization: BUSAN_SPINE_ENDOSCOPY_SOCIETY, roleName: '학술간사' }],
   },
   {
@@ -167,7 +174,7 @@ const PHYSICIANS: Array<{
     specialty: 'https://schema.org/Neurologic',
     image: '/이남 병원장.jpg',
     knowsAbout: SPINE_ENDOSCOPY_KNOWS_ABOUT,
-    procedures: [UBE_PATH],
+    procedures: [SPINE_SURGERY_PATH, UBE_PATH],
     roles: [
       { organization: '양방향 척추내시경(UBE) 연구회', roleName: '학술이사' },
       { organization: BUSAN_SPINE_ENDOSCOPY_SOCIETY, roleName: '학술이사' },

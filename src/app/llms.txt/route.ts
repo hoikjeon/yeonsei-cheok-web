@@ -43,6 +43,7 @@ const SECTIONS: LinkSection[] = [
   {
     heading: '척추 진료',
     links: [
+      { title: '부산 척추수술', path: '/treatments', note: '수술이 필요한 경우, 양방향 척추내시경(UBE) 수술, 집도 의료진(신경외과 전문의 이남·김동한 병원장), 진료 과정과 위치' },
       { title: '허리디스크', path: '/treatments/spine/disc', note: '허리 통증과 다리 저림의 진단 및 치료' },
       { title: '목디스크', path: '/treatments/spine/neck-disc', note: '목 통증과 팔 저림의 진단 및 치료' },
       { title: '척추관협착증', path: '/treatments/spine/stenosis', note: '보행 시 다리 통증·저림의 단계별 치료' },

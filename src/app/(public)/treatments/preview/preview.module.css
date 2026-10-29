@@ -1,0 +1,104 @@
+.page{--navy:#132f53;--blue:#285b88;color:var(--navy);background:#fff;word-break:keep-all;overflow:clip}.page p{line-height:1.8}.page h2{font-size:clamp(27px,2.65vw,39px);font-weight:700;line-height:1.4;letter-spacing:-.045em}.page h3{font-weight:700;letter-spacing:-.035em}.page a:focus-visible,.page summary:focus-visible{outline:3px solid #4f89be;outline-offset:5px}.page section[id]{scroll-margin-top:100px}.container{max-width:1240px;padding:0 40px;margin:0 auto}.previewBar{display:flex;justify-content:space-between;gap:16px;padding:10px 5%;background:#f3f6fa;font-size:11px;color:#5d6e84}.previewBar a{display:flex;align-items:center;gap:8px}.hero{position:relative;isolation:isolate;min-height:550px;background:#eaf1f7;margin:16px 28px 0;border-radius:24px;overflow:hidden}.heroImage{object-fit:cover;object-position:center}.heroShade{position:absolute;inset:0;background:linear-gradient(90deg,#e7eff8 0%,#e7eff8e8 28%,#e7eff84a 58%,transparent 76%)}.heroInner{position:relative;max-width:1240px;margin:auto;padding:32px 40px 42px}.breadcrumb{display:flex;gap:12px;font-size:11px;color:#63768c;margin-bottom:40px}.eyebrow{font-size:10px;letter-spacing:.18em;font-weight:650;color:#64819d;margin-bottom:17px}.hero h1{font-size:clamp(35px,3.7vw,54px);line-height:1.25;letter-spacing:-.055em;font-weight:750}.hero h1>span{display:block;font-size:16px;letter-spacing:-.025em;font-weight:550;margin-bottom:17px}.heroCopy{font-size:15px;color:#49627a;margin:22px 0 25px}.heroCopy strong{color:#163c63;font-weight:650}.actions{display:flex;flex-wrap:wrap;gap:10px}.button{display:inline-flex;align-items:center;justify-content:center;gap:24px;background:var(--navy);border:1px solid var(--navy);color:#fff;padding:13px 20px;border-radius:6px;font-size:13px;font-weight:600;transition:background .2s}.button:hover{background:#2b567e}.outline{background:transparent;color:var(--navy);border-color:#9cabbc}.outline:hover{background:#fff}.heroLocation{display:flex;align-items:center;gap:6px;margin-top:24px;font-size:11px;color:#627a92}.heroCaption{position:absolute;right:45px;bottom:37px;font-size:10px;letter-spacing:.17em;color:#52718f}.heroCaption span{display:block;letter-spacing:0;font-size:13px;margin-top:6px}.sectionNav{display:flex;justify-content:center;gap:55px;padding:24px;border-bottom:1px solid #e6ebf1;font-size:13px}.sectionNav a:hover{color:#3976a9}.quick{padding-top:48px;padding-bottom:48px;display:grid;grid-template-columns:1fr 2fr;gap:45px;align-items:center}.quick h2{font-size:23px}.quick .eyebrow{margin-bottom:8px}.quickLinks{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.quickLinks a{display:flex;flex-direction:column;align-items:start;position:relative;border-bottom:1px solid #cbd7e3;padding:10px 0 18px;font-size:15px;font-weight:600;gap:10px}.quickLinks a>span{font-size:10px;color:#8b9caf}.quickLinks svg{position:absolute;right:0;top:12px;color:#7b96ae}.signature{background:#112f50;padding:85px 0;color:white}.signatureGrid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}.signature .eyebrow{color:#9cbcd9}.signature h2{font-size:clamp(28px,2.8vw,41px);font-weight:400}.signature h2 strong{font-weight:700;color:#bfdef7}.english{font-size:11px;color:#8eaecb;letter-spacing:.035em;margin:14px 0 28px}.body{font-size:15px;color:#64758a;margin:22px 0}.signature .body{color:#ccdae7;font-size:14px;margin:17px 0}.tags{display:flex;flex-wrap:wrap;gap:7px;margin:25px 0}.tags span{font-size:11px;border:1px solid #48617b;border-radius:20px;padding:6px 12px;color:#ccdeee}.signature .button{background:#fff;color:#153759;border-color:#fff}.signature .button:hover{background:#dbeaf5}.note{font-size:10px;color:#a8c0d4;margin-top:16px}.signatureVisual{background:#f4f7fa;border-radius:15px;color:var(--navy);overflow:hidden}.visualTop{display:flex;justify-content:space-between;align-items:center;padding:24px 28px;font-size:14px;font-weight:600}.ubeImage{position:relative;aspect-ratio:1.35}.ubeImage img{object-fit:contain;padding:10px}.visualBottom{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #dce4ed;padding:24px 22px;gap:16px;background:white}.visualBottom>div{display:flex;gap:12px;align-items:center}.visualBottom b{font-size:27px;font-weight:400;color:#7395b4}.visualBottom span{font-size:11px;line-height:1.7;color:#75869a}.visualBottom strong{font-size:13px;font-weight:600;color:#294c6c}.section{padding-top:92px;padding-bottom:92px}.heading{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:36px}.heading>p{font-size:14px;color:#6e7e90}.diseaseGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.diseaseCard{border:1px solid #e4eaf0;border-radius:12px;overflow:hidden;transition:box-shadow .2s}.diseaseCard:hover{box-shadow:0 12px 28px #203f6112}.diseaseImage{position:relative;aspect-ratio:1.5;overflow:hidden;background:#eff4f8}.diseaseImage img{object-fit:cover;object-position:right;transition:transform .3s}.diseaseCard:hover img{transform:scale(1.035)}.diseaseImage>span{position:absolute;bottom:16px;right:16px;display:grid;place-items:center;width:36px;height:36px;background:#ffffffe6;border-radius:50%}.diseaseCopy{padding:25px}.diseaseCopy .eyebrow{font-size:9px;margin-bottom:10px}.diseaseCopy h3{font-size:25px;margin-bottom:8px}.diseaseCopy>p:not(.eyebrow){font-size:13px;color:#64758a}.diseaseCopy small{display:block;border-top:1px solid #e9eef3;margin-top:19px;padding-top:15px;font-size:11px;color:#8291a1}.related{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:22px 25px;background:#f5f7fa;border-radius:7px;margin-top:22px;font-size:12px}.related>span{color:#6c7d90}.related a{display:flex;align-items:center;gap:12px}.careSection{background:#f1f5f8;padding:85px 0}.careGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.careCard{display:flex;flex-direction:column;background:white;border:1px solid #e2e9ef;border-radius:10px;padding:30px}.careTop{display:flex;justify-content:space-between;align-items:center;color:#6388aa;margin-bottom:35px}.careTop>span{font-size:12px}.careCard>p{font-size:12px;color:#6e8196}.careCard h3{font-size:26px;margin:6px 0 17px}.careCard .careDescription{font-size:13px;line-height:1.85;margin-bottom:28px}.textLink{display:flex;gap:14px;align-items:center;font-size:12px;font-weight:600;margin-top:auto}.careCard:hover{border-color:#80a2c0}.jointGrid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.jointCard{display:grid;grid-template-columns:1fr 1fr;background:#f1f5f8;border-radius:12px;overflow:hidden;min-height:260px}.jointCard>div:first-child{padding:32px 0 32px 28px;position:relative;z-index:1}.jointCard h3{font-size:27px}.jointCard p:not(.eyebrow){font-size:12px;color:#6c7d90;margin:12px 0 35px}.jointImage{position:relative;min-width:0}.jointImage img{object-fit:cover}.wrist{display:flex;justify-content:space-between;gap:20px;border-top:1px solid #dce5ed;border-bottom:1px solid #dce5ed;margin-top:25px;padding:23px 5px;font-size:14px}.wrist>span:last-child{display:flex;align-items:center;gap:15px;font-size:12px;color:#657b90}.doctors{padding:75px 0;background:#eaf0f5}.doctorGrid{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:center}.steps li{display:flex;gap:23px;align-items:center;border-bottom:1px solid #cfdce7;padding:24px 0}.steps li>span{color:#7295b4;font-size:25px;font-weight:350}.steps h3{font-size:18px}.steps p{font-size:12px;color:#657b90;margin-top:7px}.faqHeading{text-align:center;margin-bottom:38px}.faq{max-width:920px;margin:auto;border-top:1px solid #38526d}.faq details{border-bottom:1px solid #e0e7ee}.faq summary{display:flex;gap:20px;align-items:center;list-style:none;cursor:pointer;padding:23px 12px;font-size:15px;font-weight:550}.faq summary::-webkit-details-marker{display:none}.faq summary>span{font-size:11px;color:#7991a8;flex-shrink:0}.faq svg{margin-left:auto;flex-shrink:0;transition:transform .2s}.faq details[open] svg{transform:rotate(45deg)}.faq details>p{font-size:14px;color:#64778a;padding:0 54px 24px}.disclaimer{max-width:920px;margin:22px auto 0;font-size:10px;color:#8491a0}.visit{padding:65px 0;background:#163756;color:white}.visitGrid{display:flex;justify-content:space-between;gap:35px;align-items:center}.visit .eyebrow{color:#97b5d0}.visit h2{font-size:32px;margin-bottom:24px}.visit p:not(.eyebrow){display:flex;align-items:center;gap:7px;font-size:12px;color:#c5d5e4;margin:7px 0}.visit small{font-size:10px;color:#99b3cb}.visitActions>span{font-size:12px;color:#a6bfd5}.phone{display:flex;align-items:center;gap:14px;font-size:37px;letter-spacing:-.025em;margin:12px 0 25px}.visit .button{background:white;color:#193f62;border-color:white}.visit .outline{background:transparent;color:white;border-color:#718ca5}.visit .outline:hover{background:#35546f}
+@media(max-width:1000px){.signatureGrid{gap:35px}.quick{grid-template-columns:1fr;gap:20px}.quickLinks{gap:24px}.sectionNav{gap:25px}.doctorGrid{gap:35px}.careCard{padding:24px}.heroCaption{display:none}.jointCard{grid-template-columns:1.1fr 1fr}.jointCard>div:first-child{padding-left:22px}}
+@media(max-width:760px){.container{padding-left:22px;padding-right:22px}.hero{margin:10px 12px 0;min-height:510px;border-radius:16px}.heroInner{padding:22px 22px 30px}.heroShade{background:linear-gradient(90deg,#e7eff8fa,#e7eff8d9 55%,#e7eff88a)}.heroImage{object-position:62% center}.breadcrumb{margin-bottom:30px}.hero h1{font-size:38px}.hero h1>span{font-size:13px}.heroCopy{font-size:13px}.sectionNav{justify-content:flex-start;overflow-x:auto;gap:24px;padding:20px 22px;white-space:nowrap;font-size:12px}.quick{padding-top:34px;padding-bottom:34px}.quickLinks{gap:12px}.quickLinks a{font-size:12px}.quickLinks svg{width:13px}.signature{padding:55px 0}.signatureGrid{grid-template-columns:1fr;gap:30px}.signatureVisual{max-width:520px;width:100%;margin:auto}.section{padding-top:60px;padding-bottom:60px}.heading{display:block;margin-bottom:27px}.heading>p{font-size:12px;margin-top:17px}.diseaseGrid{gap:13px}.diseaseCopy{padding:17px 13px}.diseaseCopy h3{font-size:21px}.diseaseCopy>p:not(.eyebrow){font-size:11px}.diseaseCopy small{font-size:10px}.careSection{padding:55px 0}.careGrid{grid-template-columns:1fr;gap:13px}.careCard{padding:25px;position:relative}.careTop{margin-bottom:17px}.careCard h3{font-size:24px}.careCard .careDescription{margin-bottom:20px;max-width:480px}.jointGrid{grid-template-columns:1fr}.jointCard{min-height:230px}.wrist{flex-direction:column;gap:9px;font-size:13px}.doctors{padding:55px 0}.doctorGrid{grid-template-columns:1fr;gap:20px}.steps li{padding:20px 0}.faq summary{font-size:13px;padding:21px 0;gap:12px;line-height:1.7}.faq details>p{font-size:13px;padding:0 15px 22px 34px}.visit{padding:50px 0}.visitGrid{flex-direction:column;align-items:flex-start}.phone{font-size:31px}.button{padding:12px 16px;font-size:12px;gap:14px}.related{padding:18px;font-size:11px}.previewBar{font-size:10px}.desktopBreak{display:none}}
+@media(max-width:540px){.diseaseGrid{grid-template-columns:1fr}.diseaseCard{display:grid;grid-template-columns:.85fr 1fr}.diseaseImage{aspect-ratio:auto;min-height:185px}.diseaseImage>span{width:28px;height:28px;bottom:12px;right:12px}.diseaseCopy{padding:22px 17px}.diseaseCopy h3{font-size:23px}.diseaseCopy .eyebrow{font-size:8px}.diseaseCopy small{margin-top:14px;padding-top:12px}.visualTop{padding:21px}.visualBottom{padding:20px 16px;gap:8px}.visualBottom>div{gap:8px}.hero h1{font-size:35px}.hero .eyebrow{font-size:9px}.quickLinks a{font-size:11px}.heroCopy{line-height:1.9}.heroLocation{margin-top:20px}}
+@media(prefers-reduced-motion:reduce){.page *{transition:none!important}}
+
+/* 가독성 개편: 영어 라벨을 없애고 글자를 키우며, 글자만 있던 섹션에 이미지를 더합니다.
+   위 규칙을 덮어쓰므로 미디어쿼리도 이 블록 안에 다시 둡니다. */
+.eyebrow{font-size:14px;letter-spacing:0;font-weight:700;color:#285b88;margin-bottom:12px}
+.signature .eyebrow{color:#9cc3e6}
+.previewBar{font-size:12px}
+.breadcrumb{font-size:13px}
+.hero h1>span{font-size:18px}
+.heroCopy{font-size:17px;line-height:1.75}
+.heroLocation{font-size:14px}
+.button{font-size:15px;padding:15px 22px;gap:16px}
+.sectionNav{font-size:16px;font-weight:600}
+.heading>p,.body{font-size:17px;line-height:1.75;color:#4a5d72}
+.heroCopy{color:#3f566e}
+.diseaseCopy>p:not(.eyebrow),.careCard .careDescription,.jointCard p:not(.eyebrow),.steps p,.faq details>p{color:#4f6278}
+.signature .body{font-size:16px}
+.tags span{font-size:14px;padding:7px 14px}
+.note,.disclaimer{font-size:13px}
+.visualTop{font-size:16px}
+.visualBottom span{font-size:14px}
+.visualBottom strong{font-size:16px}
+
+.quick{display:block;padding-top:70px;padding-bottom:70px}
+.quick h2{font-size:clamp(27px,2.65vw,39px);margin-bottom:28px}
+.quickLinks{grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.quickLinks a.quickCard{display:block;padding:0;border:1px solid #e4eaf0;border-radius:14px;overflow:hidden;background:#fff;transition:box-shadow .2s,border-color .2s}
+.quickLinks a.quickCard:hover{border-color:#80a2c0;box-shadow:0 12px 28px #203f6112}
+.quickImage{position:relative;aspect-ratio:1;background:#eff4f8}
+.quickImage img{object-fit:cover;transition:transform .3s}
+.quickCard:hover .quickImage img{transform:scale(1.04)}
+.quickLinks a.quickCard>span{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;font-size:19px;font-weight:700;color:var(--navy)}
+.quickLinks a.quickCard svg{position:static;color:#7b96ae}
+
+.diseaseCopy h3{font-size:27px}
+.diseaseCopy>p:not(.eyebrow){font-size:16px}
+.diseaseCopy small{font-size:14px}
+.related{font-size:15px}
+
+.careCard{padding:0;overflow:hidden}
+.careImage{position:relative;aspect-ratio:1.6;background:#eff4f8}
+.careImage img{object-fit:cover;transition:transform .3s}
+.careCard:hover .careImage img{transform:scale(1.04)}
+.careCard>p:not(.careDescription){font-size:15px;padding:26px 28px 0}
+.careCard h3{font-size:28px;margin:6px 28px 14px}
+.careCard .careDescription{font-size:16px;line-height:1.8;margin:0 28px 24px}
+.careCard .textLink{margin:auto 28px 28px}
+.textLink{font-size:15px}
+
+.jointCard h3{font-size:29px}
+.jointCard p:not(.eyebrow){font-size:16px}
+.wrist{font-size:17px}
+.wrist>span:last-child{font-size:15px}
+
+.consultImage{position:relative;aspect-ratio:1.5;border-radius:14px;overflow:hidden;margin:6px 0 26px;background:#dfe8f0}
+.consultImage img{object-fit:cover}
+.steps h3{font-size:20px}
+.steps p{font-size:15px;line-height:1.7}
+
+.faq summary{font-size:17px}
+.faq summary>span{font-size:13px}
+.faq details>p{font-size:16px;line-height:1.8}
+
+.visit p:not(.eyebrow){font-size:16px}
+.visit small{font-size:13px}
+.visitActions>span{font-size:15px}
+
+@media(max-width:1000px){
+.quickLinks{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:760px){
+.eyebrow{font-size:13px}
+.hero h1>span{font-size:15px}
+.heroCopy{font-size:15px}
+.sectionNav{font-size:15px}
+.heading>p,.body{font-size:15px}
+.quick{padding-top:44px;padding-bottom:44px}
+.quick h2{margin-bottom:20px}
+.quickLinks{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -22px;padding:0 22px 6px}
+.quickLinks a.quickCard{flex:0 0 42%;scroll-snap-align:start}
+.quickLinks a.quickCard>span{font-size:16px;padding:12px 14px}
+.diseaseCopy h3{font-size:22px}
+.diseaseCopy>p:not(.eyebrow){font-size:14px}
+.diseaseCopy small{font-size:12px}
+.related{font-size:13px}
+.careCard{padding:0}
+.careCard>p:not(.careDescription){font-size:14px;padding:20px 22px 0}
+.careCard h3{font-size:24px;margin:4px 22px 10px}
+.careCard .careDescription{font-size:15px;margin:0 22px 18px}
+.careCard .textLink{margin:auto 22px 22px}
+.jointCard h3{font-size:24px}
+.jointCard p:not(.eyebrow){font-size:14px}
+.wrist{font-size:15px}
+.wrist>span:last-child{font-size:14px}
+.steps p{font-size:14px}
+.faq summary{font-size:15px}
+.faq details>p{font-size:15px}
+.visit p:not(.eyebrow){font-size:14px}
+.visit small{font-size:12px}
+}
