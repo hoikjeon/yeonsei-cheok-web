@@ -3,5 +3,6 @@
   "postcss.lint.unknownAtRules": "ignore",
   "files.associations": {
     "*.css": "tailwindcss"
-  }
+  },
+  "antigravity.autoOpenFiles": false
 }
