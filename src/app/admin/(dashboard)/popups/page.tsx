@@ -243,6 +243,7 @@ function PopupsAdminContent() {
                          {popup.title.replace(/\\n/g, '\n')}
                        </h3>
                        <p className="text-sm font-medium text-ink-muted line-clamp-2 leading-relaxed">{popup.content}</p>
+                       {popup.link_url && <p className="truncate text-xs font-bold text-primary">링크: {popup.link_url}</p>}
                        {(() => {
                          const status = getPopupStatus(popup);
                          const startsLabel = formatKstLabel(popup.starts_at);
@@ -339,6 +340,11 @@ function PopupsAdminContent() {
               <div className="space-y-2">
                 <label className="text-xs font-bold text-ink-muted font-montserrat uppercase">서브 내용</label>
                 <textarea required name="content" rows={3} key={editingPopup?.id} defaultValue={editingPopup?.content || ""} placeholder="설명 입력..." className="w-full px-4 py-3 rounded border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-medium resize-y leading-relaxed text-ink-sub" />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="popup-link-url" className="text-xs font-bold text-ink-muted font-montserrat uppercase">클릭 시 이동할 링크 (선택)</label>
+                <input id="popup-link-url" name="link_url" key={editingPopup?.id} defaultValue={editingPopup?.link_url || ""} placeholder="/news/academic 또는 https://..." maxLength={500} className="w-full px-4 py-3 rounded border border-slate-200 bg-white focus:outline-none focus:border-primary text-sm font-medium text-ink" />
+                <p className="text-[11px] text-ink-muted">사이트 안 주소(/로 시작)는 같은 창에서, 외부 주소(https://)는 새 창에서 열립니다. 비우면 눌러도 이동하지 않습니다.</p>
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold text-ink-muted font-montserrat uppercase">노출 자리</label>

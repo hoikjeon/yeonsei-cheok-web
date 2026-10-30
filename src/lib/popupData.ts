@@ -19,6 +19,8 @@ export type PopupItem = {
   id: string;
   title: string;
   image_url: string | null;
+  /** 팝업을 누르면 이동할 주소. 사이트 안 주소(/...) 또는 http(s) 주소 */
+  link_url: string | null;
   display_slot: number | null;
   starts_at: string | null;
   ends_at: string | null;
@@ -32,21 +34,26 @@ export type PopupItem = {
  */
 const getSlottedPopups = unstable_cache(
   async (): Promise<PopupItem[]> => {
-    const { data, error } = await supabase
+    // 팝업 화면에 쓰는 컬럼만 받습니다. content·label 은 노출하지 않습니다.
+    const query = (columns: string) => supabase
       .from('popups')
-      // 팝업 화면에 쓰는 컬럼만 받습니다. content·label 은 노출하지 않습니다.
-      .select('id,title,image_url,display_slot,starts_at,ends_at')
+      .select(columns)
       .eq('is_active', true)
       .not('display_slot', 'is', null)
       .order('display_slot', { ascending: true })
       .limit(MAX_POPUP_COUNT);
+
+    let { data, error } = await query('id,title,image_url,link_url,display_slot,starts_at,ends_at');
+    // link_url 칸(update_popup_link.sql)이 아직 없을 때도 팝업은 링크 없이 계속 보입니다.
+    if (error?.code === '42703') ({ data, error } = await query('id,title,image_url,display_slot,starts_at,ends_at'));
 
     if (error) {
       console.error('Failed to load popups:', error.message);
       return [];
     }
 
-    return (data ?? []) as PopupItem[];
+    return ((data ?? []) as unknown as Array<Omit<PopupItem, 'link_url'> & { link_url?: string | null }>)
+      .map((popup) => ({ ...popup, link_url: popup.link_url ?? null }));
   },
   ['active-popups'],
   {

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { X } from 'lucide-react';
 import type { PopupItem } from '@/lib/popupData';
@@ -63,6 +64,17 @@ const getHiddenPopupsSnapshot = () => {
 
 /** 서버는 localStorage 를 알 수 없습니다. 아직 확인 전임을 null 로 나타냅니다. */
 const getHiddenPopupsServerSnapshot = () => null;
+
+/** 링크가 있으면 팝업 이미지를 눌러 이동합니다. 사이트 안 주소는 같은 창, 외부 주소는 새 창으로 엽니다. */
+const PopupLink = ({ popup, tabIndex, children }: { popup: PopupItem; tabIndex: number; children: React.ReactNode }) => {
+  const href = popup.link_url;
+  if (!href) return <>{children}</>;
+  const className = 'block transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-primary';
+  const label = `${popup.title} 자세히 보기`;
+  return href.startsWith('/')
+    ? <Link href={href} aria-label={label} tabIndex={tabIndex} className={className}>{children}</Link>
+    : <a href={href} target="_blank" rel="noopener noreferrer" aria-label={`${label} (새 창)`} tabIndex={tabIndex} className={className}>{children}</a>;
+};
 
 const rememberHidden = (id: PopupItem['id']) => {
   try {
@@ -196,6 +208,7 @@ const MainPopup = ({ popups }: { popups: PopupItem[] }) => {
             className="relative w-full max-w-[380px] shrink-0 snap-center overflow-hidden bg-white shadow-[0_24px_60px_rgba(0,0,0,0.35)] first:ml-auto last:mr-auto xl:min-w-0 xl:max-w-[500px] xl:shrink xl:basis-[500px]"
           >
             {/* 팝업 이미지 (500 x 500 정사각형. 원본도 1:1 로 올리면 여백 없이 꽉 찹니다) */}
+            <PopupLink popup={popup} tabIndex={checked ? 0 : -1}>
             <div className="relative aspect-square w-full">
               <Image
                 src={popup.image_url || '/ube_training.jpg'}
@@ -210,6 +223,7 @@ const MainPopup = ({ popups }: { popups: PopupItem[] }) => {
                 className="object-contain"
               />
             </div>
+            </PopupLink>
 
             {/* 팝업별 닫기 */}
             <button

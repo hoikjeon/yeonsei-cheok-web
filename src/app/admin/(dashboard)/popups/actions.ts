@@ -15,6 +15,30 @@ function parseKstDateTime(value: FormDataEntryValue | null): string | null {
   return `${value.trim()}:00+09:00`;
 }
 
+// 팝업 클릭 시 이동할 주소. 사이트 안 주소(/health)나 http(s) 주소만 받고, 비우면 링크 없음(null)입니다.
+// 잘못된 값이면 화면에 보여 줄 문장을 던집니다.
+function parseLinkUrl(value: FormDataEntryValue | null): string | null {
+  const raw = typeof value === 'string' ? value.trim() : '';
+  if (!raw) return null;
+  if (raw.length > 500) throw new Error('링크 주소는 500자 이하로 입력해주세요.');
+  if (raw.startsWith('/') && !raw.startsWith('//') && !/\s/.test(raw)) return raw;
+  try {
+    const url = new URL(raw.startsWith('www.') ? `https://${raw}` : raw);
+    if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) throw new Error();
+    return url.toString();
+  } catch {
+    throw new Error('링크는 /health 처럼 사이트 안 주소나 https:// 로 시작하는 주소로 입력해주세요.');
+  }
+}
+
+// 링크 칸(update_popup_link.sql)을 아직 만들지 않았을 때 원인을 알 수 있게 바꿔 보여 줍니다.
+function popupSaveErrorMessage(error: { message?: string }) {
+  const message = error?.message ?? '저장 중 오류가 발생했습니다.';
+  return message.includes('link_url')
+    ? '링크 칸이 아직 DB에 없습니다. Supabase SQL Editor에서 update_popup_link.sql을 먼저 실행해주세요.'
+    : message;
+}
+
 function parseDisplaySlot(value: FormDataEntryValue | null): number | null {
   if (typeof value !== 'string') return null;
   const slot = parseInt(value, 10);
@@ -100,6 +124,7 @@ export async function uploadPopup(formData: FormData) {
     const file = formData.get('image') as File;
     const isActive = formData.get('is_active') === 'on';
     const displaySlot = parseDisplaySlot(formData.get('display_slot'));
+    const linkUrl = parseLinkUrl(formData.get('link_url'));
     const startsAt = parseKstDateTime(formData.get('starts_at'));
     const endsAt = parseKstDateTime(formData.get('ends_at'));
 
@@ -144,6 +169,7 @@ export async function uploadPopup(formData: FormData) {
           content,
           label,
           image_url: imageUrl,
+          link_url: linkUrl,
           is_active: isActive,
           display_slot: displaySlot,
           starts_at: startsAt,
@@ -159,7 +185,7 @@ export async function uploadPopup(formData: FormData) {
     return { success: true };
   } catch (error: any) {
     console.error('Upload Action Error:', error);
-    return { error: error.message };
+    return { error: popupSaveErrorMessage(error) };
   }
 }
 
@@ -175,6 +201,7 @@ export async function updatePopup(id: string, formData: FormData) {
     const file = formData.get('image') as File;
     const isActive = formData.get('is_active') === 'on';
     const displaySlot = parseDisplaySlot(formData.get('display_slot'));
+    const linkUrl = parseLinkUrl(formData.get('link_url'));
     const startsAt = parseKstDateTime(formData.get('starts_at'));
     const endsAt = parseKstDateTime(formData.get('ends_at'));
 
@@ -195,6 +222,7 @@ export async function updatePopup(id: string, formData: FormData) {
       title,
       content,
       label,
+      link_url: linkUrl,
       is_active: isActive,
       display_slot: displaySlot,
       starts_at: startsAt,
@@ -232,7 +260,7 @@ export async function updatePopup(id: string, formData: FormData) {
     return { success: true };
   } catch (error: any) {
     console.error('Update Action Error:', error);
-    return { error: error.message };
+    return { error: popupSaveErrorMessage(error) };
   }
 }
 
