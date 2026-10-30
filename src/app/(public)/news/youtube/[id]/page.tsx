@@ -1,5 +1,5 @@
 import NewsContent from '@/components/NewsContent';
-import StorageImage from '@/components/StorageImage';
+import NaturalWidthImage from '@/components/NaturalWidthImage';
 import { newsGalleryImages, youtubeVideoId } from '@/lib/newsContent';
 import React from 'react';
 import type { Metadata } from 'next';
@@ -85,7 +85,7 @@ export default async function YoutubeDetailPage({ params }: DetailPageProps) {
         {newsGalleryImages(item.content, item.image_urls).length > 0 && (
           <div className="mb-12 space-y-6">
             {newsGalleryImages(item.content, item.image_urls).map((url, index) => (
-              <StorageImage key={url} src={url} alt={`${item.title} 첨부 이미지 ${index + 1}`} loading={index === 0 ? 'eager' : undefined} width={720} height={540} sizes="(min-width: 768px) 720px, 100vw" className="mx-auto h-auto max-w-full rounded-xl" />
+              <NaturalWidthImage key={url} frameClassName="mx-auto max-w-full" src={url} alt={`${item.title} 첨부 이미지 ${index + 1}`} loading={index === 0 ? 'eager' : undefined} width={720} height={540} sizes="(min-width: 768px) 720px, 100vw" className="h-auto w-full rounded-xl" />
             ))}
           </div>
         )}

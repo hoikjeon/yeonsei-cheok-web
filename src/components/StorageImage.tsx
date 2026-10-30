@@ -1,3 +1,4 @@
+import type { Ref } from 'react';
 import Image, { type ImageProps } from 'next/image';
 
 // next.config.ts 의 images.remotePatterns 와 같은 범위입니다. 이 밖의 주소(유튜브 썸네일 등)는
@@ -13,6 +14,6 @@ export function canOptimizeImage(src: string) {
  * Vercel 이 화면 크기에 맞춰 줄인 사본을 만들어 캐시해 두므로, 방문자가 볼 때마다
  * Supabase 에서 원본을 내려받지 않아 Supabase 전송량(egress)이 크게 줄어듭니다.
  */
-export default function StorageImage({ src, alt, ...props }: Omit<ImageProps, 'src'> & { src: string }) {
+export default function StorageImage({ src, alt, ...props }: Omit<ImageProps, 'src'> & { src: string; ref?: Ref<HTMLImageElement> }) {
   return <Image src={src} alt={alt} unoptimized={!canOptimizeImage(src)} {...props} />;
 }
