@@ -80,5 +80,6 @@ export async function createConsultationPost(
   }
 
   revalidatePath('/consultation');
-  redirect(`/consultation/${data.id}`);
+  // submitted=1 은 상세 화면이 네이버 광고 전환(inquiry)을 한 번 보내는 표시입니다.
+  redirect(`/consultation/${data.id}?submitted=1`);
 }

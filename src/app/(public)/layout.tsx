@@ -4,6 +4,7 @@ import FooterConsultationSection from "@/components/FooterConsultationSection";
 import QuickMenu from "@/components/QuickMenu";
 import MainPopup from "@/components/MainPopup";
 import VisitTracker from "@/components/VisitTracker";
+import NaverAnalytics from "@/components/NaverAnalytics";
 import { getActivePopups } from "@/lib/popupData";
 
 // 팝업 목록을 서버에서 읽어 HTML 에 담습니다.
@@ -19,6 +20,8 @@ export default async function PublicLayout({
   return (
     <div className="public-site-shell flex min-h-screen min-w-0 flex-1 flex-col">
       <VisitTracker />
+      {/* 네이버 광고 전환 추적. 관리자 화면에는 넣지 않으려고 공개 레이아웃에만 둡니다. */}
+      <NaverAnalytics />
       <Header />
       <MainPopup popups={popups} />
       <main className="min-w-0 flex-grow pt-[72px]">

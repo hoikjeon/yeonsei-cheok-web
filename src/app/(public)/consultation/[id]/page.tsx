@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowLeft, CalendarDays, CheckCircle2, Clock3, LockKeyhole, MessageSquareText } from 'lucide-react';
 import { notFound, redirect } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
+import NaverConversionOnMount from '@/components/NaverConversionOnMount';
 
 type ConsultationPost = {
   id: string;
@@ -21,6 +22,7 @@ type PublicTitle = Pick<ConsultationPost, 'id' | 'title' | 'status' | 'created_a
 
 type PageProps = {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ submitted?: string }>;
 };
 
 function formatDate(value: string) {
@@ -44,8 +46,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function ConsultationDetailPage({ params }: PageProps) {
+export default async function ConsultationDetailPage({ params, searchParams }: PageProps) {
   const { id } = await params;
+  const { submitted } = await searchParams;
   const supabase = await createClient();
   const {
     data: { user },
@@ -92,6 +95,7 @@ export default async function ConsultationDetailPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-12 sm:px-6 sm:py-16 lg:py-20">
+      {submitted === '1' ? <NaverConversionOnMount type="inquiry" /> : null}
       <article className="mx-auto max-w-4xl overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
         <header className="border-b border-slate-200 px-5 py-7 sm:px-9 sm:py-9">
           <div className="flex flex-wrap items-center gap-2">

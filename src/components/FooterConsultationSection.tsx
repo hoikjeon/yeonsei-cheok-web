@@ -12,6 +12,7 @@ import {
   PRIVACY_CONSENT_TEXT,
 } from '@/lib/consultationForm';
 import { submitConsultation } from '@/lib/submitConsultation';
+import { trackNaverConversion } from '@/lib/naverAnalytics';
 
 type PolicyType = 'privacy' | 'marketing';
 
@@ -162,6 +163,7 @@ export default function FooterConsultationSection() {
       return;
     }
 
+    trackNaverConversion('inquiry');
     alert('상담 신청이 완료되었습니다. 확인 후 빠르게 연락드리겠습니다.');
     setFormData({
       consultationType: '',

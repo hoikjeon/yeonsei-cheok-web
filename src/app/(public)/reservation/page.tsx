@@ -4,6 +4,7 @@ import SubHero from '@/components/SubHero';
 import ConsultationDatePicker from '@/components/ConsultationDatePicker';
 import { useEffect, useMemo, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { trackNaverConversion } from '@/lib/naverAnalytics';
 
 const DOCTORS_BY_SPECIALTY = {
   '척추외과(신경외과)': ['김동한', '이남'],
@@ -161,7 +162,9 @@ export default function ReservationPage() {
         throw error;
       }
 
-      setFormData({ 
+      trackNaverConversion('schedule');
+
+      setFormData({
         category: '초진', 
         name: '', 
         phone: '', 
