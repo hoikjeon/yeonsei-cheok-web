@@ -81,7 +81,10 @@ export function healthFormToArticle(form: FormState): HealthArticle {
     description: form.description.trim(), keywords: form.keywords.split(/[,\n]/).map((item) => item.trim()).filter(Boolean),
     summary: splitLines(form.summary), heroImage: fromImageForm(form.heroImage),
     sections: form.sections.map((section) => {
-      const tableLines = splitLines(section.table).map((line) => line.split('|').map((cell) => cell.trim()));
+      // 표를 넣기만 하고 채우지 않은 줄(모든 칸이 빈 줄)은 저장하지 않습니다.
+      const tableLines = splitLines(section.table)
+        .map((line) => line.split('|').map((cell) => cell.trim()))
+        .filter((cells) => cells.some(Boolean));
       return {
         id: section.id, heading: section.heading.trim(), lead: section.lead.trim() || undefined,
         paragraphs: section.paragraphs.split(/\n\s*\n/).map((item) => item.trim()).filter(Boolean),
