@@ -16,7 +16,7 @@ const getCachedLatestReviews = unstable_cache(
   async (limit: number): Promise<HomeReview[]> => {
     const { data, error } = await supabase
       .from('reviews')
-      .select('id,category,title,created_at')
+      .select('id,category,title,created_at,image_urls')
       .order('created_at', { ascending: false })
       .order('id', { ascending: false })
       .limit(limit);
@@ -25,9 +25,13 @@ const getCachedLatestReviews = unstable_cache(
       console.error('Failed to load latest reviews:', error.message);
       return [];
     }
-    return (data || []) as HomeReview[];
+    // 카드에는 첫 장만 쓰므로 나머지 주소는 HTML 에 싣지 않습니다.
+    return (data || []).map(({ image_urls, ...review }) => ({
+      ...review,
+      image_url: Array.isArray(image_urls) && typeof image_urls[0] === 'string' ? image_urls[0] : null,
+    })) as HomeReview[];
   },
-  ['latest-treatment-reviews'],
+  ['latest-treatment-reviews-v2'],
   { tags: [REVIEWS_CACHE_TAG], revalidate: 60 },
 );
 

@@ -11,7 +11,10 @@ export interface ReviewRecord {
   created_at: string;
 }
 
-export type HomeReview = Pick<ReviewRecord, 'id' | 'category' | 'title' | 'created_at'>;
+export type HomeReview = Pick<ReviewRecord, 'id' | 'category' | 'title' | 'created_at'> & {
+  /** 메인 후기 카드에 미리보기로 보여줄 첫 번째 사진 (없으면 null) */
+  image_url: string | null;
+};
 
 export function isReviewCategory(value: unknown): value is ReviewCategory {
   return typeof value === 'string' && reviewCategories.includes(value as ReviewCategory);
