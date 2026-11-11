@@ -5,7 +5,7 @@ import JsonLd from '@/components/JsonLd';
 import { absoluteUrl, createPageMetadata } from '@/lib/seo';
 import { buildHealthArticleStructuredData } from '@/lib/structuredData';
 import { getHealthReviewer, healthArticlePath, type HealthArticle } from '@/lib/healthArticles';
-import { getPublishedHealthArticle, getPublishedHealthArticles } from '@/lib/healthArticleStore';
+import { getPublishedHealthArticle, getPublishedHealthArticles, healthArticleTimes } from '@/lib/healthArticleStore';
 
 type ArticlePageProps = { params: Promise<{ slug: string }> };
 
@@ -35,6 +35,8 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     path: healthArticlePath(article.slug),
     image: shareImage(article),
     type: 'article',
+    publishedTime: healthArticleTimes(article).published,
+    modifiedTime: healthArticleTimes(article).modified,
   });
 }
 
@@ -69,7 +71,8 @@ export default async function HealthArticlePage({ params }: ArticlePageProps) {
             name: article.title,
             description: article.description,
             path,
-            datePublished: article.publishedAt,
+            datePublished: healthArticleTimes(article).published,
+            dateModified: healthArticleTimes(article).modified,
             lastReviewed: article.reviewedAt,
             keywords: article.keywords,
           },

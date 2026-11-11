@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 import { createClient } from '@supabase/supabase-js';
 import { absoluteUrl } from '@/lib/seo';
 import { healthArticlePath } from '@/lib/healthArticles';
-import { getPublishedHealthArticles } from '@/lib/healthArticleStore';
+import { getPublishedHealthArticles, healthArticleTimes } from '@/lib/healthArticleStore';
 
 export const revalidate = 3600;
 
@@ -94,7 +94,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const healthEntries: MetadataRoute.Sitemap = (await getPublishedHealthArticles()).map((article) => ({
     url: absoluteUrl(healthArticlePath(article.slug)),
-    lastModified: article.reviewedAt || article.publishedAt,
+    lastModified: healthArticleTimes(article).modified,
     changeFrequency: 'monthly',
     priority: 0.7,
   }));

@@ -9,6 +9,7 @@ import {
   DEFAULT_SITE_DESCRIPTION,
   DEFAULT_SITE_TITLE,
   NAVER_SITE_VERIFICATION,
+  SEARCH_PREVIEW_ROBOTS,
   SITE_NAME,
   SITE_URL,
 } from "@/lib/seo";
@@ -33,6 +34,8 @@ export const metadata: Metadata = {
   applicationName: SITE_NAME,
   alternates: {
     canonical: "/",
+    // 새 건강정보 글을 검색엔진·구독 프로그램이 바로 찾도록 RSS 위치를 알립니다.
+    types: { "application/rss+xml": [{ url: "/rss.xml", title: "연세척병원 척추·관절 건강정보" }] },
   },
   openGraph: {
     type: "website",
@@ -59,6 +62,7 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: { index: true, follow: true, ...SEARCH_PREVIEW_ROBOTS },
   },
   verification: {
     ...(process.env.GOOGLE_SITE_VERIFICATION

@@ -40,7 +40,17 @@ type PageMetadataOptions = {
   image?: string;
   noIndex?: boolean;
   type?: 'website' | 'article';
+  /** 글(article)의 게시·수정 시각(ISO). 검색 결과에 날짜가 표시되도록 메타 태그로 알립니다. */
+  publishedTime?: string;
+  modifiedTime?: string;
 };
+
+// 검색 결과에 큰 썸네일과 긴 미리보기 문구를 쓸 수 있게 허용합니다.
+export const SEARCH_PREVIEW_ROBOTS = {
+  'max-image-preview': 'large',
+  'max-snippet': -1,
+  'max-video-preview': -1,
+} as const;
 
 export function createPageMetadata({
   title,
@@ -49,6 +59,8 @@ export function createPageMetadata({
   image = DEFAULT_OG_IMAGE,
   noIndex = false,
   type = 'website',
+  publishedTime,
+  modifiedTime,
 }: PageMetadataOptions): Metadata {
   const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
 
@@ -60,6 +72,7 @@ export function createPageMetadata({
     },
     openGraph: {
       type,
+      ...(type === 'article' && publishedTime ? { publishedTime, modifiedTime: modifiedTime ?? publishedTime } : {}),
       title: fullTitle,
       description,
       url: path,
@@ -92,6 +105,7 @@ export function createPageMetadata({
       : {
           index: true,
           follow: true,
+          googleBot: { index: true, follow: true, ...SEARCH_PREVIEW_ROBOTS },
         },
   };
 }

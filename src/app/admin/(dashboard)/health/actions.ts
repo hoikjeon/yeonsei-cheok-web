@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidatePath, updateTag } from 'next/cache';
+import { after } from 'next/server';
 import { isAdminAuthenticated } from '@/lib/adminAuth';
 import { healthAdminClient, managedHealthImagePath, removeUnusedHealthImages } from '@/lib/adminHealthRepository';
 import { healthArticlePath } from '@/lib/healthArticles';
@@ -14,6 +15,7 @@ import {
   type HealthArticleRow,
 } from '@/lib/healthArticleRecord';
 import { HEALTH_ARTICLES_CACHE_TAG } from '@/lib/healthArticleStore';
+import { notifySearchEngines } from '@/lib/indexNow';
 import { ALLOWED_IMAGE_TYPES, MAX_NEWS_IMAGE_SIZE } from '@/lib/imageUploadRules';
 
 export type AdminHealthResult = { success: true; slug: string; warning?: string } | { success: false; error: string };
@@ -28,6 +30,13 @@ function invalidateHealth(slug: string) {
   revalidatePath(healthArticlePath(slug));
   revalidatePath('/sitemap.xml');
   revalidatePath('/llms.txt');
+}
+
+/** 지금 홈페이지에 보이는 글이면, 응답을 보낸 뒤 검색엔진(네이버·빙)에 새 주소를 알립니다. */
+function announceIfPublic(slug: string, publish: { isPublished: boolean; publishAt: string }) {
+  // 예약 글은 아직 보이지 않으므로 여기서 알리지 않습니다. 공개된 뒤 하루 한 번 도는 작업(api/cron/indexnow)이 알립니다.
+  if (!publish.isPublished || new Date(publish.publishAt).getTime() > Date.now()) return;
+  after(() => notifySearchEngines([healthArticlePath(slug), '/health']));
 }
 
 export async function saveAdminHealthArticle(payload: string, editingSlug: string | null, originalUpdatedAt: string | null): Promise<AdminHealthResult> {
@@ -85,6 +94,7 @@ export async function saveAdminHealthArticle(payload: string, editingSlug: strin
     }
 
     invalidateHealth(article.slug);
+    announceIfPublic(article.slug, publish);
     const nextImages = new Set(healthArticleImages(article));
     let clean = true;
     try { clean = await removeUnusedHealthImages([...previousImages].filter((src) => !nextImages.has(src))); } catch (err) { clean = false; console.error('Health image cleanup failed:', err); }
@@ -110,6 +120,7 @@ export async function changeAdminHealthPublish(slug: string, mode: 'now' | 'draf
       .eq('slug', slug);
     if (updateError) throw new Error('상태를 바꾸지 못했습니다. 다시 시도해주세요.');
     invalidateHealth(slug);
+    announceIfPublic(slug, publish);
     return { success: true, slug };
   } catch (error) {
     return { success: false, error: error instanceof Error ? error.message : '상태 변경 중 오류가 발생했습니다.' };

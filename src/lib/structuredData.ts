@@ -416,6 +416,8 @@ type HealthArticlePageOptions = {
     description: string;
     path: string;
     datePublished: string;
+    /** 글을 실제로 마지막으로 고친 때. 없으면 검토일·게시일을 씁니다. */
+    dateModified?: string;
     lastReviewed: string;
     keywords: string[];
   };
@@ -461,7 +463,7 @@ export function buildHealthArticleStructuredData({
         inLanguage: 'ko-KR',
         keywords: page.keywords.join(', '),
         datePublished: page.datePublished,
-        dateModified: page.lastReviewed || page.datePublished,
+        dateModified: page.dateModified || page.lastReviewed || page.datePublished,
         ...(reviewer ? { lastReviewed: page.lastReviewed, reviewedBy: reviewer } : {}),
         author: reviewer ?? { '@id': HOSPITAL_ID },
         ...(image ? { image } : {}),
