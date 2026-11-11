@@ -41,16 +41,26 @@ function formatDate(value: string) {
 const FALLBACK_IMG = '/generated/hero-university-doctors.png';
 
 // 고해상도 썸네일부터 순서대로 시도하고, 없는 경우 다음 해상도로 교체합니다.
+function tryNextImage(img: HTMLImageElement, fallbacks: string[]) {
+  const fallbackIndex = Number(img.dataset.fallbackIndex ?? '0');
+  const fallback = fallbacks[fallbackIndex];
+
+  if (!fallback) return;
+
+  img.dataset.fallbackIndex = String(fallbackIndex + 1);
+  img.src = fallback;
+}
+
 function handleImgError(fallbacks: string[]) {
+  return (e: React.SyntheticEvent<HTMLImageElement>) => tryNextImage(e.currentTarget, fallbacks);
+}
+
+// 유튜브는 해당 해상도 썸네일이 없으면 404 와 함께 120×90 회색 '영상 아이콘' 그림을 보냅니다.
+// 브라우저는 이 그림을 정상 이미지로 그려 onError 가 불리지 않으므로, 크기로 알아보고 다음 해상도로 넘깁니다.
+function handleImgLoad(fallbacks: string[]) {
   return (e: React.SyntheticEvent<HTMLImageElement>) => {
     const img = e.currentTarget;
-    const fallbackIndex = Number(img.dataset.fallbackIndex ?? '0');
-    const fallback = fallbacks[fallbackIndex];
-
-    if (!fallback) return;
-
-    img.dataset.fallbackIndex = String(fallbackIndex + 1);
-    img.src = fallback;
+    if (img.naturalWidth <= 120 && img.src.includes('img.youtube.com/')) tryNextImage(img, fallbacks);
   };
 }
 
@@ -175,6 +185,7 @@ export default function YoutubeSection() {
                       src={active.featuredImage}
                       alt={active.title}
                       onError={handleImgError(active.featuredImageFallbacks)}
+                      onLoad={handleImgLoad(active.featuredImageFallbacks)}
                       initial={{ opacity: 0, scale: 1.04 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0 }}
@@ -237,6 +248,7 @@ export default function YoutubeSection() {
                         src={card.image}
                         alt={card.title}
                         onError={handleImgError(card.imageFallbacks)}
+                        onLoad={handleImgLoad(card.imageFallbacks)}
                         className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       <span className="absolute inset-0 flex items-center justify-center bg-black/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
