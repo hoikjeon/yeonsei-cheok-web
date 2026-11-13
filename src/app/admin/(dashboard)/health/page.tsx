@@ -112,6 +112,7 @@ export default async function AdminHealthPage({ searchParams }: { searchParams: 
     <header className="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 bg-white px-5 py-5 md:px-10">
       <div><Link href="/admin" className="text-xs font-bold text-slate-500 md:hidden">관리자 홈으로</Link><h1 className="text-2xl font-black text-slate-900">건강정보 관리</h1><p className="mt-1 text-sm text-slate-500">글을 쓰고 고치거나, 예약된 발행 일정을 확인하세요.</p></div>
       <div className="flex flex-wrap gap-2">
+        <Link href="/admin/health/search" className="rounded-lg bg-slate-100 px-4 py-3 text-sm font-bold text-slate-700">검색 수집 점검</Link>
         <Link href="/admin/health/topics" className="flex items-center gap-2 rounded-lg bg-slate-100 px-4 py-3 text-sm font-bold text-slate-700"><ListTodo size={18} /> 자동 작성 주제 <span className="rounded-full bg-white px-2 text-xs">{queuedTopics}</span></Link>
         <Link href="/admin/health/write" className="flex items-center gap-2 rounded-lg bg-navy-950 px-5 py-3 text-sm font-bold text-white"><Plus size={18} /> 새 글 쓰기</Link>
       </div>

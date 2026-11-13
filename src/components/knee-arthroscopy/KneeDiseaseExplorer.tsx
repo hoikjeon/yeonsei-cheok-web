@@ -40,7 +40,7 @@ const diseases: Disease[] = [
   },
   {
     id: 'chondromalacia',
-    title: '슬개골 정렬이상 및 연골 연화증',
+    title: '슬개골 정렬 이상 및 연골 연화증',
     summary: '무릎 앞쪽 연골과 슬개골 움직임을 함께 살펴봅니다.',
     description:
       '슬개골 아래의 관절연골이 부드러워지거나 손상된 상태로, 슬개골의 움직임과 다리 정렬을 함께 평가해 통증의 원인을 살펴봅니다.',
@@ -288,38 +288,29 @@ export default function KneeDiseaseExplorer() {
   return (
     <section
       aria-labelledby="knee-disease-explorer-title"
-      className="relative isolate overflow-hidden bg-[#071A3D] px-5 py-16 text-white sm:px-6 md:py-28"
+      className="overflow-hidden bg-white px-5 py-12 sm:px-6 md:py-20"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-52 -top-64 h-[36rem] w-[36rem] rounded-full bg-primary/30 blur-3xl"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-72 -left-48 h-[38rem] w-[38rem] rounded-full bg-cyan-400/10 blur-3xl"
-      />
-
       <div className="relative mx-auto max-w-7xl">
         <ScrollReveal className="max-w-4xl">
           <h2
             id="knee-disease-explorer-title"
-            className="break-keep text-h2 tracking-tight text-white"
+            className="break-keep text-h2 tracking-tight text-[#102647]"
           >
             관절내시경으로 살펴보는
             <br className="hidden sm:block" /> 주요 무릎 질환
           </h2>
-          <p className="mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-white/72 md:text-lg">
+          <p className="mt-5 max-w-3xl break-keep text-base leading-[1.8] text-ink-sub md:text-lg">
             관절 내부의 구조를 확대해 병변의 위치와 형태를 살펴보고, 진찰과 영상검사
             결과를 함께 검토해 치료 범위를 구체화합니다.
           </p>
         </ScrollReveal>
 
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-14 sm:gap-4 lg:grid-cols-4 lg:gap-5">
+        <div className="mt-8 grid grid-cols-2 gap-x-5 gap-y-8 sm:mt-10 sm:gap-x-6 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-10">
           {diseases.map((disease, index) => (
             <ScrollReveal
               key={disease.id}
               delay={index * 0.045}
-              variant="image"
+              variant="fade-up"
               amount={0.12}
               className="h-full"
             >
@@ -327,30 +318,27 @@ export default function KneeDiseaseExplorer() {
                 type="button"
                 onClick={() => setSelectedDisease(disease)}
                 aria-label={`${disease.title} 자세히 보기`}
-                className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-white/12 bg-white/[0.07] text-left shadow-[0_18px_50px_rgba(2,12,32,0.18)] backdrop-blur-sm transition-all duration-500 hover:-translate-y-1.5 hover:border-cyan-300/45 hover:bg-white/[0.11] hover:shadow-[0_24px_70px_rgba(2,12,32,0.34)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-4 focus-visible:ring-offset-[#071A3D]"
+                className="group flex h-full w-full flex-col border-b border-slate-200 pb-4 text-left transition-colors hover:border-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 focus-visible:ring-offset-4"
               >
-                <span className="relative aspect-[16/10] w-full overflow-hidden bg-navy-950">
+                <span className="relative aspect-[16/10] w-full overflow-hidden rounded-lg bg-slate-100">
                   <Image
                     src={disease.image}
                     alt=""
                     fill
                     sizes="(min-width: 1024px) 23vw, (min-width: 640px) 46vw, 50vw"
-                    className="object-cover transition-transform duration-700 ease-out motion-safe:group-hover:scale-105"
+                    className="object-cover"
                   />
-                  <span
-                    aria-hidden
-                    className="absolute inset-0 bg-gradient-to-t from-[#071A3D]/50 via-transparent to-transparent"
-                  />
+
                 </span>
 
-                <span className="flex flex-1 flex-col p-3.5 sm:p-5">
-                  <span className="break-keep text-[15px] font-bold leading-[1.5] text-white sm:text-lg">
+                <span className="flex flex-1 flex-col pt-4">
+                  <span className="break-keep text-base font-semibold leading-[1.5] text-[#102647] sm:text-lg">
                     {disease.title}
                   </span>
-                  <span className="mt-2 hidden break-keep text-sm font-medium leading-[1.65] text-white/62 sm:block">
+                  <span className="mt-2 hidden break-keep text-sm leading-[1.8] text-ink-sub sm:block">
                     {disease.summary}
                   </span>
-                  <span className="mt-auto flex items-center gap-1.5 pt-4 text-[12px] font-bold text-cyan-300 sm:text-sm">
+                  <span className="mt-auto flex items-center gap-1.5 pt-4 text-xs text-slate-500 sm:text-sm">
                     자세히 보기
                     <ArrowUpRight
                       aria-hidden

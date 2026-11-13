@@ -4,9 +4,7 @@ import { getPublishedHealthArticles } from '@/lib/healthArticleStore';
 
 // AI 크롤러가 사이트 전체를 훑지 않고도 병원의 핵심 사실과 주요 문서 위치를 파악하도록 돕는 파일입니다.
 // robots.ts / sitemap.ts 와 같은 방식으로 SITE_URL을 사용해 절대 주소를 만듭니다.
-export const dynamic = 'force-static';
-// 예약 글이 발행되면 5분 안에 목록에 반영합니다.
-export const revalidate = 300;
+export const dynamic = 'force-dynamic';
 
 type LinkSection = {
   heading: string;

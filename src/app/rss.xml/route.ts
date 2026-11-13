@@ -4,9 +4,7 @@ import { getPublishedHealthArticles, healthArticleTimes } from '@/lib/healthArti
 
 // 척추·관절 건강정보 글의 RSS 피드입니다.
 // 네이버 서치어드바이저(요청 > RSS 제출)에 이 주소를 등록하면 새 글 수집이 빨라집니다.
-export const dynamic = 'force-static';
-// 예약 글이 발행되면 5분 안에 반영합니다. (healthArticleStore 의 캐시 시간과 같게 둡니다)
-export const revalidate = 300;
+export const dynamic = 'force-dynamic';
 
 const escapeXml = (value: string) =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
@@ -40,5 +38,5 @@ ${newest ? `    <lastBuildDate>${new Date(newest).toUTCString()}</lastBuildDate>
 </rss>
 `;
 
-  return new Response(xml, { headers: { 'Content-Type': 'application/rss+xml; charset=utf-8' } });
+  return new Response(xml, { headers: { 'Content-Type': 'application/rss+xml; charset=utf-8', 'Cache-Control': 'no-store' } });
 }

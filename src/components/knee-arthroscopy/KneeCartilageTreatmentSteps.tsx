@@ -156,7 +156,7 @@ function StepGallery({
               type="button"
               onClick={showPrevious}
               aria-label={`${step.title} 이전 관절경 화면 보기`}
-              className="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-[#071A3D]/72 text-white shadow-lg backdrop-blur-sm transition-colors hover:bg-[#071A3D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+              className="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-md border border-white/25 bg-[#102647]/90 text-white transition-colors hover:bg-[#071A3D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500"
             >
               <ChevronLeft aria-hidden size={23} />
             </button>
@@ -164,7 +164,7 @@ function StepGallery({
               type="button"
               onClick={showNext}
               aria-label={`${step.title} 다음 관절경 화면 보기`}
-              className="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-[#071A3D]/72 text-white shadow-lg backdrop-blur-sm transition-colors hover:bg-[#071A3D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+              className="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-md border border-white/25 bg-[#102647]/90 text-white transition-colors hover:bg-[#071A3D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500"
             >
               <ChevronRight aria-hidden size={23} />
             </button>
@@ -186,7 +186,7 @@ function StepGallery({
                 aria-pressed={isActive}
                 className={`relative aspect-[16/7] overflow-hidden rounded-lg border-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                   isActive
-                    ? 'border-primary shadow-[0_10px_25px_rgba(40,74,165,0.2)]'
+                    ? 'border-[#102647]'
                     : 'border-transparent opacity-55 hover:opacity-90'
                 }`}
               >
@@ -221,24 +221,23 @@ export default function KneeCartilageTreatmentSteps() {
   return (
     <section
       aria-labelledby="knee-cartilage-steps-title"
-      className="bg-[#F5F7FA] px-5 py-16 sm:px-6 md:py-28"
+      className="bg-[#F7F8FA] px-5 py-12 sm:px-6 md:py-20"
     >
       <div className="mx-auto max-w-7xl">
-        <ScrollReveal className="mx-auto max-w-4xl text-center">
+        <ScrollReveal className="max-w-4xl">
           <h2
             id="knee-cartilage-steps-title"
             className="break-keep text-h2 tracking-tight text-ink"
           >
-            관절내시경으로 직접 확인하며
-            <br className="hidden sm:block" /> 진행하는 연골 치료 과정
+            관절내시경을 이용한 연골 치료 과정
           </h2>
-          <p className="mx-auto mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-ink-sub md:text-lg">
+          <p className="mt-5 max-w-3xl break-keep text-base leading-[1.8] text-ink-sub md:text-lg">
             관절 내부를 살펴 손상 범위를 확인하고, 계획된 치료를 단계적으로 진행합니다.
           </p>
         </ScrollReveal>
 
-        <ScrollReveal delay={0.08} className="mx-auto mt-10 max-w-6xl sm:mt-14">
-          <div className="space-y-3 sm:space-y-4">
+        <ScrollReveal delay={0.08} className="mt-8 sm:mt-10">
+          <div className="divide-y divide-slate-300 border-y border-slate-300">
             {treatmentSteps.map((step, index) => {
               const isOpen = openStep === index;
               const triggerId = `${accordionId}-trigger-${index}`;
@@ -247,11 +246,7 @@ export default function KneeCartilageTreatmentSteps() {
               return (
                 <article
                   key={step.title}
-                  className={`overflow-hidden rounded-lg border bg-white transition-all duration-500 ${
-                    isOpen
-                      ? 'border-primary/30 shadow-[0_20px_55px_rgba(15,29,54,0.09)]'
-                      : 'border-slate-200 hover:border-primary/25'
-                  }`}
+                  className="overflow-hidden"
                 >
                   <h3>
                     <button
@@ -263,24 +258,20 @@ export default function KneeCartilageTreatmentSteps() {
                       className="group grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary sm:gap-5 sm:px-6 sm:py-5 md:px-8 md:py-6"
                     >
                       <span
-                        className={`min-w-[3.25rem] rounded-full px-3 py-1.5 text-center font-montserrat text-xs font-bold transition-colors sm:min-w-[3.75rem] sm:text-sm ${
-                          isOpen
-                            ? 'bg-primary text-white'
-                            : 'bg-primary-light text-primary group-hover:bg-primary group-hover:text-white'
-                        }`}
+                        className="min-w-7 text-sm font-medium tabular-nums text-slate-500 sm:min-w-9"
                       >
-                        {index + 1}단계
+                        {String(index + 1).padStart(2, '0')}
                       </span>
                       <span
                         className={`break-keep text-[17px] font-bold leading-snug transition-colors sm:text-xl ${
-                          isOpen ? 'text-primary' : 'text-ink'
+                          isOpen ? 'text-[#102647]' : 'text-ink'
                         }`}
                       >
                         {step.title}
                       </span>
                       <ChevronDown
                         aria-hidden
-                        className={`text-primary transition-transform duration-300 ${
+                        className={`text-slate-500 transition-transform duration-300 ${
                           isOpen ? 'rotate-180' : ''
                         }`}
                         size={24}
@@ -323,7 +314,7 @@ export default function KneeCartilageTreatmentSteps() {
                                 >
                                   <span
                                     aria-hidden
-                                    className="h-2 w-2 shrink-0 rounded-full bg-primary"
+                                    className="h-1 w-1 shrink-0 bg-slate-400"
                                   />
                                   {point}
                                 </li>

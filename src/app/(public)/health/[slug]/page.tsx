@@ -11,17 +11,12 @@ type ArticlePageProps = { params: Promise<{ slug: string }> };
 
 // 관리자에서 새로 공개한 글은 빌드 목록에 없어도 첫 방문 때 만들어집니다.
 export const dynamicParams = true;
-// 예약 글이 발행 시각 뒤 5분 안에 보이도록 다시 만듭니다. (healthArticleStore 의 캐시 시간과 같게 둡니다)
-export const revalidate = 300;
+export const dynamic = 'force-dynamic';
 
 /** 공유 미리보기 이미지: 대표 이미지 → 목록 썸네일 순 */
 function shareImage(article: HealthArticle) {
   const src = article.heroImage?.src ?? article.thumbnail;
   return src ? (src.startsWith('/') ? absoluteUrl(src) : src) : undefined;
-}
-
-export async function generateStaticParams() {
-  return (await getPublishedHealthArticles()).map((article) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {

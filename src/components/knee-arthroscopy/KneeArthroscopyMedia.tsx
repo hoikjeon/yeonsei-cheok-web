@@ -90,36 +90,27 @@ export default function KneeArthroscopyMedia() {
     <section
       id="arthroscopy-media"
       aria-labelledby="knee-arthroscopy-media-title"
-      className="relative isolate overflow-hidden bg-[#071A3D] px-5 py-16 text-white sm:px-6 md:py-28"
+      className="overflow-hidden bg-white px-5 py-12 sm:px-6 md:py-20"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-48 -top-52 h-[34rem] w-[34rem] rounded-full bg-primary/25 blur-3xl"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-64 -left-52 h-[36rem] w-[36rem] rounded-full bg-cyan-400/10 blur-3xl"
-      />
-
       <div className="relative mx-auto max-w-7xl">
-        <ScrollReveal className="mx-auto max-w-3xl text-center">
+        <ScrollReveal className="grid gap-5 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:items-end lg:gap-20">
           <h2
             id="knee-arthroscopy-media-title"
-            className="break-keep text-h2 tracking-tight text-white"
+            className="break-keep text-h2 tracking-tight text-[#102647]"
           >
             관절 안을 직접 보며,
             <br /> 필요한 치료로 이어갑니다
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl break-keep text-body-lg text-white/72">
+          <p className="max-w-xl break-keep text-base leading-[1.8] text-ink-sub md:text-lg">
             수술실 모니터에 확대된 관절 내부를 보면서 병변의 형태와 주변 조직을
             확인하고, 계획한 범위의 치료를 진행합니다.
           </p>
         </ScrollReveal>
 
-        <div className="mt-10 grid items-stretch gap-5 sm:mt-14 lg:grid-cols-[minmax(0,1.55fr)_minmax(320px,0.72fr)] lg:gap-7">
-          <ScrollReveal variant="image" className="min-w-0">
-            <figure className="h-full overflow-hidden rounded-2xl border border-white/15 bg-white/[0.06] p-2 shadow-[0_28px_90px_rgba(0,0,0,0.34)] sm:p-3">
-              <div className="relative overflow-hidden rounded-xl bg-black">
+        <div className="mt-8 grid items-start gap-8 sm:mt-10 lg:grid-cols-[minmax(0,1.65fr)_minmax(0,0.85fr)] lg:gap-12">
+          <ScrollReveal variant="fade-up" className="min-w-0">
+            <figure className="min-w-0">
+              <div className="relative overflow-hidden rounded-lg bg-black">
                 <video
                   aria-label="실제 무릎 관절내시경 수술 영상"
                   aria-describedby="knee-arthroscopy-video-caption"
@@ -140,9 +131,9 @@ export default function KneeArthroscopyMedia() {
               </div>
               <figcaption
                 id="knee-arthroscopy-video-caption"
-                className="px-3 pb-2 pt-4 sm:px-4 sm:pb-3 sm:pt-5"
+                className="mt-3"
               >
-                <p className="shrink-0 text-sm font-bold text-white sm:text-base">
+                <p className="text-sm leading-relaxed text-slate-500">
                   실제 무릎 관절내시경 화면
                 </p>
               </figcaption>
@@ -150,28 +141,28 @@ export default function KneeArthroscopyMedia() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.08} className="h-full">
-            <div className="flex h-full flex-col rounded-2xl border border-white/15 bg-white/[0.07] p-5 backdrop-blur-sm sm:p-7 lg:p-8">
+            <div className="border-t-2 border-[#102647] pt-5">
               <div>
-                <h3 className="break-keep text-h3 tracking-tight text-white">
+                <h3 className="break-keep text-h3 tracking-tight text-[#102647]">
                   화면으로 확인하는
-                  <br className="hidden sm:block" /> 치료의 흐름
+                  치료의 흐름
                 </h3>
               </div>
 
-              <ol className="mt-6 flex-1 space-y-3">
+              <ol className="mt-4 divide-y divide-slate-200">
                 {viewingPoints.map((point) => (
                   <li
                     key={point.title}
-                    className="grid grid-cols-[42px_minmax(0,1fr)] gap-3 rounded-xl border border-white/10 bg-[#071A3D]/35 p-3.5 sm:grid-cols-[46px_minmax(0,1fr)] sm:p-4"
+                    className="grid grid-cols-[28px_minmax(0,1fr)] gap-3 py-5 sm:grid-cols-[32px_minmax(0,1fr)]"
                   >
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-cyan-300/12 font-montserrat text-[12px] font-bold text-cyan-300 sm:h-10 sm:w-10">
+                    <span className="pt-0.5 font-montserrat text-sm font-medium tabular-nums text-slate-500">
                       {point.number}
                     </span>
                     <div>
-                      <p className="break-keep text-sm font-bold text-white sm:text-[15px]">
+                      <p className="break-keep text-base font-semibold text-[#102647]">
                         {point.title}
                       </p>
-                      <p className="mt-1 break-keep text-[12px] font-medium leading-[1.65] text-white/58 sm:text-[13px]">
+                      <p className="mt-2 break-keep text-sm leading-[1.8] text-ink-sub">
                         {point.description}
                       </p>
                     </div>
@@ -182,20 +173,20 @@ export default function KneeArthroscopyMedia() {
           </ScrollReveal>
         </div>
 
-        <div className="mt-16 border-t border-white/15 pt-12 md:mt-24 md:pt-16">
+        <div className="mt-12 border-t border-slate-200 pt-8 md:mt-16 md:pt-10">
           <ScrollReveal>
-            <h3 className="break-keep text-h3 tracking-tight text-white">
+            <h3 className="break-keep text-h3 tracking-tight text-[#102647]">
               관절경으로 보는 주요 장면
             </h3>
           </ScrollReveal>
 
-          <ScrollReveal variant="image" className="mt-7">
+          <ScrollReveal variant="fade-up" className="mt-7">
             <div
               ref={galleryRef}
               role="region"
               aria-roledescription="carousel"
               aria-label="관절경 주요 장면"
-              className="overflow-hidden rounded-2xl border border-white/15 bg-white/[0.06] shadow-[0_28px_90px_rgba(0,0,0,0.24)]"
+              className="overflow-hidden rounded-lg border border-slate-200 bg-[#F7F8FA]"
             >
               <div className="grid lg:grid-cols-[minmax(0,1.7fr)_minmax(300px,0.68fr)]">
                 <div className="relative aspect-video min-w-0 overflow-hidden bg-black">
@@ -222,18 +213,18 @@ export default function KneeArthroscopyMedia() {
                   </AnimatePresence>
                 </div>
 
-                <div className="flex min-h-[250px] flex-col justify-between border-t border-white/10 bg-[#0B2148] p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-9">
+                <div className="flex min-h-[250px] flex-col justify-between border-t border-slate-200 p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-9">
                   <div aria-live="polite">
-                    <p className="font-montserrat text-[12px] font-bold tracking-[0.14em] text-cyan-300">
+                    <p className="font-montserrat text-sm font-medium tabular-nums text-[#102647]">
                       {String(activeStill + 1).padStart(2, '0')}
-                      <span className="ml-2 text-white/35">
+                      <span className="ml-2 text-slate-400">
                         / {String(stills.length).padStart(2, '0')}
                       </span>
                     </p>
-                    <h4 className="mt-4 break-keep text-h3 tracking-tight text-white">
+                    <h4 className="mt-4 break-keep text-h3 tracking-tight text-[#102647]">
                       {currentStill.title}
                     </h4>
-                    <p className="mt-3 break-keep text-sm font-medium leading-[1.8] text-white/62 sm:text-base">
+                    <p className="mt-3 break-keep text-sm leading-[1.8] text-ink-sub sm:text-base">
                       {currentStill.description}
                     </p>
                   </div>
@@ -243,10 +234,10 @@ export default function KneeArthroscopyMedia() {
                       {stills.map((still, index) => (
                         <span
                           key={still.src}
-                          className="relative h-1 overflow-hidden rounded-full bg-white/12"
+                          className="relative h-0.5 overflow-hidden bg-slate-200"
                         >
                           {index < activeStill && (
-                            <span className="absolute inset-0 bg-cyan-300" />
+                            <span className="absolute inset-0 bg-[#102647]" />
                           )}
                           {index === activeStill && (
                             <motion.span
@@ -260,7 +251,7 @@ export default function KneeArthroscopyMedia() {
                                     : 0,
                                 ease: 'linear',
                               }}
-                              className="absolute inset-0 origin-left bg-cyan-300"
+                              className="absolute inset-0 origin-left bg-[#102647]"
                             />
                           )}
                         </span>
@@ -272,7 +263,7 @@ export default function KneeArthroscopyMedia() {
                         type="button"
                         onClick={showPreviousStill}
                         aria-label="이전 관절경 장면"
-                        className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white transition-colors hover:border-cyan-300/50 hover:bg-cyan-300/10 hover:text-cyan-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+                        className="flex h-11 w-11 items-center justify-center rounded-md border border-slate-300 bg-white text-[#102647] transition-colors hover:border-slate-500 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500"
                       >
                         <ChevronLeft aria-hidden size={20} />
                       </button>
@@ -280,7 +271,7 @@ export default function KneeArthroscopyMedia() {
                         type="button"
                         onClick={() => setIsAutoPlaying((current) => !current)}
                         aria-label={isAutoPlaying ? '장면 자동 전환 일시정지' : '장면 자동 전환 재생'}
-                        className="flex h-11 w-11 items-center justify-center rounded-full border border-cyan-300/35 bg-cyan-300/10 text-cyan-300 transition-colors hover:bg-cyan-300/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+                        className="flex h-11 w-11 items-center justify-center rounded-md border border-[#102647] bg-[#102647] text-white transition-colors hover:bg-[#203C60] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500"
                       >
                         {isAutoPlaying ? (
                           <Pause aria-hidden size={18} fill="currentColor" />
@@ -292,7 +283,7 @@ export default function KneeArthroscopyMedia() {
                         type="button"
                         onClick={showNextStill}
                         aria-label="다음 관절경 장면"
-                        className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white transition-colors hover:border-cyan-300/50 hover:bg-cyan-300/10 hover:text-cyan-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+                        className="flex h-11 w-11 items-center justify-center rounded-md border border-slate-300 bg-white text-[#102647] transition-colors hover:border-slate-500 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500"
                       >
                         <ChevronRight aria-hidden size={20} />
                       </button>
@@ -301,7 +292,7 @@ export default function KneeArthroscopyMedia() {
                 </div>
               </div>
 
-              <ol className="grid grid-cols-5 gap-2 border-t border-white/10 bg-[#071A3D]/45 p-3 sm:gap-3 sm:p-4">
+              <ol className="grid grid-cols-5 gap-2 border-t border-slate-200 bg-white p-3 sm:gap-3 sm:p-4">
                 {stills.map((still, index) => {
                   const isActive = index === activeStill;
 
@@ -312,10 +303,10 @@ export default function KneeArthroscopyMedia() {
                         onClick={() => setActiveStill(index)}
                         aria-pressed={isActive}
                         aria-label={`${index + 1}단계 ${still.title} 화면 보기`}
-                        className={`group w-full overflow-hidden rounded-lg border text-left transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 ${
+                        className={`group w-full overflow-hidden rounded-md border text-left transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500 ${
                           isActive
-                            ? 'border-cyan-300/80 bg-cyan-300/10 shadow-[0_12px_30px_rgba(0,0,0,0.2)]'
-                            : 'border-white/10 bg-white/[0.04] hover:border-white/30 hover:bg-white/[0.08]'
+                            ? 'border-[#102647] bg-slate-100'
+                            : 'border-slate-200 bg-white hover:border-slate-400 hover:bg-slate-50'
                         }`}
                       >
                         <span className="relative block aspect-square w-full overflow-hidden bg-black sm:aspect-video">
@@ -329,7 +320,7 @@ export default function KneeArthroscopyMedia() {
                         </span>
                         <span
                           className={`flex min-h-9 items-center justify-center gap-1 px-1 py-2 text-center font-montserrat text-[10px] font-bold sm:min-h-12 sm:justify-start sm:gap-2 sm:px-3 sm:text-left sm:text-[11px] ${
-                            isActive ? 'text-cyan-300' : 'text-white'
+                            isActive ? 'text-[#102647]' : 'text-slate-600'
                           }`}
                         >
                           <span className="opacity-60">

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { Check } from 'lucide-react';
 import ScrollReveal from '@/components/ScrollReveal';
 import {
   KneeArthroscopyMedia,
@@ -9,7 +8,6 @@ import {
 } from '@/components/knee-arthroscopy';
 import KneeArthroscopyHero from '@/components/knee-arthroscopy/KneeArthroscopyHero';
 import KneeDoctorFeature from '@/components/knee-arthroscopy/KneeDoctorFeature';
-import KneeParallaxBackground from '@/components/knee-arthroscopy/KneeParallaxBackground';
 import { createPageMetadata } from '@/lib/seo';
 import JsonLd from '@/components/JsonLd';
 import { buildProcedurePageStructuredData } from '@/lib/structuredData';
@@ -119,68 +117,49 @@ export default function KneeArthroscopyPage() {
       <KneeArthroscopyHero />
 
       <main className="w-full">
-        <section className="mx-auto flex w-full max-w-7xl flex-col items-start px-5 py-14 text-left sm:px-6 md:items-center md:py-28 md:text-center">
-          <ScrollReveal className="mx-auto max-w-5xl">
-            <h2 className={sectionTitleClass}>
-              무릎 안쪽의 원인을 직접 확인하고,
-              <br className="hidden md:block" />
-              필요한 치료를 정밀하게 이어갑니다
-            </h2>
-          </ScrollReveal>
-
-          <ScrollReveal
-            variant="image"
-            amount={0.16}
-            className="mx-auto mt-8 w-full max-w-5xl sm:mt-12"
-          >
-            <div className="relative overflow-hidden rounded-[1.25rem] border border-slate-100 bg-slate-50 shadow-[0_30px_80px_-48px_rgba(15,29,54,0.55)] sm:rounded-[1.75rem]">
-              <Image
-                src={`${ARTHROSCOPY_ASSET_ROOT}/knee-arthroscopy-consultation.jpg`}
-                alt="연세척병원 의료진이 무릎 관절 모형으로 환자에게 관절 상태를 설명하는 진료 장면"
-                width={1920}
-                height={1280}
-                priority
-                sizes="(min-width: 1280px) 1024px, 100vw"
-                className="h-auto w-full object-cover"
-              />
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal className="mx-auto mt-8 max-w-5xl space-y-4 break-keep text-base font-medium leading-[1.8] text-ink-sub sm:mt-12 sm:space-y-5 md:text-lg md:leading-relaxed">
-            <p>
-              무릎 통증과 걸림은 반월상연골, 관절연골, 인대와 활막 등 여러 구조의
-              변화와 연관될 수 있습니다.
-            </p>
-            <p>
-              관절내시경은 작은 절개로 가느다란 스코프를 삽입해 관절 내부를 실시간으로
-              확인하고, 진찰과 영상검사에서 얻은 정보를 함께 살피는 치료입니다.
-            </p>
-            <p>
-              병변의 위치와 형태를 직접 확인하면서 증상과 관련된 부위에 계획된 치료를
-              진행하고, 주변 정상 조직은 보존합니다.
-            </p>
-          </ScrollReveal>
+        <section className="px-5 py-12 sm:px-6 md:py-20">
+          <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2 md:items-center md:gap-16">
+            <ScrollReveal>
+              <h2 className={sectionTitleClass}>
+                무릎 안쪽을 살피는<br />관절내시경 치료
+              </h2>
+              <p className="mt-6 max-w-xl break-keep text-base leading-[1.8] text-ink-sub md:text-lg">
+                무릎 통증과 걸림은 반월상연골, 관절연골, 인대와 활막 등 여러 구조의
+                변화와 연관될 수 있습니다. 관절내시경으로 병변의 위치와 형태를
+                직접 살피고, 증상과 관련된 부위에 계획된 치료를 진행합니다.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal>
+              <div className="overflow-hidden rounded-lg bg-slate-100">
+                <Image
+                  src={`${ARTHROSCOPY_ASSET_ROOT}/knee-arthroscopy-consultation.jpg`}
+                  alt="연세척병원 의료진이 무릎 관절 모형으로 환자에게 관절 상태를 설명하는 진료 장면"
+                  width={1920}
+                  height={1280}
+                  sizes="(min-width: 1280px) 620px, (min-width: 768px) 50vw, 100vw"
+                  className="h-auto w-full object-cover"
+                />
+              </div>
+            </ScrollReveal>
+          </div>
         </section>
 
         <section
           id="knee-arthroscopy-overview"
-          className="overflow-hidden bg-white px-5 pb-16 sm:px-6 md:pb-28"
+          className="overflow-hidden bg-white px-5 pb-12 sm:px-6 md:pb-20"
         >
           <div className="mx-auto max-w-7xl">
             <div className="grid grid-cols-1 gap-9 sm:gap-12 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:items-center lg:gap-16">
-              <ScrollReveal variant="image" amount={0.18}>
-                <div className="group relative aspect-[5/4] overflow-hidden rounded-[1.25rem] border border-slate-100 bg-white shadow-[0_28px_80px_-52px_rgba(15,29,54,0.58)] sm:rounded-[1.75rem]">
+              <ScrollReveal variant="fade-up" amount={0.18}>
+                <div className="relative aspect-[5/4] overflow-hidden rounded-lg bg-slate-50">
                   <Image
                     src={`${ARTHROSCOPY_ASSET_ROOT}/knee-arthroscopy-procedure-v2.png`}
                     alt="관절경 끝이 무릎 관절 안쪽의 연골 손상 부위를 향하는 관절내시경 의료 일러스트"
                     fill
                     sizes="(min-width: 1024px) 48vw, 100vw"
-                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                    className="object-cover object-center"
                   />
-                  <div
-                    aria-hidden
-                    className="knee-arthroscopy-procedure-glow pointer-events-none absolute left-[59%] top-[57%] h-8 w-8 rounded-full bg-[radial-gradient(circle,rgba(255,255,215,0.96)_0%,rgba(255,235,112,0.52)_44%,transparent_100%)] blur-[5px] sm:h-10 sm:w-10"
-                  />
+
                 </div>
               </ScrollReveal>
 
@@ -203,70 +182,73 @@ export default function KneeArthroscopyPage() {
               </ScrollReveal>
             </div>
 
-            <div className="mt-10 grid grid-cols-1 gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-4 md:gap-5 lg:grid-cols-3">
-              {overviewBenefits.map((item, index) => (
-                <ScrollReveal
-                  key={item.title}
-                  delay={0.08 + index * 0.08}
-                  variant="metric"
-                  amount={0.38}
-                  className="h-full"
-                >
-                  <article className="group relative flex h-full flex-col justify-between overflow-hidden rounded-xl border border-slate-200 bg-white px-5 py-5 transition-all duration-500 ease-out hover:-translate-y-1 hover:border-primary/30 hover:shadow-blue-glow sm:rounded-2xl md:min-h-[220px] md:px-6 md:py-8">
-                    <div
-                      aria-hidden
-                      className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-primary-light opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-70"
-                    />
-
-                    <div className="relative">
-                      <h3 className="text-h4 leading-snug text-ink">{item.title}</h3>
-                      <p className="mt-3 break-keep text-[15px] font-semibold leading-[1.7] text-ink-sub sm:mt-5 sm:text-base sm:leading-relaxed">
-                        {item.description}
-                      </p>
-                    </div>
-
-                    <div className="relative mt-5 h-px w-full bg-slate-200 sm:mt-8">
-                      <span
-                        aria-hidden
-                        className="absolute inset-y-0 left-0 w-full origin-left scale-x-0 bg-gradient-to-r from-primary to-primary/40 transition-transform duration-[600ms] ease-out group-hover:scale-x-100"
-                      />
-                    </div>
-                  </article>
-                </ScrollReveal>
+            <div className="mt-8 grid border-t border-slate-200 md:mt-12 md:grid-cols-3 md:gap-10">
+              {overviewBenefits.map((item) => (
+                <div key={item.title} className="border-b border-slate-200 py-6 md:border-b-0">
+                  <h3 className="text-lg font-semibold text-[#102647]">{item.title}</h3>
+                  <p className="mt-3 break-keep text-base leading-[1.8] text-ink-sub">{item.description}</p>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="relative isolate overflow-hidden bg-[#071A3D] px-5 py-16 text-white sm:px-6 md:py-24">
-          <KneeParallaxBackground
-            src={`${ARTHROSCOPY_ASSET_ROOT}/arthroscopy-video-poster.png`}
-            position="center"
-          />
-          <div className="relative mx-auto max-w-4xl">
-            <ScrollReveal className="text-center">
-              <span className="inline-flex rounded-full border border-white/25 bg-white/10 px-4 py-2 text-[13px] font-bold tracking-tight text-cyan-200 sm:text-sm">
-                MRI의 한계
-              </span>
-              <h2 className="mt-6 break-keep text-h2 tracking-tight text-white">
-                분명 계속 아픈데…
-                <br className="hidden sm:block" /> MRI 결과는 &lsquo;정상&rsquo;이라고요?
-              </h2>
-              <p className="mx-auto mt-6 max-w-2xl break-keep text-lg font-bold leading-[1.7] text-white md:text-xl">
-                정밀 검사의 대명사 MRI,
-                <br /> 하지만 완벽하지는 않습니다.
-              </p>
-            </ScrollReveal>
+        <section
+          aria-labelledby="knee-mri-heading"
+          className="bg-[#F7F8FA] px-5 py-12 sm:px-6 md:py-20"
+        >
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-8 md:grid-cols-2 md:items-center md:gap-12 lg:gap-20">
+              <ScrollReveal>
+                <h2
+                  id="knee-mri-heading"
+                  className="break-keep text-[1.875rem] font-bold leading-[1.4] tracking-tight text-[#102647] sm:text-[2.25rem] lg:text-[2.75rem]"
+                >
+                  무릎 통증,
+                  <br />
+                  MRI만으로 설명되지
+                  <br />
+                  않는 경우가 있습니다.
+                </h2>
+                <p className="mt-5 max-w-lg break-keep text-base leading-[1.8] text-ink-sub sm:mt-7 md:text-lg">
+                  MRI는 무릎 상태를 살피는 중요한 검사입니다.{' '}
+                  <br className="hidden lg:block" />
+                  통증이 이어진다면 검사 결과와 현재의 증상을
+                  함께 살펴봐야 합니다.
+                </p>
+              </ScrollReveal>
 
-            <ScrollReveal variant="soft-rise" className="mt-10 sm:mt-14">
-              <div className="rounded-2xl border border-white/15 bg-white/[0.06] p-6 backdrop-blur-md sm:p-9 md:p-11">
-                <p className="break-keep text-base font-medium leading-[1.9] text-white/85 sm:text-lg sm:leading-[1.9]">
-                  MRI는 뛰어난 검사 장비이지만, 무릎 관절 내부의{' '}
-                  <b className="font-bold text-cyan-200">아주 미세한 연골 손상</b>,{' '}
-                  <b className="font-bold text-cyan-200">얇게 찢어진 인대</b>,{' '}
-                  <b className="font-bold text-cyan-200">슬개골의 어긋남</b>, 혹은 관절 내
-                  떠돌아다니는 <b className="font-bold text-cyan-200">작은 이물질(유리체)</b> 등은
-                  영상의학적 검사만으로는 명확히 잡아내기 어려울 수 있습니다.
+              <ScrollReveal>
+                <figure>
+                  <div className="relative aspect-[3/2] overflow-hidden rounded-lg bg-slate-200">
+                    <Image
+                      src={`${ARTHROSCOPY_ASSET_ROOT}/mri-room.webp`}
+                      alt="MRI 촬영실에서 모니터의 검사 영상을 확인하는 모습"
+                      fill
+                      sizes="(min-width: 1280px) 600px, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <figcaption className="mt-3 text-[13px] leading-relaxed text-slate-500">
+                    연세척병원 MRI 검사실
+                  </figcaption>
+                </figure>
+              </ScrollReveal>
+            </div>
+
+            <ScrollReveal className="mt-8 border-t border-slate-300/80 pt-6 sm:mt-10 md:mt-12 md:pt-8">
+              <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:gap-12">
+                <h3 className="break-keep text-lg font-bold leading-[1.6] text-[#102647] md:text-xl">
+                  영상검사로 확인하기
+                  <br className="hidden md:block" /> 어려운 부분도 있습니다
+                </h3>
+                <p className="max-w-3xl break-keep text-base leading-[1.9] text-ink-sub md:text-[17px]">
+                  미세한 연골 손상이나 얇게 찢어진 인대, 슬개골의 어긋남,
+                  관절 안의 작은 유리체 등은 영상검사만으로 명확히 확인하기
+                  어려울 수 있습니다.{' '}
+                  <strong className="font-semibold text-primary">
+                    진찰과 영상검사에서 얻은 정보를 함께 살핍니다.
+                  </strong>
                 </p>
               </div>
             </ScrollReveal>
@@ -281,12 +263,11 @@ export default function KneeArthroscopyPage() {
 
         <KneeDoctorFeature />
 
-        <section className="overflow-hidden bg-white px-5 py-16 sm:px-6 md:py-28">
+        <section className="overflow-hidden bg-white px-5 py-12 sm:px-6 md:py-20">
           <div className="mx-auto max-w-7xl">
             <ScrollReveal className="max-w-4xl">
               <h2 className={sectionTitleClass}>
-                이런 증상이 반복된다면
-                <br className="hidden sm:block" /> 관절 상태를 더 세밀하게 살펴봅니다
+                진료 시 함께 살펴보는 증상
               </h2>
             </ScrollReveal>
 
@@ -294,18 +275,14 @@ export default function KneeArthroscopyPage() {
               {candidates.map((candidate, index) => (
                 <ScrollReveal key={candidate} delay={index * 0.04}>
                   <div
-                    className={`group relative grid min-h-[92px] grid-cols-[40px_minmax(0,1fr)] items-center gap-3 overflow-hidden border-b border-slate-200 px-1 py-4 sm:min-h-[116px] sm:grid-cols-[52px_minmax(0,1fr)] sm:gap-4 sm:px-5 sm:py-6 md:border-r ${
+                    className={`grid grid-cols-[28px_minmax(0,1fr)] items-baseline gap-3 border-b border-slate-200 py-5 sm:gap-4 md:px-5 md:py-6 md:border-r ${
                       index % 2 === 1 ? 'md:border-r-0' : ''
                     } ${index >= candidates.length - 2 ? 'md:border-b-0' : ''}`}
                   >
-                    <span
-                      aria-hidden
-                      className="absolute inset-0 origin-left scale-x-0 bg-gradient-to-r from-navy-900 via-primary-dark to-primary transition-transform duration-500 ease-out group-hover:scale-x-100"
-                    />
-                    <span className="relative z-10 flex h-9 w-9 items-center justify-center rounded-full border-2 border-primary text-primary transition-colors duration-500 group-hover:border-white group-hover:text-white sm:h-10 sm:w-10">
-                      <Check aria-hidden size={19} strokeWidth={2.6} />
+                    <span aria-hidden className="text-sm tabular-nums text-slate-500">
+                      {String(index + 1).padStart(2, '0')}
                     </span>
-                    <p className="relative z-10 break-keep text-[1rem] font-bold leading-[1.65] text-ink transition-colors duration-500 group-hover:text-white sm:text-lg sm:leading-relaxed">
+                    <p className="break-keep text-base leading-[1.8] text-ink-sub md:text-lg">
                       {candidate}
                     </p>
                   </div>
@@ -315,14 +292,13 @@ export default function KneeArthroscopyPage() {
           </div>
         </section>
 
-        <section className="bg-[#F5F7FA] px-5 py-16 sm:px-6 md:py-28">
+        <section className="bg-[#F7F8FA] px-5 py-12 sm:px-6 md:py-20">
           <div className="mx-auto max-w-7xl">
-            <ScrollReveal className="mx-auto max-w-4xl text-center">
+            <ScrollReveal className="max-w-4xl">
               <h2 className={sectionTitleClass}>
-                상담부터 회복까지
-                <br className="hidden sm:block" /> 이어지는 관절내시경 진료 과정
+                상담부터 회복까지의 진료 과정
               </h2>
-              <p className="mx-auto mt-5 max-w-3xl break-keep text-base font-medium leading-[1.8] text-ink-sub md:text-lg">
+              <p className="mt-5 max-w-3xl break-keep text-base leading-[1.8] text-ink-sub md:text-lg">
                 현재 상태를 충분히 확인하고, 치료 내용에 맞는 회복 과정을 함께 설계합니다.
               </p>
             </ScrollReveal>
@@ -332,28 +308,25 @@ export default function KneeArthroscopyPage() {
                 <ScrollReveal
                   key={step.title}
                   delay={index * 0.08}
-                  variant="soft-rise"
+                  variant="fade-up"
                   className="h-full"
                 >
-                  <article className="group h-full overflow-hidden rounded-lg bg-white shadow-[0_18px_60px_-46px_rgba(15,29,54,0.58)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_70px_-38px_rgba(40,74,165,0.34)]">
-                    <div className="relative aspect-[4/3] overflow-hidden bg-slate-200">
+                  <article className="h-full">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-slate-200">
                       <Image
                         src={step.image}
                         alt={step.alt}
                         fill
                         sizes="(min-width: 1024px) 31vw, 100vw"
-                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        className="object-cover"
                       />
-                      <div
-                        aria-hidden
-                        className="absolute inset-0 bg-gradient-to-t from-navy-950/22 via-transparent to-transparent"
-                      />
+
                     </div>
-                    <div className="px-5 pb-6 pt-5 sm:px-7 sm:pb-8 sm:pt-7">
-                      <span className="font-montserrat text-xl font-bold text-primary sm:text-2xl">
+                    <div className="pb-2 pt-5">
+                      <span className="text-sm tabular-nums text-slate-500">
                         {String(index + 1).padStart(2, '0')}
                       </span>
-                      <h3 className="mt-3 text-h4 leading-snug text-ink sm:mt-5">
+                      <h3 className="mt-2 text-xl font-semibold leading-snug text-[#102647]">
                         {step.title}
                       </h3>
                       <p className="mt-3 break-keep text-body text-ink-sub sm:mt-4 sm:text-[17px] sm:leading-relaxed">

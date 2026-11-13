@@ -9,13 +9,18 @@ import ScrollReveal from '@/components/ScrollReveal';
 
 const ASSET_ROOT = '/images/treatments/joint/knee';
 
-type KneeDiseaseId = 'osteoarthritis' | 'chondromalacia' | 'joint-injury';
+type KneeDiseaseId =
+  | 'osteoarthritis'
+  | 'chondromalacia'
+  | 'joint-injury'
+  | 'patellofemoral-malalignment';
 
 interface KneeDisease {
   id: KneeDiseaseId;
   title: string;
   image: string;
   imageAlt: string;
+  imageFit?: 'cover' | 'contain';
   description: string;
   symptoms: string[];
   causes: string[];
@@ -89,6 +94,29 @@ const diseases: KneeDisease[] = [
     guidance:
       '모든 손상이 곧바로 수술을 의미하지는 않습니다. 다만 찢어진 조직이 움직임을 막는 급성 손상, 실제 잠김, 반복되는 불안정성은 조기 평가가 필요합니다.',
   },
+  {
+    id: 'patellofemoral-malalignment',
+    title: '슬개대퇴 부정정렬',
+    image: '/images/treatments/joint/knee-arthroscopy/disease-chondromalacia-v2.webp',
+    imageAlt: '무릎뼈가 한쪽으로 치우쳐 대퇴골 관절면에 닿는 슬개대퇴 부정정렬을 표현한 의료 일러스트',
+    imageFit: 'cover',
+    description:
+      '슬개대퇴 부정정렬은 무릎뼈(슬개골)가 허벅지뼈의 홈을 따라 바르게 움직이지 못하고 한쪽으로 치우치거나 기울어진 상태입니다. 관절면 한쪽에 압력이 몰려 앞무릎 통증의 원인이 될 수 있습니다.',
+    symptoms: [
+      '계단을 오르내리거나 쪼그려 앉을 때 앞무릎 통증',
+      '무릎을 굽힌 채 오래 앉은 뒤 느껴지는 뻐근함',
+      '무릎뼈가 어긋나거나 빠질 듯한 불안정감',
+      '무릎을 굽히고 펼 때 나는 소리나 마찰감',
+    ],
+    causes: [
+      '허벅지 안쪽·엉덩이 근육 약화와 근력 불균형',
+      '무릎뼈 바깥쪽 연부조직의 과도한 긴장',
+      '무릎뼈와 대퇴골 홈의 모양, 다리 정렬의 차이',
+      '무릎뼈 탈구 병력이나 반복적인 과사용',
+    ],
+    guidance:
+      '대부분 근력 강화와 스트레칭 중심의 운동치료, 활동 조절로 관리합니다. 무릎뼈가 반복해서 빠지거나 구조적 이상이 뚜렷한 경우에는 정밀 평가를 통해 치료 방향을 정합니다.',
+  },
 ];
 
 const diseaseMarkers = [
@@ -109,6 +137,12 @@ const diseaseMarkers = [
     point: { left: '62%', top: '58%' },
     line: { left: '62%', top: '58%', width: '11%' },
     button: { left: '73%', top: '58%' },
+  },
+  {
+    diseaseId: 'patellofemoral-malalignment',
+    point: { left: '59%', top: '48%' },
+    line: { left: '59%', top: '48%', width: '14%' },
+    button: { left: '73%', top: '48%' },
   },
 ] as const satisfies ReadonlyArray<{
   diseaseId: KneeDiseaseId;
@@ -132,6 +166,11 @@ const mobileDiseaseMarkers = [
     id: 'joint-injury',
     title: '반월상연골·인대 손상',
     point: { left: '66%', top: '58%' },
+  },
+  {
+    id: 'patellofemoral-malalignment',
+    title: '슬개대퇴 부정정렬',
+    point: { left: '62%', top: '48%' },
   },
 ] as const satisfies ReadonlyArray<MobileDiseaseMapMarker<KneeDiseaseId>>;
 
@@ -291,7 +330,7 @@ function KneeDiseaseModal({ disease, onClose }: { disease: KneeDisease; onClose:
               alt={disease.imageAlt}
               fill
               sizes="(min-width: 768px) 768px, 100vw"
-              className="object-contain"
+              className={disease.imageFit === 'cover' ? 'object-cover' : 'object-contain'}
             />
           </div>
 
@@ -366,7 +405,7 @@ export default function KneeDiseaseSection() {
 
             <MobileDiseaseMap
               imageSrc={`${ASSET_ROOT}/knee-disease-map-white.png`}
-              imageAlt="퇴행성관절염, 연골연화증, 반월상연골과 인대 손상 부위를 선택할 수 있는 무릎 질환 의료 일러스트"
+              imageAlt="퇴행성관절염, 연골연화증, 반월상연골과 인대 손상, 슬개대퇴 부정정렬 부위를 선택할 수 있는 무릎 질환 의료 일러스트"
               markers={mobileDiseaseMarkers}
               onSelect={setActiveDiseaseId}
             />

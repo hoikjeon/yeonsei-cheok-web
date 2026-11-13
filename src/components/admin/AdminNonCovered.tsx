@@ -35,8 +35,8 @@ export default function AdminNonCovered({ initial, initialHistory }: { initial: 
   const [history, setHistory] = useState(initialHistory);
   const [tab, setTab] = useState<'items' | 'groups' | 'history'>('items');
   const [query, setQuery] = useState('');
-  // 173개를 한 번에 늘어놓지 않도록 장 하나씩 봅니다. 처음에는 항목이 있는 첫 장을 엽니다. 빈 값은 전체.
-  const [sectionFilter, setSectionFilter] = useState(() => initial.content.sections.find(s => s.groups.length > 0)?.id ?? '');
+  // 처음 들어오면 전체 항목을 보여 주고, 위쪽 단추로 장 하나만 골라 볼 수 있습니다. 빈 값은 전체.
+  const [sectionFilter, setSectionFilter] = useState('');
   const [status, setStatus] = useState('active');
   const [editor, setEditor] = useState<{ id?: string; values: FormValues } | null>(null);
   const [preview, setPreview] = useState<FeeDraft | null>(null);

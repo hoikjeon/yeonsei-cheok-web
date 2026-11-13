@@ -1,8 +1,4 @@
-'use client';
-
 import Image from 'next/image';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
 
 const careers = [
   '경희의대 졸업',
@@ -15,93 +11,39 @@ const careers = [
   '국내·외 다수 논문 발표',
 ];
 
-const ease = [0.16, 1, 0.3, 1] as const;
-
 export default function KneeDoctorFeature() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const shouldReduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ['-4%', '4%']);
-  const doctorY = useTransform(scrollYProgress, [0, 1], ['6%', '-3%']);
-
   return (
-    <section
-      ref={sectionRef}
-      aria-labelledby="knee-doctor-title"
-      className="relative isolate overflow-hidden bg-[#061630] px-5 text-white sm:px-6"
-    >
-      <motion.div
-        aria-hidden
-        className="absolute -inset-x-[3%] -inset-y-[7%] will-change-transform"
-        style={{ y: shouldReduceMotion ? 0 : backgroundY }}
-      >
-        <div className="absolute left-[52%] top-[42%] h-[720px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(54,116,220,0.3)_0%,rgba(24,66,140,0.12)_42%,transparent_72%)]" />
-        <div className="absolute -left-40 bottom-[-180px] h-[500px] w-[500px] rounded-full bg-cyan-400/10 blur-[110px]" />
-      </motion.div>
-      <div aria-hidden className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#071A3D] to-transparent" />
-      <div aria-hidden className="absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-[#061630] via-[#061630]/92 to-transparent" />
-
-      <div className="relative mx-auto grid min-h-[760px] max-w-7xl grid-cols-1 items-end gap-8 pt-16 md:grid-cols-[minmax(340px,0.88fr)_minmax(0,1.12fr)] md:gap-10 md:pt-0 lg:min-h-[820px]">
-        <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, x: -64, filter: 'blur(10px)' }}
-          whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 1.05, ease }}
-          className="relative order-2 mx-auto h-[440px] w-full max-w-[470px] md:order-1 md:h-[740px] lg:h-[790px]"
-          style={{ y: shouldReduceMotion ? 0 : doctorY }}
-        >
-          <div className="absolute inset-x-[8%] bottom-[2%] h-[8%] rounded-[50%] bg-black/45 blur-2xl" />
+    <section aria-labelledby="knee-doctor-title" className="bg-[#F3F5F7] px-5 py-12 sm:px-6 md:py-16">
+      <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:items-center md:gap-16">
+        <div className="relative order-2 mx-auto h-[360px] w-full max-w-[380px] md:order-1 md:h-[540px]">
           <Image
             src="/images/treatments/joint/knee-arthroscopy/doctor-choi-portrait.avif"
             alt="최호 정형외과 원장"
             fill
-            sizes="(min-width: 1024px) 470px, 92vw"
-            className="object-contain object-bottom drop-shadow-[0_30px_42px_rgba(0,0,0,0.35)]"
+            sizes="(min-width: 768px) 380px, 90vw"
+            className="object-contain object-bottom"
           />
-        </motion.div>
-
-        <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, x: 58, y: 12, filter: 'blur(10px)' }}
-          whileInView={{ opacity: 1, x: 0, y: 0, filter: 'blur(0px)' }}
-          viewport={{ once: true, amount: 0.28 }}
-          transition={{ duration: 0.95, delay: 0.08, ease }}
-          className="relative z-10 order-1 pb-4 pt-4 md:order-2 md:pb-24 md:pt-24"
-        >
-          <p className="text-[15px] font-bold text-cyan-300 sm:text-base">
-            무릎 관절을 세밀하게 살피는 정형외과 전문의
-          </p>
-          <h2
-            id="knee-doctor-title"
-            className="mt-5 max-w-3xl break-keep text-[clamp(2rem,4.1vw,3.6rem)] font-extrabold leading-[1.16] tracking-[-0.05em]"
-          >
-            직접 확인하고,
-            <br />
-            필요한 치료만 선택합니다
-          </h2>
-          <div className="mt-7 flex items-end gap-3">
-            <p className="text-h3">최호 원장</p>
-            <span className="mb-1 h-px w-16 bg-gradient-to-r from-cyan-300 to-transparent" />
+        </div>
+        <div className="order-1 md:order-2">
+          <h2 id="knee-doctor-title" className="text-h2 tracking-tight text-[#102647]">관절센터 의료진</h2>
+          <div className="mt-6 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+            <h3 className="text-[2rem] font-bold tracking-tight text-[#102647]">최호 원장</h3>
+            <p className="text-base text-slate-600">정형외과 전문의</p>
           </div>
-          <p className="mt-5 max-w-2xl break-keep text-body-lg text-white/76">
-            진찰과 영상검사를 함께 검토하고, 관절경으로 확인한 병변의 위치와 범위에 맞춰
-            치료 방향을 세웁니다.
+          <p className="mt-4 max-w-xl break-keep text-base leading-[1.8] text-ink-sub md:text-lg">
+            진찰과 영상검사를 함께 검토하고, 관절경으로 확인한 병변의 위치와 범위에 맞춰 치료 방향을 세웁니다.
           </p>
-
-          <ul className="mt-8 grid gap-x-8 gap-y-3 sm:grid-cols-2">
-            {careers.map((career) => (
-              <li
-                key={career}
-                className="group flex items-start gap-3 text-[14px] font-semibold leading-[1.6] text-white/70 transition-colors hover:text-white sm:text-[15px]"
-              >
-                <span className="mt-[8px] h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300/70 shadow-[0_0_12px_rgba(103,232,249,0.45)] transition group-hover:bg-cyan-200" />
-                <span className="break-keep">{career}</span>
-              </li>
-            ))}
-          </ul>
-        </motion.div>
+          <div className="mt-7 border-t border-slate-300 pt-6">
+            <h4 className="text-base font-semibold text-[#102647]">주요 약력</h4>
+            <ul className="mt-4 grid gap-x-8 gap-y-2 sm:grid-cols-2">
+              {careers.map((career) => (
+                <li key={career} className="break-keep text-sm leading-[1.8] text-slate-600">
+                  {career}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   );

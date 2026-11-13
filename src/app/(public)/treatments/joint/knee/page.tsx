@@ -113,6 +113,12 @@ const arthroscopyCandidates = [
     image: `${ASSET_ROOT}/knee-arthroscopy-target-loose-body.webp`,
     alt: '무릎 관절 내 유리체를 표현한 의료 일러스트',
   },
+  {
+    title: '슬개대퇴 부정정렬',
+    description: '무릎뼈가 한쪽으로 치우쳐 운동치료 후에도 앞무릎 통증과 연골 자극이 이어지는 경우',
+    image: '/images/treatments/joint/knee-arthroscopy/disease-chondromalacia-v2.webp',
+    alt: '무릎뼈가 한쪽으로 치우쳐 대퇴골 관절면에 닿는 슬개대퇴 부정정렬을 표현한 의료 일러스트',
+  },
 ];
 
 const careStrengths = [
@@ -356,7 +362,7 @@ export default function KneeJointPage() {
             </p>
           </ScrollReveal>
 
-          <div className="mt-9 grid grid-cols-1 gap-4 min-[360px]:grid-cols-2 lg:mt-14 lg:grid-cols-4 lg:gap-5">
+          <div className="mt-9 grid grid-cols-1 gap-4 min-[360px]:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-5 xl:grid-cols-5">
             {arthroscopyCandidates.map((item, index) => (
               <ScrollReveal key={item.title} delay={index * 0.06} variant="soft-rise" className="h-full">
                 <article className="group h-full overflow-hidden rounded-[1.1rem] bg-white/[0.07] ring-1 ring-white/12 backdrop-blur-sm sm:rounded-[1.4rem]">
@@ -365,7 +371,7 @@ export default function KneeJointPage() {
                       src={item.image}
                       alt={item.alt}
                       fill
-                      sizes="(min-width: 1024px) 25vw, (min-width: 360px) 50vw, 100vw"
+                      sizes="(min-width: 1280px) 20vw, (min-width: 1024px) 33vw, (min-width: 360px) 50vw, 100vw"
                       className="object-cover transition duration-700 group-hover:scale-105"
                     />
                   </div>

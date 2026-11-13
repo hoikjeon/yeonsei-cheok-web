@@ -22,10 +22,11 @@ export default function AdminSidebar() {
 
   return (
     <aside className="w-64 bg-[#172b4d] text-white hidden md:flex flex-col shadow-xl flex-shrink-0">
-      <div className="p-8 pb-4">
+      {/* 누르면 관리자 홈(통합 대시보드)으로 갑니다. */}
+      <Link href="/admin" aria-label="연세척 관리자 홈으로" className="block p-8 pb-4 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-300">
         <h2 className="text-xl font-bold tracking-tight">연세척 관리자</h2>
         <p className="text-blue-300 text-[10px] mt-1 font-bold font-montserrat uppercase tracking-wider opacity-70">Hospital Admin System</p>
-      </div>
+      </Link>
 
       <nav className="flex-1 px-4 py-8 space-y-1.5">
         {menuItems.map((item) => {

@@ -189,13 +189,14 @@ export default async function AdminDashboardPage() {
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {popups.map((p) => (
-                    <div key={p.id} className="p-5 border border-slate-200 rounded flex justify-between items-center hover:bg-slate-50 transition-all hover:shadow-md bg-white group">
-                      <div className="flex items-center gap-4">
+                    <div key={p.id} className="p-5 border border-slate-200 rounded flex justify-between items-center gap-4 hover:bg-slate-50 transition-all hover:shadow-md bg-white group">
+                      {/* min-w-0: 제목이 길어도 '수정' 단추를 밀어내지 않고 제목 쪽이 줄어듭니다. */}
+                      <div className="flex min-w-0 items-center gap-4">
                          <div className="w-14 h-14 rounded bg-slate-100 overflow-hidden shrink-0 border border-slate-100 shadow-sm transition-transform group-hover:scale-105">
                             <img src={p.image_url || '/ube_training.jpg'} className="w-full h-full object-cover" alt="" />
                          </div>
-                         <div>
-                            <p className="font-bold text-ink text-sm whitespace-pre-line leading-tight">
+                         <div className="min-w-0">
+                            <p className="line-clamp-2 break-keep font-bold text-ink text-sm whitespace-pre-line leading-tight">
                               {p.title.replace(/\\n/g, '\n')}
                             </p>
                             <div className="flex items-center gap-2 mt-1.5">
@@ -204,7 +205,7 @@ export default async function AdminDashboardPage() {
                             </div>
                          </div>
                       </div>
-                      <Link href={`/admin/popups?edit=${p.id}`} className="px-4 py-2 bg-white border border-slate-200 hover:border-primary hover:text-primary transition-all font-bold text-[13px] rounded shadow-sm hover:shadow-md">
+                      <Link href={`/admin/popups?edit=${p.id}`} className="shrink-0 whitespace-nowrap px-4 py-2 bg-white border border-slate-200 hover:border-primary hover:text-primary transition-all font-bold text-[13px] rounded shadow-sm hover:shadow-md">
                         수정
                       </Link>
                     </div>

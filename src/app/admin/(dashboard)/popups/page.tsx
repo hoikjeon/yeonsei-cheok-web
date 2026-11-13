@@ -238,8 +238,8 @@ function PopupsAdminContent() {
                     <div className="w-full sm:w-32 h-32 rounded border border-slate-100 overflow-hidden bg-slate-100 shrink-0">
                       <img src={popup.image_url || '/ube_training.jpg'} alt="popup" className="w-full h-full object-cover" />
                     </div>
-                    <div className="flex-1 space-y-2">
-                       <h3 className="text-lg font-black text-ink leading-tight whitespace-pre-line">
+                    <div className="min-w-0 flex-1 space-y-2">
+                       <h3 className="text-lg font-black text-ink leading-tight whitespace-pre-line break-keep">
                          {popup.title.replace(/\\n/g, '\n')}
                        </h3>
                        <p className="text-sm font-medium text-ink-muted line-clamp-2 leading-relaxed">{popup.content}</p>
@@ -269,7 +269,7 @@ function PopupsAdminContent() {
                        })()}
                        <p className="text-xs text-ink-muted">등록일: {new Date(popup.created_at).toLocaleDateString()}</p>
                     </div>
-                    <div className="flex sm:flex-col items-center justify-center gap-3 shrink-0 pt-4 sm:pt-0 sm:pl-4 sm:border-l border-slate-100">
+                    <div className="flex sm:flex-col items-center justify-center gap-3 shrink-0 pt-4 sm:w-32 sm:pt-0 sm:pl-4 sm:border-l border-slate-100">
                        <select
                          value={popup.display_slot ?? ''}
                          onChange={(e) => handleSlotChange(popup.id, e.target.value)}

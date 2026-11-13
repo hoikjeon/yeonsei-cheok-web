@@ -1,6 +1,6 @@
 'use server';
 
-import { revalidatePath, updateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 import { after } from 'next/server';
 import { isAdminAuthenticated } from '@/lib/adminAuth';
 import { healthAdminClient, managedHealthImagePath, removeUnusedHealthImages } from '@/lib/adminHealthRepository';
@@ -14,7 +14,6 @@ import {
   rowToHealthArticle,
   type HealthArticleRow,
 } from '@/lib/healthArticleRecord';
-import { HEALTH_ARTICLES_CACHE_TAG } from '@/lib/healthArticleStore';
 import { notifySearchEngines } from '@/lib/indexNow';
 import { ALLOWED_IMAGE_TYPES, MAX_NEWS_IMAGE_SIZE } from '@/lib/imageUploadRules';
 
@@ -24,19 +23,19 @@ const CONFLICT_MESSAGE = '다른 화면에서 글이 먼저 수정되었습니�
 const CLEANUP_WARNING = '글은 저장되었습니다. 이전 이미지 파일 정리는 완료하지 못했습니다.';
 
 function invalidateHealth(slug: string) {
-  updateTag(HEALTH_ARTICLES_CACHE_TAG);
   revalidatePath('/admin/health', 'layout');
   revalidatePath('/health');
   revalidatePath(healthArticlePath(slug));
   revalidatePath('/sitemap.xml');
+  revalidatePath('/rss.xml');
   revalidatePath('/llms.txt');
 }
 
 /** 지금 홈페이지에 보이는 글이면, 응답을 보낸 뒤 검색엔진(네이버·빙)에 새 주소를 알립니다. */
 function announceIfPublic(slug: string, publish: { isPublished: boolean; publishAt: string }) {
-  // 예약 글은 아직 보이지 않으므로 여기서 알리지 않습니다. 공개된 뒤 하루 한 번 도는 작업(api/cron/indexnow)이 알립니다.
+  // DB 트리거가 대기열을 기록합니다. 예약 글은 5분 주기 작업이 공개 후 처리합니다.
   if (!publish.isPublished || new Date(publish.publishAt).getTime() > Date.now()) return;
-  after(() => notifySearchEngines([healthArticlePath(slug), '/health']));
+  after(() => notifySearchEngines(slug));
 }
 
 export async function saveAdminHealthArticle(payload: string, editingSlug: string | null, originalUpdatedAt: string | null): Promise<AdminHealthResult> {

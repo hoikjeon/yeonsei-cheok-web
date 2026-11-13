@@ -13,7 +13,8 @@
     "test:fees:browser": "playwright test -c playwright.non-covered.config.ts",
     "health:autopost": "tsx --tsconfig tsconfig.json scripts/health-autopost/run.ts",
     "health:autopost:install": "zsh scripts/health-autopost/install-schedule.sh",
-    "health:autopost:uninstall": "zsh scripts/health-autopost/install-schedule.sh uninstall"
+    "health:autopost:uninstall": "zsh scripts/health-autopost/install-schedule.sh uninstall",
+    "test:health-search": "tsx --test tests/health-search.test.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.0",
@@ -28,6 +29,7 @@
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "exceljs": "^4.4.0",
+    "fast-xml-parser": "^5.12.0",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.7.0",
     "next": "16.2.1",

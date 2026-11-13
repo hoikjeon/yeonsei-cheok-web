@@ -4,7 +4,7 @@ import { absoluteUrl } from '@/lib/seo';
 import { healthArticlePath } from '@/lib/healthArticles';
 import { getPublishedHealthArticles, healthArticleTimes } from '@/lib/healthArticleStore';
 
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 type ChangeFrequency = NonNullable<MetadataRoute.Sitemap[number]['changeFrequency']>;
 
@@ -59,16 +59,18 @@ async function getNewsEntries(): Promise<MetadataRoute.Sitemap> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-  if (!supabaseUrl || !supabaseServiceKey) return [];
+  if (!supabaseUrl || !supabaseServiceKey) throw new Error('사이트맵 DB 설정이 없습니다.');
 
-  const supabase = createClient(supabaseUrl, supabaseServiceKey);
+  const supabase = createClient(supabaseUrl, supabaseServiceKey, {
+    global: { fetch: (url, options) => fetch(url, { ...options, cache: 'no-store' }) },
+  });
   const { data, error } = await supabase
     .from('hospital_news')
     .select('id,type,created_at')
     .in('type', Object.keys(newsRouteByType))
     .order('created_at', { ascending: false });
 
-  if (error || !data) return [];
+  if (error || !data) throw new Error('사이트맵 소식 조회 실패');
 
   return data.flatMap((item) => {
     const route = newsRouteByType[item.type];

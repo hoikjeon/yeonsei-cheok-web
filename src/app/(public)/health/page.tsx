@@ -11,8 +11,7 @@ const PAGE = {
   description: '허리디스크, 척추관협착증, 목디스크 등 척추·관절 건강에 관한 궁금증을 알기 쉽게 정리한 연세척병원 건강 매거진입니다.',
   path: '/health',
 };
-// 예약 글이 발행 시각 뒤 5분 안에 목록에 보이도록 다시 만듭니다.
-export const revalidate = 300;
+export const dynamic = 'force-dynamic';
 export const metadata = createPageMetadata({ title: PAGE.name, description: PAGE.description, path: PAGE.path });
 
 export default async function HealthHubPage() {
