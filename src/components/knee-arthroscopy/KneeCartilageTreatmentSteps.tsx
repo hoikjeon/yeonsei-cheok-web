@@ -98,7 +98,7 @@ const treatmentSteps: TreatmentStep[] = [
     points: ['치료 부위 관절면의 상태', '주변 조직과 관절 내부 점검'],
     images: [
       {
-        src: `${ASSET_ROOT}/cartilage-step-06-a.webp`,
+        src: `${ASSET_ROOT}/cartilage-step-06-a-v2.webp`,
         alt: '치료 2개월 후 관절내시경으로 확인한 무릎 관절면',
       },
     ],
