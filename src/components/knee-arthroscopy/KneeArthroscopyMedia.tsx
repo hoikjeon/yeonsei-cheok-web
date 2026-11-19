@@ -11,34 +11,28 @@ const STILL_CHANGE_INTERVAL = 4600;
 
 const stills = [
   {
-    src: `${ASSET_ROOT}/scope-view-01-v2.webp`,
-    alt: '관절내시경으로 본 연골 손상 부위 및 관절면',
+    src: `${ASSET_ROOT}/scope-joint-surface.webp`,
+    alt: '관절내시경으로 본 관절면과 관절 사이의 공간',
     title: '관절면 관찰',
     description: '관절 표면과 관절 간격을 여러 각도에서 살펴봅니다.',
   },
   {
-    src: `${ASSET_ROOT}/scope-view-02.png`,
+    src: `${ASSET_ROOT}/scope-damage-extent.webp`,
     alt: '관절내시경으로 본 국소적인 관절면 변화',
     title: '손상 범위 확인',
     description: '관절면의 변화를 직접 확인하고 주변 조직과 함께 평가합니다.',
   },
   {
-    src: `${ASSET_ROOT}/scope-view-03.png`,
-    alt: '관절내시경 화면에서 미세 기구로 조직 상태를 확인하는 장면',
-    title: '미세 기구 접근',
-    description: '관절경 시야를 유지하며 미세 기구로 조직의 안정성을 살펴봅니다.',
-  },
-  {
-    src: `${ASSET_ROOT}/scope-view-04.png`,
-    alt: '관절내시경 화면에서 기구가 관절면 가까이 접근한 장면',
-    title: '세부 상태 점검',
-    description: '치료 기구의 위치와 주변 관절면을 화면으로 확인합니다.',
-  },
-  {
     src: `${ASSET_ROOT}/scope-view-05.png`,
-    alt: '관절내시경으로 본 골수 자극술의 작은 천공 부위',
-    title: '연골 치료 화면',
-    description: '선별된 국소 연골 손상에서 시행할 수 있는 골수 자극술 화면입니다.',
+    alt: '관절내시경으로 본 관절면의 작은 구멍들',
+    title: '줄기세포치료',
+    description: '관절경으로 치료 부위의 관절면을 확인합니다.',
+  },
+  {
+    src: `${ASSET_ROOT}/scope-cartilage-after-regeneration.webp`,
+    alt: '관절내시경으로 본 치료 후의 연골 표면',
+    title: '연골 재생 후',
+    description: '치료 후 관절경으로 연골 표면을 확인합니다.',
   },
 ];
 
@@ -230,7 +224,7 @@ export default function KneeArthroscopyMedia() {
                   </div>
 
                   <div className="mt-8">
-                    <div aria-hidden className="grid grid-cols-5 gap-1.5">
+                    <div aria-hidden className="grid grid-cols-4 gap-1.5">
                       {stills.map((still, index) => (
                         <span
                           key={still.src}
@@ -292,7 +286,7 @@ export default function KneeArthroscopyMedia() {
                 </div>
               </div>
 
-              <ol className="grid grid-cols-5 gap-2 border-t border-slate-200 bg-white p-3 sm:gap-3 sm:p-4">
+              <ol className="grid grid-cols-4 gap-2 border-t border-slate-200 bg-white p-3 sm:gap-3 sm:p-4">
                 {stills.map((still, index) => {
                   const isActive = index === activeStill;
 
@@ -314,7 +308,7 @@ export default function KneeArthroscopyMedia() {
                             src={still.src}
                             alt=""
                             fill
-                            sizes="(min-width: 1024px) 250px, 20vw"
+                            sizes="(min-width: 1024px) 310px, 25vw"
                             className="object-cover transition-transform duration-700 motion-safe:group-hover:scale-105"
                           />
                         </span>
